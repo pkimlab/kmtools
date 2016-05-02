@@ -1,0 +1,39 @@
+sudo: false
+language: python
+python:
+  - '3.5'
+env:
+  global:
+    - PKG_NAME="common"
+    - CONDA_ENV="_traivs"
+    - TEST_DIR="${HOME}/_testing"
+install:
+  # Install Anaconda
+  - wget --no-verbose -O anaconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh;
+  - bash anaconda.sh -b -p $HOME/anaconda
+  - export PATH="$HOME/anaconda/bin:$PATH"
+  - hash -r
+  # Add relevant channels
+  - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels ostrokach
+  - conda config --add channels defaults
+  - conda config --add channels conda-forge
+  - conda config --add channels omnia
+  - conda config --add channels bioconda
+  - conda info -a
+  # Install packages
+  - conda update -q conda
+  - conda install -q --yes conda-build
+script:
+  - conda build -q devtools/conda-recipe/
+  - source activate _test
+  - pip install pytest pytest-cov codecov
+  - py.test --cov=./ -sv
+after_success:
+  - echo "Success!"
+  - codecov
+  - bash <(curl -s https://codecov.io/bash) -t 63d7efbe-20d8-4c29-b11f-9eada7c77e96
+after_failure:
+  - echo "Failure!"
+after_script:
+  - echo "X_X"

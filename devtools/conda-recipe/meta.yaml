@@ -16,23 +16,29 @@ requirements:
     - python
     - pyyaml
     - requests
-    # Scientific python
+    - lxml
+    - pycurl
+      # Scientific python
     - numpy
     - scipy
     - pandas
     - scikit-learn
     - biopython
+    - retrying
   run:
     # Basic python
     - python
     - pyyaml
     - requests
+    - lxml
+    - pycurl
     # Scientific python
     - numpy
     - scipy
     - pandas
     - scikit-learn
     - biopython
+    - retrying
 
 test:
   imports:

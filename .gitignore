@@ -1,0 +1,10 @@
+.pyc
+*.bak
+*.egg-info
+__pycache__
+
+# Hidden
+.*/*
+.coverage
+.spyderproject
+
