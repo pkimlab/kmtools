@@ -18,6 +18,7 @@ requirements:
     - requests
     - lxml
     - pycurl
+    - conda_build
     # Scientific python
     - numpy
     - scipy
@@ -32,6 +33,7 @@ requirements:
     - requests
     - lxml
     - pycurl
+    - conda_build
     # Scientific python
     - numpy
     - scipy
@@ -52,4 +54,3 @@ about:
   home: http://ostrokach.github.io
   license: MIT
   summary: Helpful bioinformatics scripts.
-
