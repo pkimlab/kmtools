@@ -27,12 +27,11 @@ install:
 script:
   - conda build -q devtools/conda-recipe/
   - source activate _test
-  - pip install pytest pytest-cov codecov
-  - py.test --cov=./ -sv
+  - python setup.py test
 after_success:
   - echo "Success!"
+  - pip install codecov
   - codecov
-  - bash <(curl -s https://codecov.io/bash) -t 63d7efbe-20d8-4c29-b11f-9eada7c77e96
 after_failure:
   - echo "Failure!"
 after_script:

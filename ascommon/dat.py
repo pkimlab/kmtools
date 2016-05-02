@@ -119,7 +119,6 @@ def make_venn_diagram(data_sets, set_labels, plot_title, output_filename=None):
 
     if output_filename is not None:
         # Typical output filename:
-        # '/home/kimlab1/strokach/working/elaspic/reports/14-11-xx/venn_ddg_ddgh2o_dtm.png'
         plt.savefig(output_filename, dpi=150, bbox_inches='tight')
 
 
