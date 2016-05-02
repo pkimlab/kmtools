@@ -23,10 +23,15 @@ install:
 script:
   - source activate _test
   - python setup.py test
+  - source deactivate
 after_success:
   - echo "Success!"
+  # Test coverage
   - pip install codecov
   - codecov
+  # Upload to anaconda.org
+  - conda install anaconda-client
+  - anaconda upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
 after_failure:
   - echo "Failure!"
 after_script:
