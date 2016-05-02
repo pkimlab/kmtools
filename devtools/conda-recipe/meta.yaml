@@ -1,0 +1,45 @@
+{% set version = "0.0.1" %}
+
+package:
+  name: ascommon
+  version: {{ version }}
+
+source:
+  path: ../../
+
+build:
+  number: 0
+
+requirements:
+  build:
+    # Basic python
+    - python
+    - pyyaml
+    - requests
+    # Scientific python
+    - numpy
+    - scipy
+    - pandas
+    - scikit-learn
+    - biopython
+  run:
+    # Basic python
+    - python
+    - pyyaml
+    - requests
+    # Scientific python
+    - numpy
+    - scipy
+    - pandas
+    - scikit-learn
+    - biopython
+
+test:
+  imports:
+    - ascommon
+
+about:
+  home: kimlab.org
+  license: MIT
+  summary: Helpful bioinformatics scripts.
+

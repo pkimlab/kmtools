@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='common',
+    name='ascommon',
     version="0.0.1",
-    packages=['common',]
+    packages=['ascommon']
 )
