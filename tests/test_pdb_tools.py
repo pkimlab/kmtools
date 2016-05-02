@@ -4,7 +4,7 @@ from lxml import etree
 from tempfile import TemporaryDirectory
 import pandas as pd
 import pytest
-from common import pdb_tools
+from ascommon import pdb_tools
 
 
 class TestPresent:
