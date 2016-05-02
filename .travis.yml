@@ -2,11 +2,6 @@ sudo: false
 language: python
 python:
   - '3.5'
-env:
-  global:
-    - PKG_NAME="common"
-    - CONDA_ENV="_traivs"
-    - TEST_DIR="${HOME}/_testing"
 install:
   # Install Anaconda
   - wget --no-verbose -O anaconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh;
@@ -24,8 +19,8 @@ install:
   # Install packages
   - conda update -q conda
   - conda install -q --yes conda-build
-script:
   - conda build -q devtools/conda-recipe/
+script:
   - source activate _test
   - python setup.py test
 after_success:

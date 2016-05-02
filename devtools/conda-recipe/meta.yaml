@@ -25,10 +25,6 @@ requirements:
     - scikit-learn
     - biopython
     - retrying
-    # Testing
-    - pytest
-    - pytest-runner
-    - pytest-cov
   run:
     # Basic python
     - python
@@ -43,12 +39,12 @@ requirements:
     - scikit-learn
     - biopython
     - retrying
-    # Testing
+
+test:
+  requires:
     - pytest
     - pytest-runner
     - pytest-cov
-
-test:
   imports:
     - ascommon
 

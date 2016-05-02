@@ -1,10 +1,13 @@
-.pyc
+# Files
+*.pyc
 *.bak
+
+# Folders
 *.egg-info
 __pycache__
 
 # Hidden
-.*/*
-.coverage
-.spyderproject
-
+.*
+!.gitignore
+!.travis.yml
+!.gitlab-ci.yml
