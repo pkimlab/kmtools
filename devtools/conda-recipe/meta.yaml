@@ -18,7 +18,6 @@ requirements:
     - requests
     - lxml
     - pycurl
-    - conda-build
     # Scientific python
     - numpy
     - scipy
@@ -33,7 +32,6 @@ requirements:
     - requests
     - lxml
     - pycurl
-    - conda-build
     # Scientific python
     - numpy
     - scipy

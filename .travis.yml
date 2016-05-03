@@ -31,7 +31,7 @@ after_success:
   - codecov
   # Upload to anaconda.org
   - conda install anaconda-client
-  - anaconda upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
+  - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
 after_failure:
   - echo "Failure!"
 after_script:
