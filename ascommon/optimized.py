@@ -3,8 +3,6 @@ import scipy as sp
 import numba
 
 
-
-# %%
 def count_notnull(vec):
     return np.squeeze(np.nonzero(~np.isnan(np.array(vec))))
 
@@ -17,5 +15,3 @@ def pearsonr_rows(df_values):
         for j in range(i + 1, nrows):
             results[i, :] = sp.stats.pearsonr(df_values[i, :], df_values[j, :])
     return results
-
-

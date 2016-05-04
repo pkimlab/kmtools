@@ -10,23 +10,21 @@ import shlex
 import datetime
 import six
 
-from fastcache import clru_cache
+from functools import lru_cache
 
 import pandas as pd
 pd.options.mode.chained_assignment = None
 
 
-#%%
 blastp_outfmt6_column_names = [
     'query_id', 'subject_id', 'pc_identity', 'alignment_length', 'mismatches', 'gap_opens',
     'q_start', 'q_end', 's_start', 's_end', 'evalue', 'bitscore', 'qseq', 'sseq']
 blast_outfmt = "'6 qacc sacc pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq'"
 
 
-@clru_cache(maxsize=1024, typed=False)
+@lru_cache(maxsize=1024, typed=False)
 def call_blast(domain_sequence, db_path):
-    """ blast a given sequence against a specified library
-    """
+    """blast a given sequence against a specified library."""
     system_command = 'blastp -db {db} -evalue 0.001 -outfmt {outfmt} -max_target_seqs 100000'.format(outfmt=blast_outfmt, db=db_path)
     args = shlex.split(system_command)
     cp = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -82,7 +80,7 @@ def annotate_blast_results(result_df, domain_start, domain_sequence_length):
 
 
 
-@clru_cache(maxsize=512, typed=False)
+@lru_cache(maxsize=512, typed=False)
 def run_blast(uniprot_sequence, pfam_clan, pdbfam_name, domain_def, blastp_libraries_path):
     """
     .. note:: Deprecated
@@ -118,7 +116,7 @@ def run_blast(uniprot_sequence, pfam_clan, pdbfam_name, domain_def, blastp_libra
     return result_df
 
 
-@clru_cache(maxsize=512, typed=False)
+@lru_cache(maxsize=512, typed=False)
 def run_blast_basic(sequence, blast_db_path, domain_def=None):
     """
     .. note::

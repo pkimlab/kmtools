@@ -25,7 +25,7 @@ script:
 after_success:
   - echo "Success!"
   - codecov
-  - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
+  - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2 --force
   - devtools/travis-ci/build-docs.sh
 after_failure:
   - echo "Failure!"

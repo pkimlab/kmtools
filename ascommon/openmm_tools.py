@@ -2,9 +2,9 @@ from pdbfixer import PDBFixer
 from simtk.openmm.app import PDBFile
 
 
-# %%
 def fix_pdb(input_file, output_file):
     """
+
     .. note::
         Set ``export OPENMM_CPU_THREADS=1`` if you want this function
         to use only one thead.

@@ -21,12 +21,15 @@ requirements:
     - requests
     - lxml
     - pycurl
+    - six
     # Scientific python
     - numpy
     - scipy
     - pandas
     - scikit-learn
+    - matplotlib
     - pytables
+    # 
     - biopython
     - retrying
 

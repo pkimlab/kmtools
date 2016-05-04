@@ -1,13 +1,10 @@
-# -*- coding: utf-8 -*-
 import subprocess
 import six
 import time
 
-# %%
 
 def submit_job(system_command):
-    """Submit a job by running ``system_command``.
-    """
+    """Submit a job by running `system_command`."""
     n_tries = 0
     jobnumber = 0
 #    print(system_command)
@@ -38,7 +35,6 @@ def submit_job(system_command):
     return jobnumber
 
 
-#%%
 def get_running_jobs():
     """Get a list of job ids for jobs that are still running.
     """
@@ -127,7 +123,6 @@ def get_num_submitted_jobs_by_all():
     return total
 
 
-#%%
 def wait_for_jobs(running_jobs):
     """Wait untill all the jobs in the `job_ids` list are done.
     """
@@ -136,5 +131,3 @@ def wait_for_jobs(running_jobs):
     while running_jobs:
         time.sleep(60)
         running_jobs = set(get_running_jobs())
-
-
