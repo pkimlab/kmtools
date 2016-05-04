@@ -3,8 +3,9 @@
 *.bak
 
 # Folders
-*.egg-info
+_build
 __pycache__
+*.egg-info
 
 # Hidden
 .*

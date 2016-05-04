@@ -14,17 +14,6 @@ requirements:
   build:
     # Basic python
     - python
-    - pyyaml
-    - requests
-    - lxml
-    - pycurl
-    # Scientific python
-    - numpy
-    - scipy
-    - pandas
-    - scikit-learn
-    - biopython
-    - retrying
   run:
     # Basic python
     - python
@@ -37,6 +26,7 @@ requirements:
     - scipy
     - pandas
     - scikit-learn
+    - pytables
     - biopython
     - retrying
 
@@ -49,6 +39,6 @@ test:
     - ascommon
 
 about:
-  home: http://ostrokach.github.io
+  home: http://ostrokach.github.io/ascommon
   license: MIT
   summary: Helpful bioinformatics scripts.
