@@ -20,12 +20,12 @@ install:
   - conda build -q devtools/conda-recipe/
 script:
   - source activate _test
-  - python setup.py test
+  - py.test
   - source deactivate
 after_success:
   - echo "Success!"
   - codecov
-  - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2 --force
+  - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
   - devtools/travis-ci/build-docs.sh
 after_failure:
   - echo "Failure!"
