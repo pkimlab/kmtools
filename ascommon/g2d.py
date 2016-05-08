@@ -62,7 +62,7 @@ CREATE INDEX b ON az_dream_2015_features.{d_table_name} (c, d_1, d_2);
 
 def g2d(table_name,
         null_default=None,
-        connection_string=os.environ['BIODB_CONNECTION_STR'] + "/az_dream_2015_features"):
+        connection_string=os.environ['DATAPKG_CONNECTION_STR'] + "/az_dream_2015_features"):
     """
     """
     # Get the columns for the table you are converting

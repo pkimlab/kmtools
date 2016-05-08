@@ -1,6 +1,6 @@
 """Data Analysis Tools."""
 import os
-import re
+import logging
 import fcntl
 import tables
 import numpy as np
@@ -8,11 +8,7 @@ import pandas as pd
 from contextlib import contextmanager
 
 
-def format_column(name):
-    """Convert CamelCase and other weird column name formats to pot_hole case."""
-    name = name.replace(' ', '_').replace('(', '_').replace(')', '')
-    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+logger = logging.getLogger(__name__)
 
 
 def print2(a, b, *args, x=60):
