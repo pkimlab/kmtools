@@ -1,5 +1,3 @@
-import os.path as op
-from importlib import reload
 import pycurl
 from retrying import retry
 
@@ -17,21 +15,3 @@ def download(url, output_file):
         c.setopt(c.WRITEDATA, ofh)
         c.perform()
         c.close()
-
-
-def configure_logging(
-        level='info',
-        format='%(levelname)s:%(name)s:%(message)s'):
-    """Get a logger with basic configurations."""
-    import logging
-    reload(logging)
-    level_dict = {
-        'debug': logging.DEBUG,
-        'info': logging.INFO,
-        'warning': logging.WARNING,
-        'error': logging.ERROR
-    }
-    logging.basicConfig(level=level_dict[level], format=format)
-    logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
-    logging.getLogger("paramiko").setLevel(logging.WARNING)
-    logging.debug('Done configuring logging!')
