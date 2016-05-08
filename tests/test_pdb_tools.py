@@ -4,19 +4,23 @@ from lxml import etree
 from tempfile import TemporaryDirectory
 import pandas as pd
 import pytest
-from ascommon import pdb_tools
+import ascommon.pdb_tools.sifts as sifts
+
+
+###################################################################################################
+# sifts
 
 
 class TestPresent:
     """Test the case where the SIFTS xml file is already present in the cache directory."""
 
     def test_1(self):
-        sifts_data = pdb_tools.get_sifts_data('1arr', op.splitext(__file__)[0])
+        sifts_data = sifts._get_sifts_data('1arr', op.splitext(__file__)[0])
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts_data = pdb_tools.get_sifts_data('3mbp', op.splitext(__file__)[0])
+        sifts_data = sifts._get_sifts_data('3mbp', op.splitext(__file__)[0])
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
@@ -33,12 +37,12 @@ class TestAbscent:
         cls.temp_dir.cleanup()
 
     def test_1(self):
-        sifts_data = pdb_tools.get_sifts_data('1arr', self.temp_dir)
+        sifts_data = sifts._get_sifts_data('1arr', self.temp_dir)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts_data = pdb_tools.get_sifts_data('3mbp', self.temp_dir)
+        sifts_data = sifts._get_sifts_data('3mbp', self.temp_dir)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
         del sifts_data
@@ -55,10 +59,10 @@ def residue_in_out(request):
     return xml_data, json_data
 
 
-def test_get_residue_data(residue_in_out):
+def test__get_residue_info_xml(residue_in_out):
     xml_data, json_data = residue_in_out
     print(xml_data)
-    assert pdb_tools.get_residue_data(xml_data) == json_data
+    assert sifts._get_residue_info_xml(xml_data) == json_data
 
 
 if __name__ == '__main__':
