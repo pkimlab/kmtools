@@ -1,6 +1,6 @@
-import os
 import pandas as pd
 import sqlalchemy as sa
+
 
 CREATE_TABLE_TEMPLATE_D = """\
 DROP TABLE IF EXISTS az_dream_2015_features.{d_table_name};
@@ -60,9 +60,7 @@ CREATE INDEX b ON az_dream_2015_features.{d_table_name} (c, d_1, d_2);
 """
 
 
-def g2d(table_name,
-        null_default=None,
-        connection_string=os.environ['DATAPKG_CONNECTION_STR'] + "/az_dream_2015_features"):
+def g2d(table_name, connection_string, null_default=None):
     """
     """
     # Get the columns for the table you are converting

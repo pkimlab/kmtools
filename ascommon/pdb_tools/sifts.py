@@ -7,7 +7,7 @@ from lxml import etree
 import numpy as np
 import pandas as pd
 import lxml.etree
-from .. import settings, system_tools, sequence_tools, pdb_tools
+from ascommon import settings, system_tools, sequence_tools, pdb_tools
 
 
 logger = logging.getLogger(__name__)

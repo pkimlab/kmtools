@@ -8,6 +8,7 @@ source:
   path: ../../
 
 build:
+  script: python setup.py install
   number: 0
 
 requirements:
@@ -22,16 +23,20 @@ requirements:
     - lxml
     - pycurl
     - six
+    - retrying
     # Scientific python
     - numpy
     - scipy
     - pandas
+    - sqlalchemy
     - scikit-learn
     - matplotlib
     - pytables
-    # 
+    - numba
     - biopython
-    - retrying
+    # IPython
+    - ipython
+    - pygments
 
 test:
   requires:
