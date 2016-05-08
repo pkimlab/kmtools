@@ -3,7 +3,7 @@ import os.path as op
 
 blacklist = [
     'graph_tools',
-    'openmm_tools',
+    'omnia_tools',
     'pymol_tools',
 ]
 
