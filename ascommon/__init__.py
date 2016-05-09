@@ -19,3 +19,4 @@ __all__ = [
 ]
 
 from . import *  # noqa
+from .ascommon import *  # noqa
