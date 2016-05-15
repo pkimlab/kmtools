@@ -30,10 +30,12 @@ requirements:
     - pandas
     - sqlalchemy
     - scikit-learn
-    - matplotlib
     - pytables
     - numba
     - biopython
+    # Plotting
+    - matplotlib
+    - seaborn
     # IPython
     - ipython
     - pygments
@@ -43,6 +45,7 @@ test:
     - pytest
     - pytest-runner
     - pytest-cov
+    - pypy
   imports:
     - ascommon
 

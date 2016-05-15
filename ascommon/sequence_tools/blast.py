@@ -1,17 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov 13 22:54:20 2014
-
-@author: alexey
-"""
-
 import subprocess
 import shlex
 import datetime
 import six
-
 from functools import lru_cache
-
 import pandas as pd
 pd.options.mode.chained_assignment = None
 
@@ -19,7 +10,9 @@ pd.options.mode.chained_assignment = None
 blastp_outfmt6_column_names = [
     'query_id', 'subject_id', 'pc_identity', 'alignment_length', 'mismatches', 'gap_opens',
     'q_start', 'q_end', 's_start', 's_end', 'evalue', 'bitscore', 'qseq', 'sseq']
-blast_outfmt = "'6 qacc sacc pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq'"
+blast_outfmt = """\
+'6 qacc sacc pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq'\
+"""
 
 
 @lru_cache(maxsize=1024, typed=False)
@@ -35,7 +28,6 @@ def call_blast(domain_sequence, db_path):
     result_buf = six.StringIO(result.decode())
     result_df = pd.read_csv(result_buf, sep='\t', names=blastp_outfmt6_column_names)
     return result_df, system_command
-
 
 
 def annotate_blast_results(result_df, domain_start, domain_sequence_length):
@@ -106,12 +98,14 @@ def run_blast(uniprot_sequence, pfam_clan, pdbfam_name, domain_def, blastp_libra
         print(system_command)
         print("Bad blast results for pdbfam name {}, domain def {}!".format(pdbfam_name, domain_def))
         print("Retryign using the blast library of the pfam clan {}...".format(pfam_clan))
-        result_df, system_command = call_blast(domain_sequence, blastp_libraries_path + pfam_clan + '/' + pfam_clan)
+        result_df, system_command = call_blast(
+            domain_sequence, blastp_libraries_path + pfam_clan + '/' + pfam_clan)
         annotate_blast_results(result_df, domain_start, len(domain_sequence))
 
     if result_df is None or len(result_df) == 0:
         print(system_command)
-        print("No blast resutls for pfam clan {}, pdbfam name {}, domain def {}!".format(pfam_clan, pdbfam_name, domain_def))
+        print("No blast resutls for pfam clan {}, pdbfam name {}, domain def {}!"
+              .format(pfam_clan, pdbfam_name, domain_def))
 
     return result_df
 
@@ -125,7 +119,7 @@ def run_blast_basic(sequence, blast_db_path, domain_def=None):
     """
     if domain_def is not None:
         domain_start, domain_end = [int(x) for x in domain_def.split(':')]
-        domain_sequence = sequence[domain_start-1 : domain_end]
+        domain_sequence = sequence[domain_start - 1:domain_end]
     else:
         domain_start = 1
         domain_sequence = sequence
@@ -134,7 +128,6 @@ def run_blast_basic(sequence, blast_db_path, domain_def=None):
     return result_df, system_command
 
 
-#%%
 call_blast.cache_clear()
 run_blast.cache_clear()
 run_blast_basic.cache_clear()

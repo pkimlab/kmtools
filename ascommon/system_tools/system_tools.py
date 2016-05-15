@@ -1,5 +1,19 @@
+import os
+import tempfile
 import pycurl
 from retrying import retry
+
+
+def set_temp_dir(tempdir=None):
+    """Set the temporary directory to be used by `tempfile`."""
+    if tempdir is None:
+        if 'TMPDIR' in os.environ:
+            tempdir = os.environ['TMPDIR']
+        else:
+            # use tempfile defaults
+            return
+    os.makedirs(tempdir, exist_ok=True)
+    tempfile.tempdir = tempdir
 
 
 @retry(

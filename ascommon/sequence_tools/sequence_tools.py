@@ -1,9 +1,13 @@
 import os.path as op
+import logging
 from functools import lru_cache
 import numpy as np
 import pandas as pd
 import Bio.SeqIO
-from ascommon import system_tools, settings
+from .. import system_tools, settings
+
+
+logger = logging.getLogger(__name__)
 
 
 @lru_cache(maxsize=512)
@@ -34,8 +38,14 @@ def mutation_matches_sequence(mutation, sequence):
     False
     >>> mutation_matches_sequence('A10B', 'AAAAA')
     False
+    >>> mutation_matches_sequence('A10GG', 'AAAAA')
+    nan
     """
-    mutation_pos = int(mutation[1:-1])
+    try:
+        mutation_pos = int(mutation[1:-1])
+    except ValueError:
+        logger.warning("Could not extract position from mutation '{}'".format(mutation))
+        return np.nan
     return (
         mutation_pos < len(sequence) and
         sequence[mutation_pos - 1] == mutation[0]
@@ -56,9 +66,13 @@ def mutation_in_domain(mutation, domain):
     >>> mutation_in_domain('A10B', '11:20')
     False
     """
-    if domain is None:
-        return False
-    mutation_pos = int(mutation[1:-1])
+    if pd.isnull(mutation) or pd.isnull(domain):
+        return np.nan
+    try:
+        mutation_pos = int(mutation[1:-1])
+    except ValueError:
+        logger.error("Could not extract position from mutation '{}'!".format(mutation))
+        return np.nan
     domain_range = range(int(domain.split(':')[0]), int(domain.split(':')[1]) + 1)
     return mutation_pos in domain_range
 
