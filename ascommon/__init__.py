@@ -1,7 +1,7 @@
 import os
 import os.path as op
 
-blacklist = [
+_blacklist = [
     'graph_tools',
     'omnia_tools',
     'pymol_tools',
@@ -15,8 +15,7 @@ __all__ = [
     if not f.startswith('_') and
     ((op.isfile(op.join(BASE_DIR, f)) and f.endswith('.py')) or
      (op.isdir(op.join(BASE_DIR, f)) and op.isfile(op.join(BASE_DIR, f, '__init__.py')))) and
-    not any(f.startswith(pre) for pre in blacklist)
+    not any(f.startswith(pre) for pre in _blacklist)
 ]
 
 from . import *  # noqa
-from .ascommon import *  # noqa

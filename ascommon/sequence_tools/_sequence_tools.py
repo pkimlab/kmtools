@@ -1,20 +1,19 @@
 import os.path as op
 import logging
-from functools import lru_cache
 import numpy as np
+import functools
+import tempfile
 import pandas as pd
 import Bio.SeqIO
-from .. import system_tools, settings
-
+from ascommon import system_tools
 
 logger = logging.getLogger(__name__)
 
 
-@lru_cache(maxsize=512)
-def get_uniprot_sequence(uniprot_id, cache_dir=None):
+@functools.lru_cache(maxsize=512)
+def get_uniprot_sequence(uniprot_id):
     """Download UniProt sequence."""
-    cache_dir = settings.get_cache_dir(cache_dir)
-    output_file = op.join(settings.CACHE_DIR, '{}.fasta'.format(uniprot_id))
+    output_file = op.join(tempfile.gettempdir(), '{}.fasta'.format(uniprot_id))
     try:
         try:
             seqrecord = Bio.SeqIO.read(output_file, 'fasta')
@@ -38,9 +37,15 @@ def mutation_matches_sequence(mutation, sequence):
     False
     >>> mutation_matches_sequence('A10B', 'AAAAA')
     False
+    >>> mutation_matches_sequence('A1B', None)
+    nan
+    >>> mutation_matches_sequence(None, 'AAAAA')
+    nan
     >>> mutation_matches_sequence('A10GG', 'AAAAA')
     nan
     """
+    if pd.isnull(mutation) or pd.isnull(sequence):
+        return np.nan
     try:
         mutation_pos = int(mutation[1:-1])
     except ValueError:

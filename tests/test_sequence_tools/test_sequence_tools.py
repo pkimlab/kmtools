@@ -24,20 +24,15 @@ class TestHackyXMLParser:
     def teardown_method(self, method):
         shutil.rmtree(self.output_dir)
 
-    def test__parse_match(self):
-        match = """\
-type="EMBL" id="AAF63732" version_i="1" active="Y" version="1" created="2003-03-12" \
-last="2015-11-15"\
-"""
-        output = {
-            'active': 'Y',
-            'created': '2003-03-12',
-            'id': 'AAF63732',
-            'last': '2015-11-15',
-            'type': 'EMBL',
-            'version': '1',
-            'version_i': '1'
-        }
+    @pytest.mark.parametrize("match,output", [
+        ('''type="EMBL" id="AAF63732" version_i="1" active="Y" version="1" '''
+         '''created="2003-03-12" last="2015-11-15"''',
+         {'type': 'EMBL', 'id': 'AAF63732', 'version_i': '1', 'active': 'Y', 'version': '1',
+          'created': '2003-03-12', 'last': '2015-11-15'}),
+        ('''type="protein_name" value="aminotransferase family protein\\"''',
+         {'type': 'protein_name', 'value': 'aminotransferase family protein'})
+    ])
+    def test__parse_match(self, match, output):
         self.parser = ascommon.sequence_tools.HackyXMLParser(self.file_path, self.output_dir)
         assert self.parser._parse_match(match) == output
 
@@ -50,6 +45,8 @@ last="2015-11-15"\
         ]
         self.parser._append_to_file('uniparc.tsv', data, self.parser._uniparc_columns)
 
+    @pytest.mark.skipif(
+        pytest.config.getvalue("quick"), reason="Tests take several minutes.")
     @pytest.mark.parametrize("writer", ['pandas', 'csv'])
     def test_run(self, writer):
         self.parser = ascommon.sequence_tools.HackyXMLParser(
@@ -60,6 +57,8 @@ last="2015-11-15"\
         print("Finished in {:.2f} seconds".format(t1 - t0))
         self._assert_dataframes_match()
 
+    @pytest.mark.skipif(
+        shutil.which('pypy') is None, reason="`pypy` must be installed.")
     @pytest.mark.parametrize("optimize", ['', '-O'])
     def test_run_pypy(self, optimize):
         proc = subprocess.run(['which', 'pypy'], stdout=subprocess.PIPE, universal_newlines=True)

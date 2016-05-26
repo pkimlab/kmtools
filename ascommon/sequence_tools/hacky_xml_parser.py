@@ -75,7 +75,13 @@ class HackyXMLParser:
                 match = parser.findall(line)
                 if match:
                     assert len(match) == 1
-                    fn(match[0])
+                    try:
+                        fn(match[0])
+                    except Exception as e:
+                        print(type(e))
+                        print(str(e))
+                        print(line)
+                        print(match)
                     break
             if not match:
                 print("Did not match the following line: '{}'\n".format(line))
@@ -105,8 +111,11 @@ class HackyXMLParser:
     def _parse_match(self, match):
         def split_kv(kv):
             k, _, v = kv.partition('=')
-            v = v.strip('"')
+            # v = v.strip('"')  # shlex does this already
             return k, v
+        # UniParc erroneously(?) escapes double quote sometimes
+        if '\\"' in match:
+            match = match.replace('\\"', '"')
         data = dict(split_kv(kv) for kv in shlex.split(match))
         return data
 

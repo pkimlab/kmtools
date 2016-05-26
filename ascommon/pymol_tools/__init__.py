@@ -1,1 +1,1 @@
-from .pymol_tools import *
+from ._pymol_tools import *

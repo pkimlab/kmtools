@@ -3,21 +3,29 @@ import os.path as op
 import gzip
 import re
 import logging
+import tempfile
 from lxml import etree
 import numpy as np
 import pandas as pd
 import lxml.etree
-from ascommon import settings, system_tools, sequence_tools, pdb_tools
-
+from ascommon import system_tools, sequence_tools, pdb_tools
 
 logger = logging.getLogger(__name__)
 
+CACHE_DIR = None
 RE_TAG = re.compile('({.+})?(.+)')
 MUTATION_SPLIT_RE = re.compile(' +')
 
 
 class SIFTSError(Exception):
     pass
+
+
+def get_cache_dir():
+    global CACHE_DIR
+    if CACHE_DIR is None:
+        CACHE_DIR = op.join(tempfile.gettempdir(), 'sifts_cache')
+    return CACHE_DIR
 
 
 # #################################################################################################
@@ -101,7 +109,7 @@ def _get_residue_info_xml(residue):
     return residue_data
 
 
-def _get_sifts_data(pdb_id, cache_dir=None, cache_dict={}):
+def _get_sifts_data(pdb_id, cache_dict={}):
     """Return SIFTS data for a particular PDB.
 
     Parameters
@@ -114,7 +122,7 @@ def _get_sifts_data(pdb_id, cache_dir=None, cache_dict={}):
     numbering for the chain specified by pdb_chain and uniprot specified by
     uniprot_id.
     """
-    cache_dir = settings.get_cache_dir(cache_dir)
+    cache_dir = get_cache_dir()
     if pdb_id in cache_dict:
         return cache_dict[pdb_id]
 
@@ -146,9 +154,9 @@ def _get_sifts_data(pdb_id, cache_dir=None, cache_dict={}):
     return pdb_sifts_data_df
 
 
-def get_sifts_data(pdb_id, pdb_mutations, cache_dir=None, cache_dict={}):
+def get_sifts_data(pdb_id, pdb_mutations, cache_dict={}):
     """Wrapper around _get_sifts_data."""
-    cache_dir = settings.get_cache_dir(cache_dir)
+    cache_dir = get_cache_dir()
     try:
         sifts_df = cache_dict[pdb_id]
     except KeyError:

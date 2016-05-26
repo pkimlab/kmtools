@@ -13,7 +13,7 @@ import paramiko
 import pytest
 import ascommon
 
-ascommon.configure_logging('debug')
+ascommon.py_tools.configure_logging('debug')
 logger = logging.getLogger(__name__)
 logger.info('Hello world')
 

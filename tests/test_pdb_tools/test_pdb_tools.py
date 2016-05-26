@@ -8,19 +8,21 @@ import ascommon.pdb_tools.sifts as sifts
 
 
 ###################################################################################################
-# sifts
+# SIFTS
 
 
 class TestPresent:
     """Test the case where the SIFTS xml file is already present in the cache directory."""
 
     def test_1(self):
-        sifts_data = sifts._get_sifts_data('1arr', op.splitext(__file__)[0])
+        sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
+        sifts_data = sifts._get_sifts_data('1arr')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts_data = sifts._get_sifts_data('3mbp', op.splitext(__file__)[0])
+        sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
+        sifts_data = sifts._get_sifts_data('3mbp')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
@@ -31,18 +33,19 @@ class TestAbscent:
     @classmethod
     def setup_class(cls):
         cls.temp_dir = TemporaryDirectory()
+        sifts.CACHE_DIR = cls.temp_dir.name
 
     @classmethod
     def teardown_class(cls):
         cls.temp_dir.cleanup()
 
     def test_1(self):
-        sifts_data = sifts._get_sifts_data('1arr', self.temp_dir)
+        sifts_data = sifts._get_sifts_data('1arr')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts_data = sifts._get_sifts_data('3mbp', self.temp_dir)
+        sifts_data = sifts._get_sifts_data('3mbp')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
         del sifts_data

@@ -1,19 +1,10 @@
-import os
-import tempfile
+import logging
+import contextlib
 import pycurl
+import paramiko
 from retrying import retry
 
-
-def set_temp_dir(tempdir=None):
-    """Set the temporary directory to be used by `tempfile`."""
-    if tempdir is None:
-        if 'TMPDIR' in os.environ:
-            tempdir = os.environ['TMPDIR']
-        else:
-            # use tempfile defaults
-            return
-    os.makedirs(tempdir, exist_ok=True)
-    tempfile.tempdir = tempdir
+logger = logging.getLogger(__name__)
 
 
 @retry(
@@ -29,3 +20,15 @@ def download(url, output_file):
         c.setopt(c.WRITEDATA, ofh)
         c.perform()
         c.close()
+
+
+@contextlib.contextmanager
+def ssh_client(ip):
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(ip)
+        yield ssh
+    except Exception as e:
+        logger.error(type(e))
+        logger.error(e)
