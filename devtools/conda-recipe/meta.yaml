@@ -40,6 +40,8 @@ requirements:
     # IPython
     - ipython
     - pygments
+    # Binaries
+    - blast
 
 test:
   requires:
