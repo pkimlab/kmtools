@@ -1,6 +1,6 @@
 import os
 import tempfile
-import logging  # noqa
+import logging
 
 
 def unique(l):
@@ -18,15 +18,22 @@ def unique(l):
 def configure_logging(
         level='info',
         format='[%(levelname)s] - [%(name)s]: %(message)s'):
-    """Get a logger with basic configurations."""
-    global logging
+    """Get a logger with basic configurations.
+
+    .. note::
+
+        This function is obsolete.
+        It was created when I did not know how logging works.
+    """
     level_dict = {
         'debug': logging.DEBUG,
         'info': logging.INFO,
         'warning': logging.WARNING,
         'error': logging.ERROR
     }
+    # "set up the default handler" using basicConfig
     logging.basicConfig(level=level_dict[level], format=format)
+    logging.getLogger().setLevel(level_dict[level])
     logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
     logging.getLogger("paramiko").setLevel(logging.WARNING)
     logging.debug('Done configuring logging!')
