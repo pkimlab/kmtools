@@ -18,9 +18,7 @@ from collections import Counter
 import ascommon
 import datapkg
 
-ascommon.py_tools.configure_logging('debug')
 logger = logging.getLogger(__name__)
-logger.info('Hello world')
 
 
 def _parse_connection_string(connection_string):
@@ -73,8 +71,7 @@ def test_1(connection_string, concurrent_job_limit):
         job_name, connection_string, lrp,
         walltime='01:00:00',
         concurrent_job_limit=concurrent_job_limit,
-        queue='short',
-        priority="0")
+        queue='short')
     logger.info('Submitting...')
     with js.connect():
         js.submit(iterable)
@@ -129,8 +126,7 @@ def test_2(connection_string, concurrent_job_limit):
         job_name, connection_string, lrp,
         walltime='01:00:00',
         concurrent_job_limit=concurrent_job_limit,
-        queue='short',
-        priority="0")
+        queue='short')
     logger.info('Submitting...')
     with js.connect():
         js.submit(iterable)

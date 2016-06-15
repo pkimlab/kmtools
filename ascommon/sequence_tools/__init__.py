@@ -3,7 +3,8 @@ from ._blast import *
 from .hacky_xml_parser import HackyXMLParser
 
 __all__  = [
-    'fasta_parser'
+    'fasta_parser',
+    'vcf_parser',
 ]
 
 from . import *

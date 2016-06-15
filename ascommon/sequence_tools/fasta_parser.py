@@ -65,21 +65,15 @@ def parse_header_line(line):
 
     Examples
     --------
-    >>> header = (
-        '>tr|A0A024R161|A0A024R161_HUMAN Guanine nucleotide-binding protein subunit gamma '
-        'OS=Homo sapiens GN=DNAJC25-GNG10 PE=3 SV=1'
+    >>> from pprint import pprint
+    >>> header = ( \
+        '>tr|A0A024R161|A0A024R161_HUMAN Guanine nucleotide-binding protein subunit gamma ' \
+        'OS=Homo sapiens GN=DNAJC25-GNG10 PE=3 SV=1' \
     )
-    >>> parse_header_line(header) == {
-        'db': 'tr',
-        'gene_name': 'DNAJC25-GNG10',
-        'organism_name': 'Homo sapiens',
-        'protein_existence': '3',
-        'protein_name': 'Guanine nucleotide-binding protein subunit gamma',
-        'sequence_version': '1',
-        'uniprot_id': 'A0A024R161',
-        'uniprot_name': 'A0A024R161_HUMAN'
-    }
-    """
+    >>> parse_header_line(header)
+    ['tr', 'A0A024R161', 'A0A024R161_HUMAN', 'Guanine nucleotide-binding protein subunit gamma', \
+     'Homo sapiens', 'DNAJC25-GNG10', '3', '1', []]
+     """
     db, uniprot_acc, uniprot_id, protein_name, organism_name, gene_name, protein_existence, \
         sequence_version = RE_HEADER_LINE.match(line).groups()
     row = [

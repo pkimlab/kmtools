@@ -11,8 +11,10 @@ def iterate_parameters(parameter_grid, _params=None):
     Examples
     --------
     >>> from collections import OrderedDict
-    >>> list(iterate_parameters(OrderedDict([('a', [1, 2]), ('b', [3, 4])])))
-    [{'a': 1, 'b': 3}, {'a': 2, 'b': 3}, {'a': 1, 'b': 4}, {'a': 2, 'b': 4}]
+    >>> list(iterate_parameters(OrderedDict([('a', [1, 2]), ('b', [3, 4])]))) == [ \
+        {'a': 1, 'b': 3}, {'a': 2, 'b': 3}, {'a': 1, 'b': 4}, {'a': 2, 'b': 4} \
+    ]
+    True
     """
     param_grid = parameter_grid.copy()
     # Don't modify dictionaries in-place
