@@ -16,13 +16,12 @@ import tarfile
 import shutil
 from collections import Counter
 import ascommon
-import datapkg
 
 logger = logging.getLogger(__name__)
 
 
 def _parse_connection_string(connection_string):
-    _db_info = datapkg.parse_connection_string(connection_string)
+    _db_info = ascommon.cluster_tools.parse_connection_string(connection_string)
     return _db_info['db_type'], _db_info['host_ip']
 
 

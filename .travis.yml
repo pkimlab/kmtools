@@ -18,7 +18,7 @@ install:
   - conda build -q devtools/conda-recipe/
 script:
   - source activate _test
-  - py.test
+  - py.test -vvv
   - source deactivate
 after_success:
   - echo "Success!"

@@ -11,7 +11,7 @@ import logging
 import paramiko
 import contextlib
 import pandas as pd
-import datapkg
+from . import parse_connection_string
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +63,7 @@ class JobSubmitter:
             A.
         """
         # TODO: Add more options to the connecton string (username / pass)
-        _db_info = datapkg.parse_connection_string(connection_string)
+        _db_info = parse_connection_string(connection_string)
         head_node_type = _db_info['db_type']
         head_node_ip = _db_info['host_ip']
 

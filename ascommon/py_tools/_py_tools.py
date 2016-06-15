@@ -8,14 +8,3 @@ def unique(l):
     """
     seen = set()
     yield from (x for x in l if x not in seen and not seen.add(x))
-
-
-def format_unprintable(string):
-    r"""Escape tabs (\t), newlines (\n), etc. for system commands and printing.
-
-    Examples
-    --------
-    >>> format_unprintable('\t')
-    '\\t'
-    """
-    return repr(string).strip("'")
