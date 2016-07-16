@@ -42,6 +42,7 @@ requirements:
     - pygments
     # Binaries
     - blast
+    - muscle
 
 test:
   requires:
@@ -49,6 +50,7 @@ test:
     - pytest-runner
     - pytest-cov
     - pypy
+    - flake8
   imports:
     - kmtools
 
