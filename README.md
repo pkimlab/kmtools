@@ -10,6 +10,11 @@ Bits of reusable code to make our lives easier.
 Follows the *Whole Sort of General Mish Mash* design principle.
 
 
+## TODO
+
+- [] Speed up tests.
+
+
 ## Contributing
 
 - Make sure all tests pass before merging into master.
