@@ -57,6 +57,7 @@ def get_crossmapping(alignment_ref, alignment_alt):
             mapping_alt2ref.append('')
     return ','.join(mapping_ref2alt), ','.join(mapping_alt2ref)
 
+
 ##
 # Alignment with needle
 
