@@ -6,7 +6,7 @@ import logging
 import time
 import pytest
 import pandas as pd
-from ascommon import sequence_tools, py_tools
+from kmtools import sequence_tools, py_tools
 
 
 if not hasattr(pytest, 'config') or pytest.config.getvalue('debug'):

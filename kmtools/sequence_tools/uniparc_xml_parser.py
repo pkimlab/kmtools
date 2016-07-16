@@ -6,7 +6,7 @@ import re
 import shlex
 
 
-class HackyXMLParser:
+class UniParcXMLParser:
     """
     """
     def __init__(self, file_path, output_dir, writer='csv'):
@@ -269,5 +269,5 @@ if __name__ == '__main__':
     parser.add_argument('--file_path', type=str)
     parser.add_argument('--output_dir', type=str)
     args = parser.parse_args()
-    hacky_xml_parser = HackyXMLParser(args.file_path, args.output_dir)
+    hacky_xml_parser = UniParcXMLParser(args.file_path, args.output_dir)
     hacky_xml_parser.parse()

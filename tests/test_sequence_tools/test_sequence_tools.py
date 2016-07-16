@@ -1,103 +1,43 @@
-import os
 import os.path as op
-import shutil
-import time
-import tempfile
-import subprocess
-import shlex
-import pytest
 import pandas as pd
-import ascommon
-
-TEMPDIR = op.abspath(op.splitext(__file__)[0])
-os.makedirs(TEMPDIR, exist_ok=True)
+import kmtools
 
 
-class TestHackyXMLParser:
+def test_get_crossmapping():
+    sequence_pairs_df = pd.read_csv(
+        op.join(op.splitext(__file__)[0], 'test_alignment.tsv.gz'),
+        sep='\t')
 
-    @classmethod
-    def setup_method(self, method):
-        self.file_path = op.join(op.splitext(__file__)[0], 'test_uniparc_all.xml.gz')
-        self.output_dir = tempfile.mkdtemp(dir=TEMPDIR)
+    sequence_pairs_df['alignment_ref'], sequence_pairs_df['alignment_alt'] = (
+        list(zip(*sequence_pairs_df.apply(
+            lambda x: kmtools.sequence_tools.align_pairwise(
+                x['sequence_ref'], x['sequence_alt']), axis=1))))
+    assert (sequence_pairs_df['alignment_ref'].str.replace('-', '').str.len() ==
+            sequence_pairs_df['sequence_ref'].str.len()).all().all()
+    assert (sequence_pairs_df['alignment_alt'].str.replace('-', '').str.len() ==
+            sequence_pairs_df['sequence_alt'].str.len()).all().all()
+    assert (sequence_pairs_df['alignment_ref'].str.len() ==
+            sequence_pairs_df['alignment_alt'].str.len()).all().all()
 
-    @classmethod
-    def teardown_method(self, method):
-        shutil.rmtree(self.output_dir)
+    sequence_pairs_df['mapping_ref'], sequence_pairs_df['mapping_alt'] = (
+        list(zip(*sequence_pairs_df.apply(
+            lambda x: kmtools.sequence_tools.get_crossmapping(
+                x['alignment_ref'], x['alignment_alt']), axis=1))))
+    assert ((sequence_pairs_df['mapping_ref'].str.count(',') + 1) ==
+            (sequence_pairs_df['sequence_alt'].str.len())).all().all()
+    assert ((sequence_pairs_df['mapping_alt'].str.count(',') + 1) ==
+            (sequence_pairs_df['sequence_ref'].str.len())).all().all()
 
-    @pytest.mark.parametrize("match,output", [
-        ('''type="EMBL" id="AAF63732" version_i="1" active="Y" version="1" '''
-         '''created="2003-03-12" last="2015-11-15"''',
-         {'type': 'EMBL', 'id': 'AAF63732', 'version_i': '1', 'active': 'Y', 'version': '1',
-          'created': '2003-03-12', 'last': '2015-11-15'}),
-        ('''type="protein_name" value="aminotransferase family protein\\"''',
-         {'type': 'protein_name', 'value': 'aminotransferase family protein'})
-    ])
-    def test__parse_match(self, match, output):
-        self.parser = ascommon.sequence_tools.HackyXMLParser(self.file_path, self.output_dir)
-        assert self.parser._parse_match(match) == output
-
-    def test__append_to_file(self):
-        self.parser = ascommon.sequence_tools.HackyXMLParser(
-            self.file_path, self.output_dir, 'csv')
-        data = [
-            {'uniparc_id': 1},
-            {'uniparc_id': 2, 'dataset': 'uniparc'},
-        ]
-        self.parser._append_to_file('uniparc.tsv', data, self.parser._uniparc_columns)
-
-    @pytest.mark.skipif(
-        pytest.config.getvalue("quick"), reason="Tests take several minutes.")
-    @pytest.mark.parametrize("writer", ['pandas', 'csv'])
-    def test_run(self, writer):
-        self.parser = ascommon.sequence_tools.HackyXMLParser(
-            self.file_path, self.output_dir, 'pandas')
-        t0 = time.time()
-        self.parser.parse()
-        t1 = time.time()
-        print("Finished in {:.2f} seconds".format(t1 - t0))
-        self._assert_dataframes_match()
-
-    @pytest.mark.skipif(
-        shutil.which('pypy') is None, reason="`pypy` must be installed.")
-    @pytest.mark.parametrize("optimize", ['', '-O'])
-    def test_run_pypy(self, optimize):
-        proc = subprocess.run(['which', 'pypy'], stdout=subprocess.PIPE, universal_newlines=True)
-        proc.check_returncode()
-        if not proc.stdout.strip():
-            print("No `pypy` installed, but running with `pypy` is over 15 times faster!")
-            return
-        import ascommon.sequence_tools.hacky_xml_parser
-        system_command = (
-            "pypy {} '{}' --file_path '{}' --output_dir '{}'"
-            .format(
-                optimize,
-                ascommon.sequence_tools.hacky_xml_parser.__file__,
-                self.file_path,
-                self.output_dir)
+    def validate_mapping(sequence_ref, sequence_alt, mapping_ref2alt):
+        return all(
+            (sequence_ref[int(x) - 1] == sequence_alt[i])
+            for (i, x)
+            in enumerate(mapping_ref2alt.split(','))
+            if x
         )
-        print(system_command)
-        t0 = time.time()
-        proc = subprocess.run(
-            shlex.split(system_command), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            universal_newlines=True)
-        t1 = time.time()
-        print("Finished in {:.2f} seconds".format(t1 - t0))
-        proc.check_returncode()
-        self._assert_dataframes_match()
-
-    def _assert_dataframes_match(self):
-        filenames = [
-            'uniparc.tsv', 'uniparc_sequence.tsv', 'uniparc_xref.tsv', 'uniparc_xref_prop.tsv'
-        ]
-        for filename in filenames:
-            df_ref = pd.read_csv(
-                op.join(op.splitext(__file__)[0], 'test_uniparc_all_output', filename + '.gz'),
-                sep='\t')
-            df_test = pd.read_csv(
-                op.join(self.output_dir, filename),
-                sep='\t')
-            assert (df_ref.fillna(0) == df_test.fillna(0)).all().all()
-
-if __name__ == '__main__':
-    import pytest
-    pytest.main([__file__, '-sv'])
+    assert sequence_pairs_df[['sequence_ref', 'sequence_alt', 'mapping_ref']].apply(
+        lambda x: validate_mapping(*x), axis=1
+    ).all()
+    assert sequence_pairs_df[['sequence_alt', 'sequence_ref', 'mapping_alt']].apply(
+        lambda x: validate_mapping(*x), axis=1
+    ).all()

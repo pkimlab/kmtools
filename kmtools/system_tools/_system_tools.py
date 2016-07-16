@@ -1,3 +1,4 @@
+import os.path as op
 import logging
 import contextlib
 import pycurl
@@ -36,3 +37,10 @@ def ssh_client(ip):
     except Exception as e:
         logger.error(type(e))
         logger.error(e)
+
+
+def make_tarfile(source_dir, output_filename):
+    """Compress folder into a `*.tar.gz` file."""
+    import tarfile
+    with tarfile.open(output_filename, "w:gz") as tar:
+        tar.add(source_dir, arcname=op.basename(source_dir))

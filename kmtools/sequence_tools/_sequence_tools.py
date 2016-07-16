@@ -5,7 +5,7 @@ import functools
 import tempfile
 import pandas as pd
 import Bio.SeqIO
-from ascommon import system_tools
+from kmtools import system_tools
 
 logger = logging.getLogger(__name__)
 

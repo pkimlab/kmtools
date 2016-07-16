@@ -1,4 +1,4 @@
-Welcome to ascommon's documentation!
+Welcome to kmtools's documentation!
 ====================================
 
 Contents:
