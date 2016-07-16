@@ -1,6 +1,11 @@
 """.
 
-TODO: Use a SQLite database if you ever want to run on SciNet.
+.. todo::
+
+    Use a MySQL database if you ever want to run on SciNet.
+
+    ``SELECT ... WHERE idx = xxx FOR UPDATE;``
+
 """
 import os
 import os.path as op
@@ -148,6 +153,7 @@ class JobSubmitter:
         """Template of the system command which will submit the given job on the head node."""
         # Global options are inside one set of curly braces,
         # local options are inside two sets of curly braces.
+        #
         return """\
 qsub -S {qsub_shell} -N {job_name} -M {email} -m {email_opts} -o /dev/null -e /dev/null \
 {{nproc}}{{walltime}}{{mem}}{{vmem}} {{env_string}} \
@@ -263,29 +269,30 @@ qsub -S {qsub_shell} -N {job_name} -M {email} -m {email_opts} -o /dev/null -e /d
             stderr_file = op.join(self.log_path, '{}.err'.format(job_id))
             # STDERR
             try:
-                ifh = open(stderr_file, 'rt')
+                ifh = open(stderr_file + '.tmp', 'rt')
             except FileNotFoundError:
-                results['status'] = 'missing'
+                try:
+                    ifh = open(stderr_file, 'rt')
+                except FileNotFoundError:
+                    results['status'] = 'missing'
+                    continue
+            stderr_file_data = ifh.read().strip()
+            ifh.close()
+            if stderr_file_data.endswith('ERROR!'):
+                results['status'] = 'error'
                 continue
-            try:
-                stderr_file_data = ifh.read().strip()
-                if stderr_file_data.endswith('ERROR!'):
-                    results['status'] = 'error'
-                    continue
-                elif stderr_file_data.endswith('DONE!'):
-                    results['status'] = 'done'
-                else:
-                    results['status'] = 'running'
-                    continue
-            finally:
-                ifh.close()
+            elif stderr_file_data.endswith('DONE!'):
+                results['status'] = 'done'
+            else:
+                results['status'] = 'frozen'
+                continue
             # STDOUT
             ifh = open(stdout_file, 'r')
             try:
                 results.update(json.load(ifh))
             except json.JSONDecodeError:
-                pass
-                # results['status'] = 'running'
+                # pass
+                results['status'] = 'misformed'
             finally:
                 ifh.close()
         assert len(results_all) == len(iterable)

@@ -11,9 +11,12 @@ function report_error {
 }
 trap report_error ERR
 
-exec 1> "$STDOUT_LOG"
-exec 2> "$STDERR_LOG"
+exec 1> "$STDOUT_LOG.tmp"
+exec 2> "$STDERR_LOG.tmp"
 
-$SYSTEM_COMMAND
+eval $SYSTEM_COMMAND
+
+mv "$STDOUT_LOG.tmp" "$STDOUT_LOG"
+mv "$STDERR_LOG.tmp" "$STDERR_LOG"
 
 echo_err "DONE!"
