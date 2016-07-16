@@ -1,7 +1,7 @@
 {% set version = "0.0.6" %}
 
 package:
-  name: ascommon
+  name: kmtools
   version: {{ version }}
 
 source:
@@ -50,9 +50,9 @@ test:
     - pytest-cov
     - pypy
   imports:
-    - ascommon
+    - kmtools
 
 about:
-  home: http://ostrokach.github.io/ascommon
+  home: http://pmklab.github.io/kmtools
   license: MIT
   summary: Helpful bioinformatics scripts.

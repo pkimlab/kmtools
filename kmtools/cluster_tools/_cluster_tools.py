@@ -51,7 +51,7 @@ def iterate_parameters(parameter_grid, _params=None):
     --------
     >>> from pprint import pprint
     >>> pprint(list(iterate_parameters({'a': [1, 2], 'b': [3, 4]})))
-    [{'a': 1, 'b': 3}, {'a': 2, 'b': 3}, {'a': 1, 'b': 4}, {'a': 2, 'b': 4}]
+    [{'a': 1, 'b': 3}, {'a': 1, 'b': 4}, {'a': 2, 'b': 3}, {'a': 2, 'b': 4}]
     """
     param_grid = parameter_grid.copy()
     # Don't modify dictionaries in-place

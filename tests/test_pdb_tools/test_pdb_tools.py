@@ -4,7 +4,7 @@ from lxml import etree
 from tempfile import TemporaryDirectory
 import pandas as pd
 import pytest
-import ascommon.pdb_tools.sifts as sifts
+import kmtools.pdb_tools.sifts as sifts
 
 
 ###################################################################################################
@@ -16,15 +16,31 @@ class TestPresent:
 
     def test_1(self):
         sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = sifts._get_sifts_data('1arr')
+        sifts_data = sifts.get_sifts_data('1arr')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
         sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = sifts._get_sifts_data('3mbp')
+        sifts_data = sifts.get_sifts_data('3mbp')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
+
+    def test_3(self):
+        pdb_id = '1dvf'
+        sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
+        sifts_data = sifts.get_sifts_data(pdb_id)
+        assert isinstance(sifts_data, pd.DataFrame)
+        assert not sifts_data.empty
+        sifts_data_subset = (
+            sifts_data[
+                (sifts_data['pdb_id'] == pdb_id) &
+                (sifts_data['pdb_chain'] == 'A') &
+                (sifts_data['resnum'] == '98')
+            ]
+        )
+        assert not sifts_data_subset.empty
+        return sifts_data
 
 
 class TestAbscent:
@@ -40,12 +56,12 @@ class TestAbscent:
         cls.temp_dir.cleanup()
 
     def test_1(self):
-        sifts_data = sifts._get_sifts_data('1arr')
+        sifts_data = sifts.get_sifts_data('1arr')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts_data = sifts._get_sifts_data('3mbp')
+        sifts_data = sifts.get_sifts_data('3mbp')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
         del sifts_data
@@ -66,8 +82,3 @@ def test__get_residue_info_xml(residue_in_out):
     xml_data, json_data = residue_in_out
     print(xml_data)
     assert sifts._get_residue_info_xml(xml_data) == json_data
-
-
-if __name__ == '__main__':
-    import pytest
-    pytest.main([__file__, '-svx'])

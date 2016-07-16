@@ -9,19 +9,18 @@ import os.path as op
 import logging
 import tempfile
 import time
-import json
 import paramiko
 import pytest
 import tarfile
 import shutil
 from collections import Counter
-import ascommon
+import kmtools
 
 logger = logging.getLogger(__name__)
 
 
 def _parse_connection_string(connection_string):
-    _db_info = ascommon.cluster_tools.parse_connection_string(connection_string)
+    _db_info = kmtools.cluster_tools.parse_connection_string(connection_string)
     return _db_info['db_type'], _db_info['host_ip']
 
 
@@ -46,7 +45,7 @@ test_input = [
 logger.info("Collected {} test inputs".format(len(test_input)))
 
 
-def get_iterable(script_filename):
+def get_system_commands(script_filename):
     return [
         (str(job_id), '{python} "{script}" -i {job_id}'.format(
             python=sys.executable,
@@ -56,105 +55,67 @@ def get_iterable(script_filename):
     ]
 
 
-@pytest.mark.skipif(pytest.config.getvalue("quick"), reason="Tests take several minutes.")
-@pytest.mark.parametrize("connection_string, concurrent_job_limit", test_input)
-def test_1(connection_string, concurrent_job_limit):
-    """Test on tasks that finish successfully."""
-    job_name = 'test_1'
-    iterable = get_iterable('_test_1.py')
-    # tempdir = tempfile.TemporaryDirectory(dir=op.expanduser('~/tmp'))
-    # lrp = tempdir.name
-    lrp = tempfile.mkdtemp(dir=op.expanduser('~/tmp'))
-    # Submit jobs
-    js = ascommon.cluster_tools.JobSubmitter(
-        job_name, connection_string, lrp,
-        walltime='01:00:00',
-        concurrent_job_limit=concurrent_job_limit,
-        queue='short')
-    logger.info('Submitting...')
-    with js.connect():
-        js.submit(iterable)
-    logger.info('Finished submitting...')
-    # Make sure that jobs finish successfully
-    time_0 = time.time()
-    for job_id, system_command in iterable:
-        while True:
-            stderr_file = op.join(js.log_path, '{}.err'.format(job_id))
-            try:
-                with open(stderr_file, 'rt') as ifh:
-                    stderr = ifh.read().strip()
-            except FileNotFoundError:
-                logger.debug("File '{}' not found!".format(stderr_file))
-                time.sleep(5)
-                continue
-            if stderr.endswith('DONE!'):
-                stdout_file = op.join(js.log_path, '{}.out'.format(job_id))
-                with open(stdout_file, 'rt') as ifh:
-                    stdout = ifh.read().strip()
-                try:
-                    stdout_dict = json.loads(stdout)
-                except json.JSONDecodeError:
-                    logger.error(stdout)
-                    assert False, "Bad output"
-                assert stdout_dict['job_id'] == job_id
-                break
-            elif stderr.endswith('ERROR!'):
-                logger.error(stderr)
-                assert False, (job_id, system_command)
-            else:
-                logger.debug('Waiting for job to finish...')
-                time.sleep(5)
-                if (time.time() - time_0) <= 10 * 60:
-                    continue
-                else:
-                    logger.error(stderr)
-                    assert False, "Timeout!"
+# @pytest.mark.skipif(pytest.config.getvalue("quick"), reason="Tests take several minutes.")
+# @pytest.mark.parametrize("connection_string, concurrent_job_limit", test_input)
+# def test_1(connection_string, concurrent_job_limit):
+#     """Test on tasks that finish successfully."""
+#     job_name = 'test_1'
+#     system_commands = get_system_commands('_test_1.py')
+#     # tempdir = tempfile.TemporaryDirectory(dir=op.expanduser('~/tmp'))
+#     # lrp = tempdir.name
+#     lrp = tempfile.mkdtemp(dir=op.expanduser('~/tmp'))
+#     # Submit jobs
+#     js = kmtools.cluster_tools.JobSubmitter(
+#         job_name, connection_string, lrp,
+#         walltime='01:00:00',
+#         concurrent_job_limit=concurrent_job_limit,
+#         queue='short')
+#     logger.info('Submitting...')
+#     with js.connect():
+#         js.submit(system_commands)
+#     logger.info('Finished submitting...')
+#     # Make sure that jobs finish successfully
+#     time_0 = time.time()
+#     results_df = js.job_status(system_commands)
+#     while not (results_df['status'] == 'done').all():
+#         time_1 = time.time()
+#         if (time_1 - time_0) > 10 * 60:
+#             assert False, "Timeout!"
+#         time.sleep(30)
+#         results_df = js.job_status(system_commands)
+#     assert True
 
 
 @pytest.mark.skipif(pytest.config.getvalue("quick"), reason="Tests take several minutes.")
 @pytest.mark.parametrize("connection_string, concurrent_job_limit", test_input)
 def test_2(connection_string, concurrent_job_limit):
-    """Test on tasks that finish crash."""
+    """Test on tasks that finish in a crash."""
     job_name = 'test_2'
-    iterable = get_iterable('_test_2.py')
+    system_commands = get_system_commands('_test_2.py')
     # tempdir = tempfile.TemporaryDirectory(dir=op.expanduser('~/tmp'))
     # lrp = tempdir.name
     lrp = tempfile.mkdtemp(dir=op.expanduser('~/tmp'))
     # Submit jobs
-    js = ascommon.cluster_tools.JobSubmitter(
+    js = kmtools.cluster_tools.JobSubmitter(
         job_name, connection_string, lrp,
         walltime='01:00:00',
         concurrent_job_limit=concurrent_job_limit,
         queue='short')
     logger.info('Submitting...')
     with js.connect():
-        js.submit(iterable)
+        js.submit(system_commands)
     logger.info('Finished submitting...')
     # Make sure that jobs finish successfully
     time_0 = time.time()
-    for job_id, system_command in iterable:
-        while True:
-            stderr_file = op.join(js.log_path, '{}.err'.format(job_id))
-            try:
-                with open(stderr_file, 'rt') as ifh:
-                    stderr = ifh.read().strip()
-            except FileNotFoundError:
-                logger.debug("File '{}' not found!".format(stderr_file))
-                time.sleep(5)
-                continue
-            if stderr.endswith('DONE!'):
-                logger.error(stderr)
-                assert False, (job_id, system_command)
-            elif stderr.endswith('ERROR!'):
-                break
-            else:
-                logger.debug('Waiting for job to finish...')
-                time.sleep(5)
-                if (time.time() - time_0) <= 10 * 60:
-                    continue
-                else:
-                    logger.error(stderr)
-                    assert False, "Timeout!"
+    results_df = js.job_status(system_commands)
+    while not (results_df['status'] == 'error').all():
+        logger.info(results_df.tail())
+        time_1 = time.time()
+        if (time_1 - time_0) > 10 * 60:
+            assert False, "Timeout!"
+        time.sleep(30)
+        results_df = js.job_status(system_commands)
+    assert True
 
 
 class TestJobStatus:
@@ -174,11 +135,11 @@ class TestJobStatus:
         shutil.rmtree(cls.log_dir)
 
     def test_job_status(self):
-        js = ascommon.cluster_tools.JobSubmitter(
+        js = kmtools.cluster_tools.JobSubmitter(
             self.job_name,
             self.connection_string,
             self.log_base_dir,
             force_new_folder=False)
         results_df = js.job_status([(i, i) for i in range(3360)])
         assert (Counter(results_df['status']) ==
-                Counter({'done': 2650, 'running': 387, 'missing': 323}))
+                Counter({'done': 2650, 'frozen': 387, 'missing': 323}))

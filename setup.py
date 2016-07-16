@@ -1,12 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='ascommon',
+    name='kmtools',
     version='0.0.6',
-    author='Alexey Strokach',
-    author_email='alex.strokach@utoronto.ca',
+    author='kimlab.org',
     packages=find_packages(),
     package_data={
-        'ascommon': [
+        'kmtools': [
             'cluster_tools/scripts/*.sh']},
 )

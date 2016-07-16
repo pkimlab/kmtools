@@ -2,7 +2,6 @@ import subprocess
 import shlex
 import logging
 import io
-from functools import lru_cache
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -16,9 +15,14 @@ BLAST_OUTFMT6_COLUMN_NAMES = [
 ]
 
 
-@lru_cache(maxsize=1024, typed=False)
+# @lru_cache(maxsize=1024, typed=False)
 def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
     """Run `blastp`.
+
+    .. note::
+
+        It is often useful to wrap this function inside `functools.lru_cache`
+        in order to speed up repeated queries.
 
     Parameters
     ----------
