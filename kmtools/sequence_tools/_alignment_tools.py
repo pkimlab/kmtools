@@ -1,5 +1,6 @@
 import subprocess
-
+import random
+import os
 
 def align_pairwise(sequence_ref, sequence_alt):
     """.
@@ -53,3 +54,64 @@ def get_crossmapping(alignment_ref, alignment_alt):
             mapping_ref2alt.append('')
             mapping_alt2ref.append('')
     return ','.join(mapping_ref2alt), ','.join(mapping_alt2ref)
+
+##
+# Alignment with needle
+
+def align_sw(seqa,seqb,**Kargs):
+    '''Smith-Waterman aligment
+    central function, call  to get score, or identiy, or aligment etc
+    '''
+    outfile='aln.needle2.{}.out'.format(random.randint(1,30000))
+
+    call_needle(seqa,seqb,outfile=outfile,**Kargs)
+
+    return load_scores(outfile,**Kargs)
+
+
+def call_needle(seqa,seqb,gapopen=12.0,gapextend=1.0,outfile='aln.needle2.out',**Kargs):
+
+    #overwrite_files
+    filenameA = 'file_{}.seq'.format( random.randint(1,30000))
+    filenameB = 'file_{}.seq'.format(random.randint(30001,90000))
+    filea = open(filenameA, 'w')
+    fileb = open(filenameB, 'w')
+    print(seqa.strip(),file=filea)
+    print(seqb.strip(),file=fileb)
+    filea.close()
+    fileb.close()
+    #exec_needle
+    status = subprocess.call(['needle','-asequence', filenameA,
+                             '-bsequence', filenameB,
+                             '-gapopen', str(gapopen),
+                             '-gapextend', str(gapextend),
+                             '-outfile',outfile])
+    os.remove(filenameA)
+
+
+def load_scores(outfile,lenght=16.0):
+    ident = 0.0
+    sim = 0
+
+    with open(outfile,'r') as input_file:
+
+        for line in input_file:
+            # print line
+            tabdata = line.split()
+            if len(tabdata) > 3:
+                if tabdata[1] == 'Identity:':
+                    matches,target = tabdata[2].split('/')
+                    ident = float(matches)/lenght
+                    # match = tabdata[3][1:-2]
+                if tabdata[1] == 'Similarity:':
+                    matches,target = tabdata[2].split('/')
+                    sim = float(matches)/lenght
+                    # sim = tabdata[3][1:-2]
+                    input_file.close()
+                    return ident*100,sim*100
+
+
+    os.remove(filenameB)
+    return status
+
+

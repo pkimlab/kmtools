@@ -19,3 +19,8 @@ AAA_DICT['SEP'] = 'Y'  # O-PHOSPHOTYROSINE
 AAA_DICT['MLZ'] = 'K'
 AAA_DICT['MLY'] = 'K'
 AAA_DICT['M3L'] = 'K'
+
+# Protonation states Histidine
+AAA_DICT['HID'] = 'H'
+AAA_DICT['HIE'] = 'H'
+
