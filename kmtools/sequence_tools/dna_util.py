@@ -1,4 +1,4 @@
-
+from __future__ import print_function
 import codons_info
 import bisect
 import re
@@ -14,8 +14,8 @@ def translate2aa(nseq,start=1):
 
         :return: str with the aminoacid sequence.'''
 
-    bases = ['T', 'C', 'A', 'G']
-    codons = [a+b+c for a in bases for b in bases for c in bases]
+    bases = [ 'T', 'C', 'A', 'G' ]
+    codons = [ a+b+c for a in bases for b in bases for c in bases ]
     amino_acids = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
     codon_table = dict(zip(codons, amino_acids))
     pseq = ""
@@ -109,7 +109,7 @@ def codon_weighted_random_choice(codons,specie):
             elems.append((weights, elem))
     if not elems:
         raise ValueError("Empty sequence")
-        print codons,weight_dictionary
+        print('{} {}'.format(codons,weight_dictionary))
     ix = bisect.bisect(elems, (random.uniform(0, weights), None))
     #print ix
     return elems[ix][1]
@@ -152,7 +152,7 @@ def clean_restriction_sites(naseq,dict_restriction = ['GAATTC','CCCGGG','GTCGAC'
             naseq = reshufle_seq(naseq,matches)
 
         if ilimit == 1000000:
-            print 'WARNING the cycles limit has been pass and the seq stil contain a restriction site  ', naseq
+            print('WARNING the cycles limit has been pass and the seq stil contain a restriction site  {}'.format(naseq))
             return naseq
 
     return naseq

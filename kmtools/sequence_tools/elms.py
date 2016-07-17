@@ -17,7 +17,7 @@ totalELMdefinitions = pd.read_csv(absolute_path+"/support/elm_classes.tsv", sep=
 
 # PepX database motives
 #
-PepXELMdefinitions = pd.read_csv(absolute_path+"Pepx_completeELM_Redex.tsv", sep='\t')
+PepXELMdefinitions = pd.read_csv(absolute_path+"/support/Pepx_completeELM_Redex.tsv", sep='\t')
 
 
 
