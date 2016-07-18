@@ -23,4 +23,3 @@ AAA_DICT['M3L'] = 'K'
 # Protonation states Histidine
 AAA_DICT['HID'] = 'H'
 AAA_DICT['HIE'] = 'H'
-
