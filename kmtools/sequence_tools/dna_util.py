@@ -1,5 +1,5 @@
 from __future__ import print_function
-from .codons_info import *
+from .codons_info import USAGE_FREQ, A2C_DICT
 import bisect
 import re
 import random
@@ -60,7 +60,7 @@ def translate2na(seq, specie='human'):
     """
     seq_na = []
     for a in seq:
-        codons = codons_info.A2C_DICT.get(a)
+        codons = A2C_DICT.get(a)
         seq_na.append(codon_weighted_random_choice(codons, specie))
 
     # print(random.choice(foo))
@@ -90,7 +90,7 @@ def codon_weighted_random_choice(codons, specie):
         codon (str)
 
     """
-    weight_dictionary = codons_info.USAGE_FREQ.get(specie)
+    weight_dictionary = USAGE_FREQ.get(specie)
     weights = 0
     elems = []
     for elem in codons:
@@ -189,7 +189,7 @@ def reshufle_seq(seq, position_pairs):
                     continue
                 else:
 
-                    alternatives = list(codons_info.A2C_DICT.get(aminoacid))
+                    alternatives = list(A2C_DICT.get(aminoacid))
                     alternatives.remove(codon)
                     new_codon = random.choice(alternatives)
                     seq = seq[:i - codon_coordinates] + new_codon + seq[i + 3 - codon_coordinates:]
