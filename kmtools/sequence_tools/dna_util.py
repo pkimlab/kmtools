@@ -1,5 +1,5 @@
 from __future__ import print_function
-import codons_info
+from .codons_info import *
 import bisect
 import re
 import random
