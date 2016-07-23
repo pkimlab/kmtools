@@ -292,7 +292,7 @@ qsub -S {qsub_shell} -N {job_name} -M {email} -m {email_opts} -o /dev/null -e /d
                 results.update(json.load(ifh))
             except json.JSONDecodeError:
                 # pass
-                results['status'] = 'misformed'
+                results['status'] = 'misformed output'
             finally:
                 ifh.close()
         assert len(results_all) == len(iterable)
