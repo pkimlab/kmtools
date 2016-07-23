@@ -55,35 +55,35 @@ def get_system_commands(script_filename):
     ]
 
 
-# @pytest.mark.skipif(pytest.config.getvalue("quick"), reason="Tests take several minutes.")
-# @pytest.mark.parametrize("connection_string, concurrent_job_limit", test_input)
-# def test_1(connection_string, concurrent_job_limit):
-#     """Test on tasks that finish successfully."""
-#     job_name = 'test_1'
-#     system_commands = get_system_commands('_test_1.py')
-#     # tempdir = tempfile.TemporaryDirectory(dir=op.expanduser('~/tmp'))
-#     # lrp = tempdir.name
-#     lrp = tempfile.mkdtemp(dir=op.expanduser('~/tmp'))
-#     # Submit jobs
-#     js = kmtools.cluster_tools.JobSubmitter(
-#         job_name, connection_string, lrp,
-#         walltime='01:00:00',
-#         concurrent_job_limit=concurrent_job_limit,
-#         queue='short')
-#     logger.info('Submitting...')
-#     with js.connect():
-#         js.submit(system_commands)
-#     logger.info('Finished submitting...')
-#     # Make sure that jobs finish successfully
-#     time_0 = time.time()
-#     results_df = js.job_status(system_commands)
-#     while not (results_df['status'] == 'done').all():
-#         time_1 = time.time()
-#         if (time_1 - time_0) > 10 * 60:
-#             assert False, "Timeout!"
-#         time.sleep(30)
-#         results_df = js.job_status(system_commands)
-#     assert True
+@pytest.mark.skipif(pytest.config.getvalue("quick"), reason="Tests take several minutes.")
+@pytest.mark.parametrize("connection_string, concurrent_job_limit", test_input)
+def test_1(connection_string, concurrent_job_limit):
+    """Test on tasks that finish successfully."""
+    job_name = 'test_1'
+    system_commands = get_system_commands('_test_1.py')
+    # tempdir = tempfile.TemporaryDirectory(dir=op.expanduser('~/tmp'))
+    # lrp = tempdir.name
+    lrp = tempfile.mkdtemp(dir=op.expanduser('~/tmp'))
+    # Submit jobs
+    js = kmtools.cluster_tools.JobSubmitter(
+        job_name, connection_string, lrp,
+        walltime='01:00:00',
+        concurrent_job_limit=concurrent_job_limit,
+        queue='short')
+    logger.info('Submitting...')
+    with js.connect():
+        js.submit(system_commands)
+    logger.info('Finished submitting...')
+    # Make sure that jobs finish successfully
+    time_0 = time.time()
+    results_df = js.job_status(system_commands)
+    while not (results_df['status'] == 'done').all():
+        time_1 = time.time()
+        if (time_1 - time_0) > 10 * 60:
+            assert False, "Timeout!"
+        time.sleep(30)
+        results_df = js.job_status(system_commands)
+    assert True
 
 
 @pytest.mark.skipif(pytest.config.getvalue("quick"), reason="Tests take several minutes.")
