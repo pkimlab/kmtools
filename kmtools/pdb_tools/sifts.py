@@ -179,9 +179,13 @@ def split_mutation(mutation):
     --------
     >>> split_mutation('A 10 C')
     ('A', '10', 'C')
-
+    >>> split_mutation('A10C')
+    ('A', '10', 'C')
     """
-    mutation_split = MUTATION_SPLIT_RE.split(mutation)
+    if ' ' in mutation:
+        mutation_split = MUTATION_SPLIT_RE.split(mutation)
+    else:
+        mutation_split = (mutation[0], mutation[1:-1], mutation[-1])
     if len(mutation_split) == 3:
         wt, pos, mut = mutation_split
     elif len(mutation_split) == 2:
@@ -313,24 +317,38 @@ SIFTS failed to match residue ({}, {}, {}, {}, {}, {})\
         raise SIFTSError(error_message)
 
     # Result
-    uniprot_id = sifts_df_subset.iloc[0].get('uniprot_id', uniprot_id)
-    uniprot_aa = sifts_df_subset.iloc[0]['uniprot_aa']
-    uniprot_pos = sifts_df_subset['uniprot_position'].astype(int, raise_on_error=False).iloc[0]
-    pdb_chain = sifts_df_subset.iloc[0]['pdb_chain']
-    pfam_id = sifts_df_subset.iloc[0].get('pfam_id', np.nan)
+    sifts_row = sifts_df_subset.iloc[0]
+    uniprot_id_sifts = sifts_row.get('uniprot_id', uniprot_id)
+    uniprot_aa = sifts_row['uniprot_aa']
+    uniprot_pos = sifts_row['uniprot_position']
+    uniprot_pos = int(uniprot_pos) if pd.notnull(uniprot_pos) else uniprot_pos
+    pdb_chain = sifts_row['pdb_chain']
+    pfam_id = sifts_row.get('pfam_id', np.nan)
 
-    uniprot_seqrecord = sequence_tools.get_uniprot_sequence(uniprot_id)
-    if not uniprot_seqrecord:
-        assert pd.isnull(uniprot_aa), (uniprot_id, uniprot_aa)
-        assert pd.isnull(uniprot_pos), (uniprot_id, uniprot_pos)
-    elif str(uniprot_seqrecord.seq)[uniprot_pos - 1] != uniprot_aa:
-        logger.warning(
-            "Sequence mismatch: {}{} in {}".format(uniprot_aa, uniprot_pos, uniprot_seqrecord.seq))
-        uniprot_aa = '?'
-        uniprot_pos = np.nan
+    if pd.notnull(uniprot_aa) and (pdb_aa != uniprot_aa):
+        error_message = """\
+PDB AA and UniProt AA are not the same! ({}, {}, {}, {}, {}, {}) ({} != {} ({}))\
+""".format(pdb_id, pdb_chain, pdb_aa, pdb_resnum, uniprot_id, pdb_resnum_offset,
+           pdb_aa, uniprot_aa, uniprot_id_sifts)
+        raise SIFTSError(error_message)
+
+    uniprot_seqrecord = sequence_tools.get_uniprot_sequence(uniprot_id_sifts)
+    if not uniprot_seqrecord and (pd.notnull(uniprot_aa) or pd.notnull(uniprot_pos)):
+        error_message = """\
+Could not fetch uniprot sequence to make sure that AA '{}{}' is correct!\
+""".format(uniprot_aa, uniprot_pos)
+        raise SIFTSError(error_message)
+    elif uniprot_seqrecord and (str(uniprot_seqrecord.seq)[uniprot_pos - 1] != uniprot_aa):
+        error_message = """\
+Sequence mismatch: {}{} in {}!\
+""".format(uniprot_aa, uniprot_pos, uniprot_seqrecord.seq)
+        raise SIFTSError(error_message)
 
     return dict(
-        uniprot_id=uniprot_id, uniprot_aa=uniprot_aa, uniprot_pos=uniprot_pos, pdb_chain=pdb_chain,
+        uniprot_id=uniprot_id_sifts,
+        uniprot_aa=uniprot_aa,
+        uniprot_pos=uniprot_pos,
+        pdb_chain=pdb_chain,
         pfam_id=pfam_id
     )
 
@@ -339,6 +357,8 @@ def convert_pdb_mutations_to_uniprot(pdb_id, pdb_chains, pdb_mutations, sifts_df
     """Convert a PDB mutations to UniProt.
 
     Works for a list of mutations joined with ',' but only one row at a time.
+
+    Fails if can't map at mutation level.
 
     Parameters
     ----------
@@ -352,9 +372,12 @@ def convert_pdb_mutations_to_uniprot(pdb_id, pdb_chains, pdb_mutations, sifts_df
         `uniprot_id` extracted from SIFTS.
     uniprot_mutations : str
         Comma-separated list of mutations in UniProt coordinates.
-    """
-    uniprot_mutations = []
 
+    Examples
+    --------
+    >>> sifts_df = get_sifts_data('2qja')
+    >>>
+    """
     def get_pdb_chain_mutation():
         if ',' not in pdb_mutations:
             yield pdb_chains, pdb_mutations
@@ -364,27 +387,44 @@ def convert_pdb_mutations_to_uniprot(pdb_id, pdb_chains, pdb_mutations, sifts_df
         else:
             yield from zip(pdb_chains.split(','), pdb_mutations.split(','))
 
+    uniprot_mutations_sifts = []
     for pdb_chain, pdb_mutation in get_pdb_chain_mutation():
         pdb_wt, pdb_resnum, pdb_mut = split_mutation(pdb_mutation)
         # Convert each of the mutant residues
         uniprot_aa_data = []
         for i, pdb_wt_aa in enumerate(pdb_wt if pdb_wt else ['']):
-            uniprot_aa_data.append(
-                convert_amino_acid(
-                    pdb_id, pdb_chain, pdb_wt_aa, pdb_resnum, uniprot_id, sifts_df,
-                    pdb_resnum_offset=i))
-        uniprot_id = uniprot_aa_data[0]['uniprot_id']
-        pdb_chains = ','.join(x['pdb_chain'] for x in uniprot_aa_data)
+            sifts_aa_data = convert_amino_acid(
+                pdb_id, pdb_chain, pdb_wt_aa, pdb_resnum, sifts_df,
+                uniprot_id=uniprot_id, pdb_resnum_offset=i)
+            uniprot_aa_data.append(sifts_aa_data)
+        #
+        if (any(pd.isnull(x['uniprot_aa']) for x in uniprot_aa_data) or
+                any(pd.isnull(x['uniprot_pos']) for x in uniprot_aa_data)):
+            error_message = """\
+No mutation mapping available! ({}, {}, {}, {}, {}): {}\
+""".format(pdb_id, pdb_chains, pdb_mutations, pdb_chain, pdb_mutation, uniprot_aa_data)
+            raise SIFTSError(error_message)
+        uniprot_id_sifts = uniprot_aa_data[0]['uniprot_id']
+        pfam_id_sifts = uniprot_aa_data[0]['pfam_id']
         uniprot_wt = ''.join(x['uniprot_aa'] for x in uniprot_aa_data)
         uniprot_pos = uniprot_aa_data[0]['uniprot_pos']
         uniprot_mutation = '{}{}{}'.format(uniprot_wt, uniprot_pos, pdb_mut)
-        uniprot_mutations.append(uniprot_mutation)
+        uniprot_mutations_sifts.append(uniprot_mutation)
+        # pdb_chains_sifts = ','.join(x['pdb_chain'] for x in uniprot_aa_data)
 
-    return uniprot_id, ','.join(uniprot_mutations), pdb_chains
+    return dict(
+        uniprot_id_sifts=uniprot_id_sifts,
+        pfam_id_sifts=pfam_id_sifts,
+        uniprot_mutations_sifts=(
+            ','.join(uniprot_mutations_sifts) if uniprot_mutations_sifts else np.nan
+        )
+    )
 
 
 def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
     """Convert a whole column of PDB mutations to UniProt.
+
+    This function gets the SIFTS data for you.
 
     Parameters
     ----------
@@ -399,6 +439,10 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
         Comma-separated list of mutations.
     pdb_mutations : str
         Comma-separated list of cleaned-up PDB mutations.
+
+    Examples
+    --------
+    >>>
     """
     if pd.isnull(pdb_mutations) or pdb_mutations == '-' or pdb_mutations.startswith('WILD'):
         return uniprot_id, '-', np.nan, np.nan
