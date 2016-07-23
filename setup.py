@@ -7,5 +7,6 @@ setup(
     packages=find_packages(),
     package_data={
         'kmtools': [
-            'cluster_tools/scripts/*.sh']},
+            'cluster_tools/scripts/*.sh',
+            'sequence_tools/support/*.tsv']},
 )
