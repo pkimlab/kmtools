@@ -13,3 +13,6 @@ __pycache__
 !.travis.yml
 !.gitlab-ci.yml
 
+# Notebooks (for now...)
+notebooks
+
