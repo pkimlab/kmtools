@@ -5,18 +5,15 @@
     Work in progress...
 
 """
-import os.path as op
 import pandas as pd
 import matplotlib.pyplot as plt
 from IPython.display import display
 import mdtraj as md
 # import kmtools.pdb_tools.sifts
 
-PDB_CACHE_DIR = None
-
 
 def main(pdb_file):
-    t = md.load(op.join(PDB_CACHE_DIR, pdb_file))
+    t = md.load(pdb_file)
     distances, residue_pairs = md.compute_contacts(t, [[0, i] for i in range(700)])
     sum(r.is_protein for r in t.topology.residues)
     md.compute_contacts(t, [[0, ]])

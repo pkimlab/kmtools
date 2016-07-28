@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='kmtools',
-    version='0.0.9',
+    version='0.0.10',
     author='kimlab.org',
     packages=find_packages(),
     package_data={
