@@ -12,7 +12,7 @@ Follows the *Whole Sort of General Mish Mash* design principle.
 
 ## TODO
 
-- [] Speed up tests.
+- [ ] Speed up tests.
 
 
 ## Contributing
