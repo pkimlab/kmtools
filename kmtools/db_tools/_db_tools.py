@@ -12,6 +12,20 @@ DB_CACHE_FILENAME = None
 def parse_connection_string(connection_string):
     """Split `connection_string` into a dictionary of connection properties.
 
+    .. note::
+
+        The returned dictionary maps everything to strings (including `db_port`)
+        to make it compatible with :class:`configparser.configParser`.
+
+    Parameters
+    ----------
+    connection_string : str
+        String describing database connection in SQLAlchemy-compatible format.
+
+    Returns
+    -------
+    Mapping[str, str]
+
     Examples
     --------
     >>> from pprint import pprint
@@ -56,8 +70,8 @@ def parse_connection_string(connection_string):
         re.match(
             '^(\w*)'  # db_type
             '://'
-            '(|\w*:)'  # db_username
-            '(|\w*)'  # db_password
+            '(|\w*)'  # db_username
+            '(|:\w*)'  # db_password
             '(|@localhost|@[0-9\.]*)'  # db_url
             '(|:[0-9]*)'  # db_port
             '(|\/[^?]*)'  # db_schema
@@ -65,7 +79,7 @@ def parse_connection_string(connection_string):
             connection_string)
         .groups()
     )
-    db_params['db_username'] = db_params['db_username'].rstrip(':')
+    db_params['db_password'] = db_params['db_password'].lstrip(':')
     db_params['db_url'] = db_params['db_url'].lstrip('@')
     db_params['db_port'] = db_params['db_port'].lstrip(':')
     db_params['db_schema'] = (
@@ -89,7 +103,7 @@ def make_connection_string(**vargs):
         'db_type': 'mysql', \
         'db_url': 'localhost', \
         'db_username': 'user'})
-    'mysql://user:@localhost/'
+    'mysql://user@localhost/'
     >>> make_connection_string(**{ \
         'db_password': 'pass', \
         'db_port': '3306', \
@@ -109,17 +123,21 @@ def make_connection_string(**vargs):
         'db_username': ''})
     'sqlite:////absolute/path/to/foo.db'
     """
-    if vargs['db_username']:
-        vargs['db_username'] = vargs['db_username'] + ':'
-    if vargs['db_url']:
-        vargs['db_url'] = '@' + vargs['db_url']
-    if vargs['db_port']:
-        assert vargs['db_url']
-        vargs['db_port'] = ':' + vargs['db_port']
-    if vargs['db_schema'] is not None:
-        vargs['db_schema'] = '/' + vargs['db_schema']
-    if vargs['db_socket']:
-        vargs['db_socket'] = '?unix_socket=' + vargs['db_socket']
+    vargs['db_password'] = (
+        ':{}'.format(vargs['db_password']) if vargs.get('db_password') else ''
+    )
+    vargs['db_url'] = (
+        '@{}'.format(vargs['db_url']) if vargs.get('db_url') else ''
+    )
+    vargs['db_port'] = (
+        ':{}'.format(vargs['db_port']) if vargs.get('db_port') else ''
+    )
+    vargs['db_schema'] = (
+        '/{}'.format(vargs['db_schema']) if vargs.get('db_schema') else '/'
+    )
+    vargs['db_socket'] = (
+        '?unix_socket={}'.format(vargs['db_socket']) if vargs.get('db_socket') else ''
+    )
     connection_string = (
         '{db_type}://{db_username}{db_password}{db_url}{db_port}{db_schema}{db_socket}'
         .format(**vargs)
