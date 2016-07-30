@@ -103,7 +103,11 @@ def make_connection_string(**vargs):
         'db_type': 'mysql', \
         'db_url': 'localhost', \
         'db_username': 'user'})
+<<<<<<< HEAD
     'mysql://user@localhost/'
+=======
+    'mysql://user:@localhost/'
+>>>>>>> master
     >>> make_connection_string(**{ \
         'db_password': 'pass', \
         'db_port': '3306', \
@@ -123,6 +127,7 @@ def make_connection_string(**vargs):
         'db_username': ''})
     'sqlite:////absolute/path/to/foo.db'
     """
+<<<<<<< HEAD
     vargs['db_password'] = (
         ':{}'.format(vargs['db_password']) if vargs.get('db_password') else ''
     )
@@ -138,6 +143,19 @@ def make_connection_string(**vargs):
     vargs['db_socket'] = (
         '?unix_socket={}'.format(vargs['db_socket']) if vargs.get('db_socket') else ''
     )
+=======
+    if vargs['db_username']:
+        vargs['db_username'] = vargs['db_username'] + ':'
+    if vargs['db_url']:
+        vargs['db_url'] = '@' + vargs['db_url']
+    if vargs['db_port']:
+        assert vargs['db_url']
+        vargs['db_port'] = ':' + vargs['db_port']
+    if vargs['db_schema'] is not None:
+        vargs['db_schema'] = '/' + vargs['db_schema']
+    if vargs['db_socket']:
+        vargs['db_socket'] = '?unix_socket=' + vargs['db_socket']
+>>>>>>> master
     connection_string = (
         '{db_type}://{db_username}{db_password}{db_url}{db_port}{db_schema}{db_socket}'
         .format(**vargs)
