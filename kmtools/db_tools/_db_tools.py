@@ -103,7 +103,7 @@ def make_connection_string(**vargs):
         'db_type': 'mysql', \
         'db_url': 'localhost', \
         'db_username': 'user'})
-    'mysql://user@localhost'
+    'mysql://user@localhost/'
     >>> make_connection_string(**{ \
         'db_password': 'pass', \
         'db_port': '3306', \
@@ -133,10 +133,10 @@ def make_connection_string(**vargs):
         ':{}'.format(vargs['db_port']) if vargs.get('db_port') else ''
     )
     vargs['db_schema'] = (
-        '/{}'.format(vargs['db_schema']) if vargs.get('db_schema') else ''
+        '/{}'.format(vargs['db_schema']) if vargs.get('db_schema') else '/'
     )
     vargs['db_socket'] = (
-        ':?unix_socket={}'.format(vargs['db_socket']) if vargs.get('db_socket') else ''
+        '?unix_socket={}'.format(vargs['db_socket']) if vargs.get('db_socket') else ''
     )
     connection_string = (
         '{db_type}://{db_username}{db_password}{db_url}{db_port}{db_schema}{db_socket}'
