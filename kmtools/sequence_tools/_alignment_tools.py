@@ -29,13 +29,15 @@ def align_pairwise(sequence_ref, sequence_alt):
     return alignment_ref, alignment_alt
 
 
-def get_crossmapping(alignment_ref, alignment_alt):
+def get_crossmapping(alignment_ref, alignment_alt, skip_mismatch=True):
     """.
 
     Examples
     --------
     >>> get_crossmapping('ABCDF', 'A-CEF')
     ('1,3,,5', '1,,2,,4')
+    >>> get_crossmapping('ABCDF', 'A-CEF', skip_mismatch=False)
+    ('1,3,4,5', '1,,2,3,4')
     """
     assert len(alignment_ref) == len(alignment_alt)
     mapping_ref2alt, mapping_alt2ref = [], []
@@ -52,21 +54,48 @@ def get_crossmapping(alignment_ref, alignment_alt):
             b_gaps += 1
             # mapping_ref2alt.append('')
             mapping_alt2ref.append('')
+        elif a != b:
+            if skip_mismatch:
+                mapping_ref2alt.append('')
+                mapping_alt2ref.append('')
+            else:
+                mapping_ref2alt.append(str(i - a_gaps + 1))
+                mapping_alt2ref.append(str(i - b_gaps + 1))
         else:
-            mapping_ref2alt.append('')
-            mapping_alt2ref.append('')
-    return ','.join(mapping_ref2alt), ','.join(mapping_alt2ref)
+            raise Exception
+    a2b = ','.join(mapping_ref2alt)
+    b2a = ','.join(mapping_alt2ref)
+    assert (a2b.count(',') + 1) == len(alignment_alt.replace('-', ''))
+    assert (b2a.count(',') + 1) == len(alignment_ref.replace('-', ''))
+    return a2b, b2a
 
 
-##
+def find_in_set(query, string_list):
+    """Return the index (1-based!) of `query` in `string_list`.
+
+    Analagous to the FIND_IN_SET function in MySQL.
+
+    Examples
+    --------
+    >>> find_in_set(10, '1,3,5,10')
+    4
+    >>> find_in_set('40', ',,,20,,30,40')
+    7
+    >>> find_in_set(2, '1,3,5')
+    0
+    """
+    try:
+        return string_list.split(',').index(str(query)) + 1
+    except ValueError:
+        return 0
+
+
 # Alignment with needle
-
-
 def align_sw(seqa, seqb, **kargs):
     """.
 
     Smith-Waterman aligment
-    central function, call  to get score, or identiy, or aligment etc
+    central function, call  to get score, or identiy, or aligment etc.
     """
     outfile = 'aln.needle2.{}.out'.format(random.randint(1, 30000))
 
