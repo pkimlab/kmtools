@@ -1,6 +1,19 @@
 import os.path as op
 import pandas as pd
 import kmtools
+import pytest
+
+
+@pytest.mark.parametrize("uniprot_id, uniprot_sequence", [
+    ('P42212', """\
+MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTL
+VTTFSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLV
+NRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLAD
+HYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK
+""".replace('\n', '').replace(' ', '')),
+])
+def test_get_uniprot_sequence(uniprot_id, uniprot_sequence):
+    assert str(kmtools.sequence_tools.get_uniprot_sequence(uniprot_id)) == uniprot_sequence
 
 
 def test_get_crossmapping():

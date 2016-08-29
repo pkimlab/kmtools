@@ -17,7 +17,10 @@ def unique(l):
     [1, 2, 3]
     """
     seen = set()
-    yield from (x for x in l if x not in seen and not seen.add(x))
+    for x in l:
+        if x not in seen:
+            seen.add(x)
+            yield x
 
 
 @contextmanager

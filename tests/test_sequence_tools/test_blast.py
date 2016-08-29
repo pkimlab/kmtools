@@ -4,13 +4,11 @@ import urllib.request
 import tarfile
 import logging
 import time
-import pytest
+import functools
 import pandas as pd
-from kmtools import sequence_tools, py_tools
+import concurrent.futures
+from kmtools import sequence_tools
 
-
-if not hasattr(pytest, 'config') or pytest.config.getvalue('debug'):
-    py_tools.configure_logging('debug')
 logger = logging.getLogger(__name__)
 
 BLAST_DB = op.abspath(op.join(op.splitext(__file__)[0], 'pdbaa'))
@@ -44,15 +42,19 @@ def teardown_module(module):
         assert not op.isfile(op.join(op.splitext(__file__)[0], filename))
 
 
-# ...
 def test_1():
+    NUM_BLASTS = 100
+    blastp = functools.partial(sequence_tools.blastp, db=BLAST_DB)
+    #
     df = pd.read_csv(
         op.join(op.splitext(__file__)[0], 'elaspic_training_set_core.tsv'),
         sep='\t')
     logger.debug(df.head())
-    _blast_sequences(df, 'uniprot_sequence')
-    _blast_sequences(df, 'domain_sequence')
-    return df
+    #
+    with concurrent.futures.ThreadPoolExecutor() as p:
+        results_1 = p.map(blastp, df['uniprot_sequence'][:NUM_BLASTS].values)
+        results_2 = p.map(blastp, df['domain_sequence'][:NUM_BLASTS].values)
+    return results_1, results_2
 
 
 def _blast_sequences(df, column):
@@ -60,7 +62,7 @@ def _blast_sequences(df, column):
     counter = 0
     time_0 = time.time()
     for i, row in df.iterrows():
-        sequence = row['domain_sequence']
+        sequence = row[column]
         result_df = sequence_tools.blastp(sequence, BLAST_DB)
         assert not result_df.empty
         counter += 1
