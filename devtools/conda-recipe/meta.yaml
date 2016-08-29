@@ -38,8 +38,8 @@ requirements:
     - matplotlib
     - seaborn
     # IPython
-    - ipython
-    - pygments
+    # - ipython
+    # - pygments
     # Binaries
     - blast
     - muscle
@@ -49,12 +49,14 @@ test:
     - pytest
     - pytest-runner
     - pytest-cov
+    - pytest-logging
     - pypy
     - flake8
   imports:
     - kmtools
 
 about:
-  home: http://pmklab.github.io/kmtools
+  home: http://kimlaborg.github.io/kmtools
   license: MIT
   summary: Helpful bioinformatics scripts.
+
