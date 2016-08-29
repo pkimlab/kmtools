@@ -38,8 +38,8 @@ requirements:
     - matplotlib
     - seaborn
     # IPython
-    # - ipython
-    # - pygments
+    - ipython
+    - pygments
     # Binaries
     - blast
     - muscle

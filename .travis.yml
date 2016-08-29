@@ -21,7 +21,7 @@ install:
   - conda install -q --yes conda-build anaconda-client git-lfs
   - git lfs pull
   - pip install codecov
-  - travis_wait 60 conda build -q devtools/conda-recipe/
+  - conda build devtools/conda-recipe/
 script:
   - source activate _test
   - py.test -vvv
