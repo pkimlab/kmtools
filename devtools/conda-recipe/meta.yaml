@@ -34,8 +34,8 @@ requirements:
     - numba
     - biopython
     # Plotting
-    - matplotlib
-    - seaborn
+    # - matplotlib
+    # - seaborn
     # IPython
     # - ipython
     # - pygments

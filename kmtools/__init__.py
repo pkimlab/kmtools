@@ -6,6 +6,7 @@ _blacklist = [
     'omnia_tools',
     'pymol_tools',
     'jupyter_tools',
+    'plotting_tools',
 ]
 
 BASE_DIR = op.dirname(__file__)
