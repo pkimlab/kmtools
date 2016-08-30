@@ -22,7 +22,6 @@ requirements:
     - requests
     - lxml
     - pycurl
-    - six
     - retrying
     - paramiko
     # Scientific python
@@ -38,8 +37,8 @@ requirements:
     - matplotlib
     - seaborn
     # IPython
-    - ipython
-    - pygments
+    # - ipython
+    # - pygments
     # Binaries
     - blast
     - muscle
@@ -59,4 +58,3 @@ about:
   home: http://kimlaborg.github.io/kmtools
   license: MIT
   summary: Helpful bioinformatics scripts.
-
