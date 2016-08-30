@@ -1,4 +1,4 @@
- {% set version = "0.0.12" %}
+ {% set version = "0.0.13" %}
 
 package:
   name: kmtools
@@ -22,7 +22,6 @@ requirements:
     - requests
     - lxml
     - pycurl
-    - six
     - retrying
     - paramiko
     # Scientific python
@@ -35,11 +34,11 @@ requirements:
     - numba
     - biopython
     # Plotting
-    - matplotlib
-    - seaborn
+    # - matplotlib
+    # - seaborn
     # IPython
-    - ipython
-    - pygments
+    # - ipython
+    # - pygments
     # Binaries
     - blast
     - muscle
@@ -49,12 +48,13 @@ test:
     - pytest
     - pytest-runner
     - pytest-cov
+    - pytest-logging
     - pypy
     - flake8
   imports:
     - kmtools
 
 about:
-  home: http://pmklab.github.io/kmtools
+  home: http://kimlaborg.github.io/kmtools
   license: MIT
   summary: Helpful bioinformatics scripts.

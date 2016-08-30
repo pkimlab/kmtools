@@ -3,6 +3,7 @@ import shlex
 import logging
 import io
 import pandas as pd
+import kmtools.sequence_tools
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +14,9 @@ BLAST_OUTFMT6_COLUMN_NAMES = [
     'query_id', 'subject_id', 'pc_identity', 'alignment_length', 'mismatches', 'gap_opens',
     'q_start', 'q_end', 's_start', 's_end', 'evalue', 'bitscore', 'qseq', 'sseq',
 ]
+
+
+# TODO: Add a2b and b2a columns.
 
 
 # @lru_cache(maxsize=1024, typed=False)
@@ -44,4 +48,8 @@ def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
     if error_message:
         logger.error(error_message)
     result_df = pd.read_csv(io.StringIO(result), sep='\t', names=BLAST_OUTFMT6_COLUMN_NAMES)
+    result_df['a2b'], result_df['b2a'] = list(zip(*(
+        kmtools.sequence_tools.get_crossmapping(*x, skip_mismatch=False)
+        for x in result_df[['qseq', 'sseq']].values)))
+    assert (result_df['qseq'].str.len() == result_df['sseq'].str.len()).all()
     return result_df

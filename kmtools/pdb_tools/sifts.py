@@ -181,7 +181,11 @@ def split_mutation(mutation):
     ('A', '10', 'C')
     >>> split_mutation('A10C')
     ('A', '10', 'C')
+    >>> split_mutation(None)
+    (None, None, None)
     """
+    if pd.isnull(mutation):
+        return None, None, None
     if ' ' in mutation:
         mutation_split = MUTATION_SPLIT_RE.split(mutation)
     else:
@@ -214,7 +218,7 @@ def validate_mutations(mutations, seqrecord):
         wt_valid = ''
         for i, aa in enumerate(wt):
             try:
-                mutations_match = str(seqrecord.seq)[int(pos) - 1 + i] == aa
+                mutations_match = str(seqrecord)[int(pos) - 1 + i] == aa
             except (IndexError, ValueError):
                 mutations_match = False
             if mutations_match:
@@ -264,7 +268,7 @@ def convert_amino_acid(
     else:
         sifts_df_pdb_aa_match = True
 
-    if pdb_chain is None:
+    if pd.isnull(pdb_chain):
         sifts_df_pdb_chain_match = True
     else:
         sifts_df_pdb_chain_match = (sifts_df['pdb_chain'] == pdb_chain)
@@ -284,6 +288,15 @@ def convert_amino_acid(
             (sifts_df['residx'] == pdb_residx) &
             (sifts_df_pdb_aa_match) &
             (sifts_df['uniprot_id'] == uniprot_id)]
+        if 'uniprot_position' in sifts_df.columns:
+            sifts_df_subset_4 = sifts_df[
+                (sifts_df['pdb_id'] == pdb_id) &
+                (sifts_df_pdb_chain_match) &
+                (sifts_df['uniprot_position'] == pdb_residx) &
+                (sifts_df_pdb_aa_match) &
+                (sifts_df['uniprot_id'] == uniprot_id)]
+        else:
+            sifts_df_subset_4 = []
     else:
         sifts_df_subset_0 = []
         sifts_df_subset_2 = []
@@ -300,6 +313,14 @@ def convert_amino_acid(
         (sifts_df_pdb_chain_match) &
         (sifts_df['residx'] == pdb_residx) &
         (sifts_df_pdb_aa_match)]
+    if 'uniprot_position' in sifts_df.columns:
+        sifts_df_subset_5 = sifts_df[
+            (sifts_df['pdb_id'] == pdb_id) &
+            (sifts_df_pdb_chain_match) &
+            (sifts_df['uniprot_position'] == pdb_residx) &
+            (sifts_df_pdb_aa_match)]
+    else:
+        sifts_df_subset_5 = []
 
     # Choose the best availible subset
     if len(sifts_df_subset_0):
@@ -310,6 +331,10 @@ def convert_amino_acid(
         sifts_df_subset = sifts_df_subset_2
     elif len(sifts_df_subset_3):
         sifts_df_subset = sifts_df_subset_3
+    elif len(sifts_df_subset_4):
+        sifts_df_subset = sifts_df_subset_4
+    elif len(sifts_df_subset_5):
+        sifts_df_subset = sifts_df_subset_5
     else:
         error_message = """\
 SIFTS failed to match residue ({}, {}, {}, {}, {}, {})\
@@ -319,8 +344,8 @@ SIFTS failed to match residue ({}, {}, {}, {}, {}, {})\
     # Result
     sifts_row = sifts_df_subset.iloc[0]
     uniprot_id_sifts = sifts_row.get('uniprot_id', uniprot_id)
-    uniprot_aa = sifts_row['uniprot_aa']
-    uniprot_pos = sifts_row['uniprot_position']
+    uniprot_aa = sifts_row.get('uniprot_aa')
+    uniprot_pos = sifts_row.get('uniprot_position')
     uniprot_pos = int(uniprot_pos) if pd.notnull(uniprot_pos) else uniprot_pos
     pdb_chain = sifts_row['pdb_chain']
     pfam_id = sifts_row.get('pfam_id', np.nan)
@@ -333,16 +358,17 @@ PDB AA and UniProt AA are not the same! ({}, {}, {}, {}, {}, {}) ({} != {} ({}))
         raise SIFTSError(error_message)
 
     uniprot_seqrecord = sequence_tools.get_uniprot_sequence(uniprot_id_sifts)
-    if not uniprot_seqrecord and (pd.notnull(uniprot_aa) or pd.notnull(uniprot_pos)):
-        error_message = """\
-Could not fetch uniprot sequence to make sure that AA '{}{}' is correct!\
-""".format(uniprot_aa, uniprot_pos)
-        raise SIFTSError(error_message)
-    elif uniprot_seqrecord and (str(uniprot_seqrecord.seq)[uniprot_pos - 1] != uniprot_aa):
-        error_message = """\
-Sequence mismatch: {}{} in {}!\
-""".format(uniprot_aa, uniprot_pos, uniprot_seqrecord.seq)
-        raise SIFTSError(error_message)
+    if pd.notnull(uniprot_aa) and pd.notnull(uniprot_pos):
+        if not uniprot_seqrecord:
+            error_message = """\
+    Could not fetch uniprot sequence to make sure that AA '{}{}' is correct!\
+    """.format(uniprot_aa, uniprot_pos)
+            raise SIFTSError(error_message)
+        elif uniprot_seqrecord and (str(uniprot_seqrecord.seq)[uniprot_pos - 1] != uniprot_aa):
+            error_message = """\
+    Sequence mismatch: {}{} in {}!\
+    """.format(uniprot_aa, uniprot_pos, uniprot_seqrecord.seq)
+            raise SIFTSError(error_message)
 
     return dict(
         uniprot_id=uniprot_id_sifts,
@@ -353,7 +379,79 @@ Sequence mismatch: {}{} in {}!\
     )
 
 
-def convert_pdb_mutations_to_uniprot(pdb_id, pdb_chains, pdb_mutations, sifts_df, uniprot_id=None):
+PDB_MUTATION_RE = re.compile(
+    '^([a-zA-Z0-9]{0,1})_?([GVALICMFWPDESTYQNKRH]{1}[1-9][0-9]*[GVALICMFWPDESTYQNKRH]*)$'
+)
+
+
+def format_pdb_mutation(pdb_mutation):
+    """
+    Examples
+    --------
+    >>> format_pdb_mutation('A_M1C')
+    ('A', 'M1C')
+    >>> format_pdb_mutation('AM1C')
+    ('A', 'M1C')
+    >>> format_pdb_mutation('M1C')
+    ('', 'M1C')
+    >>> format_pdb_mutation('XXXM1C')
+    (None, None)
+    """
+    match = PDB_MUTATION_RE.match(pdb_mutation)
+    if match is None:
+        return None, None
+    else:
+        return match.groups()
+
+
+def _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
+    """
+    Examples
+    --------
+    >>> list(_get_pdb_chain_mutation('A', 'M1C'))
+    [('A', 'M1C')]
+    >>> list(_get_pdb_chain_mutation('A', 'A_M1C'))
+    [('A', 'M1C')]
+    >>> list(_get_pdb_chain_mutation(None, 'A_M1C'))
+    [('A', 'M1C')]
+    >>> list(_get_pdb_chain_mutation('I', 'I_T19L.I_E21K'))
+    [('I', 'T19L'), ('I', 'E21K')]
+    >>> list(_get_pdb_chain_mutation('B', 'A_M1C'))
+    Traceback (most recent call last):
+    kmtools.pdb_tools.sifts.SIFTSError: PDB chains do not match!
+    """
+    # sep
+    sep = None
+    for s in [',', '.']:
+        if s in pdb_mutations:
+            sep = s
+            break
+    # pdb_mutations
+    if sep is not None:
+        pdb_mutations = pdb_mutations.split(sep)
+    else:
+        pdb_mutations = [pdb_mutations]
+    # pdb_chains
+    if sep is not None and pd.notnull(pdb_chains) and sep in pdb_chains:
+        pdb_chains = pdb_chains.split(sep)
+    else:
+        pdb_chains = [pdb_chains] * len(pdb_mutations)
+    assert len(pdb_chains) == len(pdb_mutations)
+    # yield
+    for pdb_chain, pdb_mutation in zip(pdb_chains, pdb_mutations):
+        c, m = format_pdb_mutation(pdb_mutation)
+        if not c:
+            yield pdb_chain, m
+        else:
+            if pdb_chain is not None and pdb_chain != c:
+                raise SIFTSError(
+                    "pdb_chain ('{}') and c ('{}') do not match!\n({}, {})"
+                    .format(pdb_chain, c, pdb_chains, pdb_mutations))
+            yield c, m
+
+
+def convert_pdb_mutations_to_uniprot(
+        pdb_id, pdb_chains=None, pdb_mutations=None, *, uniprot_id=None, sifts_df=None):
     """Convert a PDB mutations to UniProt.
 
     Works for a list of mutations joined with ',' but only one row at a time.
@@ -368,27 +466,26 @@ def convert_pdb_mutations_to_uniprot(pdb_id, pdb_chains, pdb_mutations, sifts_df
 
     Returns
     -------
-    uniprot_id_out : str
-        `uniprot_id` extracted from SIFTS.
-    uniprot_mutations : str
-        Comma-separated list of mutations in UniProt coordinates.
+    dict
 
     Examples
     --------
-    >>> sifts_df = get_sifts_data('2qja')
-    >>>
+    >>> from pprint import pprint
+    >>> sifts_df = get_sifts_data('1jrh')
+    >>> pprint(convert_pdb_mutations_to_uniprot('1jrh', 'I', 'I_T19L.I_E21K', sifts_df=sifts_df))
+    {'pdb_mutations_sifts': 'I_T19L.I_E21K',
+     'pfam_id_sifts': 'PF01108',
+     'uniprot_id_sifts': 'P15260',
+     'uniprot_mutations_sifts': 'T36L.E38K'}
     """
-    def get_pdb_chain_mutation():
-        if ',' not in pdb_mutations:
-            yield pdb_chains, pdb_mutations
-        elif pd.isnull(pdb_chains) or ',' not in pdb_chains:
-            for pdb_mutation in pdb_mutations.split(','):
-                yield pdb_chains, pdb_mutation
-        else:
-            yield from zip(pdb_chains.split(','), pdb_mutations.split(','))
-
+    pdb_mutations_sifts = []
     uniprot_mutations_sifts = []
-    for pdb_chain, pdb_mutation in get_pdb_chain_mutation():
+    for pdb_chain, pdb_mutation in _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
+        if pd.isnull(pdb_mutation):
+            error_message = """\
+Failed to get pdb_mutation ({}) for input: ({}, {}, {}, {})\
+""".format(pdb_chain, pdb_mutation, pdb_id, pdb_chains, pdb_mutations, uniprot_id)
+            raise SIFTSError(error_message)
         pdb_wt, pdb_resnum, pdb_mut = split_mutation(pdb_mutation)
         # Convert each of the mutant residues
         uniprot_aa_data = []
@@ -401,22 +498,28 @@ def convert_pdb_mutations_to_uniprot(pdb_id, pdb_chains, pdb_mutations, sifts_df
         if (any(pd.isnull(x['uniprot_aa']) for x in uniprot_aa_data) or
                 any(pd.isnull(x['uniprot_pos']) for x in uniprot_aa_data)):
             error_message = """\
-No mutation mapping available! ({}, {}, {}, {}, {}): {}\
-""".format(pdb_id, pdb_chains, pdb_mutations, pdb_chain, pdb_mutation, uniprot_aa_data)
+No mutation mapping available! ({}, {}, {}, {}):\n    {}\
+""".format(pdb_id, pdb_mutations, pdb_chain, pdb_mutation, uniprot_aa_data)
             raise SIFTSError(error_message)
         uniprot_id_sifts = uniprot_aa_data[0]['uniprot_id']
         pfam_id_sifts = uniprot_aa_data[0]['pfam_id']
         uniprot_wt = ''.join(x['uniprot_aa'] for x in uniprot_aa_data)
         uniprot_pos = uniprot_aa_data[0]['uniprot_pos']
+        pdb_chain = uniprot_aa_data[0]['pdb_chain']
         uniprot_mutation = '{}{}{}'.format(uniprot_wt, uniprot_pos, pdb_mut)
+
+        pdb_mutations_sifts.append('{}_{}{}{}'.format(pdb_chain, pdb_wt, pdb_resnum, pdb_mut))
         uniprot_mutations_sifts.append(uniprot_mutation)
         # pdb_chains_sifts = ','.join(x['pdb_chain'] for x in uniprot_aa_data)
 
     return dict(
         uniprot_id_sifts=uniprot_id_sifts,
         pfam_id_sifts=pfam_id_sifts,
+        pdb_mutations_sifts=(
+            '.'.join(pdb_mutations_sifts) if pdb_mutations_sifts else np.nan
+        ),
         uniprot_mutations_sifts=(
-            ','.join(uniprot_mutations_sifts) if uniprot_mutations_sifts else np.nan
+            '.'.join(uniprot_mutations_sifts) if uniprot_mutations_sifts else np.nan
         )
     )
 
@@ -434,27 +537,34 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
 
     Returns
     -------
-    uniprot_id : str
-    uniprot_mutations : str
-        Comma-separated list of mutations.
-    pdb_mutations : str
-        Comma-separated list of cleaned-up PDB mutations.
+    dict with keys:
+        uniprot_id_sifts : str
+        uniprot_mutations_sifts : str
+            Comma-separated list of mutations.
+        pfam_id_sifts : str
+            Comma-separated list of cleaned-up PDB mutations.
 
     Examples
     --------
     >>>
     """
     if pd.isnull(pdb_mutations) or pdb_mutations == '-' or pdb_mutations.startswith('WILD'):
-        return uniprot_id, '-', np.nan, np.nan
+        return {}
 
     def _uniprot_fallback(uniprot_id, pdb_mutations):
         """Try treating PDB mutations as though they are from UniProt."""
         if pd.isnull(uniprot_id):
-            return np.nan, np.nan, np.nan, np.nan
+            return {}
         else:
             uniprot_seqrecord = sequence_tools.get_uniprot_sequence(uniprot_id)
+            if pd.isnull(uniprot_seqrecord):
+                print(uniprot_id)
+                logger.error(uniprot_id)
             validated_mutations = validate_mutations(pdb_mutations, uniprot_seqrecord)
-            return uniprot_id, validated_mutations, np.nan, np.nan
+            return {
+                'uniprot_id_sifts': uniprot_id,
+                'uniprot_mutations_sifts': validated_mutations,
+            }
 
     # If pdb_id is null, make sure pdb_mutations matches UniProt
     if pd.isnull(pdb_id):
@@ -466,6 +576,5 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
     except lxml.etree.XMLSyntaxError:
         return _uniprot_fallback(uniprot_id, pdb_mutations)
 
-    uniprot_id, uniprot_mutations, pdb_chains = convert_pdb_mutations_to_uniprot(
+    return convert_pdb_mutations_to_uniprot(
         pdb_id, pdb_chains, pdb_mutations, uniprot_id, sifts_df)
-    return uniprot_id, uniprot_mutations, pdb_chains, pdb_mutations
