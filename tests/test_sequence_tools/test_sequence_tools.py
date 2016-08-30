@@ -13,7 +13,7 @@ HYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK
 """.replace('\n', '').replace(' ', '')),
 ])
 def test_get_uniprot_sequence(uniprot_id, uniprot_sequence):
-    assert str(kmtools.sequence_tools.get_uniprot_sequence(uniprot_id)) == uniprot_sequence
+    assert str(kmtools.sequence_tools.get_uniprot_sequence(uniprot_id).seq) == uniprot_sequence
 
 
 def test_get_crossmapping():

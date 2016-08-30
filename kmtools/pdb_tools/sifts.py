@@ -418,7 +418,7 @@ def _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
     [('I', 'T19L'), ('I', 'E21K')]
     >>> list(_get_pdb_chain_mutation('B', 'A_M1C'))
     Traceback (most recent call last):
-    Exception: message
+    kmtools.pdb_tools.sifts.SIFTSError: PDB chains do not match!
     """
     # sep
     sep = None
@@ -451,7 +451,7 @@ def _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
 
 
 def convert_pdb_mutations_to_uniprot(
-        pdb_id, pdb_chains=None, pdb_mutations=None, uniprot_id=None, sifts_df=None):
+        pdb_id, pdb_chains=None, pdb_mutations=None, *, uniprot_id=None, sifts_df=None):
     """Convert a PDB mutations to UniProt.
 
     Works for a list of mutations joined with ',' but only one row at a time.
@@ -466,17 +466,15 @@ def convert_pdb_mutations_to_uniprot(
 
     Returns
     -------
-    uniprot_id_out : str
-        `uniprot_id` extracted from SIFTS.
-    uniprot_mutations : str
-        Comma-separated list of mutations in UniProt coordinates.
+    dict
 
     Examples
     --------
     >>> from pprint import pprint
     >>> sifts_df = get_sifts_data('1jrh')
     >>> pprint(convert_pdb_mutations_to_uniprot('1jrh', 'I', 'I_T19L.I_E21K', sifts_df=sifts_df))
-    {'pfam_id_sifts': 'PF01108',
+    {'pdb_mutations_sifts': 'I_T19L.I_E21K',
+     'pfam_id_sifts': 'PF01108',
      'uniprot_id_sifts': 'P15260',
      'uniprot_mutations_sifts': 'T36L.E38K'}
     """

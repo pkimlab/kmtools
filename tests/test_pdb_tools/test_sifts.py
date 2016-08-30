@@ -10,4 +10,4 @@ def test_sifts_exception(pdb_id, pdb_chains, pdb_mutations):
     sifts_df = kmtools.pdb_tools.sifts.get_sifts_data(pdb_id)
     with pytest.raises(kmtools.pdb_tools.sifts.SIFTSError):
         kmtools.pdb_tools.sifts.convert_pdb_mutations_to_uniprot(
-            pdb_id, pdb_chains, pdb_mutations, sifts_df)
+            pdb_id, pdb_chains, pdb_mutations, sifts_df=sifts_df)
