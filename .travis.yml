@@ -23,7 +23,11 @@ install:
   - pip install codecov
   - conda build devtools/conda-recipe/
 script:
+  - conda create -n _test $PKG_NAME
   - source activate _test
+  - conda install _test --use-local
+  - conda install pypy
+  - pip install pytest pytest-runner pytest-cov pytest-logging
   - py.test -vvv
   - source deactivate
 after_success:
