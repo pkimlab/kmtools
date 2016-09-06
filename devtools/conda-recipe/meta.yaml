@@ -1,4 +1,4 @@
- {% set version = "0.0.13" %}
+ {% set version = "0.0.14" %}
 
 package:
   name: kmtools
@@ -33,6 +33,9 @@ requirements:
     - pytables
     - numba
     - biopython
+    # Required by lxml
+    - icu
+    - libiconv
     # Plotting
     # - matplotlib
     # - seaborn
