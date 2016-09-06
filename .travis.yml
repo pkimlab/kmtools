@@ -20,14 +20,17 @@ install:
   - conda update -q conda
   - conda install -q --yes conda-build anaconda-client git-lfs
   - git lfs pull
-  - pip install codecov
   - conda build devtools/conda-recipe/
 script:
+  - conda create -n _test $PKG_NAME --use-local
   - source activate _test
+  - conda install pypy
+  - pip install pytest flake8 pytest-runner pytest-cov pytest-logging
   - py.test -vvv
   - source deactivate
 after_success:
   - echo "Success!"
+  - pip install codecov
   - codecov
   - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
   - devtools/travis-ci/build-docs.sh
