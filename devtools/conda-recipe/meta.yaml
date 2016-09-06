@@ -33,6 +33,9 @@ requirements:
     - pytables
     - numba
     - biopython
+    # Required by lxml
+    - icu
+    - libiconv
     # Plotting
     # - matplotlib
     # - seaborn
