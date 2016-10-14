@@ -96,6 +96,7 @@ def load_csv(file: str) -> pd.DataFrame:
     sep = _guess_sep(file)
     compression = _guess_compression(file)
     dtypes = pd.read_pickle(file + '.dtype')
+    dtypes.loc[dtypes == '<M8[ns]'] = np.dtype('O')
     df = pd.read_csv(file, sep=sep, compression=compression, dtype=dtypes.to_dict())
     return df
 
