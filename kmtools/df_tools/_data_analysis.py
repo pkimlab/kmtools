@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 def print2(a, b, *args, x=60):
-    template = '{:%d}{}' % x
+    template = '{:%d}{:,}' % x
     formatted_template = template.format(a, b)
     for arg in args:
         formatted_template += ' ' + str(arg)

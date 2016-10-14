@@ -1,6 +1,8 @@
+import string
 import logging
-from collections import Counter
+from collections import Counter, OrderedDict
 import numpy as np
+import pandas as pd
 
 
 logger = logging.getLogger(__name__)
@@ -76,3 +78,65 @@ def remove_duplicate_columns(df, keep_first=True, add_suffix=False):
     df = df.iloc[:, keep_i]
     df.columns = keep_name
     return df
+
+
+# Save and load CSV files with one line
+def dump_csv(df: pd.DataFrame, file: str) -> None:
+    """Export DataFrame as a CSV file with dtype annotations.
+    """
+    sep = _guess_sep(file)
+    compression = _guess_compression(file)
+    df.to_csv(file, sep=sep, index=False, compression=compression)
+    df.dtypes.to_pickle(file + '.dtype')
+
+
+def load_csv(file: str) -> pd.DataFrame:
+    """Import DataFrame from a CSV file and dtype annotations.
+    """
+    sep = _guess_sep(file)
+    compression = _guess_compression(file)
+    dtypes = pd.read_pickle(file + '.dtype')
+    dtypes.loc[dtypes == '<M8[ns]'] = np.dtype('O')
+    df = pd.read_csv(file, sep=sep, compression=compression, dtype=dtypes.to_dict())
+    return df
+
+
+def _guess_sep(file):
+    if '.tsv' in file:
+        return '\t'
+    else:
+        return ','
+
+
+def _guess_compression(file):
+    if file.endswith('.gz'):
+        return 'gzip'
+    elif file.endswith('.bz2'):
+        return 'bz2'
+    elif file.endswith('.xz'):
+        return 'xz'
+    else:
+        return None
+
+
+# Helps with tests
+def random_df(n_rows: int=100000, n_cols: int=5) -> pd.DataFrame:
+    """Return a random class:`pandas.DataFrame`.
+    """
+    fns = [
+        lambda: np.array(
+            [''.join(np.random.choice(list(string.printable)) for _ in range(12))] * n_rows
+        ),
+        lambda: np.array(
+            [''.join(np.random.choice(list(string.printable)) for _ in range(256))] * n_rows
+        ),
+        lambda: np.array(
+            [''.join(np.random.choice(list(string.printable)) for _ in range(1024))] * n_rows
+        ),
+        lambda: np.random.randint(0, 10000000000, n_rows),
+        lambda: np.random.randn(n_rows),
+    ]
+    cols = OrderedDict()
+    for name, fn in zip(string.ascii_uppercase, fns):
+        cols[name] = fn()
+    return pd.DataFrame(cols)
