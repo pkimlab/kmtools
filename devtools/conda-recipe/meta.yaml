@@ -34,7 +34,7 @@ requirements:
     - numba
     - biopython
     # Required by lxml
-    - icu
+    - icu ==56.1
     - libiconv
     # Plotting
     # - matplotlib
