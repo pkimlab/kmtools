@@ -1,5 +1,5 @@
-from .constants import *  # noqa
-from ._pdb_tools import *  # noqa
+from .constants import *
+from ._pdb_tools import *
 __all__ = [
     'sifts',
 ]

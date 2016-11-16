@@ -263,6 +263,7 @@ class UniParcXMLParser:
                 row = [row_dict.get(c, '\\N') for c in columns]
                 writer.writerow(row)
 
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()

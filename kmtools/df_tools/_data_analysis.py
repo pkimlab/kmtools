@@ -1,4 +1,5 @@
-"""Data Analysis Tools."""
+"""Data Analysis Tools.
+"""
 import os
 import logging
 import fcntl

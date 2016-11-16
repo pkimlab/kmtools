@@ -65,11 +65,11 @@ def remove_duplicate_columns(df, keep_first=True, add_suffix=False):
                 while column in seen:
                     suffix_i += 1
                     column = '{}_{}'.format(column_orig, suffix_i)
-                logger.info("Renamed column '{}' to '{}'.".format(column_orig, column))
+                logger.info("Renamed column '%s' to '%s'.", column_orig, column)
                 keep_i.append(i)
                 keep_name.append(column)
             else:
-                logger.info("Removed column '{}' at position {}.".format(column, i))
+                logger.info("Removed column '%s' at position %s.", column, i)
 
     if not keep_first:
         keep_i = list(reversed([df.shape[1] - i - 1 for i in keep_i]))
@@ -80,48 +80,10 @@ def remove_duplicate_columns(df, keep_first=True, add_suffix=False):
     return df
 
 
-# Save and load CSV files with one line
-def dump_csv(df: pd.DataFrame, file: str) -> None:
-    """Export DataFrame as a CSV file with dtype annotations.
-    """
-    sep = _guess_sep(file)
-    compression = _guess_compression(file)
-    df.to_csv(file, sep=sep, index=False, compression=compression)
-    df.dtypes.to_pickle(file + '.dtype')
-
-
-def load_csv(file: str) -> pd.DataFrame:
-    """Import DataFrame from a CSV file and dtype annotations.
-    """
-    sep = _guess_sep(file)
-    compression = _guess_compression(file)
-    dtypes = pd.read_pickle(file + '.dtype')
-    dtypes.loc[dtypes == '<M8[ns]'] = np.dtype('O')
-    df = pd.read_csv(file, sep=sep, compression=compression, dtype=dtypes.to_dict())
-    return df
-
-
-def _guess_sep(file):
-    if '.tsv' in file:
-        return '\t'
-    else:
-        return ','
-
-
-def _guess_compression(file):
-    if file.endswith('.gz'):
-        return 'gzip'
-    elif file.endswith('.bz2'):
-        return 'bz2'
-    elif file.endswith('.xz'):
-        return 'xz'
-    else:
-        return None
-
-
-# Helps with tests
-def random_df(n_rows: int=100000, n_cols: int=5) -> pd.DataFrame:
+def random_df(n_rows: int=100000) -> pd.DataFrame:
     """Return a random class:`pandas.DataFrame`.
+
+    Can help with tests where you need a random DataFrame.
     """
     fns = [
         lambda: np.array(
