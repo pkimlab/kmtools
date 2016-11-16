@@ -25,7 +25,8 @@ script:
   - conda create -n _test $PKG_NAME --use-local
   - source activate _test
   - conda install pypy
-  - pip install pytest flake8 pytest-runner pytest-cov pytest-logging
+  - pip install flake8 pytest pytest-runner pytest-cov pytest-logging
+  - flake8
   - py.test -vvv
   - source deactivate
 after_success:
