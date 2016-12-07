@@ -5,9 +5,11 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+   :glob:
 
+   environment_variables
    acknowledgements
-
+   modules
 
 Indices and tables
 ==================
