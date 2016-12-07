@@ -1,7 +1,6 @@
 import sys
 import os
 import os.path as op
-import gzip
 import re
 import shlex
 
@@ -9,9 +8,8 @@ import shlex
 class UniParcXMLParser:
     """
     """
-    def __init__(self, file_path, output_dir, writer='csv'):
-        self.file_path = file_path
-        self.file_handle = self._get_file_handle(file_path)
+    def __init__(self, file_handle, output_dir, writer='csv'):
+        self.file_handle = file_handle
         #
         if not op.isdir(output_dir):
             raise Exception("`output_dir` must exist!")
@@ -49,16 +47,6 @@ class UniParcXMLParser:
         self._uniparc_xref_prop_columns = [
             'uniparc_xref_prop_id', 'uniparc_xref_id', 'type', 'value'
         ]
-
-    def _get_file_handle(self, file_path):
-        """Return an iterator over compressed or uncompressed files."""
-        extension = op.splitext(file_path)[-1]
-        if extension == '.gz':
-            return gzip.open(self.file_path, mode='rt')
-        elif extension == '.bz2':
-            raise NotImplementedError
-        else:
-            return open(file_path)
 
     @property
     def _file_iterator(self):
@@ -267,7 +255,7 @@ class UniParcXMLParser:
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file_path', type=str)
+    parser.add_argument('file_path', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     parser.add_argument('--output_dir', type=str)
     args = parser.parse_args()
     hacky_xml_parser = UniParcXMLParser(args.file_path, args.output_dir)

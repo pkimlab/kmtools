@@ -4,10 +4,10 @@ import shutil
 import time
 import tempfile
 import subprocess
-import shlex
 import pytest
 import pandas as pd
-import kmtools
+
+from kmtools import system_tools, sequence_tools
 
 TEMPDIR = op.abspath(op.splitext(__file__)[0])
 os.makedirs(TEMPDIR, exist_ok=True)
@@ -33,11 +33,11 @@ class TestUniParcXMLParser:
          {'type': 'protein_name', 'value': 'aminotransferase family protein'})
     ])
     def test__parse_match(self, match, output):
-        self.parser = kmtools.sequence_tools.UniParcXMLParser(self.file_path, self.output_dir)
+        self.parser = sequence_tools.UniParcXMLParser(self.file_path, self.output_dir)
         assert self.parser._parse_match(match) == output
 
     def test__append_to_file(self):
-        self.parser = kmtools.sequence_tools.UniParcXMLParser(
+        self.parser = sequence_tools.UniParcXMLParser(
             self.file_path, self.output_dir, 'csv')
         data = [
             {'uniparc_id': 1},
@@ -49,11 +49,12 @@ class TestUniParcXMLParser:
         pytest.config.getvalue("quick"), reason="Tests take several minutes.")
     @pytest.mark.parametrize("writer", ['pandas', 'csv'])
     def test_run(self, writer):
-        self.parser = kmtools.sequence_tools.UniParcXMLParser(
-            self.file_path, self.output_dir, 'pandas')
-        t0 = time.time()
-        self.parser.parse()
-        t1 = time.time()
+        with system_tools.open_compressed(self.file_path, 'rt') as ifh:
+            self.parser = sequence_tools.UniParcXMLParser(
+                ifh, self.output_dir, 'pandas')
+            t0 = time.time()
+            self.parser.parse()
+            t1 = time.time()
         print("Finished in {:.2f} seconds".format(t1 - t0))
         self._assert_dataframes_match()
 
@@ -66,20 +67,20 @@ class TestUniParcXMLParser:
         if not proc.stdout.strip():
             print("No `pypy` installed, but running with `pypy` is over 15 times faster!")
             return
-        import kmtools.sequence_tools.uniparc_xml_parser
+
         system_command = (
-            "pypy {} '{}' --file_path '{}' --output_dir '{}'"
+            "zcat {} | pypy {} '{}' --output_dir '{}'"
             .format(
-                optimize,
-                kmtools.sequence_tools.uniparc_xml_parser.__file__,
                 self.file_path,
+                optimize,
+                sequence_tools.uniparc_xml_parser.__file__,
                 self.output_dir)
         )
         print(system_command)
         t0 = time.time()
         proc = subprocess.run(
-            shlex.split(system_command), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            universal_newlines=True)
+            system_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            universal_newlines=True, shell=True)
         t1 = time.time()
         print("Finished in {:.2f} seconds".format(t1 - t0))
         proc.check_returncode()
