@@ -59,7 +59,11 @@ def _copy_residue(residue, residue_idx):
     return new_residue
 
 
-def parse_structure(structure):
+def _copy_structure(structure):
+    raise NotImplementedError
+
+
+def process_structure(structure):
     mapping = {}
     # Create new structure
     new_structure = Bio.PDB.Structure.Structure(structure.id)
@@ -120,55 +124,63 @@ def _iter_interchain_ns(structure, interchain=True):
                             (model_1_idx != model_2_idx or chain_1_idx != chain_2_idx)):
                         continue
                     for residue_2_idx, residue_2 in enumerate(chain_2):
-                        yield model_1_idx, chain_1_idx, model_2_idx, chain_2_idx, ns, residue_2
+                        yield model_1.id, chain_1.id, model_2.id, chain_2.id, ns, residue_2
 
 
-def get_interactions_between_chains(structure, interchain=True):
-    """Return residue-residue interactions between all chains in `structure`.
+def get_interactions(structure, interchain=True):
+    """Return residue-residue interactions within and between chains in `structure`.
 
-    Precondition:
-        For each chain, `residue.id[1]` is unique.
+    .. todo::
+
+        This could probably be sped up by using the
+        :py:meth:`Bio.PDB.NeighborSearch.search_all` method.
+
+    Preconditions
+    -------------
+    - For each chain, `residue.id[1]` is unique.
 
     Parameters
     ----------
     structure : Bio.PDB.Structure.Structure
         Structure to analyse.
+    interchain : :cls:`bool`
+        Whether to include interactions between chains.
     """
     columns = [
-        'model_1_idx', 'chain_1_idx', 'model_2_idx', 'chain_2_idx',
-        'residue_1_resid', 'residue_1_resname', 'residue_1_aa',
-        'residue_2_resid', 'residue_2_resname', 'residue_2_aa',
+        'model_1_id', 'chain_1_id', 'model_2_id', 'chain_2_id',
+        'residue_1_id', 'residue_1_name', 'residue_1_aa',
+        'residue_2_id', 'residue_2_name', 'residue_2_aa',
     ]
     results = []
-    counter = 0
-    for model_1_idx, chain_1_idx, model_2_idx, chain_2_idx, ns, residue_2 in (
+    for model_1_id, chain_1_id, model_2_id, chain_2_id, ns, residue_2 in (
         _iter_interchain_ns(structure, interchain=interchain)
     ):
         if residue_2.resname in COMMON_HETATMS:
             continue
+        seen = set()
         interacting_residues = [
             r
             for a in residue_2
             for r in ns.search(a.get_coord(), R_CUTOFF, 'R')
+            if r.id not in seen and not seen.add(r.id)
         ]
         for residue_1 in interacting_residues:
             if residue_1.resname in COMMON_HETATMS:
                 continue
             row = (
-                model_1_idx, chain_1_idx, model_2_idx, chain_2_idx,
+                model_1_id, chain_1_id, model_2_id, chain_2_id,
                 residue_1.id[1], residue_1.resname, AAA_DICT.get(residue_1.resname),
                 residue_2.id[1], residue_2.resname, AAA_DICT.get(residue_2.resname),
             )
             results.append(row)
-        counter += 1
-        if counter > 100:
-            break
-    return pd.DataFrame(results, columns=columns)
+    # df
+    columns_to_sort = [
+        'model_1_id', 'model_2_id', 'chain_1_id', 'chain_2_id', 'residue_1_id', 'residue_2_id'
+    ]
+    df = pd.DataFrame(results, columns=columns).sort_values(columns_to_sort)
+    df.index = range(len(df))
+    return df
 
 
 def get_chain_sequence(chain):
     return ''.join(AAA_DICT[r.resname] for r in chain)
-
-
-def _copy_structure(structure):
-    ...

@@ -45,6 +45,7 @@ requirements:
     # Binaries
     - blast
     - muscle
+    - cifparse-obj  # Assemblies
 
 test:
   requires:

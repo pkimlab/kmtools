@@ -125,7 +125,7 @@ def _gen_assembly(data):
         cif_file = op.join(tmpdirname, 'xxxx.cif')
         with open(cif_file, 'wb') as ofh:
             ofh.write(data)
-        subprocess.run(['Assemblies', cif_file])
+        subprocess.run(['Assemblies', cif_file], cwd=op.dirname(cif_file))
         with open(cif_file.replace('.cif', '-1.cif'), 'rb') as ifh:
             data = ifh.read()
     return data
@@ -194,16 +194,16 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
 
     Examples
     --------
-    >>> from kmtools import system_tools
+    >>> import urllib.request
 
     >>> pdb_file = op.join(tempfile.gettempdir(), '4dkl.pdb')
-    >>> system_tools.download('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
+    >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
     >>> load_structure(pdb_file)
     Structure(id='4dkl')
     >>> os.remove(pdb_file)
 
     >>> pdb_file = op.join(tempfile.gettempdir(), '3K1Q.cif')
-    >>> system_tools.download('https://files.rcsb.org/download/3K1Q.cif', pdb_file)
+    >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/3K1Q.cif', pdb_file)
     >>> load_structure(pdb_file)
     Structure(id='3k1q')
     >>> os.remove(pdb_file)

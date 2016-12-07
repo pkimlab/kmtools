@@ -11,7 +11,9 @@ from lxml import etree
 import numpy as np
 import pandas as pd
 import lxml.etree
-from kmtools import system_tools, sequence_tools, structure_tools
+import urllib.request
+
+from kmtools import sequence_tools, structure_tools
 
 logger = logging.getLogger(__name__)
 
@@ -137,7 +139,7 @@ def get_sifts_data(pdb_id, cache_dict={}):
     if not op.isfile(op.join(cache_dir, sifts_filename)):
         url = 'ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/xml/{}'.format(sifts_filename)
         os.makedirs(cache_dir, exist_ok=True)
-        system_tools.download(url, op.join(cache_dir, sifts_filename))
+        urllib.request.urlretrieve(url, op.join(cache_dir, sifts_filename))
 
     # Go over the xml file and find all cross-references to uniprot
     pdb_sifts_data = []

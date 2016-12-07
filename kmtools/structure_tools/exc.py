@@ -1,7 +1,3 @@
-class ObjectsNotEqualError(Exception):
-    pass
-
-
 class PDBEmptySequenceError(Exception):
     """One of the sequences is missing from the alignment.
 

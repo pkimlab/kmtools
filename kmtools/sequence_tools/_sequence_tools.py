@@ -3,9 +3,10 @@ import logging
 import numpy as np
 import functools
 import tempfile
+import urllib.request
+
 import pandas as pd
 import Bio.SeqIO
-from kmtools import system_tools
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,7 @@ def get_uniprot_sequence(uniprot_id):
             seqrecord = Bio.SeqIO.read(output_file, 'fasta')
         except FileNotFoundError:
             url = 'http://www.uniprot.org/uniprot/{}.fasta'.format(uniprot_id)
-            system_tools.download(url, output_file)
+            urllib.request.urlretrieve(url, output_file)
             seqrecord = Bio.SeqIO.read(output_file, 'fasta')
     except ValueError:
         seqrecord = None
