@@ -3,33 +3,31 @@ import json
 from lxml import etree
 from tempfile import TemporaryDirectory
 import pandas as pd
+
 import pytest
-import kmtools.pdb_tools.sifts as sifts
 
-
-###################################################################################################
-# SIFTS
+from kmtools import structure_tools
 
 
 class TestPresent:
     """Test the case where the SIFTS xml file is already present in the cache directory."""
 
     def test_1(self):
-        sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = sifts.get_sifts_data('1arr')
+        structure_tools.sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
+        sifts_data = structure_tools.sifts.get_sifts_data('1arr')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = sifts.get_sifts_data('3mbp')
+        structure_tools.sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
+        sifts_data = structure_tools.sifts.get_sifts_data('3mbp')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_3(self):
         pdb_id = '1dvf'
-        sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = sifts.get_sifts_data(pdb_id)
+        structure_tools.sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
+        sifts_data = structure_tools.sifts.get_sifts_data(pdb_id)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
         sifts_data_subset = (
@@ -49,22 +47,33 @@ class TestAbscent:
     @classmethod
     def setup_class(cls):
         cls.temp_dir = TemporaryDirectory()
-        sifts.CACHE_DIR = cls.temp_dir.name
+        structure_tools.sifts.CACHE_DIR = cls.temp_dir.name
 
     @classmethod
     def teardown_class(cls):
         cls.temp_dir.cleanup()
 
     def test_1(self):
-        sifts_data = sifts.get_sifts_data('1arr')
+        sifts_data = structure_tools.sifts.get_sifts_data('1arr')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        sifts_data = sifts.get_sifts_data('3mbp')
+        sifts_data = structure_tools.sifts.get_sifts_data('3mbp')
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
         del sifts_data
+
+
+@pytest.mark.parametrize("pdb_id,pdb_chains,pdb_mutations", [
+    ('2qja', 'C', 'T74A,L78M,G79K,L80Y'),
+])
+def test_sifts_exception(pdb_id, pdb_chains, pdb_mutations):
+    """Test the case where PDB AA and UniProt AA are different."""
+    sifts_df = structure_tools.sifts.get_sifts_data(pdb_id)
+    with pytest.raises(structure_tools.sifts.SIFTSError):
+        structure_tools.sifts.convert_pdb_mutations_to_uniprot(
+            pdb_id, pdb_chains, pdb_mutations, sifts_df=sifts_df)
 
 
 @pytest.fixture(scope='session', params=range(2))
@@ -81,4 +90,4 @@ def residue_in_out(request):
 def test__get_residue_info_xml(residue_in_out):
     xml_data, json_data = residue_in_out
     print(xml_data)
-    assert sifts._get_residue_info_xml(xml_data) == json_data
+    assert structure_tools.sifts._get_residue_info_xml(xml_data) == json_data
