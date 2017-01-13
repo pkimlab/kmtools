@@ -46,16 +46,16 @@ def parse_connection_string(connection_string):
      'db_url': '192.168.0.1',
      'db_username': 'user'}
     >>> pprint(parse_connection_string('sqlite:////absolute/path/to/foo.db'))
-    {'db_password': '',
+    {'db_password': None,
      'db_port': '',
      'db_schema': '/absolute/path/to/foo.db',
      'db_socket': '',
      'db_type': 'sqlite',
      'db_url': '',
      'db_username': ''}
-    >>> connection_string = 'mysql://user:pass@192.168.0.1:3306/test?unix_socket=/tmp/mysql.sock'
+    >>> connection_string = 'mysql://user@192.168.0.1:3306/test?unix_socket=/tmp/mysql.sock'
     >>> pprint(parse_connection_string(connection_string))
-    {'db_password': 'pass',
+    {'db_password': None,
      'db_port': '3306',
      'db_schema': 'test',
      'db_socket': '/tmp/mysql.sock',
@@ -79,7 +79,13 @@ def parse_connection_string(connection_string):
             connection_string)
         .groups()
     )
-    db_params['db_password'] = db_params['db_password'].lstrip(':')
+    if db_params['db_password'].startswith(':'):
+        if db_params['db_password'] == ':':
+            db_params['db_password'] = ''
+        else:
+            db_params['db_password'] = db_params['db_password'][1:]
+    else:
+        db_params['db_password'] = None
     db_params['db_url'] = db_params['db_url'].lstrip('@')
     db_params['db_port'] = db_params['db_port'].lstrip(':')
     db_params['db_schema'] = (
@@ -96,7 +102,7 @@ def make_connection_string(**vargs):
     Examples
     --------
     >>> make_connection_string(**{ \
-        'db_password': '', \
+        'db_password': None, \
         'db_port': '', \
         'db_schema': '', \
         'db_socket': '', \
@@ -124,7 +130,9 @@ def make_connection_string(**vargs):
     'sqlite:////absolute/path/to/foo.db'
     """
     vargs['db_password'] = (
-        ':{}'.format(vargs['db_password']) if vargs.get('db_password') else ''
+        ':{}'.format(vargs['db_password'])
+        if vargs.get('db_password') is not None and not vargs.get('db_schema', '').startswith('/')
+        else ''
     )
     vargs['db_url'] = (
         '@{}'.format(vargs['db_url']) if vargs.get('db_url') else ''

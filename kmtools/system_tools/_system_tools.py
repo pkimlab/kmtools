@@ -9,14 +9,18 @@ import shlex
 import shutil
 import subprocess
 import gzip
+import time
 import bz2
 import lzma
 import urllib.request
 from contextlib import contextmanager
 
+from retrying import retry
+import sqlalchemy as sa
 import paramiko
 
 from kmtools import system_tools
+from . import exc
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +52,17 @@ def remove_extensions(filename, extensions):
     return filename
 
 
+def format_unprintable(string):
+    r"""Escape tabs (\t), newlines (\n), etc. for system commands and printing.
+
+    Examples
+    --------
+    >>> format_unprintable('\t')
+    '\\t'
+    """
+    return repr(string).strip("'")
+
+
 # Subprocess
 def _set_process_group(parent_process_group_id):
     """Set group_id of the child process to the group_id of the parent process.
@@ -75,7 +90,7 @@ def get_hostname():
     return run('hostname | cut -d. -f1').stdout
 
 
-def get_which(bin_name):
+def which(bin_name):
     return run('which ' + bin_name).stdout
 
 
@@ -105,7 +120,7 @@ def switch_paths(working_path):
 
 
 # Retry
-def _check_exception(exc, valid_exc):
+def check_exception(exc, valid_exc):
     logger.error('The following exception occured:\n{}'.format(exc))
     to_retry = isinstance(exc, valid_exc)
     if to_retry:
@@ -115,11 +130,19 @@ def _check_exception(exc, valid_exc):
 
 def retry_database(fn):
     """Decorator to keep probing the database untill you succeed."""
-    from retrying import retry
-    import sqlalchemy as sa
+    _check_exception = functools.partial(check_exception, valid_exc=sa.exc.OperationalError)
     r = retry(
-        retry_on_exception=lambda exc:
-            _check_exception(exc, valid_exc=sa.exc.OperationalError),
+        retry_on_exception=_check_exception,
+        wait_exponential_multiplier=1000,
+        wait_exponential_max=60000,
+        stop_max_attempt_number=7)
+    return r(fn)
+
+
+def retry_subprocess(fn):
+    _check_exception = functools.partial(check_exception, valid_exc=subprocess.SubprocessError)
+    r = retry(
+        retry_on_exception=_check_exception,
         wait_exponential_multiplier=1000,
         wait_exponential_max=60000,
         stop_max_attempt_number=7)
@@ -128,10 +151,9 @@ def retry_database(fn):
 
 def retry_archive(fn):
     """Decorator to keep probing the database untill you succeed."""
-    from retrying import retry
+    _check_exception = functools.partial(check_exception, valid_exc=system_tools.exc.ArchiveError)
     r = retry(
-        retry_on_exception=lambda exc:
-            _check_exception(exc, valid_exc=system_tools.exc.ArchiveError),
+        retry_on_exception=_check_exception,
         wait_fixed=2000,
         stop_max_attempt_number=2)
     return r(fn)
@@ -222,3 +244,98 @@ def make_tarfile(source_dir, output_filename):
     import tarfile
     with tarfile.open(output_filename, "w:gz") as tar:
         tar.add(source_dir, arcname=op.basename(source_dir))
+
+
+def start_subprocess(system_command):
+    p = subprocess.Popen(
+        shlex.split(system_command),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+        bufsize=1)
+    return p
+
+
+def iter_stdout(p):
+    for line in p.stdout:
+        line = line.strip()
+        if ' [Note] ' in line:
+            line = line.partition(' [Note] ')[-1]
+        if not line:
+            if p.poll() is None:
+                time.sleep(0.1)
+                continue
+            else:
+                # logger.debug("DONE! (reached an empty line)")
+                return
+        yield line
+
+
+# === Run command ====
+class MySSHClient:
+
+    def __init__(self, ssh_host):
+        self.ssh_host = ssh_host
+        self.ssh = paramiko.SSHClient()
+        self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    def __enter__(self):
+        logger.debug("Initializing SSH client: '{}'".format(self.ssh_host))
+        self.ssh.connect(self.ssh_host)
+        return self.ssh
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        self.ssh.close()
+        if exc_type or exc_value or exc_tb:
+            import traceback
+            logger.error(exc_type)
+            logger.error(exc_value)
+            logger.error(traceback.print_tb(exc_tb))
+            return True
+        else:
+            return False
+
+
+@retry_subprocess
+def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[0]):
+    """Run system command either locally or over ssh."""
+    # === Run command ===
+    logger.debug(system_command)
+    if host is not None:
+        logger.debug("Running on host: '{}'".format(host))
+        with MySSHClient(host) as ssh:
+            _stdin, _stdout, _stderr = ssh.exec_command(system_command)
+            stdout = _stdout.read().decode()
+            stderr = _stderr.read().decode()
+            returncode = _stdout.channel.recv_exit_status()
+    else:
+        logger.debug("Running locally")
+        sp = subprocess.run(
+            system_command if shell else shlex.split(system_command),
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell, universal_newlines=True,
+        )
+        stdout = sp.stdout
+        stderr = sp.stderr
+        returncode = sp.returncode
+    # === Process results ===
+    stdout_lower = stdout.lower()
+    if returncode not in allowed_returncodes:
+        error_message = (
+            "Encountered an error: '{}'\n".format(stderr) +
+            "System command: '{}'\n".format(system_command) +
+            "Output: '{}'\n".format(stdout) +
+            "Return code: {}".format(returncode)
+        )
+        logger.error(error_message)
+        raise exc.SubprocessError(
+            command=system_command,
+            host=host,
+            stdout=stdout,
+            stderr=stderr,
+            returncode=returncode,
+        )
+    elif 'warning' in stdout_lower or 'error' in stdout_lower:
+        logger.warning("Command ran with warnings / errors:\n{}".format(stdout.strip()))
+    else:
+        logger.debug("Command ran successfully:\n{}".format(stdout.strip()))
+    return stdout, stderr, returncode

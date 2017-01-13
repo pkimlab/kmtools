@@ -1,3 +1,6 @@
+import subprocess
+
+
 # Database
 class ArchiveError(Exception):
     """Error working with 7zip archive file."""
@@ -10,3 +13,12 @@ class ArchiveError(Exception):
 class ArchiveNotFoundError(ArchiveError):
     """7zip archive file not found."""
     pass
+
+
+class SubprocessError(subprocess.SubprocessError):
+    def __init__(self, command, host, stdout, stderr, returncode):
+        self.command = command
+        self.host = host
+        self.stdout = stdout
+        self.stderr = stderr
+        self.returncode = returncode

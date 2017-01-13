@@ -19,6 +19,35 @@ def split_df(df, n_chunks):
     return chunks
 
 
+def get_reverse_column(column):
+    """Change column 'xxx_1' to 'xxx_2' and vice versa.
+
+    Examples
+    --------
+    >>> get_reverse_column('hello')
+    'hello'
+    >>> get_reverse_column('good_bye_1')
+    'good_bye_2'
+    >>> get_reverse_column('world_2')
+    'world_1'
+    """
+    for suffix, other in [('_1', '_2'), ('_2', '_1')]:
+        if column.endswith(suffix):
+            return column[:-len(suffix)] + other
+    return column
+
+
+def reverse_columns(columns):
+    """Flip the suffix of columns which end in '_1' and '_2'.
+
+    Examples
+    --------
+    >>> reverse_columns(['a_1', 'a_2', 'b_2', 'b_1', 'c'])
+    ['a_2', 'a_1', 'b_1', 'b_2', 'c']
+    """
+    return [get_reverse_column(c) for c in columns]
+
+
 def remove_duplicate_columns(df, keep_first=True, add_suffix=False):
     """Remove duplicate columns.
 

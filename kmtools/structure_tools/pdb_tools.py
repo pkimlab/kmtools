@@ -26,7 +26,8 @@ def _guess_pdb_id(pdb_file):
     '100d'
     """
     pdb_id = op.basename(pdb_file)
-    pdb_id = system_tools.remove_extensions(pdb_id, ['.gz', '.pdb', '.ent', '.cif'])
+    for extension in ['.gz', '.pdb', '.ent', '.cif']:
+        pdb_id = pdb_id.partition(extension)[0]
     if len(pdb_id) == 7 and (pdb_id.startswith('ent') or pdb_id.startswith('pdb')):
         pdb_id = pdb_id[3:]
         assert len(pdb_id) == 4
@@ -110,7 +111,7 @@ def _get_pdb_url(pdb_id, pdb_type='cif', mirror='rcsb'):
         raise Exception("Unsupported mirror: {}.".format(mirror))
 
 
-def _get_pdb_parser(pdb_type):
+def get_pdb_parser(pdb_type):
     """Get BioPython PDB parser appropriate for `pdb_type`."""
     if pdb_type == 'pdb':
         return Bio.PDB.PDBParser()
@@ -129,6 +130,14 @@ def _gen_assembly(data):
         with open(cif_file.replace('.cif', '-1.cif'), 'rb') as ifh:
             data = ifh.read()
     return data
+
+
+def allequal(s1, s2):
+    if type(s1) != type(s2):
+        raise Exception
+    if isinstance(s1, Bio.PDB.Atom.Atom):
+        return s1 == s2
+    return all(allequal(so1, so2) for (so1, so2) in zip(s1, s2))
 
 
 def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
@@ -169,7 +178,7 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     if gen_assembly:
         pdb_data = _gen_assembly(pdb_data)
 
-    parser = _get_pdb_parser(pdb_type)
+    parser = get_pdb_parser(pdb_type)
     structure = parser.get_structure(pdb_id, io.StringIO(pdb_data.decode('utf-8')))
 
     return structure
@@ -217,10 +226,57 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
         pdb_types = ['cif', 'pdb']
 
     with system_tools.open_compressed(pdb_file, mode='rt') as ifh:
-        for parser in (_get_pdb_parser(pdb_type) for pdb_type in pdb_types):
+        for pdb_type in pdb_types:
+            parser = get_pdb_parser(pdb_type)
             try:
                 structure = parser.get_structure(pdb_id, ifh)
+                break
             except KeyError:
                 logger.info("Count not load structure using the %s parser.", parser)
-
+                continue
     return structure
+
+
+class NotDisordered(Bio.PDB.Select):
+    """Select only non-disordered residues and set their altloc flag to ' '.
+
+    Source: http://biopython.org/wiki/Remove_PDB_disordered_atoms
+    """
+    def accept_residue(self, residue):
+        if not residue.disordered:
+            return True
+        elif any(self.accept_atom(atom) for atom in residue):
+            residue.disordered = False
+            return True
+        else:
+            logger.debug("Ignoring residue %s.", residue)
+            return False
+
+    def accept_atom(self, atom):
+        if not atom.disordered_flag:
+            return True
+        elif atom.altloc == 'A':
+            atom.disordered_flag = False
+            atom.altloc = ' '
+            return True
+        else:
+            logger.debug("Ignoring atom %s.", atom)
+            return False
+
+
+def save_structure(structure, filename, include_disordered=True):
+    """Save BioPython structure object as a PDB.
+
+    Examples
+    --------
+    >>> tmpfile = tempfile.NamedTemporaryFile()
+    >>> s1 = fetch_structure('4dkl')
+    >>> save_structure(s1, tmpfile.name)
+    >>> s2 = load_structure(tmpfile.name)
+    >>> allequal(s1, s2)
+    True
+    """
+    io = Bio.PDB.PDBIO()
+    io.set_structure(structure)
+    select = Bio.PDB.Select() if include_disordered else NotDisordered()
+    io.save(filename, select=select)

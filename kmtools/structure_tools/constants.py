@@ -38,8 +38,8 @@ COMMON_HETATMS = [
 ]
 
 
-CHAIN_IDS = string.ascii_uppercase + string.digits + string.ascii_lowercase
-
+CHAIN_IDS = list(string.ascii_uppercase + string.digits + string.ascii_lowercase)
+CHAIN_IDS += [(a + b) for a in CHAIN_IDS for b in CHAIN_IDS if a != b]
 
 # Standard accessibilities for a ALA-X-ALA tripeptide (obtained from NACCESS)
 STANDARD_DATA = """

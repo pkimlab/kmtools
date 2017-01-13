@@ -27,7 +27,7 @@ script:
   - conda install pypy
   - pip install -q flake8 pytest pytest-runner pytest-cov pytest-logging hypothesis
   - flake8
-  - py.test -vv
+  - py.test -vvv
   - source deactivate
 after_success:
   - echo "Success!"

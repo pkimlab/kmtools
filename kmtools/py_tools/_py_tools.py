@@ -1,11 +1,86 @@
-import os
-import time
-import logging
+import functools
 import inspect
+import logging
+import os
 import signal
+import time
 from contextlib import contextmanager
+import itertools
 
 logger = logging.getLogger(__name__)
+
+
+class Struct(dict):
+
+    def __init__(self, slots, *args, **kwargs):
+        """
+        Examples
+        --------
+        >>> Struct({'a', 'b', 'c'})
+        {}
+        """
+        self._slots = set(slots)
+        self.update(*args, **kwargs)
+
+    def __setitem__(self, key, value):
+        """
+        Examples
+        --------
+        >>> c = Struct({'a', 'b', 'c'})
+        >>> c['a'] = 100
+        >>> c['d'] = 100
+        Traceback (most recent call last):
+        KeyError:
+        """
+        if key not in self._slots:
+            raise KeyError("The following key is not allowed: {}".format(repr(key)))
+        super().__setitem__(key, value)
+
+    def __getitem__(self, key):
+        """
+        Examples
+        --------
+        >>> c = Struct({'a', 'b', 'c'}, {'a': 100, 'b': 200})
+        >>> c['a']
+        100
+        >>> c['c']
+        >>> c['d']
+        Traceback (most recent call last):
+        KeyError:
+        """
+        if key in self:
+            return super().__getitem__(key)
+        elif key in self._slots:
+            return None
+        else:
+            raise KeyError("The following key is not allowed: {}".format(repr(key)))
+
+    def update(self, *args, **kwargs):
+        """
+        Examples
+        --------
+        >>> c = Struct({'a', 'b', 'c'})
+        >>> c.update({'a': 'aaa', 'b': 'bbb'}, c='ccc')
+        >>> c == {'a': 'aaa', 'b': 'bbb', 'c': 'ccc'}
+        True
+        """
+        other = itertools.chain(*(d.items() for d in args) if args else {}.items(), kwargs.items())
+        for key, value in other:
+            self[key] = value
+
+    @property
+    def empty_slots(self):
+        return self.slots - set(self.keys())
+
+
+def log_calls(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        logger.warning(
+            fn.__name__ + '(' + ', '.join(args) +
+            ', '.join('{}={}'.format(k, v) for k, v in kwargs.items()) + ')')
+        return fn(*args, **kwargs)
+    return wrapper
 
 
 def unique(l):
@@ -21,6 +96,21 @@ def unique(l):
         if x not in seen:
             seen.add(x)
             yield x
+
+
+def strip_ps(name, prefix=None, suffix=None):
+    """Remove `prefix` and / or `suffix` from `name`.
+
+    Examples
+    --------
+    >>> strip_ps('good_god_gomer', 'good', 'gomer')
+    '_god_'
+    """
+    if prefix and name.startswith(prefix):
+        name = name[len(prefix):]
+    if suffix and name.endswith(suffix):
+        name = name[:-len(suffix)]
+    return name
 
 
 @contextmanager
