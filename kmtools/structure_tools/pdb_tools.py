@@ -1,11 +1,11 @@
-import os.path as op
+import functools
 import io
 import logging
-import tempfile
+import os.path as op
 import subprocess
+import tempfile
 
 import Bio.PDB
-
 from kmtools import system_tools
 
 # __all__ = ['fetch_structure', 'load_structure']
@@ -140,6 +140,7 @@ def allequal(s1, s2):
     return all(allequal(so1, so2) for (so1, so2) in zip(s1, s2))
 
 
+@functools.lru_cache(maxsize=512)
 def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     """Fetch remote PDB file.
 

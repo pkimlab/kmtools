@@ -9,11 +9,27 @@ Bits of reusable code to make our lives easier.
 
 Follows the *Whole Sort of General Mish Mash* design principle.
 
+## Contents
 
-## TODO
+- [Tools](#tools)
+  - [DB tools](#db-tools)
+  - [DF tools](#df-tools)
+  - [PY tools](#py-tools)
+  - [Sequence tools](#sequence-tools)
+  - [Structure tools](#structure-tools)
+  - [System tools](#system-tools)
+- [Contributing](#contributing)
 
-- [ ] Speed up tests.
+## Tools
 
+### Structure tools
+
+Using [kmbio](https://github.com/kimlaborg/kmbio) instead of [biopython](https://github.com/biopython/biopython) leads to substantially better performance (> 2x with lots of room for improvement).
+
+#### To do
+
+- [ ] Cythonize more bottlenecks to improve performance.
+- [ ] Add Python / Cython code for generating biological assemblies.
 
 ## Contributing
 

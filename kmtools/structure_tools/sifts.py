@@ -1,17 +1,18 @@
 """Process PDB SIFTS info.
 
 """
+import gzip
+import logging
 import os
 import os.path as op
-import gzip
 import re
-import logging
 import tempfile
-from lxml import etree
+import urllib.request
+
+import lxml.etree
 import numpy as np
 import pandas as pd
-import lxml.etree
-import urllib.request
+from lxml import etree
 
 from kmtools import sequence_tools, structure_tools
 
@@ -361,7 +362,7 @@ PDB AA and UniProt AA are not the same! ({}, {}, {}, {}, {}, {}) ({} != {} ({}))
            pdb_aa, uniprot_aa, uniprot_id_sifts)
         raise SIFTSError(error_message)
 
-    uniprot_seqrecord = sequence_tools.get_uniprot_sequence(uniprot_id_sifts)
+    uniprot_seqrecord = sequence_tools.fetch_sequence(uniprot_id_sifts)
     if pd.notnull(uniprot_aa) and pd.notnull(uniprot_pos):
         if not uniprot_seqrecord:
             error_message = """\
@@ -560,7 +561,7 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
         if pd.isnull(uniprot_id):
             return {}
         else:
-            uniprot_seqrecord = sequence_tools.get_uniprot_sequence(uniprot_id)
+            uniprot_seqrecord = sequence_tools.fetch_sequence(uniprot_id)
             if pd.isnull(uniprot_seqrecord):
                 print(uniprot_id)
                 logger.error(uniprot_id)

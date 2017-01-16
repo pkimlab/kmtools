@@ -1,6 +1,11 @@
+# flake8: noqa
 """Structure Tools.
 
 Tools for the analysis of PDB structures.
+
+.. note::
+
+    This whole module is deprecated and will be deleted when I am totally sure that I don't need anything else from it for ELASPIC.
 """
 import logging
 import os.path as op

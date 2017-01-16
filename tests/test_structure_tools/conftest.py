@@ -1,3 +1,8 @@
+import random
+
+random.seed(42)
+
+
 PDB_IDS = [
     '4dkl', '1arr', '1dvf', '3mbp',
     '4p6f',
@@ -34,3 +39,11 @@ ATOM_DEFINED_TWICE_PDBS = [
 NO_RESNAME_ATTRIBUTE_PDBS = [
     '1q3l', '4d1e', '1cty', '4pru', '1ctz', '2h9p',
 ]
+
+
+NUM_TESTS_MAX = 4
+
+
+def random_subset(lst, nmax=NUM_TESTS_MAX):
+    random.shuffle(lst)
+    return lst[:nmax]

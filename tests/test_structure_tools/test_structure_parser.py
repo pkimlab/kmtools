@@ -3,61 +3,61 @@ import logging
 import pandas as pd
 import pytest
 
-from conftest import DIFFICULT, MISSING, PDB_IDS
+from conftest import DIFFICULT, MISSING, PDB_IDS, random_subset
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)
 
 
-# @pytest.mark.parametrize("pdb_id, pdb_type, biounit", [
-#     (pdb_id, pdb_type, biounit)
-#     for pdb_id in PDB_IDS
-#     for pdb_type in ['pdb', 'cif']
-#     for biounit in [False, True]
-#     if (pdb_id, pdb_type, biounit) not in MISSING
-# ])
-# def test_process_structure(pdb_id, pdb_type, biounit):
-#     structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
-#     structure = structure_tools.process_structure(structure)
-#     # Test model ids
-#     for model_idx, model in enumerate(structure):
-#         assert model_idx == model.id
-#         assert structure[model_idx] == model
-#     # Test chain ids
-#     for model in structure:
-#         for chain_idx, chain in enumerate(model):
-#             assert chain_idx == structure_tools.CHAIN_IDS.index(chain.id)
-#             assert model.child_list[chain_idx] == chain
-#     # Test residue ids
-#     for model in structure:
-#         for chain in model:
-#             for residue_idx, residue in enumerate(chain):
-#                 assert residue_idx == residue.id[1]
-#                 assert chain.child_list[residue_idx] == residue
-#
-#
-# @pytest.mark.parametrize("pdb_id, pdb_type, biounit, interchain", [
-#     (pdb_id, pdb_type, biounit, interchain)
-#     for pdb_id in PDB_IDS
-#     for pdb_type in ['pdb', 'cif']
-#     for biounit in [False, True]
-#     for interchain in [False, True]
-#     if (pdb_id, pdb_type, biounit) not in MISSING
-# ])
-# def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
-#     structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
-#     df = structure_tools.get_interactions(structure, interchain)
-#     logger.info(df.head())
+@pytest.mark.parametrize("pdb_id, pdb_type, biounit", random_subset([
+    (pdb_id, pdb_type, biounit)
+    for pdb_id in PDB_IDS
+    for pdb_type in ['pdb', 'cif']
+    for biounit in [False, True]
+    if (pdb_id, pdb_type, biounit) not in MISSING
+]))
+def test_process_structure(pdb_id, pdb_type, biounit):
+    structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
+    structure = structure_tools.process_structure(structure)
+    # Test model ids
+    for model_idx, model in enumerate(structure):
+        assert model_idx == model.id
+        assert structure[model_idx] == model
+    # Test chain ids
+    for model in structure:
+        for chain_idx, chain in enumerate(model):
+            assert chain_idx == structure_tools.CHAIN_IDS.index(chain.id)
+            assert model.child_list[chain_idx] == chain
+    # Test residue ids
+    for model in structure:
+        for chain in model:
+            for residue_idx, residue in enumerate(chain):
+                assert residue_idx == residue.id[1]
+                assert chain.child_list[residue_idx] == residue
 
 
-@pytest.mark.parametrize("pdb_id, biounit, interchain", [
+@pytest.mark.parametrize("pdb_id, pdb_type, biounit, interchain", random_subset([
+    (pdb_id, pdb_type, biounit, interchain)
+    for pdb_id in PDB_IDS
+    for pdb_type in ['pdb', 'cif']
+    for biounit in [False, True]
+    for interchain in [False, True]
+    if (pdb_id, pdb_type, biounit) not in MISSING
+]))
+def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
+    structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
+    df = structure_tools.get_interactions(structure, interchain)
+    logger.info(df.head())
+
+
+@pytest.mark.parametrize("pdb_id, biounit, interchain", random_subset([
     (pdb_id, biounit, interchain)
     for pdb_id in PDB_IDS
     for biounit in [False, True]
     for interchain in [False, True]
     if (pdb_id, 'pdb', biounit) not in MISSING
     if pdb_id not in DIFFICULT
-])
+]))
 def test_get_interactions_2(pdb_id, biounit, interchain):
     s_1 = structure_tools.fetch_structure(pdb_id, 'pdb', biounit)
     s_2 = structure_tools.fetch_structure(pdb_id, 'cif', biounit)
@@ -80,13 +80,13 @@ def test_get_interactions_2(pdb_id, biounit, interchain):
     pd.util.testing.assert_frame_equal(df_1, df_2)
 
 
-@pytest.mark.parametrize("kwargs", [
+@pytest.mark.parametrize("kwargs", random_subset([
     {'pdb_id': pdb_id, 'biounit': biounit}
     for pdb_id in PDB_IDS
     for biounit in [False, True]
     if (pdb_id, 'pdb', biounit) not in MISSING
     if pdb_id not in DIFFICULT
-])
+]))
 def test_get_interactions_symmetrical(kwargs):
     """Make sure that the output of `get_interactions` is symmetrical.
 

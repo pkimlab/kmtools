@@ -1,9 +1,8 @@
-import os.path as op
 import logging
 import numpy as np
 import functools
-import tempfile
-import urllib.request
+import requests
+import io
 
 import pandas as pd
 import Bio.SeqIO
@@ -64,19 +63,23 @@ def crc64(s):
 
 
 @functools.lru_cache(maxsize=512)
-def get_uniprot_sequence(uniprot_id):
-    """Download UniProt sequence."""
-    output_file = op.join(tempfile.gettempdir(), '{}.fasta'.format(uniprot_id))
-    try:
-        try:
-            seqrecord = Bio.SeqIO.read(output_file, 'fasta')
-        except FileNotFoundError:
-            url = 'http://www.uniprot.org/uniprot/{}.fasta'.format(uniprot_id)
-            urllib.request.urlretrieve(url, output_file)
-            seqrecord = Bio.SeqIO.read(output_file, 'fasta')
-    except ValueError:
-        seqrecord = None
-    return seqrecord
+def fetch_sequence(sequence_id, database='uniprot'):
+    """Fetch sequence from remote database.
+
+    Examples
+    --------
+    >>> str(fetch_sequence('P13501').seq)
+    'MKVSAAALAVILIATALCAPASASPYSSDTTPCCFAYIARPLPRAHIKEYFYTSGKCSNPAVVFVTRKNRQVCANPEKKWVREYINSLEMS'
+    """
+    if database not in ['uniprot']:
+        raise Exception("Only the uniprot database is supported at this time!")
+    logger.debug('Downloading sequence {}...'.format(sequence_id + '.fasta'))
+    address = 'http://www.uniprot.org/uniprot/{}.fasta'.format(sequence_id)
+    r = requests.get(address)
+    if r.status_code == 200:
+        return Bio.SeqIO.read(io.StringIO(r.text), 'fasta')
+    else:
+        raise Exception("Failed to fetch sequence with return code: {}".format(r.status_code))
 
 
 def mutation_matches_sequence(mutation, sequence):

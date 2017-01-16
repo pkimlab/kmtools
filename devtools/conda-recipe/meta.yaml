@@ -32,7 +32,7 @@ requirements:
     - scikit-learn
     - pytables
     - numba
-    - biopython
+    - kmbio
     # Required by lxml
     - icu ==56.1
     - libiconv
