@@ -27,14 +27,17 @@ script:
   - conda install pypy
   - pip install -q flake8 pytest pytest-runner pytest-cov pytest-logging hypothesis
   - flake8
-  - py.test -vvv
+  - py.test
   - source deactivate
 after_success:
   - echo "Success!"
   - pip install codecov
   - codecov
-  - anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2
-  - devtools/travis-ci/build-docs.sh
+  - |
+    if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" == "false" ] ; then
+      devtools/travis-ci/build-docs.sh
+      anaconda -t $ANACONDA_TOKEN upload /home/travis/anaconda/conda-bld/linux-64/*.tar.bz2;
+    fi
 after_failure:
   - echo "Failure!"
 after_script:

@@ -1,0 +1,16 @@
+<entry>
+<residue dbSource="PDBe" dbCoordSys="PDBe" dbResNum="29" dbResName="ILE">
+  <crossRefDb dbSource="PDB" dbCoordSys="PDBresnum" dbAccessionId="1bf4" dbResNum="30" dbResName="ILE" dbChainId="A"/>
+  <crossRefDb dbSource="UniProt" dbCoordSys="UniProt" dbAccessionId="P13123" dbResNum="30" dbResName="V"/>
+  <crossRefDb dbSource="Pfam" dbCoordSys="UniProt" dbAccessionId="PF02294" dbResNum="30" dbResName="V"/>
+  <crossRefDb dbSource="CATH" dbCoordSys="PDBresnum" dbAccessionId="2.40.50.40" dbResNum="30" dbResName="ILE" dbChainId="A"/>
+  <crossRefDb dbSource="SCOP" dbCoordSys="PDBresnum" dbAccessionId="37461" dbResNum="30" dbResName="ILE" dbChainId="A"/>
+  <crossRefDb dbSource="NCBI" dbCoordSys="UniProt" dbAccessionId="2285" dbResNum="30" dbResName="V"/>
+  <crossRefDb dbSource="InterPro" dbCoordSys="UniProt" dbAccessionId="IPR003212" dbResNum="30" dbResName="V" dbEvidence="PD010328"/>
+  <crossRefDb dbSource="InterPro" dbCoordSys="UniProt" dbAccessionId="IPR003212" dbResNum="30" dbResName="V" dbEvidence="PF02294"/>
+  <crossRefDb dbSource="InterPro" dbCoordSys="UniProt" dbAccessionId="IPR016197" dbResNum="30" dbResName="V" dbEvidence="SSF54160"/>
+  <residueDetail dbSource="PDBe" property="codeSecondaryStructure">E</residueDetail>
+  <residueDetail dbSource="PDBe" property="nameSecondaryStructure">strand</residueDetail>
+  <residueDetail dbSource="PDBe" property="Annotation">Conflict</residueDetail>
+</residue>
+</entry>

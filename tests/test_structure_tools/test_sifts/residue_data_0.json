@@ -1,0 +1,12 @@
+{
+    "uniprot_id": "P13123",
+    "uniprot_position": "30",
+    "comments": "E,strand,Conflict",
+    "pfam_id": "PF02294",
+    "uniprot_aa": "V",
+    "is_observed": true,
+    "pdb_chain": "A",
+    "pdb_id": "1bf4",
+    "pdb_aa": "I",
+    "resnum": "30"
+}

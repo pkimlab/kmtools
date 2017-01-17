@@ -1,4 +1,4 @@
- {% set version = "0.0.15" %}
+ {% set version = "0.0.16" %}
 
 package:
   name: kmtools
@@ -32,7 +32,7 @@ requirements:
     - scikit-learn
     - pytables
     - numba
-    - biopython
+    - kmbio
     # Required by lxml
     - icu ==56.1
     - libiconv
@@ -45,6 +45,7 @@ requirements:
     # Binaries
     - blast
     - muscle
+    - cifparse-obj  # Assemblies
 
 test:
   requires:

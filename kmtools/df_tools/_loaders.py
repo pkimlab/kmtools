@@ -100,12 +100,12 @@ def _guess_sep(file):
         return ','
 
 
-def _guess_compression(file):
-    if file.endswith('.gz'):
+def _guess_compression(filename):
+    if filename.endswith('.gz'):
         return 'gzip'
-    elif file.endswith('.bz2'):
+    elif filename.endswith('.bz2'):
         return 'bz2'
-    elif file.endswith('.xz'):
+    elif filename.endswith('.xz'):
         return 'xz'
     else:
         return None

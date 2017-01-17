@@ -3,9 +3,13 @@
 *.bak
 
 # Folders
+build
+dist
+prof
 _build
 __pycache__
 *.egg-info
+docs/modules
 
 # Hidden
 .*
