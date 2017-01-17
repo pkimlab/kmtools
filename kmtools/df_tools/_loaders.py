@@ -5,9 +5,9 @@
     You should probably use `feather.write_dataframe(df)` instead.
 """
 import csv
+import logging
 import os
 import os.path as op
-import logging
 
 import numpy as np
 import pandas as pd

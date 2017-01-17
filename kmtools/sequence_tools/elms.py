@@ -24,7 +24,8 @@ PepXELMdefinitions = pd.read_csv(absolute_path + "/support/Pepx_completeELM_Rede
 def motif_search(seq, ELMdefinitions=totalELMdefinitions):
     """.
 
-    Return all the ELM in a sequences
+    Return all the ELM in a sequences.
+
     Parameters
     ----------
     seq: str
@@ -34,8 +35,8 @@ def motif_search(seq, ELMdefinitions=totalELMdefinitions):
         Defintions and information about ELM in pandas format. Alternative
         PepXELMdefinitions can be used, ELM of domains in pepX
 
-    Return
-    ------
+    Returns
+    -------
         Returns a Datafram with all the motif in the sequnece
         columns {Accession,ELMIdentifier,Description,Regex,Probability,start,end}
 

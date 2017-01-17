@@ -1,11 +1,11 @@
 import functools
 import inspect
+import itertools
 import logging
 import os
 import signal
 import time
 from contextlib import contextmanager
-import itertools
 
 logger = logging.getLogger(__name__)
 

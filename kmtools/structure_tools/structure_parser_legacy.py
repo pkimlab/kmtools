@@ -13,17 +13,16 @@ import string
 from collections import OrderedDict, defaultdict
 from functools import wraps
 
-import Bio
 import numpy as np
 import six
+
+import Bio
 from Bio.Alphabet import IUPAC
 from Bio.PDB import PDBIO, NeighborSearch, Select
 from Bio.PDB.Polypeptide import PPBuilder
 from Bio.Seq import Seq
-
 from kmtools import structure_tools
-from kmtools.structure_tools import A_DICT, AAA_DICT, AMINO_ACIDS, METHYLATED_LYSINES, LYSINE_ATOMS
-
+from kmtools.structure_tools import A_DICT, AAA_DICT, AMINO_ACIDS, LYSINE_ATOMS, METHYLATED_LYSINES
 
 logger = logging.getLogger(__name__)
 

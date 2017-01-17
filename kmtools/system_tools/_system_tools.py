@@ -1,25 +1,26 @@
+import bz2
 import contextlib
 import fcntl
 import functools
+import gzip
 import logging
+import lzma
 import os
 import os.path as op
-import string
 import shlex
 import shutil
+import string
 import subprocess
-import gzip
 import time
-import bz2
-import lzma
 import urllib.request
 from contextlib import contextmanager
 
-from retrying import retry
-import sqlalchemy as sa
 import paramiko
+import sqlalchemy as sa
+from retrying import retry
 
 from kmtools import system_tools
+
 from . import exc
 
 logger = logging.getLogger(__name__)

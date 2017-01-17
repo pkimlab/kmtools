@@ -1,5 +1,6 @@
 import os.path as op
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 
 def _read_md_as_rst(file):
