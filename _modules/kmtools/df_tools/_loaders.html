@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.df_tools._loaders &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.df_tools._loaders</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.df_tools._loaders</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Opinionated way of loading or dumping dataframe(s) as DSV files.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    You should probably use `feather.write_dataframe(df)` instead.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="dump"><a class="viewcode-back" href="../../../modules/kmtools.df_tools.html#kmtools.df_tools._loaders.dump">[docs]</a><span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;.tsv.gz&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Dump one or more :class:`pandas.DataFrame` objects to one or more files.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    what: pd.DataFrame | dict[pd.DataFrame]</span>
+<span class="sd">        What should be saved?</span>
+<span class="sd">    where: str</span>
+<span class="sd">        Where should it be saved (i.e. path)?</span>
+<span class="sd">    how: str, default=&#39;.tsv.gz&#39;</span>
+<span class="sd">        How should it be saved (i.e. what extension to use)?</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_dump_single</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">what</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="k">return</span> <span class="n">_dump_multiple</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;dump(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{how}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_dump_single</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">):</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">where</span> <span class="o">+</span> <span class="n">how</span>
+    <span class="n">sep</span> <span class="o">=</span> <span class="n">_guess_sep</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">compression</span> <span class="o">=</span> <span class="n">_guess_compression</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">what</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+        <span class="n">file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="n">compression</span><span class="p">,</span>
+        <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">N&#39;</span><span class="p">,</span>
+        <span class="n">quoting</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">QUOTE_NONNUMERIC</span><span class="p">)</span>
+    <span class="n">what</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">file</span> <span class="o">+</span> <span class="s1">&#39;.dtype&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_dump_multiple</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">what</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">dump</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">how</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../modules/kmtools.df_tools.html#kmtools.df_tools._loaders.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;.tsv.gz&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load one or more :class:`pandas.DataFrame` objects from one or more files.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    where: str</span>
+<span class="sd">        Where should the files be loaded from?</span>
+<span class="sd">    how: str, default=&#39;.tsv.gz&#39;</span>
+<span class="sd">        What is the format of the file (i.e. what extension does it have)?</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">where</span> <span class="o">+</span> <span class="n">how</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_load_single</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">op</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">where</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_load_multiple</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;File or folder &#39;</span><span class="si">{}</span><span class="s2">&#39; does not exist!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">where</span><span class="p">))</span></div>
+
+
+<span class="k">def</span> <span class="nf">_load_single</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">):</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">where</span> <span class="o">+</span> <span class="n">how</span>
+    <span class="n">sep</span> <span class="o">=</span> <span class="n">_guess_sep</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">compression</span> <span class="o">=</span> <span class="n">_guess_compression</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">dtypes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">file</span> <span class="o">+</span> <span class="s1">&#39;.dtype&#39;</span><span class="p">)</span>
+    <span class="n">dtypes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dtypes</span> <span class="o">==</span> <span class="s1">&#39;&lt;M8[ns]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s1">&#39;O&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="n">compression</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+        <span class="n">na_values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">N&#39;</span><span class="p">],</span> <span class="n">na_filter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">quoting</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">QUOTE_NONNUMERIC</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">_load_multiple</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">how</span><span class="p">):</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">where</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">how</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="n">how</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dfs</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">_load_single</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">where</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="n">how</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dfs</span>
+
+
+<span class="k">def</span> <span class="nf">_guess_sep</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;.tsv&#39;</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;,&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">_guess_compression</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;gzip&#39;</span>
+    <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.bz2&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;bz2&#39;</span>
+    <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xz&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;xz&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

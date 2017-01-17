@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.py_tools.colors &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.py_tools.colors</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.py_tools.colors</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2012 Giorgos Verigakis &lt;verigak@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># Permission to use, copy, modify, and distribute this software for any</span>
+<span class="c1"># purpose with or without fee is hereby granted, provided that the above</span>
+<span class="c1"># copyright notice and this permission notice appear in all copies.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span>
+<span class="c1"># WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span>
+<span class="c1"># MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span>
+<span class="c1"># ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span>
+<span class="c1"># WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span>
+<span class="c1"># ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span>
+<span class="c1"># OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.2&#39;</span>
+
+<span class="n">COLORS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">STYLES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;faint&#39;</span><span class="p">,</span> <span class="s1">&#39;italic&#39;</span><span class="p">,</span> <span class="s1">&#39;underline&#39;</span><span class="p">,</span> <span class="s1">&#39;blink&#39;</span><span class="p">,</span> <span class="s1">&#39;blink2&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="s1">&#39;concealed&#39;</span><span class="p">,</span> <span class="s1">&#39;crossed&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="color"><a class="viewcode-back" href="../../../modules/kmtools.py_tools.html#kmtools.py_tools.colors.color">[docs]</a><span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">sgr</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">fg</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fg</span> <span class="ow">in</span> <span class="n">COLORS</span><span class="p">:</span>
+            <span class="n">sgr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="n">COLORS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">fg</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fg</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">fg</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="n">sgr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;38;5;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">fg</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid color &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">fg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">bg</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bg</span> <span class="ow">in</span> <span class="n">COLORS</span><span class="p">:</span>
+            <span class="n">sgr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">40</span> <span class="o">+</span> <span class="n">COLORS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">bg</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bg</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">bg</span> <span class="o">&lt;=</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="n">sgr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;48;5;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">bg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid color &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">bg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">style</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">style</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">STYLES</span><span class="p">:</span>
+                <span class="n">sgr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">STYLES</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">st</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid style &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">st</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sgr</span><span class="p">:</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[&#39;</span> <span class="o">+</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sgr</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;m&#39;</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[0m&#39;</span>
+        <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="n">suffix</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="strip_color"><a class="viewcode-back" href="../../../modules/kmtools.py_tools.html#kmtools.py_tools.colors.strip_color">[docs]</a><span class="k">def</span> <span class="nf">strip_color</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">\[.+?m&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span></div>
+
+
+<span class="c1"># Foreground shortcuts</span>
+<span class="n">black</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">red</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">green</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">yellow</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">)</span>
+<span class="n">cyan</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+<span class="n">white</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># Style shortcuts</span>
+<span class="n">bold</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">faint</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;faint&#39;</span><span class="p">)</span>
+<span class="n">italic</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">)</span>
+<span class="n">underline</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;underline&#39;</span><span class="p">)</span>
+<span class="n">blink</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;blink&#39;</span><span class="p">)</span>
+<span class="n">blink2</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;blink2&#39;</span><span class="p">)</span>
+<span class="n">negative</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;negative&#39;</span><span class="p">)</span>
+<span class="n">concealed</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;concealed&#39;</span><span class="p">)</span>
+<span class="n">crossed</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;crossed&#39;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

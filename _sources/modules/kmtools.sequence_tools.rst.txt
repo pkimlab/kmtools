@@ -1,0 +1,42 @@
+kmtools.sequence_tools package
+==============================
+
+.. automodule:: kmtools.sequence_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+.. automodule:: kmtools.sequence_tools._alignment_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.sequence_tools._blast
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.sequence_tools._sequence_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.sequence_tools.codons_info
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.sequence_tools.dna_util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.sequence_tools.elms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

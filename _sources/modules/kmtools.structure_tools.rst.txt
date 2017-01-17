@@ -1,0 +1,52 @@
+kmtools.structure_tools package
+===============================
+
+.. automodule:: kmtools.structure_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+.. automodule:: kmtools.structure_tools.constants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.elaspic_legacy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.exc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.monkeypatch_biopython
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.pdb_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.sifts
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.structure_parser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.structure_tools.structure_parser_legacy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

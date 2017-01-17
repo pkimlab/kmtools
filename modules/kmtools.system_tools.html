@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.system_tools package &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../index.html"/>
+        <link rel="up" title="kmtools package" href="kmtools.html"/>
+        <link rel="next" title="Acknowledgements" href="../acknowledgements.html"/>
+        <link rel="prev" title="kmtools.structure_tools package" href="kmtools.structure_tools.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="kmtools.html">kmtools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kmtools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="kmtools.html">kmtools package</a> &raquo;</li>
+      
+    <li>kmtools.system_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/kmtools.system_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-kmtools.system_tools">
+<span id="kmtools-system-tools-package"></span><h1>kmtools.system_tools package<a class="headerlink" href="#module-kmtools.system_tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kmtools.system_tools._system_tools">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-kmtools.system_tools._system_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kmtools.system_tools._system_tools.MySSHClient">
+<em class="property">class </em><code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">MySSHClient</code><span class="sig-paren">(</span><em>ssh_host</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#MySSHClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.MySSHClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.check_exception">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">check_exception</code><span class="sig-paren">(</span><em>exc</em>, <em>valid_exc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#check_exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.check_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.copyfile">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">copyfile</code><span class="sig-paren">(</span><em>infile</em>, <em>outfile</em>, <em>mode=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#copyfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.copyfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.decompress">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">decompress</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#decompress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.decompress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarly decompress a file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.format_unprintable">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">format_unprintable</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#format_unprintable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.format_unprintable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Escape tabs (t), newlines (n), etc. for system commands and printing.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_unprintable</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">&#39;\\t&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.get_hostname">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">get_hostname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#get_hostname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.get_hostname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.iter_stdout">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">iter_stdout</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#iter_stdout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.iter_stdout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.make_tarfile">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">make_tarfile</code><span class="sig-paren">(</span><em>source_dir</em>, <em>output_filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#make_tarfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.make_tarfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compress folder into a <cite>*.tar.gz</cite> file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.makedirs">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">makedirs</code><span class="sig-paren">(</span><em>path</em>, <em>mode=None</em>, <em>exist_ok=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#makedirs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.makedirs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.open_compressed">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">open_compressed</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='rb'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#open_compressed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.open_compressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a potentially compressed file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.open_exclusively">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">open_exclusively</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='a'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#open_exclusively"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.open_exclusively" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.read_url">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">read_url</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#read_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.read_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.remove_extensions">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">remove_extensions</code><span class="sig-paren">(</span><em>filename</em>, <em>extensions</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#remove_extensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.remove_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove extensions from file.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remove_extensions</span><span class="p">(</span><span class="s1">&#39;/tmp/a/b/c.d.e.f.g&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;.e&#39;</span><span class="p">,</span> <span class="s1">&#39;.f&#39;</span><span class="p">,</span> <span class="s1">&#39;.g&#39;</span><span class="p">])</span>
+<span class="go">&#39;/tmp/a/b/c.d&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">remove_extensions</span><span class="p">(</span><span class="s1">&#39;do.re.mi&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;do&#39;</span><span class="p">,</span> <span class="s1">&#39;mi&#39;</span><span class="p">])</span>
+<span class="go">&#39;do.re&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.retry_archive">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">retry_archive</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#retry_archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.retry_archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator to keep probing the database untill you succeed.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.retry_database">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">retry_database</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#retry_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.retry_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator to keep probing the database untill you succeed.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.retry_subprocess">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">retry_subprocess</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#retry_subprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.retry_subprocess" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.run_command">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>system_command, host=None, *, shell=False, allowed_returncodes=[0]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run system command either locally or over ssh.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.slugify">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">slugify</code><span class="sig-paren">(</span><em>filename_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#slugify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.slugify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.ssh_client">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">ssh_client</code><span class="sig-paren">(</span><em>ip</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#ssh_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.ssh_client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.start_subprocess">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">start_subprocess</code><span class="sig-paren">(</span><em>system_command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#start_subprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.start_subprocess" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.switch_paths">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">switch_paths</code><span class="sig-paren">(</span><em>working_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#switch_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.switch_paths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.system_tools._system_tools.which">
+<code class="descclassname">kmtools.system_tools._system_tools.</code><code class="descname">which</code><span class="sig-paren">(</span><em>bin_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/_system_tools.html#which"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools._system_tools.which" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-kmtools.system_tools.exc"></span><dl class="exception">
+<dt id="kmtools.system_tools.exc.ArchiveError">
+<em class="property">exception </em><code class="descclassname">kmtools.system_tools.exc.</code><code class="descname">ArchiveError</code><span class="sig-paren">(</span><em>result</em>, <em>error_message</em>, <em>return_code</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/exc.html#ArchiveError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools.exc.ArchiveError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>Error working with 7zip archive file.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.system_tools.exc.ArchiveNotFoundError">
+<em class="property">exception </em><code class="descclassname">kmtools.system_tools.exc.</code><code class="descname">ArchiveNotFoundError</code><span class="sig-paren">(</span><em>result</em>, <em>error_message</em>, <em>return_code</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/exc.html#ArchiveNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools.exc.ArchiveNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kmtools.system_tools.exc.ArchiveError" title="kmtools.system_tools.exc.ArchiveError"><code class="xref py py-class docutils literal"><span class="pre">kmtools.system_tools.exc.ArchiveError</span></code></a></p>
+<p>7zip archive file not found.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.system_tools.exc.SubprocessError">
+<em class="property">exception </em><code class="descclassname">kmtools.system_tools.exc.</code><code class="descname">SubprocessError</code><span class="sig-paren">(</span><em>command</em>, <em>host</em>, <em>stdout</em>, <em>stderr</em>, <em>returncode</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/system_tools/exc.html#SubprocessError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.system_tools.exc.SubprocessError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">subprocess.SubprocessError</span></code></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../acknowledgements.html" class="btn btn-neutral float-right" title="Acknowledgements" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kmtools.structure_tools.html" class="btn btn-neutral" title="kmtools.structure_tools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

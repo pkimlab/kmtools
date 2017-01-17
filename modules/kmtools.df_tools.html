@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.df_tools package &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../index.html"/>
+        <link rel="up" title="kmtools package" href="kmtools.html"/>
+        <link rel="next" title="kmtools.py_tools package" href="kmtools.py_tools.html"/>
+        <link rel="prev" title="kmtools.db_tools package" href="kmtools.db_tools.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="kmtools.html">kmtools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kmtools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="kmtools.html">kmtools package</a> &raquo;</li>
+      
+    <li>kmtools.df_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/kmtools.df_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-kmtools.df_tools">
+<span id="kmtools-df-tools-package"></span><h1>kmtools.df_tools package<a class="headerlink" href="#module-kmtools.df_tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kmtools.df_tools._data_analysis">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-kmtools.df_tools._data_analysis" title="Permalink to this headline">¶</a></h2>
+<p>Data Analysis Tools.</p>
+<dl class="function">
+<dt id="kmtools.df_tools._data_analysis.open_hdf5_exclusively">
+<code class="descclassname">kmtools.df_tools._data_analysis.</code><code class="descname">open_hdf5_exclusively</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='a'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_data_analysis.html#open_hdf5_exclusively"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._data_analysis.open_hdf5_exclusively" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._data_analysis.print2">
+<code class="descclassname">kmtools.df_tools._data_analysis.</code><code class="descname">print2</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>*args</em>, <em>x=60</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_data_analysis.html#print2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._data_analysis.print2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._data_analysis.print_full">
+<code class="descclassname">kmtools.df_tools._data_analysis.</code><code class="descname">print_full</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_data_analysis.html#print_full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._data_analysis.print_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the entire Dataframe / Series.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._data_analysis.remove_duplicates">
+<code class="descclassname">kmtools.df_tools._data_analysis.</code><code class="descname">remove_duplicates</code><span class="sig-paren">(</span><em>seq</em>, <em>keep_null=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_data_analysis.html#remove_duplicates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._data_analysis.remove_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-kmtools.df_tools._df_tools"></span><dl class="data">
+<dt id="kmtools.df_tools._df_tools.REMOVED_EXTENSIONS">
+<code class="descclassname">kmtools.df_tools._df_tools.</code><code class="descname">REMOVED_EXTENSIONS</code><em class="property"> = ['.gz', '.tsv', '.csv', '.txt', '.vcf']</em><a class="headerlink" href="#kmtools.df_tools._df_tools.REMOVED_EXTENSIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extensions that get stripped when creating a database table from a text file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._df_tools.format_column">
+<code class="descclassname">kmtools.df_tools._df_tools.</code><code class="descname">format_column</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_df_tools.html#format_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._df_tools.format_column" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._df_tools.format_columns">
+<code class="descclassname">kmtools.df_tools._df_tools.</code><code class="descname">format_columns</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_df_tools.html#format_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._df_tools.format_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert CamelCase and other weird column name formats to pot_hole case.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_columns</span><span class="p">(</span><span class="s1">&#39;HelloWorld&#39;</span><span class="p">)</span>
+<span class="go">&#39;hello_world&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_columns</span><span class="p">(</span><span class="s1">&#39;Hello_World&#39;</span><span class="p">)</span>
+<span class="go">&#39;hello_world&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_columns</span><span class="p">(</span><span class="s1">&#39;hg19_pos(1-based)&#39;</span><span class="p">)</span>
+<span class="go">&#39;hg19_pos_1based&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_columns</span><span class="p">([</span><span class="s1">&#39;Hello (World?)&#39;</span><span class="p">,</span> <span class="s1">&#39;allGood?&#39;</span><span class="p">])</span>
+<span class="go">[&#39;hello_world&#39;, &#39;all_good&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._df_tools.get_df_dtypes">
+<code class="descclassname">kmtools.df_tools._df_tools.</code><code class="descname">get_df_dtypes</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_df_tools.html#get_df_dtypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._df_tools.get_df_dtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return column dtypes for DataFrame <cite>df</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._df_tools.get_file_dtypes">
+<code class="descclassname">kmtools.df_tools._df_tools.</code><code class="descname">get_file_dtypes</code><span class="sig-paren">(</span><em>file</em>, <em>nrows=100000</em>, <em>nchunks=100</em>, <em>stg_host=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_df_tools.html#get_file_dtypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._df_tools.get_file_dtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return column dtypes for file <cite>file</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Full path to file.</li>
+<li><strong>nrows</strong> (<em>int | None</em>) &#8211; </li>
+<li><strong>nchunks</strong> (<em>int | None</em>) &#8211; </li>
+<li><strong>vargs</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Values to pass to <cite>pd.read_cvs</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>df</strong> (<em>DataFrame</em>) &#8211; Empty DataFrame with the correct dtypes.</li>
+<li><strong>dtypes</strong> (<em>dict</em>) &#8211; A dictionary of dtypes for each column</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._df_tools.get_tablename">
+<code class="descclassname">kmtools.df_tools._df_tools.</code><code class="descname">get_tablename</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_df_tools.html#get_tablename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._df_tools.get_tablename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a proper tablename based on filename.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_tablename</span><span class="p">(</span><span class="s1">&#39;/home/username/myFancyFile!!!.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;my_fancy_file&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-kmtools.df_tools._loaders"></span><p>Opinionated way of loading or dumping dataframe(s) as DSV files.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should probably use <cite>feather.write_dataframe(df)</cite> instead.</p>
+</div>
+<dl class="function">
+<dt id="kmtools.df_tools._loaders.dump">
+<code class="descclassname">kmtools.df_tools._loaders.</code><code class="descname">dump</code><span class="sig-paren">(</span><em>what</em>, <em>where</em>, <em>how='.tsv.gz'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_loaders.html#dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._loaders.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump one or more <code class="xref py py-class docutils literal"><span class="pre">pandas.DataFrame</span></code> objects to one or more files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>what</strong> (<em>pd.DataFrame | dict</em><em>[</em><em>pd.DataFrame</em><em>]</em><em></em>) &#8211; What should be saved?</li>
+<li><strong>where</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Where should it be saved (i.e. path)?</li>
+<li><strong>how</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>default='.tsv.gz'</em>) &#8211; How should it be saved (i.e. what extension to use)?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._loaders.load">
+<code class="descclassname">kmtools.df_tools._loaders.</code><code class="descname">load</code><span class="sig-paren">(</span><em>where</em>, <em>how='.tsv.gz'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_loaders.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._loaders.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load one or more <code class="xref py py-class docutils literal"><span class="pre">pandas.DataFrame</span></code> objects from one or more files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>where</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Where should the files be loaded from?</li>
+<li><strong>how</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>default='.tsv.gz'</em>) &#8211; What is the format of the file (i.e. what extension does it have)?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-kmtools.df_tools._pandas"></span><dl class="function">
+<dt id="kmtools.df_tools._pandas.get_reverse_column">
+<code class="descclassname">kmtools.df_tools._pandas.</code><code class="descname">get_reverse_column</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_pandas.html#get_reverse_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._pandas.get_reverse_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change column &#8216;xxx_1&#8217; to &#8216;xxx_2&#8217; and vice versa.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_reverse_column</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="go">&#39;hello&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_reverse_column</span><span class="p">(</span><span class="s1">&#39;good_bye_1&#39;</span><span class="p">)</span>
+<span class="go">&#39;good_bye_2&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_reverse_column</span><span class="p">(</span><span class="s1">&#39;world_2&#39;</span><span class="p">)</span>
+<span class="go">&#39;world_1&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._pandas.random_df">
+<code class="descclassname">kmtools.df_tools._pandas.</code><code class="descname">random_df</code><span class="sig-paren">(</span><em>n_rows: int = 100000</em><span class="sig-paren">)</span> &rarr; pandas.core.frame.DataFrame<a class="reference internal" href="../_modules/kmtools/df_tools/_pandas.html#random_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._pandas.random_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a random class:<cite>pandas.DataFrame</cite>.</p>
+<p>Can help with tests where you need a random DataFrame.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._pandas.remove_duplicate_columns">
+<code class="descclassname">kmtools.df_tools._pandas.</code><code class="descname">remove_duplicate_columns</code><span class="sig-paren">(</span><em>df</em>, <em>keep_first=True</em>, <em>add_suffix=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_pandas.html#remove_duplicate_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._pandas.remove_duplicate_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove duplicate columns.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remove_duplicate_columns</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="go">   a  b</span>
+<span class="go">0  1  2</span>
+<span class="go">1  4  5</span>
+<span class="go">2  7  8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">remove_duplicate_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">keep_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">   b  a</span>
+<span class="go">0  2  3</span>
+<span class="go">1  5  6</span>
+<span class="go">2  8  9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">remove_duplicate_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">add_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">   a  b a_2</span>
+<span class="go">0  1  2   3</span>
+<span class="go">1  4  5   6</span>
+<span class="go">2  7  8   9</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._pandas.reverse_columns">
+<code class="descclassname">kmtools.df_tools._pandas.</code><code class="descname">reverse_columns</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_pandas.html#reverse_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._pandas.reverse_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flip the suffix of columns which end in &#8216;_1&#8217; and &#8216;_2&#8217;.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_columns</span><span class="p">([</span><span class="s1">&#39;a_1&#39;</span><span class="p">,</span> <span class="s1">&#39;a_2&#39;</span><span class="p">,</span> <span class="s1">&#39;b_2&#39;</span><span class="p">,</span> <span class="s1">&#39;b_1&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">[&#39;a_2&#39;, &#39;a_1&#39;, &#39;b_1&#39;, &#39;b_2&#39;, &#39;c&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.df_tools._pandas.split_df">
+<code class="descclassname">kmtools.df_tools._pandas.</code><code class="descname">split_df</code><span class="sig-paren">(</span><em>df</em>, <em>n_chunks</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/_pandas.html#split_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools._pandas.split_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split DataFrame <cite>df</cite> into <cite>nchunks</cite> chunks.</p>
+</dd></dl>
+
+<span class="target" id="module-kmtools.df_tools.stats"></span><dl class="function">
+<dt id="kmtools.df_tools.stats.pearsonr_rows">
+<code class="descclassname">kmtools.df_tools.stats.</code><code class="descname">pearsonr_rows</code><span class="sig-paren">(</span><em>df_values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/df_tools/stats.html#pearsonr_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.df_tools.stats.pearsonr_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate correlation between every row in <code class="xref py py-class docutils literal"><span class="pre">numpy.Array</span></code> <cite>df_values</cite>.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kmtools.py_tools.html" class="btn btn-neutral float-right" title="kmtools.py_tools package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kmtools.db_tools.html" class="btn btn-neutral" title="kmtools.db_tools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

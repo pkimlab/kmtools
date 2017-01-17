@@ -1,0 +1,37 @@
+kmtools.df_tools package
+========================
+
+.. automodule:: kmtools.df_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+.. automodule:: kmtools.df_tools._data_analysis
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.df_tools._df_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.df_tools._loaders
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.df_tools._pandas
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.df_tools.stats
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.db_tools package &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../index.html"/>
+        <link rel="up" title="kmtools package" href="kmtools.html"/>
+        <link rel="next" title="kmtools.df_tools package" href="kmtools.df_tools.html"/>
+        <link rel="prev" title="kmtools package" href="kmtools.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="kmtools.html">kmtools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kmtools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="kmtools.html">kmtools package</a> &raquo;</li>
+      
+    <li>kmtools.db_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/kmtools.db_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-kmtools.db_tools">
+<span id="kmtools-db-tools-package"></span><h1>kmtools.db_tools package<a class="headerlink" href="#module-kmtools.db_tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kmtools.db_tools._db_tools">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-kmtools.db_tools._db_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="kmtools.db_tools._db_tools.QueryNotInCache">
+<em class="property">exception </em><code class="descclassname">kmtools.db_tools._db_tools.</code><code class="descname">QueryNotInCache</code><a class="reference internal" href="../_modules/kmtools/db_tools/_db_tools.html#QueryNotInCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools._db_tools.QueryNotInCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.db_tools._db_tools.lock_tables">
+<code class="descclassname">kmtools.db_tools._db_tools.</code><code class="descname">lock_tables</code><span class="sig-paren">(</span><em>tablenames</em>, <em>engine</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/db_tools/_db_tools.html#lock_tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools._db_tools.lock_tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lock a list of tables so that other processes can&#8217;t access them while you do your thing.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.db_tools._db_tools.make_connection_string">
+<code class="descclassname">kmtools.db_tools._db_tools.</code><code class="descname">make_connection_string</code><span class="sig-paren">(</span><em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/db_tools/_db_tools.html#make_connection_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools._db_tools.make_connection_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join a dictionary of connection properties (<cite>vargs</cite>) into a connection string.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">make_connection_string</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>         <span class="s1">&#39;db_password&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>         <span class="s1">&#39;db_port&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_schema&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_socket&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_type&#39;</span><span class="p">:</span> <span class="s1">&#39;mysql&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_url&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_username&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">})</span>
+<span class="go">&#39;mysql://user@localhost/&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_connection_string</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>         <span class="s1">&#39;db_password&#39;</span><span class="p">:</span> <span class="s1">&#39;pass&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_port&#39;</span><span class="p">:</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_schema&#39;</span><span class="p">:</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_socket&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_type&#39;</span><span class="p">:</span> <span class="s1">&#39;mysql&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_url&#39;</span><span class="p">:</span> <span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_username&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">})</span>
+<span class="go">&#39;mysql://user:pass@192.168.0.1:3306/test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_connection_string</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>         <span class="s1">&#39;db_password&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_port&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_schema&#39;</span><span class="p">:</span> <span class="s1">&#39;/absolute/path/to/foo.db&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_socket&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_type&#39;</span><span class="p">:</span> <span class="s1">&#39;sqlite&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_url&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="s1">&#39;db_username&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">})</span>
+<span class="go">&#39;sqlite:////absolute/path/to/foo.db&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.db_tools._db_tools.open_hdf5_exclusively">
+<code class="descclassname">kmtools.db_tools._db_tools.</code><code class="descname">open_hdf5_exclusively</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='a'</em>, <em>db_cache_filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/db_tools/_db_tools.html#open_hdf5_exclusively"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools._db_tools.open_hdf5_exclusively" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.db_tools._db_tools.parse_connection_string">
+<code class="descclassname">kmtools.db_tools._db_tools.</code><code class="descname">parse_connection_string</code><span class="sig-paren">(</span><em>connection_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/db_tools/_db_tools.html#parse_connection_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools._db_tools.parse_connection_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split <cite>connection_string</cite> into a dictionary of connection properties.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The returned dictionary maps everything to strings (including <cite>db_port</cite>)
+to make it compatible with <code class="xref py py-class docutils literal"><span class="pre">configparser.configParser</span></code>.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>connection_string</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; String describing database connection in SQLAlchemy-compatible format.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Mapping[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)">str</a>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">parse_connection_string</span><span class="p">(</span><span class="s1">&#39;mysql://user:@localhost&#39;</span><span class="p">))</span>
+<span class="go">{&#39;db_password&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_port&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_schema&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_socket&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_type&#39;: &#39;mysql&#39;,</span>
+<span class="go"> &#39;db_url&#39;: &#39;localhost&#39;,</span>
+<span class="go"> &#39;db_username&#39;: &#39;user&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">parse_connection_string</span><span class="p">(</span><span class="s1">&#39;mysql://user:pass@192.168.0.1:3306/test&#39;</span><span class="p">))</span>
+<span class="go">{&#39;db_password&#39;: &#39;pass&#39;,</span>
+<span class="go"> &#39;db_port&#39;: &#39;3306&#39;,</span>
+<span class="go"> &#39;db_schema&#39;: &#39;test&#39;,</span>
+<span class="go"> &#39;db_socket&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_type&#39;: &#39;mysql&#39;,</span>
+<span class="go"> &#39;db_url&#39;: &#39;192.168.0.1&#39;,</span>
+<span class="go"> &#39;db_username&#39;: &#39;user&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">parse_connection_string</span><span class="p">(</span><span class="s1">&#39;sqlite:////absolute/path/to/foo.db&#39;</span><span class="p">))</span>
+<span class="go">{&#39;db_password&#39;: None,</span>
+<span class="go"> &#39;db_port&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_schema&#39;: &#39;/absolute/path/to/foo.db&#39;,</span>
+<span class="go"> &#39;db_socket&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_type&#39;: &#39;sqlite&#39;,</span>
+<span class="go"> &#39;db_url&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;db_username&#39;: &#39;&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connection_string</span> <span class="o">=</span> <span class="s1">&#39;mysql://user@192.168.0.1:3306/test?unix_socket=/tmp/mysql.sock&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">parse_connection_string</span><span class="p">(</span><span class="n">connection_string</span><span class="p">))</span>
+<span class="go">{&#39;db_password&#39;: None,</span>
+<span class="go"> &#39;db_port&#39;: &#39;3306&#39;,</span>
+<span class="go"> &#39;db_schema&#39;: &#39;test&#39;,</span>
+<span class="go"> &#39;db_socket&#39;: &#39;/tmp/mysql.sock&#39;,</span>
+<span class="go"> &#39;db_type&#39;: &#39;mysql&#39;,</span>
+<span class="go"> &#39;db_url&#39;: &#39;192.168.0.1&#39;,</span>
+<span class="go"> &#39;db_username&#39;: &#39;user&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.db_tools._db_tools.read_sql_cached">
+<code class="descclassname">kmtools.db_tools._db_tools.</code><code class="descname">read_sql_cached</code><span class="sig-paren">(</span><em>sql_query</em>, <em>engine=None</em>, <em>db_cache_filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/db_tools/_db_tools.html#read_sql_cached"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools._db_tools.read_sql_cached" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-kmtools.db_tools.g2d"></span><dl class="function">
+<dt id="kmtools.db_tools.g2d.g2d">
+<code class="descclassname">kmtools.db_tools.g2d.</code><code class="descname">g2d</code><span class="sig-paren">(</span><em>table_name</em>, <em>connection_string</em>, <em>null_default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/db_tools/g2d.html#g2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.db_tools.g2d.g2d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kmtools.df_tools.html" class="btn btn-neutral float-right" title="kmtools.df_tools package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kmtools.html" class="btn btn-neutral" title="kmtools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

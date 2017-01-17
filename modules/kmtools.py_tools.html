@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.py_tools package &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../index.html"/>
+        <link rel="up" title="kmtools package" href="kmtools.html"/>
+        <link rel="next" title="kmtools.sequence_tools package" href="kmtools.sequence_tools.html"/>
+        <link rel="prev" title="kmtools.df_tools package" href="kmtools.df_tools.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="kmtools.html">kmtools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kmtools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="kmtools.html">kmtools package</a> &raquo;</li>
+      
+    <li>kmtools.py_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/kmtools.py_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-kmtools.py_tools">
+<span id="kmtools-py-tools-package"></span><h1>kmtools.py_tools package<a class="headerlink" href="#module-kmtools.py_tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kmtools.py_tools._py_tools">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-kmtools.py_tools._py_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kmtools.py_tools._py_tools.Struct">
+<em class="property">class </em><code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">Struct</code><span class="sig-paren">(</span><em>slots</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#Struct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.Struct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<dl class="attribute">
+<dt id="kmtools.py_tools._py_tools.Struct.empty_slots">
+<code class="descname">empty_slots</code><a class="headerlink" href="#kmtools.py_tools._py_tools.Struct.empty_slots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kmtools.py_tools._py_tools.Struct.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#Struct.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.Struct.update" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">Struct</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;bbb&#39;</span><span class="p">},</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;ccc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;bbb&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="s1">&#39;ccc&#39;</span><span class="p">}</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.decorate_all_methods">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">decorate_all_methods</code><span class="sig-paren">(</span><em>decorator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#decorate_all_methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.decorate_all_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorate all methods of a class with <cite>decorator</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.get_lock">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">get_lock</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#get_lock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.get_lock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.kill_child_process">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">kill_child_process</code><span class="sig-paren">(</span><em>child_process</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#kill_child_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.kill_child_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.log_calls">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">log_calls</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#log_calls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.log_calls" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.print_heartbeats">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">print_heartbeats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#print_heartbeats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.print_heartbeats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spawn a fork that prints a message every minute.</p>
+<p>This is required for travis-ci.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.strip_ps">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">strip_ps</code><span class="sig-paren">(</span><em>name</em>, <em>prefix=None</em>, <em>suffix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#strip_ps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.strip_ps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove <cite>prefix</cite> and / or <cite>suffix</cite> from <cite>name</cite>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">strip_ps</span><span class="p">(</span><span class="s1">&#39;good_god_gomer&#39;</span><span class="p">,</span> <span class="s1">&#39;good&#39;</span><span class="p">,</span> <span class="s1">&#39;gomer&#39;</span><span class="p">)</span>
+<span class="go">&#39;_god_&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools._py_tools.unique">
+<code class="descclassname">kmtools.py_tools._py_tools.</code><code class="descname">unique</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/_py_tools.html#unique"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools._py_tools.unique" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of unique elements of <cite>l</cite>, preserving order.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">unique</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-kmtools.py_tools.colors"></span><dl class="function">
+<dt id="kmtools.py_tools.colors.color">
+<code class="descclassname">kmtools.py_tools.colors.</code><code class="descname">color</code><span class="sig-paren">(</span><em>s</em>, <em>fg=None</em>, <em>bg=None</em>, <em>style=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/colors.html#color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools.colors.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools.colors.strip_color">
+<code class="descclassname">kmtools.py_tools.colors.</code><code class="descname">strip_color</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/colors.html#strip_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools.colors.strip_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-kmtools.py_tools.colors2"></span><dl class="class">
+<dt id="kmtools.py_tools.colors2.Colors">
+<em class="property">class </em><code class="descclassname">kmtools.py_tools.colors2.</code><code class="descname">Colors</code><a class="reference internal" href="../_modules/kmtools/py_tools/colors2.html#Colors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools.colors2.Colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.BLUE">
+<code class="descname">BLUE</code><em class="property"> = '\x1b[94m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.BLUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.BOLD">
+<code class="descname">BOLD</code><em class="property"> = '\x1b[1m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.BOLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.CYAN">
+<code class="descname">CYAN</code><em class="property"> = '\x1b[96m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.CYAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.DARKCYAN">
+<code class="descname">DARKCYAN</code><em class="property"> = '\x1b[36m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.DARKCYAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.END">
+<code class="descname">END</code><em class="property"> = '\x1b[0m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.END" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.FAIL">
+<code class="descname">FAIL</code><em class="property"> = '\x1b[91m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.GREEN">
+<code class="descname">GREEN</code><em class="property"> = '\x1b[92m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.GREEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.HEADER">
+<code class="descname">HEADER</code><em class="property"> = '\x1b[95m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.HEADER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.OKBLUE">
+<code class="descname">OKBLUE</code><em class="property"> = '\x1b[94m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.OKBLUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.OKGREEN">
+<code class="descname">OKGREEN</code><em class="property"> = '\x1b[92m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.OKGREEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.PURPLE">
+<code class="descname">PURPLE</code><em class="property"> = '\x1b[95m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.PURPLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.RED">
+<code class="descname">RED</code><em class="property"> = '\x1b[91m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.RED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.UNDERLINE">
+<code class="descname">UNDERLINE</code><em class="property"> = '\x1b[4m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.UNDERLINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.WARNING">
+<code class="descname">WARNING</code><em class="property"> = '\x1b[93m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.WARNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.py_tools.colors2.Colors.YELLOW">
+<code class="descname">YELLOW</code><em class="property"> = '\x1b[93m'</em><a class="headerlink" href="#kmtools.py_tools.colors2.Colors.YELLOW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.py_tools.colors2.underline">
+<code class="descclassname">kmtools.py_tools.colors2.</code><code class="descname">underline</code><span class="sig-paren">(</span><em>print_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/py_tools/colors2.html#underline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.py_tools.colors2.underline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kmtools.sequence_tools.html" class="btn btn-neutral float-right" title="kmtools.sequence_tools package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kmtools.df_tools.html" class="btn btn-neutral" title="kmtools.df_tools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

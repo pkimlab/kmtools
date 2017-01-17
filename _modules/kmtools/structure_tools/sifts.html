@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.structure_tools.sifts &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.structure_tools.sifts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.structure_tools.sifts</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Process PDB SIFTS info.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="kn">import</span> <span class="nn">lxml.etree</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+
+<span class="kn">from</span> <span class="nn">kmtools</span> <span class="k">import</span> <span class="n">sequence_tools</span><span class="p">,</span> <span class="n">structure_tools</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">RE_TAG</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;({.+})?(.+)&#39;</span><span class="p">)</span>
+<span class="n">MUTATION_SPLIT_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39; +&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SIFTSError"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.SIFTSError">[docs]</a><span class="k">class</span> <span class="nc">SIFTSError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="get_cache_dir"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.get_cache_dir">[docs]</a><span class="k">def</span> <span class="nf">get_cache_dir</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">CACHE_DIR</span>
+    <span class="k">if</span> <span class="n">CACHE_DIR</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s1">&#39;sifts_cache&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CACHE_DIR</span></div>
+
+
+<span class="c1"># #################################################################################################</span>
+<span class="c1"># Obtain SIFTS data</span>
+
+
+<span class="k">def</span> <span class="nf">_iter_residues_xml</span><span class="p">(</span><span class="n">xml_data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interate over all residue entires in the XML-formatted SIFTS file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xml_data : bytes</span>
+<span class="sd">        SIFTS data in XML format.</span>
+
+<span class="sd">    Yields</span>
+<span class="sd">    ------</span>
+<span class="sd">    residue : lxml.etree._Element</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">xml_data</span><span class="p">):</span>
+        <span class="c1"># Entries</span>
+        <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;entity&#39;</span><span class="p">:</span>
+            <span class="c1"># Chain segments</span>
+            <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">entity</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;segment&#39;</span><span class="p">:</span>
+                    <span class="c1"># Lists of residues</span>
+                    <span class="k">for</span> <span class="n">listResidue</span> <span class="ow">in</span> <span class="n">segment</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">listResidue</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;listResidue&#39;</span><span class="p">:</span>
+                            <span class="c1"># Residues</span>
+                            <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">listResidue</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;residue&#39;</span><span class="p">:</span>
+                                    <span class="k">yield</span> <span class="n">residue</span>
+
+
+<span class="k">def</span> <span class="nf">_get_residue_info_xml</span><span class="p">(</span><span class="n">residue</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get cross-reference data associated with `residue` element.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    residue : lxml.etree._Element</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    residue_data : dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">residue_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;is_observed&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;comments&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+    <span class="c1"># Go over all database crossreferences keeping only those</span>
+    <span class="c1"># that come from uniprot and match the given uniprot_id.</span>
+    <span class="k">for</span> <span class="n">residue_child</span> <span class="ow">in</span> <span class="n">residue</span><span class="p">:</span>
+        <span class="n">residue_child_tag</span> <span class="o">=</span> <span class="n">RE_TAG</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">residue_child</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_child_tag</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">residue_child_tag</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="n">residue_child_tag</span> <span class="o">=</span> <span class="n">residue_child_tag</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># Some more details about the residue</span>
+        <span class="k">if</span> <span class="n">residue_child_tag</span> <span class="o">==</span> <span class="s1">&#39;residueDetail&#39;</span><span class="p">:</span>
+            <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">residue_child</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;Not_Observed&#39;</span><span class="p">:</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;is_observed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Mappings to other databases</span>
+        <span class="k">if</span> <span class="n">residue_child_tag</span> <span class="o">==</span> <span class="s1">&#39;crossRefDb&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbSource&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;PDB&#39;</span><span class="p">:</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbAccessionId&#39;</span><span class="p">)</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbChainId&#39;</span><span class="p">)</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;resnum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbResNum&#39;</span><span class="p">)</span>
+                <span class="n">resname</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbResName&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">resname</span> <span class="ow">in</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">AAA_DICT</span><span class="p">:</span>
+                    <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;pdb_aa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">AAA_DICT</span><span class="p">[</span><span class="n">resname</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s1">&#39;Could not convert amino acid </span><span class="si">{}</span><span class="s1"> to a one letter code!&#39;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resname</span><span class="p">))</span>
+                    <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;pdb_aa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">resname</span>
+            <span class="k">elif</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbSource&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;UniProt&#39;</span><span class="p">:</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;uniprot_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbAccessionId&#39;</span><span class="p">)</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;uniprot_position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbResNum&#39;</span><span class="p">)</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;uniprot_aa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbResName&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbSource&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Pfam&#39;</span><span class="p">:</span>
+                <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;pfam_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residue_child</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dbAccessionId&#39;</span><span class="p">)</span>
+
+    <span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">residue_data</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">residue_data</span>
+
+
+<div class="viewcode-block" id="get_sifts_data"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.get_sifts_data">[docs]</a><span class="k">def</span> <span class="nf">get_sifts_data</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">cache_dict</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;Return SIFTS data for a particular PDB.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pdb_id : str</span>
+
+<span class="sd">    cache_dict : dict</span>
+<span class="sd">        Defaults to memoisation cache.</span>
+
+<span class="sd">    Download the xml file for the pdb file with the pdb id pdb_id, parse that</span>
+<span class="sd">    xml file, and return a dictionry which maps pdb resnumbing to uniprot</span>
+<span class="sd">    numbering for the chain specified by pdb_chain and uniprot specified by</span>
+<span class="sd">    uniprot_id.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pdb_id</span> <span class="ow">in</span> <span class="n">cache_dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cache_dict</span><span class="p">[</span><span class="n">pdb_id</span><span class="p">]</span>
+
+    <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">get_cache_dir</span><span class="p">()</span>
+
+    <span class="c1"># Download the sifts file if it is not in cache</span>
+    <span class="n">sifts_filename</span> <span class="o">=</span> <span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;.xml.gz&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">sifts_filename</span><span class="p">)):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/xml/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sifts_filename</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">sifts_filename</span><span class="p">))</span>
+
+    <span class="c1"># Go over the xml file and find all cross-references to uniprot</span>
+    <span class="n">pdb_sifts_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">sifts_filename</span><span class="p">))</span> <span class="k">as</span> <span class="n">ifh</span><span class="p">:</span>
+        <span class="n">xml_data</span> <span class="o">=</span> <span class="n">ifh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">_iter_residues_xml</span><span class="p">(</span><span class="n">xml_data</span><span class="p">):</span>
+        <span class="n">residue_data</span> <span class="o">=</span> <span class="n">_get_residue_info_xml</span><span class="p">(</span><span class="n">residue</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">residue_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">pdb_sifts_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">residue_data</span><span class="p">)</span>
+
+    <span class="c1"># Convert data to a DataFrame and make sure we have no duplicates</span>
+    <span class="n">sifts_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pdb_sifts_data</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+        <span class="n">sifts_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">,</span> <span class="s1">&#39;resnum&#39;</span><span class="p">]))</span>
+
+    <span class="c1"># residx counts the index of the residue in the pdb, starting from 1</span>
+    <span class="n">residx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pdb_chain</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">]):</span>
+        <span class="n">residx</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_chain</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;residx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">residx</span>
+
+    <span class="c1"># TODO: should optimise the code above instead of simply removing duplicates</span>
+    <span class="c1"># sifts_df = sifts_df.drop_duplicates()</span>
+
+    <span class="k">assert</span> <span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;resnum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">char</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span>
+    <span class="k">assert</span> <span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;residx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">char</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
+
+    <span class="n">cache_dict</span><span class="p">[</span><span class="n">pdb_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sifts_df</span>
+    <span class="k">return</span> <span class="n">sifts_df</span></div>
+
+
+<span class="c1"># #################################################################################################</span>
+<span class="c1"># Convert PDB to UniProt using SIFTS</span>
+
+
+<div class="viewcode-block" id="split_mutation"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.split_mutation">[docs]</a><span class="k">def</span> <span class="nf">split_mutation</span><span class="p">(</span><span class="n">mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Split mutation where `wt`, `pos`, and `mut` are separated by spaces.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; split_mutation(&#39;A 10 C&#39;)</span>
+<span class="sd">    (&#39;A&#39;, &#39;10&#39;, &#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; split_mutation(&#39;A10C&#39;)</span>
+<span class="sd">    (&#39;A&#39;, &#39;10&#39;, &#39;C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; split_mutation(None)</span>
+<span class="sd">    (None, None, None)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">mutation</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">mutation</span><span class="p">:</span>
+        <span class="n">mutation_split</span> <span class="o">=</span> <span class="n">MUTATION_SPLIT_RE</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">mutation</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mutation_split</span> <span class="o">=</span> <span class="p">(</span><span class="n">mutation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mutation</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">mutation</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutation_split</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">wt</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mut</span> <span class="o">=</span> <span class="n">mutation_split</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutation_split</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">mutation_split</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">wt</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mut</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">mutation_split</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">mutation_split</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">wt</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mut</span> <span class="o">=</span> <span class="o">*</span><span class="n">mutation_split</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">mutation</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">mutation</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wt</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mut</span></div>
+
+
+<div class="viewcode-block" id="validate_mutations"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.validate_mutations">[docs]</a><span class="k">def</span> <span class="nf">validate_mutations</span><span class="p">(</span><span class="n">mutations</span><span class="p">,</span> <span class="n">seqrecord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make sure that mutations match seqrecord.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    validated_mutations : str</span>
+<span class="sd">        Comma-separated list of mutations where each unmatched mutation has been replaced by a &#39;?&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">validated_mutations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">mutation</span> <span class="ow">in</span> <span class="n">mutations</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
+        <span class="n">wt</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">mut</span> <span class="o">=</span> <span class="n">split_mutation</span><span class="p">(</span><span class="n">mutation</span><span class="p">)</span>
+        <span class="n">wt_valid</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">aa</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wt</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">mutations_match</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">seqrecord</span><span class="p">)[</span><span class="nb">int</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">aa</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                <span class="n">mutations_match</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">mutations_match</span><span class="p">:</span>
+                <span class="n">wt_valid</span> <span class="o">+=</span> <span class="n">aa</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">wt_valid</span> <span class="o">+=</span> <span class="s1">&#39;?&#39;</span>
+        <span class="n">validated_mutations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wt_valid</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">validated_mutations</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="convert_amino_acid"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.convert_amino_acid">[docs]</a><span class="k">def</span> <span class="nf">convert_amino_acid</span><span class="p">(</span>
+        <span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_aa</span><span class="p">,</span> <span class="n">pdb_resnum</span><span class="p">,</span> <span class="n">sifts_df</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pdb_resnum_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a single amino acid from PDB to UniProt coordinates.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pdb_id : str</span>
+<span class="sd">        PDB ID.</span>
+<span class="sd">    pdb_chain : str | None</span>
+<span class="sd">        PDB chain of the residue to be converted.</span>
+<span class="sd">    pdb_aa : str | &#39;&#39;</span>
+<span class="sd">        PDB amino acid of the residue to be converted.</span>
+<span class="sd">    pdb_resnum : str</span>
+<span class="sd">        PDB RESNUM of the residue to be converted.</span>
+<span class="sd">    sifts_df : DataFrame</span>
+<span class="sd">        SIFTS data to use for conversion.</span>
+<span class="sd">    uniprot_id : str</span>
+<span class="sd">        UniProt ID that is expected.</span>
+<span class="sd">    pdb_resnum_offset : int</span>
+<span class="sd">        Move `pdb_resnum` forward or backward by a certain number of residues.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pdb_resnum_offset</span><span class="p">:</span>
+        <span class="n">pdb_resnum_idx</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;resnum&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_resnum</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pdb_resnum</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pdb_resnum_idx</span> <span class="o">+</span> <span class="n">pdb_resnum_offset</span><span class="p">,</span> <span class="s1">&#39;resnum&#39;</span><span class="p">]</span>
+
+    <span class="n">pdb_residx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pdb_resnum</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()))</span>
+
+    <span class="k">if</span> <span class="n">pdb_aa</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uniprot_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;uniprot_aa&#39;</span> <span class="ow">in</span> <span class="n">sifts_df</span><span class="p">:</span>
+            <span class="n">sifts_df_pdb_aa_match</span> <span class="o">=</span> <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;uniprot_aa&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_aa</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sifts_df_pdb_aa_match</span> <span class="o">=</span> <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_aa&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_aa</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sifts_df_pdb_aa_match</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pdb_chain</span><span class="p">):</span>
+        <span class="n">sifts_df_pdb_chain_match</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sifts_df_pdb_chain_match</span> <span class="o">=</span> <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_chain</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">uniprot_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;uniprot_id&#39;</span> <span class="ow">in</span> <span class="n">sifts_df</span><span class="p">:</span>
+        <span class="c1"># Get the subset of rows that we are interested in</span>
+        <span class="n">sifts_df_subset_0</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_id</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df_pdb_chain_match</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;resnum&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_resnum</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df_pdb_aa_match</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;uniprot_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">uniprot_id</span><span class="p">)]</span>
+        <span class="c1"># Try using residx instead of resnum</span>
+        <span class="n">sifts_df_subset_2</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_id</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df_pdb_chain_match</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;residx&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_residx</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df_pdb_aa_match</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;uniprot_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">uniprot_id</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="s1">&#39;uniprot_position&#39;</span> <span class="ow">in</span> <span class="n">sifts_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">sifts_df_subset_4</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span>
+                <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_id</span><span class="p">)</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">sifts_df_pdb_chain_match</span><span class="p">)</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;uniprot_position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_residx</span><span class="p">)</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">sifts_df_pdb_aa_match</span><span class="p">)</span> <span class="o">&amp;</span>
+                <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;uniprot_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">uniprot_id</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sifts_df_subset_4</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sifts_df_subset_0</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sifts_df_subset_2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Try mapping to a wildcard uniprot</span>
+    <span class="n">sifts_df_subset_1</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_id</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">sifts_df_pdb_chain_match</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;resnum&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_resnum</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">sifts_df_pdb_aa_match</span><span class="p">)]</span>
+    <span class="c1"># Or residx and wildcard uniprot</span>
+    <span class="n">sifts_df_subset_3</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_id</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">sifts_df_pdb_chain_match</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;residx&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_residx</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">sifts_df_pdb_aa_match</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="s1">&#39;uniprot_position&#39;</span> <span class="ow">in</span> <span class="n">sifts_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">sifts_df_subset_5</span> <span class="o">=</span> <span class="n">sifts_df</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;pdb_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_id</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df_pdb_chain_match</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df</span><span class="p">[</span><span class="s1">&#39;uniprot_position&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pdb_residx</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">sifts_df_pdb_aa_match</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sifts_df_subset_5</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Choose the best availible subset</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df_subset_0</span><span class="p">):</span>
+        <span class="n">sifts_df_subset</span> <span class="o">=</span> <span class="n">sifts_df_subset_0</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df_subset_1</span><span class="p">):</span>
+        <span class="n">sifts_df_subset</span> <span class="o">=</span> <span class="n">sifts_df_subset_1</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df_subset_2</span><span class="p">):</span>
+        <span class="n">sifts_df_subset</span> <span class="o">=</span> <span class="n">sifts_df_subset_2</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df_subset_3</span><span class="p">):</span>
+        <span class="n">sifts_df_subset</span> <span class="o">=</span> <span class="n">sifts_df_subset_3</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df_subset_4</span><span class="p">):</span>
+        <span class="n">sifts_df_subset</span> <span class="o">=</span> <span class="n">sifts_df_subset_4</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sifts_df_subset_5</span><span class="p">):</span>
+        <span class="n">sifts_df_subset</span> <span class="o">=</span> <span class="n">sifts_df_subset_5</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">SIFTS failed to match residue (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)</span><span class="se">\</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_aa</span><span class="p">,</span> <span class="n">pdb_resnum</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="p">,</span> <span class="n">pdb_resnum_offset</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+
+    <span class="c1"># Result</span>
+    <span class="n">sifts_row</span> <span class="o">=</span> <span class="n">sifts_df_subset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">uniprot_id_sifts</span> <span class="o">=</span> <span class="n">sifts_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uniprot_id&#39;</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="p">)</span>
+    <span class="n">uniprot_aa</span> <span class="o">=</span> <span class="n">sifts_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uniprot_aa&#39;</span><span class="p">)</span>
+    <span class="n">uniprot_pos</span> <span class="o">=</span> <span class="n">sifts_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uniprot_position&#39;</span><span class="p">)</span>
+    <span class="n">uniprot_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">uniprot_pos</span><span class="p">)</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">uniprot_pos</span><span class="p">)</span> <span class="k">else</span> <span class="n">uniprot_pos</span>
+    <span class="n">pdb_chain</span> <span class="o">=</span> <span class="n">sifts_row</span><span class="p">[</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">]</span>
+    <span class="n">pfam_id</span> <span class="o">=</span> <span class="n">sifts_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pfam_id&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">uniprot_aa</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pdb_aa</span> <span class="o">!=</span> <span class="n">uniprot_aa</span><span class="p">):</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">PDB AA and UniProt AA are not the same! (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">) (</span><span class="si">{}</span><span class="s2"> != </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">))</span><span class="se">\</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_aa</span><span class="p">,</span> <span class="n">pdb_resnum</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="p">,</span> <span class="n">pdb_resnum_offset</span><span class="p">,</span>
+           <span class="n">pdb_aa</span><span class="p">,</span> <span class="n">uniprot_aa</span><span class="p">,</span> <span class="n">uniprot_id_sifts</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+
+    <span class="n">uniprot_seqrecord</span> <span class="o">=</span> <span class="n">sequence_tools</span><span class="o">.</span><span class="n">fetch_sequence</span><span class="p">(</span><span class="n">uniprot_id_sifts</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">uniprot_aa</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">uniprot_pos</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">uniprot_seqrecord</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">    Could not fetch uniprot sequence to make sure that AA &#39;</span><span class="si">{}{}</span><span class="s2">&#39; is correct!</span><span class="se">\</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uniprot_aa</span><span class="p">,</span> <span class="n">uniprot_pos</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">uniprot_seqrecord</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">uniprot_seqrecord</span><span class="o">.</span><span class="n">seq</span><span class="p">)[</span><span class="n">uniprot_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">uniprot_aa</span><span class="p">):</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">    Sequence mismatch: </span><span class="si">{}{}</span><span class="s2"> in </span><span class="si">{}</span><span class="s2">!</span><span class="se">\</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uniprot_aa</span><span class="p">,</span> <span class="n">uniprot_pos</span><span class="p">,</span> <span class="n">uniprot_seqrecord</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">uniprot_id</span><span class="o">=</span><span class="n">uniprot_id_sifts</span><span class="p">,</span>
+        <span class="n">uniprot_aa</span><span class="o">=</span><span class="n">uniprot_aa</span><span class="p">,</span>
+        <span class="n">uniprot_pos</span><span class="o">=</span><span class="n">uniprot_pos</span><span class="p">,</span>
+        <span class="n">pdb_chain</span><span class="o">=</span><span class="n">pdb_chain</span><span class="p">,</span>
+        <span class="n">pfam_id</span><span class="o">=</span><span class="n">pfam_id</span>
+    <span class="p">)</span></div>
+
+
+<span class="n">PDB_MUTATION_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="s1">&#39;^([a-zA-Z0-9]{0,1})_?([GVALICMFWPDESTYQNKRH]</span><span class="si">{1}</span><span class="s1">[1-9][0-9]*[GVALICMFWPDESTYQNKRH]*)$&#39;</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="format_pdb_mutation"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.format_pdb_mutation">[docs]</a><span class="k">def</span> <span class="nf">format_pdb_mutation</span><span class="p">(</span><span class="n">pdb_mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; format_pdb_mutation(&#39;A_M1C&#39;)</span>
+<span class="sd">    (&#39;A&#39;, &#39;M1C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; format_pdb_mutation(&#39;AM1C&#39;)</span>
+<span class="sd">    (&#39;A&#39;, &#39;M1C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; format_pdb_mutation(&#39;M1C&#39;)</span>
+<span class="sd">    (&#39;&#39;, &#39;M1C&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; format_pdb_mutation(&#39;XXXM1C&#39;)</span>
+<span class="sd">    (None, None)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">PDB_MUTATION_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pdb_mutation</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_pdb_chain_mutation</span><span class="p">(</span><span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; list(_get_pdb_chain_mutation(&#39;A&#39;, &#39;M1C&#39;))</span>
+<span class="sd">    [(&#39;A&#39;, &#39;M1C&#39;)]</span>
+<span class="sd">    &gt;&gt;&gt; list(_get_pdb_chain_mutation(&#39;A&#39;, &#39;A_M1C&#39;))</span>
+<span class="sd">    [(&#39;A&#39;, &#39;M1C&#39;)]</span>
+<span class="sd">    &gt;&gt;&gt; list(_get_pdb_chain_mutation(None, &#39;A_M1C&#39;))</span>
+<span class="sd">    [(&#39;A&#39;, &#39;M1C&#39;)]</span>
+<span class="sd">    &gt;&gt;&gt; list(_get_pdb_chain_mutation(&#39;I&#39;, &#39;I_T19L.I_E21K&#39;))</span>
+<span class="sd">    [(&#39;I&#39;, &#39;T19L&#39;), (&#39;I&#39;, &#39;E21K&#39;)]</span>
+<span class="sd">    &gt;&gt;&gt; list(_get_pdb_chain_mutation(&#39;B&#39;, &#39;A_M1C&#39;))</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    kmtools.structure_tools.sifts.SIFTSError: PDB chains do not match!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># sep</span>
+    <span class="n">sep</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pdb_mutations</span><span class="p">:</span>
+            <span class="n">sep</span> <span class="o">=</span> <span class="n">s</span>
+            <span class="k">break</span>
+    <span class="c1"># pdb_mutations</span>
+    <span class="k">if</span> <span class="n">sep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pdb_mutations</span> <span class="o">=</span> <span class="n">pdb_mutations</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pdb_mutations</span> <span class="o">=</span> <span class="p">[</span><span class="n">pdb_mutations</span><span class="p">]</span>
+    <span class="c1"># pdb_chains</span>
+    <span class="k">if</span> <span class="n">sep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">pdb_chains</span><span class="p">)</span> <span class="ow">and</span> <span class="n">sep</span> <span class="ow">in</span> <span class="n">pdb_chains</span><span class="p">:</span>
+        <span class="n">pdb_chains</span> <span class="o">=</span> <span class="n">pdb_chains</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pdb_chains</span> <span class="o">=</span> <span class="p">[</span><span class="n">pdb_chains</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdb_mutations</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdb_chains</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdb_mutations</span><span class="p">)</span>
+    <span class="c1"># yield</span>
+    <span class="k">for</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_mutation</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">):</span>
+        <span class="n">c</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">format_pdb_mutation</span><span class="p">(</span><span class="n">pdb_mutation</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">m</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pdb_chain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pdb_chain</span> <span class="o">!=</span> <span class="n">c</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span>
+                    <span class="s2">&quot;pdb_chain (&#39;</span><span class="si">{}</span><span class="s2">&#39;) and c (&#39;</span><span class="si">{}</span><span class="s2">&#39;) do not match!</span><span class="se">\n</span><span class="s2">(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_chain</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">))</span>
+            <span class="k">yield</span> <span class="n">c</span><span class="p">,</span> <span class="n">m</span>
+
+
+<div class="viewcode-block" id="convert_pdb_mutations_to_uniprot"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.convert_pdb_mutations_to_uniprot">[docs]</a><span class="k">def</span> <span class="nf">convert_pdb_mutations_to_uniprot</span><span class="p">(</span>
+        <span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chains</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sifts_df</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a PDB mutations to UniProt.</span>
+
+<span class="sd">    Works for a list of mutations joined with &#39;,&#39; but only one row at a time.</span>
+
+<span class="sd">    Fails if can&#39;t map at mutation level.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pdb_id : str</span>
+<span class="sd">    pdb_chains : str | None</span>
+<span class="sd">        Comma-separated list of PDB chain IDs, with one ID for every mutation</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pprint import pprint</span>
+<span class="sd">    &gt;&gt;&gt; sifts_df = get_sifts_data(&#39;1jrh&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; pprint(convert_pdb_mutations_to_uniprot(&#39;1jrh&#39;, &#39;I&#39;, &#39;I_T19L.I_E21K&#39;, sifts_df=sifts_df))</span>
+<span class="sd">    {&#39;pdb_mutations_sifts&#39;: &#39;I_T19L.I_E21K&#39;,</span>
+<span class="sd">     &#39;pfam_id_sifts&#39;: &#39;PF01108&#39;,</span>
+<span class="sd">     &#39;uniprot_id_sifts&#39;: &#39;P15260&#39;,</span>
+<span class="sd">     &#39;uniprot_mutations_sifts&#39;: &#39;T36L.E38K&#39;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pdb_mutations_sifts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">uniprot_mutations_sifts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_mutation</span> <span class="ow">in</span> <span class="n">_get_pdb_chain_mutation</span><span class="p">(</span><span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pdb_mutation</span><span class="p">):</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">Failed to get pdb_mutation (</span><span class="si">{}</span><span class="s2">) for input: (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)</span><span class="se">\</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_mutation</span><span class="p">,</span> <span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+        <span class="n">pdb_wt</span><span class="p">,</span> <span class="n">pdb_resnum</span><span class="p">,</span> <span class="n">pdb_mut</span> <span class="o">=</span> <span class="n">split_mutation</span><span class="p">(</span><span class="n">pdb_mutation</span><span class="p">)</span>
+        <span class="c1"># Convert each of the mutant residues</span>
+        <span class="n">uniprot_aa_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pdb_wt_aa</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pdb_wt</span> <span class="k">if</span> <span class="n">pdb_wt</span> <span class="k">else</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]):</span>
+            <span class="n">sifts_aa_data</span> <span class="o">=</span> <span class="n">convert_amino_acid</span><span class="p">(</span>
+                <span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_wt_aa</span><span class="p">,</span> <span class="n">pdb_resnum</span><span class="p">,</span> <span class="n">sifts_df</span><span class="p">,</span>
+                <span class="n">uniprot_id</span><span class="o">=</span><span class="n">uniprot_id</span><span class="p">,</span> <span class="n">pdb_resnum_offset</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">uniprot_aa_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sifts_aa_data</span><span class="p">)</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;uniprot_aa&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uniprot_aa_data</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="nb">any</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;uniprot_pos&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uniprot_aa_data</span><span class="p">)):</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">No mutation mapping available! (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">):</span><span class="se">\n</span><span class="s2">    </span><span class="si">{}</span><span class="se">\</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">,</span> <span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_mutation</span><span class="p">,</span> <span class="n">uniprot_aa_data</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">SIFTSError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+        <span class="n">uniprot_id_sifts</span> <span class="o">=</span> <span class="n">uniprot_aa_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;uniprot_id&#39;</span><span class="p">]</span>
+        <span class="n">pfam_id_sifts</span> <span class="o">=</span> <span class="n">uniprot_aa_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;pfam_id&#39;</span><span class="p">]</span>
+        <span class="n">uniprot_wt</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;uniprot_aa&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uniprot_aa_data</span><span class="p">)</span>
+        <span class="n">uniprot_pos</span> <span class="o">=</span> <span class="n">uniprot_aa_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;uniprot_pos&#39;</span><span class="p">]</span>
+        <span class="n">pdb_chain</span> <span class="o">=</span> <span class="n">uniprot_aa_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;pdb_chain&#39;</span><span class="p">]</span>
+        <span class="n">uniprot_mutation</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uniprot_wt</span><span class="p">,</span> <span class="n">uniprot_pos</span><span class="p">,</span> <span class="n">pdb_mut</span><span class="p">)</span>
+
+        <span class="n">pdb_mutations_sifts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_wt</span><span class="p">,</span> <span class="n">pdb_resnum</span><span class="p">,</span> <span class="n">pdb_mut</span><span class="p">))</span>
+        <span class="n">uniprot_mutations_sifts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uniprot_mutation</span><span class="p">)</span>
+        <span class="c1"># pdb_chains_sifts = &#39;,&#39;.join(x[&#39;pdb_chain&#39;] for x in uniprot_aa_data)</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">uniprot_id_sifts</span><span class="o">=</span><span class="n">uniprot_id_sifts</span><span class="p">,</span>
+        <span class="n">pfam_id_sifts</span><span class="o">=</span><span class="n">pfam_id_sifts</span><span class="p">,</span>
+        <span class="n">pdb_mutations_sifts</span><span class="o">=</span><span class="p">(</span>
+            <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdb_mutations_sifts</span><span class="p">)</span> <span class="k">if</span> <span class="n">pdb_mutations_sifts</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="p">),</span>
+        <span class="n">uniprot_mutations_sifts</span><span class="o">=</span><span class="p">(</span>
+            <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">uniprot_mutations_sifts</span><span class="p">)</span> <span class="k">if</span> <span class="n">uniprot_mutations_sifts</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_uniprot_id_mutation"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.sifts.get_uniprot_id_mutation">[docs]</a><span class="k">def</span> <span class="nf">get_uniprot_id_mutation</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a whole column of PDB mutations to UniProt.</span>
+
+<span class="sd">    This function gets the SIFTS data for you.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pdb_id : str</span>
+<span class="sd">    pdb_mutations : str</span>
+<span class="sd">    uniprot_id : str</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict with keys:</span>
+<span class="sd">        - uniprot_id_sifts : str</span>
+<span class="sd">        - uniprot_mutations_sifts : str</span>
+<span class="sd">            Comma-separated list of mutations.</span>
+<span class="sd">        - pfam_id_sifts : str</span>
+<span class="sd">            Comma-separated list of cleaned-up PDB mutations.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pdb_mutations</span><span class="p">)</span> <span class="ow">or</span> <span class="n">pdb_mutations</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span> <span class="ow">or</span> <span class="n">pdb_mutations</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;WILD&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_uniprot_fallback</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Try treating PDB mutations as though they are from UniProt.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">uniprot_seqrecord</span> <span class="o">=</span> <span class="n">sequence_tools</span><span class="o">.</span><span class="n">fetch_sequence</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">uniprot_seqrecord</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">)</span>
+            <span class="n">validated_mutations</span> <span class="o">=</span> <span class="n">validate_mutations</span><span class="p">(</span><span class="n">pdb_mutations</span><span class="p">,</span> <span class="n">uniprot_seqrecord</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;uniprot_id_sifts&#39;</span><span class="p">:</span> <span class="n">uniprot_id</span><span class="p">,</span>
+                <span class="s1">&#39;uniprot_mutations_sifts&#39;</span><span class="p">:</span> <span class="n">validated_mutations</span><span class="p">,</span>
+            <span class="p">}</span>
+
+    <span class="c1"># If pdb_id is null, make sure pdb_mutations matches UniProt</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_uniprot_fallback</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">)</span>
+
+    <span class="c1"># Get SIFTS data</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sifts_df</span> <span class="o">=</span> <span class="n">get_sifts_data</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">XMLSyntaxError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_uniprot_fallback</span><span class="p">(</span><span class="n">uniprot_id</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">convert_pdb_mutations_to_uniprot</span><span class="p">(</span>
+        <span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_chains</span><span class="p">,</span> <span class="n">pdb_mutations</span><span class="p">,</span> <span class="n">uniprot_id</span><span class="p">,</span> <span class="n">sifts_df</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

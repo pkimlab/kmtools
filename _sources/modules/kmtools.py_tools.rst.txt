@@ -1,0 +1,27 @@
+kmtools.py_tools package
+========================
+
+.. automodule:: kmtools.py_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Submodules
+----------
+
+.. automodule:: kmtools.py_tools._py_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.py_tools.colors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: kmtools.py_tools.colors2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

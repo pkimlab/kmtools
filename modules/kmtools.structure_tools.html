@@ -1,0 +1,939 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.structure_tools package &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../index.html"/>
+        <link rel="up" title="kmtools package" href="kmtools.html"/>
+        <link rel="next" title="kmtools.system_tools package" href="kmtools.system_tools.html"/>
+        <link rel="prev" title="kmtools.sequence_tools package" href="kmtools.sequence_tools.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="kmtools.html">kmtools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kmtools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="kmtools.html">kmtools package</a> &raquo;</li>
+      
+    <li>kmtools.structure_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/kmtools.structure_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-kmtools.structure_tools">
+<span id="kmtools-structure-tools-package"></span><h1>kmtools.structure_tools package<a class="headerlink" href="#module-kmtools.structure_tools" title="Permalink to this headline">¶</a></h1>
+<p>Structure Tools</p>
+<p>Tools for loading and analysing PDB structures.</p>
+<div class="section" id="module-kmtools.structure_tools.constants">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-kmtools.structure_tools.constants" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-kmtools.structure_tools.elaspic_legacy"></span><p>Legacy code to support the ELASPIC pipeline until we move to ELASPIC v2.</p>
+<dl class="function">
+<dt id="kmtools.structure_tools.elaspic_legacy.get_chain_sequence_and_numbering">
+<code class="descclassname">kmtools.structure_tools.elaspic_legacy.</code><code class="descname">get_chain_sequence_and_numbering</code><span class="sig-paren">(</span><em>chain</em>, <em>domain_def_tuple=None</em>, <em>include_hetatms=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/elaspic_legacy.html#get_chain_sequence_and_numbering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.elaspic_legacy.get_chain_sequence_and_numbering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the amino acid sequence and a list of residue ids for the given chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chain</strong> (<em>Bio.PDB.Chain.Chain</em>) &#8211; The chain for which to get the amino acid sequence and numbering.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-kmtools.structure_tools.exc"></span><dl class="exception">
+<dt id="kmtools.structure_tools.exc.MSMSError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">MSMSError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#MSMSError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.MSMSError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.structure_tools.exc.MutationMismatchError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">MutationMismatchError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#MutationMismatchError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.MutationMismatchError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.structure_tools.exc.PDBChainError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">PDBChainError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#PDBChainError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.PDBChainError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.structure_tools.exc.PDBDomainDefsError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">PDBDomainDefsError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#PDBDomainDefsError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.PDBDomainDefsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>PDB domain definitions not found in the pdb file.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.structure_tools.exc.PDBEmptySequenceError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">PDBEmptySequenceError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#PDBEmptySequenceError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.PDBEmptySequenceError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<p>One of the sequences is missing from the alignment.</p>
+<p>The most likely cause is that the alignment domain definitions were incorrect.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.structure_tools.exc.PDBError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">PDBError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#PDBError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.PDBError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="kmtools.structure_tools.exc.PDBNotFoundError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.exc.</code><code class="descname">PDBNotFoundError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/exc.html#PDBNotFoundError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.exc.PDBNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<span class="target" id="module-kmtools.structure_tools.monkeypatch_biopython"></span><span class="target" id="module-kmtools.structure_tools.pdb_tools"></span><dl class="class">
+<dt id="kmtools.structure_tools.pdb_tools.NotDisordered">
+<em class="property">class </em><code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">NotDisordered</code><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#NotDisordered"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.NotDisordered" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Bio.PDB.PDBIO.Select</span></code></p>
+<p>Select only non-disordered residues and set their altloc flag to &#8216; &#8216;.</p>
+<p>Source: <a class="reference external" href="http://biopython.org/wiki/Remove_PDB_disordered_atoms">http://biopython.org/wiki/Remove_PDB_disordered_atoms</a></p>
+<dl class="method">
+<dt id="kmtools.structure_tools.pdb_tools.NotDisordered.accept_atom">
+<code class="descname">accept_atom</code><span class="sig-paren">(</span><em>atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#NotDisordered.accept_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.NotDisordered.accept_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.pdb_tools.NotDisordered.accept_residue">
+<code class="descname">accept_residue</code><span class="sig-paren">(</span><em>residue</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#NotDisordered.accept_residue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.NotDisordered.accept_residue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.pdb_tools.allequal">
+<code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">allequal</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#allequal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.allequal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.structure_tools.pdb_tools.fetch_structure">
+<code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">fetch_structure</code><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#fetch_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.fetch_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch remote PDB file.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>For <cite>cif</cite> biounits, we have to run the <code class="docutils literal"><span class="pre">Assembly</span></code> binary
+to generate the biounit structure.</p>
+<p class="last">Even for <cite>pdb</cite> biounits, some structures don&#8217;t have a biounit file
+(probably because they are NMR structures, etc.)</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Protein structure.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Bio.PDB.Structure.Structure</span></code></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fetch_structure</span><span class="p">(</span><span class="s1">&#39;4dkl&#39;</span><span class="p">)</span>
+<span class="go">Structure(id=&#39;4dkl&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fetch_structure</span><span class="p">(</span><span class="s1">&#39;4dkl&#39;</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="s1">&#39;cif&#39;</span><span class="p">)</span>
+<span class="go">Structure(id=&#39;4dkl&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fetch_structure</span><span class="p">(</span><span class="s1">&#39;4NWR&#39;</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Structure(id=&#39;4NWR&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.pdb_tools.get_pdb_parser">
+<code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">get_pdb_parser</code><span class="sig-paren">(</span><em>pdb_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#get_pdb_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.get_pdb_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get BioPython PDB parser appropriate for <cite>pdb_type</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.pdb_tools.get_wwpdb_url">
+<code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">get_wwpdb_url</code><span class="sig-paren">(</span><em>pdb_id</em>, <em>pdb_type='cif'</em>, <em>biounit=False</em>, <em>wwpdb_base_url=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#get_wwpdb_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.get_wwpdb_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get PDB filename (inlcuding path) from a local mirror of the PDB repository.</p>
+<p>This assumes that you have mirrored the PDB ftp repository:
+<a class="reference external" href="ftp://ftp.wwpdb.org/pub/pdb/data/">ftp://ftp.wwpdb.org/pub/pdb/data/</a></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_wwpdb_url</span><span class="p">(</span><span class="s1">&#39;4DKL&#39;</span><span class="p">,</span> <span class="s1">&#39;pdb&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wwpdb_base_url</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="go">&#39;structures/divided/pdb/dk/pdb4dkl.ent.gz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_wwpdb_url</span><span class="p">(</span><span class="s1">&#39;4dkl&#39;</span><span class="p">,</span> <span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wwpdb_base_url</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="go">&#39;structures/divided/mmCIF/dk/4dkl.cif.gz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_wwpdb_url</span><span class="p">(</span><span class="s1">&#39;4DKL&#39;</span><span class="p">,</span> <span class="s1">&#39;pdb&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wwpdb_base_url</span><span class="o">=</span><span class="s1">&#39;/tmp&#39;</span><span class="p">)</span>
+<span class="go">&#39;/tmp/biounit/PDB/divided/dk/4dkl.pdb1.gz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_wwpdb_url</span><span class="p">(</span><span class="s1">&#39;4NWR&#39;</span><span class="p">,</span> <span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&#39;ftp://ftp.wwpdb.org/pub/pdb/data/biounit/mmCIF/divided/nw/4nwr-assembly1.cif.gz&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.pdb_tools.load_structure">
+<code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">load_structure</code><span class="sig-paren">(</span><em>pdb_file</em>, <em>pdb_id=None</em>, <em>pdb_type=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#load_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.load_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load local PDB file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pdb_file</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>) &#8211; File to load</li>
+<li><strong>pdb_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>, optional) &#8211; PDB_ID to assign to the loaded structure.</li>
+<li><strong>pdb_type</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal"><span class="pre">str</span></code></a>, one of: <cite>{&#8216;pdb&#8217;, &#8216;cif&#8217;}</cite>, optional) &#8211; Type of PDB file. If <code class="docutils literal"><span class="pre">None</span></code>, try all available types until one works.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Protein structure.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">Bio.PDB.Structure.Structure</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">urllib.request</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pdb_file</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s1">&#39;4dkl.pdb&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="s1">&#39;https://files.rcsb.org/download/4dkl.pdb&#39;</span><span class="p">,</span> <span class="n">pdb_file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_structure</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+<span class="go">Structure(id=&#39;4dkl&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pdb_file</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s1">&#39;3K1Q.cif&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="s1">&#39;https://files.rcsb.org/download/3K1Q.cif&#39;</span><span class="p">,</span> <span class="n">pdb_file</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_structure</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+<span class="go">Structure(id=&#39;3k1q&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.pdb_tools.save_structure">
+<code class="descclassname">kmtools.structure_tools.pdb_tools.</code><code class="descname">save_structure</code><span class="sig-paren">(</span><em>structure</em>, <em>filename</em>, <em>include_disordered=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/pdb_tools.html#save_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.pdb_tools.save_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save BioPython structure object as a PDB.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">fetch_structure</span><span class="p">(</span><span class="s1">&#39;4dkl&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_structure</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">load_structure</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allequal</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-kmtools.structure_tools.sifts"></span><p>Process PDB SIFTS info.</p>
+<dl class="exception">
+<dt id="kmtools.structure_tools.sifts.SIFTSError">
+<em class="property">exception </em><code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">SIFTSError</code><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#SIFTSError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.SIFTSError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.convert_amino_acid">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">convert_amino_acid</code><span class="sig-paren">(</span><em>pdb_id</em>, <em>pdb_chain</em>, <em>pdb_aa</em>, <em>pdb_resnum</em>, <em>sifts_df</em>, <em>uniprot_id=None</em>, <em>pdb_resnum_offset=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#convert_amino_acid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.convert_amino_acid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a single amino acid from PDB to UniProt coordinates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pdb_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; PDB ID.</li>
+<li><strong>pdb_chain</strong> (<em>str | None</em>) &#8211; PDB chain of the residue to be converted.</li>
+<li><strong>pdb_aa</strong> (<em>str | ''</em>) &#8211; PDB amino acid of the residue to be converted.</li>
+<li><strong>pdb_resnum</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; PDB RESNUM of the residue to be converted.</li>
+<li><strong>sifts_df</strong> (<em>DataFrame</em>) &#8211; SIFTS data to use for conversion.</li>
+<li><strong>uniprot_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; UniProt ID that is expected.</li>
+<li><strong>pdb_resnum_offset</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Move <cite>pdb_resnum</cite> forward or backward by a certain number of residues.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.convert_pdb_mutations_to_uniprot">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">convert_pdb_mutations_to_uniprot</code><span class="sig-paren">(</span><em>pdb_id</em>, <em>pdb_chains=None</em>, <em>pdb_mutations=None</em>, <em>*</em>, <em>uniprot_id=None</em>, <em>sifts_df=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#convert_pdb_mutations_to_uniprot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.convert_pdb_mutations_to_uniprot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a PDB mutations to UniProt.</p>
+<p>Works for a list of mutations joined with &#8216;,&#8217; but only one row at a time.</p>
+<p>Fails if can&#8217;t map at mutation level.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pdb_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; </li>
+<li><strong>pdb_chains</strong> (<em>str | None</em>) &#8211; Comma-separated list of PDB chain IDs, with one ID for every mutation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sifts_df</span> <span class="o">=</span> <span class="n">get_sifts_data</span><span class="p">(</span><span class="s1">&#39;1jrh&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">convert_pdb_mutations_to_uniprot</span><span class="p">(</span><span class="s1">&#39;1jrh&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;I_T19L.I_E21K&#39;</span><span class="p">,</span> <span class="n">sifts_df</span><span class="o">=</span><span class="n">sifts_df</span><span class="p">))</span>
+<span class="go">{&#39;pdb_mutations_sifts&#39;: &#39;I_T19L.I_E21K&#39;,</span>
+<span class="go"> &#39;pfam_id_sifts&#39;: &#39;PF01108&#39;,</span>
+<span class="go"> &#39;uniprot_id_sifts&#39;: &#39;P15260&#39;,</span>
+<span class="go"> &#39;uniprot_mutations_sifts&#39;: &#39;T36L.E38K&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.format_pdb_mutation">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">format_pdb_mutation</code><span class="sig-paren">(</span><em>pdb_mutation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#format_pdb_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.format_pdb_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_pdb_mutation</span><span class="p">(</span><span class="s1">&#39;A_M1C&#39;</span><span class="p">)</span>
+<span class="go">(&#39;A&#39;, &#39;M1C&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_pdb_mutation</span><span class="p">(</span><span class="s1">&#39;AM1C&#39;</span><span class="p">)</span>
+<span class="go">(&#39;A&#39;, &#39;M1C&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_pdb_mutation</span><span class="p">(</span><span class="s1">&#39;M1C&#39;</span><span class="p">)</span>
+<span class="go">(&#39;&#39;, &#39;M1C&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_pdb_mutation</span><span class="p">(</span><span class="s1">&#39;XXXM1C&#39;</span><span class="p">)</span>
+<span class="go">(None, None)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.get_cache_dir">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">get_cache_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#get_cache_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.get_cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.get_sifts_data">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">get_sifts_data</code><span class="sig-paren">(</span><em>pdb_id</em>, <em>cache_dict={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#get_sifts_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.get_sifts_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return SIFTS data for a particular PDB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pdb_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; </li>
+<li><strong>cache_dict</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Defaults to memoisation cache.</li>
+<li><strong>the xml file for the pdb file with the pdb id pdb_id</strong><strong>, </strong><strong>parse that</strong> (<em>Download</em>) &#8211; </li>
+<li><strong>file</strong><strong>, </strong><strong>and return a dictionry which maps pdb resnumbing to uniprot</strong> (<a class="reference external" href="https://docs.python.org/2/library/xml.html#module-xml" title="(in Python v2.7)"><em>xml</em></a>) &#8211; </li>
+<li><strong>for the chain specified by pdb_chain and uniprot specified by</strong> (<em>numbering</em>) &#8211; </li>
+<li><strong>uniprot_id.</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.get_uniprot_id_mutation">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">get_uniprot_id_mutation</code><span class="sig-paren">(</span><em>pdb_id</em>, <em>pdb_chains</em>, <em>pdb_mutations</em>, <em>uniprot_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#get_uniprot_id_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.get_uniprot_id_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a whole column of PDB mutations to UniProt.</p>
+<p>This function gets the SIFTS data for you.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pdb_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; </li>
+<li><strong>pdb_mutations</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; </li>
+<li><strong>uniprot_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><ul class="simple">
+<li>uniprot_id_sifts : str</li>
+<li><dl class="first docutils">
+<dt>uniprot_mutations_sifts</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Comma-separated list of mutations.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>pfam_id_sifts</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">str</span><dd>Comma-separated list of cleaned-up PDB mutations.</dd>
+</dl>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict with keys</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.split_mutation">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">split_mutation</code><span class="sig-paren">(</span><em>mutation</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#split_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.split_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split mutation where <cite>wt</cite>, <cite>pos</cite>, and <cite>mut</cite> are separated by spaces.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split_mutation</span><span class="p">(</span><span class="s1">&#39;A 10 C&#39;</span><span class="p">)</span>
+<span class="go">(&#39;A&#39;, &#39;10&#39;, &#39;C&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_mutation</span><span class="p">(</span><span class="s1">&#39;A10C&#39;</span><span class="p">)</span>
+<span class="go">(&#39;A&#39;, &#39;10&#39;, &#39;C&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_mutation</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">(None, None, None)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.sifts.validate_mutations">
+<code class="descclassname">kmtools.structure_tools.sifts.</code><code class="descname">validate_mutations</code><span class="sig-paren">(</span><em>mutations</em>, <em>seqrecord</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/sifts.html#validate_mutations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.sifts.validate_mutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure that mutations match seqrecord.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>validated_mutations</strong> &#8211; Comma-separated list of mutations where each unmatched mutation has been replaced by a &#8216;?&#8217;.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-kmtools.structure_tools.structure_parser"></span><dl class="function">
+<dt id="kmtools.structure_tools.structure_parser.extract">
+<code class="descclassname">kmtools.structure_tools.structure_parser.</code><code class="descname">extract</code><span class="sig-paren">(</span><em>structure</em>, <em>chain_ids=None</em>, <em>domain_defs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser.html#extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select only the chains and residues of interest.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">This has to be changed to work with structures that have several models
+(apart from the HETATM model).</p>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Use a more unique chain id for HETATMS (e.g. <cite>zz</cite>).</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser.get_chain_sequence">
+<code class="descclassname">kmtools.structure_tools.structure_parser.</code><code class="descname">get_chain_sequence</code><span class="sig-paren">(</span><em>chain</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser.html#get_chain_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser.get_chain_sequence" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser.get_interactions">
+<code class="descclassname">kmtools.structure_tools.structure_parser.</code><code class="descname">get_interactions</code><span class="sig-paren">(</span><em>structure</em>, <em>interchain=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser.html#get_interactions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser.get_interactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return residue-residue interactions within and between chains in <cite>structure</cite>.</p>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">This could probably be sped up by using the
+<code class="xref py py-meth docutils literal"><span class="pre">Bio.PDB.NeighborSearch.search_all()</span></code> method.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>structure</strong> (<em>Bio.PDB.Structure.Structure</em>) &#8211; Structure to analyse.</li>
+<li><strong>interchain</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) &#8211; Whether to include interactions between chains.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>For each chain, <cite>residue.id[1]</cite> is unique.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser.process_structure">
+<code class="descclassname">kmtools.structure_tools.structure_parser.</code><code class="descname">process_structure</code><span class="sig-paren">(</span><em>structure</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser.html#process_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser.process_structure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-kmtools.structure_tools.structure_parser_legacy"></span><p>Structure Tools.</p>
+<p>Tools for the analysis of PDB structures.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This whole module is deprecated and will be deleted when I am totally sure that I don&#8217;t need anything else from it for ELASPIC.</p>
+</div>
+<dl class="class">
+<dt id="kmtools.structure_tools.structure_parser_legacy.SelectChains">
+<em class="property">class </em><code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">SelectChains</code><span class="sig-paren">(</span><em>chain_letters</em>, <em>ns_chain_letters=None</em>, <em>ns=None</em>, <em>r_cutoff=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#SelectChains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.SelectChains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Bio.PDB.PDBIO.Select</span></code></p>
+<p>Select class which accepts only the specified chains.</p>
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.SelectChains.accept_residue">
+<code class="descname">accept_residue</code><span class="sig-paren">(</span><em>residue</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#SelectChains.accept_residue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.SelectChains.accept_residue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser">
+<em class="property">class </em><code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">StructureParser</code><span class="sig-paren">(</span><em>pdb_file</em>, <em>chain_ids=None</em>, <em>domain_defs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.LYSINE_ATOMS">
+<code class="descname">LYSINE_ATOMS</code><em class="property"> = ['N', 'CA', 'CB', 'CG', 'CD', 'CE', 'NZ', 'C', 'O']</em><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.LYSINE_ATOMS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.METHYLATED_LYSINES">
+<code class="descname">METHYLATED_LYSINES</code><em class="property"> = ['MLZ', 'MLY', 'M3L']</em><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.METHYLATED_LYSINES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.extract">
+<code class="descname">extract</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the wanted chains out of the PDB file.</p>
+<p>Remove water atoms and selects the domain regions (i.e. selects only those parts
+of the domain that are within the domain boundaries specified).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.get_chain_seqres_sequence">
+<code class="descname">get_chain_seqres_sequence</code><span class="sig-paren">(</span><em>chain_id</em>, <em>*args</em>, <em>**varargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.get_chain_seqres_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_chain_seqres_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <code class="docutils literal"><span class="pre">get_chain_seqres_sequence</span></code> using chain with id <code class="docutils literal"><span class="pre">chain_id</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.get_chain_sequence_and_numbering">
+<code class="descname">get_chain_sequence_and_numbering</code><span class="sig-paren">(</span><em>chain_id</em>, <em>*args</em>, <em>**varargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.get_chain_sequence_and_numbering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_chain_sequence_and_numbering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <code class="docutils literal"><span class="pre">get_chain_sequence_and_numbering</span></code> using chain with id <code class="docutils literal"><span class="pre">chain_id</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.get_interchain_distances">
+<code class="descname">get_interchain_distances</code><span class="sig-paren">(</span><em>pdb_chain=None</em>, <em>pdb_mutation=None</em>, <em>cutoff=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.get_interchain_distances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_interchain_distances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate distance between two chains.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.get_structure_file">
+<code class="descname">get_structure_file</code><span class="sig-paren">(</span><em>chains</em>, <em>ext='.pdb'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.get_structure_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_structure_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.save_sequences">
+<code class="descname">save_sequences</code><span class="sig-paren">(</span><em>output_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.save_sequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.save_sequences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kmtools.structure_tools.structure_parser_legacy.StructureParser.save_structure">
+<code class="descname">save_structure</code><span class="sig-paren">(</span><em>output_dir=''</em>, <em>remove_disordered=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#StructureParser.save_structure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.StructureParser.save_structure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.calculate_distance">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">calculate_distance</code><span class="sig-paren">(</span><em>atom_1</em>, <em>atom_2</em>, <em>cutoff=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#calculate_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.calculate_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the distance between two points in 3D space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cutoff</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) &#8211; The maximum distance allowable between two points.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.chain_is_hetatm">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">chain_is_hetatm</code><span class="sig-paren">(</span><em>chain</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#chain_is_hetatm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.chain_is_hetatm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the chain is made up entirely of HETATMs.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.convert_aa">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">convert_aa</code><span class="sig-paren">(</span><em>aa</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#convert_aa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.convert_aa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert amino acids from three letter code to one letter code or vice versa.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Deprecated!</p>
+<p class="last">Use <code class="docutils literal"><span class="pre">''.join(AAA_DICT[aaa]</span> <span class="pre">for</span> <span class="pre">aaa</span> <span class="pre">in</span> <span class="pre">aa)</span></code> and <code class="docutils literal"><span class="pre">''.join(A_DICT[a]</span> <span class="pre">for</span> <span class="pre">a</span> <span class="pre">in</span> <span class="pre">aa)</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.convert_position_to_resid">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">convert_position_to_resid</code><span class="sig-paren">(</span><em>chain</em>, <em>positions</em>, <em>domain_def_tuple=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#convert_position_to_resid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.convert_position_to_resid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert mutation_domain to mutation_modeller.</p>
+<p>In mutation_modeller, the first amino acid in a chain may start
+with something other than 1.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.euclidean_distance">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">euclidean_distance</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#euclidean_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.euclidean_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Euclidean distance between two lists or tuples of arbitrary length.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_aa_residues">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_aa_residues</code><span class="sig-paren">(</span><em>chain</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_aa_residues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_aa_residues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_chain_seqres_sequence">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_chain_seqres_sequence</code><span class="sig-paren">(</span><em>chain</em>, <em>aa_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_chain_seqres_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_chain_seqres_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the amino acid sequence for the construct coding for the given chain.</p>
+<p>Extracts a sequence from a PDB file. Usefull when interested in the
+sequence that was used for crystallization and not the ATOM sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>aa_only</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; If aa_only is set to <cite>False</cite>, selenomethionines will be included in the sequence.
+See: <a class="reference external" href="http://biopython.org/DIST/docs/api/Bio.PDB.Polypeptide-module.html">http://biopython.org/DIST/docs/api/Bio.PDB.Polypeptide-module.html</a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_chain_sequence_and_numbering">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_chain_sequence_and_numbering</code><span class="sig-paren">(</span><em>chain</em>, <em>domain_def_tuple=None</em>, <em>include_hetatms=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_chain_sequence_and_numbering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_chain_sequence_and_numbering" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the amino acid sequence and a list of residue ids for the given chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>chain</strong> (<em>Bio.PDB.Chain.Chain</em>) &#8211; The chain for which to get the amino acid sequence and numbering.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_interacting_residues">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_interacting_residues</code><span class="sig-paren">(</span><em>model</em>, <em>r_cutoff=5</em>, <em>skip_hetatm_chains=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_interacting_residues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_interacting_residues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return residue-residue interactions between all chains in <cite>model</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model</strong> (<em>biopython.Model</em>) &#8211; Model to analyse.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of interactions between chains i (0..n-1) and j (i+1..n).
+Keys are (chain_idx, chain_id, residue_idx, residue_resnum, residue_amino_acid) tuples.
+(e.g. (0, &#8216;A&#8217;, 0, &#8216;0&#8217;, &#8216;M&#8217;), (0, 1, &#8216;2&#8217;, &#8216;K&#8217;), ...)
+Values are a list of tuples having the same format as the keys.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>You can reverse the order of keys and values like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">complement</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">get_interacting_chains</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+        <span class="n">complement</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can get a list of all interacting chains using this command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+ <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="ow">in</span> <span class="n">get_interacting_chains</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+ <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_interactions">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_interactions</code><span class="sig-paren">(</span><em>model</em>, <em>chain_id</em>, <em>r_cutoff=6</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_interactions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_interactions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_interactions_between_chains">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_interactions_between_chains</code><span class="sig-paren">(</span><em>model</em>, <em>chain_id_1</em>, <em>chain_id_2</em>, <em>r_cutoff=6</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_interactions_between_chains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_interactions_between_chains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate interactions between the residues of the two chains.</p>
+<p>An interaction is defines as a pair of residues where at least one pair of atom
+is closer than r_cutoff.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 1.0: </span>Use python:fn:<cite>get_interacting_residues</cite> instead.
+It gives you both the residue index and the resnum.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Keys are (residue_number, residue_amino_acid) tuples
+(e.g. (&#8216;0&#8217;, &#8216;M&#8217;), (&#8216;1&#8217;, &#8216;Q&#8217;), ...).
+Values are lists of (residue_number, residue_amino_acid) tuples.
+(e.g. [(&#8216;0&#8217;, &#8216;M&#8217;), (&#8216;1&#8217;, &#8216;Q&#8217;), ...]).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">OrderedDict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_interactions_between_chains_slow">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_interactions_between_chains_slow</code><span class="sig-paren">(</span><em>model</em>, <em>pdb_chain_1</em>, <em>pdb_chain_2</em>, <em>r_cutoff=5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_interactions_between_chains_slow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_interactions_between_chains_slow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate interactions between residues in pdb_chain_1 and pdb_chain_2.</p>
+<p>An interaction is defines as a pair of residues where at least one pair of atom
+is closer than r_cutoff. The default value for r_cutoff is 5 Angstroms.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 1.0: </span>Use <a class="reference internal" href="#kmtools.structure_tools.structure_parser_legacy.get_interacting_residues" title="kmtools.structure_tools.structure_parser_legacy.get_interacting_residues"><code class="xref py py-func docutils literal"><span class="pre">get_interacting_residues()</span></code></a> instead.
+It gives you both the residue index and the resnum.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.get_structure_sequences">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">get_structure_sequences</code><span class="sig-paren">(</span><em>file_or_structure</em>, <em>seqres_sequence=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#get_structure_sequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.get_structure_sequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of sequences for a given file or Structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_or_structure</strong> (<em>str | biopython.Structure | biopython.Model | biopython.Chain</em>) &#8211; PDB filename or biopython object from which to extract the sequence.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.structure_tools.structure_parser_legacy.suppress_logger">
+<code class="descclassname">kmtools.structure_tools.structure_parser_legacy.</code><code class="descname">suppress_logger</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/structure_tools/structure_parser_legacy.html#suppress_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.structure_tools.structure_parser_legacy.suppress_logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kmtools.system_tools.html" class="btn btn-neutral float-right" title="kmtools.system_tools package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kmtools.sequence_tools.html" class="btn btn-neutral" title="kmtools.sequence_tools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

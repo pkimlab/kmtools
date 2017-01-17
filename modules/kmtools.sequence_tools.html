@@ -1,0 +1,561 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.sequence_tools package &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../index.html"/>
+        <link rel="up" title="kmtools package" href="kmtools.html"/>
+        <link rel="next" title="kmtools.structure_tools package" href="kmtools.structure_tools.html"/>
+        <link rel="prev" title="kmtools.py_tools package" href="kmtools.py_tools.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="kmtools.html">kmtools package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kmtools.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="kmtools.html">kmtools package</a> &raquo;</li>
+      
+    <li>kmtools.sequence_tools package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/modules/kmtools.sequence_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-kmtools.sequence_tools">
+<span id="kmtools-sequence-tools-package"></span><h1>kmtools.sequence_tools package<a class="headerlink" href="#module-kmtools.sequence_tools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kmtools.sequence_tools._alignment_tools">
+<span id="submodules"></span><h2>Submodules<a class="headerlink" href="#module-kmtools.sequence_tools._alignment_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kmtools.sequence_tools._alignment_tools.align_pairwise">
+<code class="descclassname">kmtools.sequence_tools._alignment_tools.</code><code class="descname">align_pairwise</code><span class="sig-paren">(</span><em>sequence_ref</em>, <em>sequence_alt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_alignment_tools.html#align_pairwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._alignment_tools.align_pairwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">align_pairwise</span><span class="p">(</span><span class="s1">&#39;AAAGGVVV&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAGGVVV&#39;</span><span class="p">)</span>
+<span class="go">(&#39;AAAGGVVV&#39;, &#39;AAAGGVVV&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">align_pairwise</span><span class="p">(</span><span class="s1">&#39;AAAGGVVVAAA&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAGGAAA&#39;</span><span class="p">)</span>
+<span class="go">(&#39;AAAGGVVVAAA&#39;, &#39;AAAGG---AAA&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._alignment_tools.align_sw">
+<code class="descclassname">kmtools.sequence_tools._alignment_tools.</code><code class="descname">align_sw</code><span class="sig-paren">(</span><em>seqa</em>, <em>seqb</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_alignment_tools.html#align_sw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._alignment_tools.align_sw" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p>Smith-Waterman aligment
+central function, call  to get score, or identiy, or aligment etc.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._alignment_tools.call_needle">
+<code class="descclassname">kmtools.sequence_tools._alignment_tools.</code><code class="descname">call_needle</code><span class="sig-paren">(</span><em>seqa</em>, <em>seqb</em>, <em>gapopen=12.0</em>, <em>gapextend=1.0</em>, <em>outfile='aln.needle2.out'</em>, <em>**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_alignment_tools.html#call_needle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._alignment_tools.call_needle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._alignment_tools.find_in_set">
+<code class="descclassname">kmtools.sequence_tools._alignment_tools.</code><code class="descname">find_in_set</code><span class="sig-paren">(</span><em>query</em>, <em>string_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_alignment_tools.html#find_in_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._alignment_tools.find_in_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the index (1-based!) of <cite>query</cite> in <cite>string_list</cite>.</p>
+<p>Analagous to the FIND_IN_SET function in MySQL.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">find_in_set</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;1,3,5,10&#39;</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_in_set</span><span class="p">(</span><span class="s1">&#39;40&#39;</span><span class="p">,</span> <span class="s1">&#39;,,,20,,30,40&#39;</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_in_set</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;1,3,5&#39;</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._alignment_tools.get_crossmapping">
+<code class="descclassname">kmtools.sequence_tools._alignment_tools.</code><code class="descname">get_crossmapping</code><span class="sig-paren">(</span><em>alignment_ref</em>, <em>alignment_alt</em>, <em>skip_mismatch=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_alignment_tools.html#get_crossmapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._alignment_tools.get_crossmapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_crossmapping</span><span class="p">(</span><span class="s1">&#39;ABCDF&#39;</span><span class="p">,</span> <span class="s1">&#39;A-CEF&#39;</span><span class="p">)</span>
+<span class="go">(&#39;1,3,,5&#39;, &#39;1,,2,,4&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_crossmapping</span><span class="p">(</span><span class="s1">&#39;ABCDF&#39;</span><span class="p">,</span> <span class="s1">&#39;A-CEF&#39;</span><span class="p">,</span> <span class="n">skip_mismatch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">(&#39;1,3,4,5&#39;, &#39;1,,2,3,4&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._alignment_tools.load_scores">
+<code class="descclassname">kmtools.sequence_tools._alignment_tools.</code><code class="descname">load_scores</code><span class="sig-paren">(</span><em>outfile</em>, <em>lenght=16.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_alignment_tools.html#load_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._alignment_tools.load_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-kmtools.sequence_tools._blast"></span><dl class="function">
+<dt id="kmtools.sequence_tools._blast.blastp">
+<code class="descclassname">kmtools.sequence_tools._blast.</code><code class="descname">blastp</code><span class="sig-paren">(</span><em>sequence</em>, <em>db</em>, <em>evalue=0.001</em>, <em>max_target_seqs=100000</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_blast.html#blastp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._blast.blastp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run <cite>blastp</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is often useful to wrap this function inside <cite>functools.lru_cache</cite>
+in order to speed up repeated queries.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sequence</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Query sequence.</li>
+<li><strong>blast_db</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Full path to the blast database.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-kmtools.sequence_tools._sequence_tools"></span><dl class="function">
+<dt id="kmtools.sequence_tools._sequence_tools.crc64">
+<code class="descclassname">kmtools.sequence_tools._sequence_tools.</code><code class="descname">crc64</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_sequence_tools.html#crc64"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._sequence_tools.crc64" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the crc64 checksum for a sequence (string or Seq object).</p>
+<p>Copied from BioPython.</p>
+<p class="rubric">Examples</p>
+<p>From UniParc:
+&gt;&gt;&gt; crc64(&#8216;MSGGKYVDSE&#8217;)
+&#8216;368583B2DB533878&#8217;</p>
+<p>Note that the case is important:
+&gt;&gt;&gt; crc64(&#8220;ACGTACGTACGT&#8221;)
+&#8216;C4FBB762C4A87EBD&#8217;
+&gt;&gt;&gt; crc64(&#8220;acgtACGTacgt&#8221;)
+&#8216;DA4509DC64A87EBD&#8217;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kmtools.sequence_tools._sequence_tools.fetch_sequence">
+<code class="descclassname">kmtools.sequence_tools._sequence_tools.</code><code class="descname">fetch_sequence</code><a class="reference internal" href="../_modules/kmtools/sequence_tools/_sequence_tools.html#fetch_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._sequence_tools.fetch_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch sequence from remote database.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">fetch_sequence</span><span class="p">(</span><span class="s1">&#39;P13501&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span>
+<span class="go">&#39;MKVSAAALAVILIATALCAPASASPYSSDTTPCCFAYIARPLPRAHIKEYFYTSGKCSNPAVVFVTRKNRQVCANPEKKWVREYINSLEMS&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._sequence_tools.format_hgvs_mutation">
+<code class="descclassname">kmtools.sequence_tools._sequence_tools.</code><code class="descname">format_hgvs_mutation</code><span class="sig-paren">(</span><em>mutation_refseq_aa</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_sequence_tools.html#format_hgvs_mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._sequence_tools.format_hgvs_mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert HGVS mutation into (Protein ID, Mutation, Position) tuple.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_hgvs_mutation</span><span class="p">(</span><span class="s1">&#39;NP_000005:p.C972Y&#39;</span><span class="p">)</span>
+<span class="go">(&#39;NP_000005&#39;, &#39;C972Y&#39;, 972)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_hgvs_mutation</span><span class="p">(</span><span class="s1">&#39;NP_000005.2:p.V1000I&#39;</span><span class="p">)</span>
+<span class="go">(&#39;NP_000005&#39;, &#39;V1000I&#39;, 1000)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_hgvs_mutation</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">(nan, nan, nan)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">format_hgvs_mutation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="go">(nan, nan, nan)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._sequence_tools.mutation_in_domain">
+<code class="descclassname">kmtools.sequence_tools._sequence_tools.</code><code class="descname">mutation_in_domain</code><span class="sig-paren">(</span><em>mutation</em>, <em>domain</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_sequence_tools.html#mutation_in_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._sequence_tools.mutation_in_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure that mutation falls inside the specified domain.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_in_domain</span><span class="p">(</span><span class="s1">&#39;A10B&#39;</span><span class="p">,</span> <span class="s1">&#39;10:20&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_in_domain</span><span class="p">(</span><span class="s1">&#39;A100B&#39;</span><span class="p">,</span> <span class="s1">&#39;10:100&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_in_domain</span><span class="p">(</span><span class="s1">&#39;A10B&#39;</span><span class="p">,</span> <span class="s1">&#39;1:20&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_in_domain</span><span class="p">(</span><span class="s1">&#39;A10B&#39;</span><span class="p">,</span> <span class="s1">&#39;11:20&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools._sequence_tools.mutation_matches_sequence">
+<code class="descclassname">kmtools.sequence_tools._sequence_tools.</code><code class="descname">mutation_matches_sequence</code><span class="sig-paren">(</span><em>mutation</em>, <em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/_sequence_tools.html#mutation_matches_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools._sequence_tools.mutation_matches_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure that mutation matches protein sequence.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_matches_sequence</span><span class="p">(</span><span class="s1">&#39;A1B&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAA&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_matches_sequence</span><span class="p">(</span><span class="s1">&#39;B1A&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAA&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_matches_sequence</span><span class="p">(</span><span class="s1">&#39;A10B&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAA&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_matches_sequence</span><span class="p">(</span><span class="s1">&#39;A1B&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="go">nan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_matches_sequence</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;AAAAA&#39;</span><span class="p">)</span>
+<span class="go">nan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mutation_matches_sequence</span><span class="p">(</span><span class="s1">&#39;A10GG&#39;</span><span class="p">,</span> <span class="s1">&#39;AAAAA&#39;</span><span class="p">)</span>
+<span class="go">nan</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-kmtools.sequence_tools.codons_info"></span><span class="target" id="module-kmtools.sequence_tools.dna_util"></span><dl class="function">
+<dt id="kmtools.sequence_tools.dna_util.clean_restriction_sites">
+<code class="descclassname">kmtools.sequence_tools.dna_util.</code><code class="descname">clean_restriction_sites</code><span class="sig-paren">(</span><em>naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC']</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/dna_util.html#clean_restriction_sites"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.dna_util.clean_restriction_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<dl class="docutils">
+<dt>Check if there is a restriction site for any of the enzymes in</dt>
+<dd>self.set_restriction_enzyme for a sequence.
+if it could find one, the afected codon is retranslated,
+that will generate a codon selection,  and it check again.
+Formed called _check_4_restricitions</dd>
+</dl>
+<p>:param :
+:type : param naseq (str): ADN sequences to check
+:param : (default) dict_restriction = [&#8216;GAATTC&#8217;,&#8217;CCCGGG&#8217;,&#8217;GTCGAC&#8217;] #or ecorI, XmaI, salI
+:type : param dict_restriction (list or dict): Restriction sites defintions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>naseq (str)</strong> &#8211; to avoid them.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">if the seq contains restriction site, it will be returned recoded</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools.dna_util.codon_weighted_random_choice">
+<code class="descclassname">kmtools.sequence_tools.dna_util.</code><code class="descname">codon_weighted_random_choice</code><span class="sig-paren">(</span><em>codons</em>, <em>specie</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/dna_util.html#codon_weighted_random_choice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.dna_util.codon_weighted_random_choice" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p>Returns a random element from a list. The probability for
+each element elem in list to be selected is weighted
+by weight(elem).
+weight_dictionary`` must be a callable accepting one argument,
+and returning a  non-negative number. If <code class="docutils literal"><span class="pre">weight(elem)</span></code> is zero,
+<code class="docutils literal"><span class="pre">elem</span></code> will not be considered.</p>
+<p>:param :
+:type : param codons (list): must be an iterable containing more than one element.
+:param :
+:type : param specie (str): Codon usage specie, human, e.coli, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">codon (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)">str</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools.dna_util.has_restriction_sites">
+<code class="descclassname">kmtools.sequence_tools.dna_util.</code><code class="descname">has_restriction_sites</code><span class="sig-paren">(</span><em>seq</em>, <em>dict_restriction</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/dna_util.html#has_restriction_sites"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.dna_util.has_restriction_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p>Former match restrictions. Check if there are any restriction site in the sequences,
+and if it have, return a list with the positions involved</p>
+<p>:param :
+:type : param seq (str); DNA sequence
+:param :
+:type : param dict_restriction (list or dict) with restriction enzymes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><em>postions involved (list) [[strat,end],[strat,end]]</em></li>
+<li><em>the list is emptty if there is no restriction sites</em></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools.dna_util.reshufle_seq">
+<code class="descclassname">kmtools.sequence_tools.dna_util.</code><code class="descname">reshufle_seq</code><span class="sig-paren">(</span><em>seq</em>, <em>position_pairs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/dna_util.html#reshufle_seq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.dna_util.reshufle_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p>Resampling codon usage. Avoid restriction enzyme sites</p>
+<p>:param :
+:type : param seq (str): Nucleotide sequence to be reshufled
+:param :
+:type : param position_pairs (list): list of list of positions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools.dna_util.translate2aa">
+<code class="descclassname">kmtools.sequence_tools.dna_util.</code><code class="descname">translate2aa</code><span class="sig-paren">(</span><em>nseq</em>, <em>start=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/dna_util.html#translate2aa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.dna_util.translate2aa" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p>Return AA sequence, from NA sequence (string)</p>
+<p>:param :
+:type : param str nseq: Nucleotide sequence
+:param : position, by default 1
+:type : param int start: Start to translate from the
+:param :
+:type : return: str with the aminoacid sequence.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kmtools.sequence_tools.dna_util.translate2na">
+<code class="descclassname">kmtools.sequence_tools.dna_util.</code><code class="descname">translate2na</code><span class="sig-paren">(</span><em>seq</em>, <em>specie='human'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/dna_util.html#translate2na"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.dna_util.translate2na" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<dl class="docutils">
+<dt>Return a Nucleotide seq for a aminoacid sequences. the codon will be chosed</dt>
+<dd>according the codon frequency of each specie, by default human</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong></strong><strong>(</strong><strong>str</strong><strong>)</strong><strong></strong> (<em>seq</em>) &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>na seq (str)</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">codon</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-kmtools.sequence_tools.elms"></span><dl class="function">
+<dt id="kmtools.sequence_tools.elms.motif_search">
+<code class="descclassname">kmtools.sequence_tools.elms.</code><code class="descname">motif_search</code><span class="sig-paren">(</span><em>seq, ELMdefinitions=      Accession           ELMIdentifier  \ 0    ELME000321      CLV_C14_Caspase3-7    1    ELME000172           CLV_MEL_PAP_1    2    ELME000102           CLV_NRD_NRD_1    3    ELME000101          CLV_PCSK_FUR_1    4    ELME000108         CLV_PCSK_KEX2_1    5    ELME000100       CLV_PCSK_PC1ET2_1    6    ELME000103          CLV_PCSK_PC7_1    7    ELME000146         CLV_PCSK_SKI1_1    8    ELME000330       CLV_Separin_Fungi    9    ELME000331     CLV_Separin_Metazoa    10   ELME000192            CLV_TASPASE1    11   ELME000231         DEG_APCC_DBOX_1    12   ELME000232       DEG_APCC_KENBOX_2    13   ELME000342          DEG_APCC_TPR_1    14   ELME000166                DEG_COP1    15   ELME000323         DEG_CRL4_CDT2_1    16   ELME000324         DEG_CRL4_CDT2_2    17   ELME000389  DEG_Kelch_actinfilin_1    18   ELME000390       DEG_Kelch_Keap1_1    19   ELME000391       DEG_Kelch_Keap1_2    20   ELME000392       DEG_Kelch_KLHL3_1    21   ELME000184         DEG_MDM2_SWIB_1    22   ELME000355         DEG_Nend_Nbox_1    23   ELME000351       DEG_Nend_UBRbox_1    24   ELME000352       DEG_Nend_UBRbox_2    25   ELME000353       DEG_Nend_UBRbox_3    26   ELME000354       DEG_Nend_UBRbox_4    27   ELME000248          DEG_ODPH_VHL_1    28   ELME000350          DEG_SCF_COI1_1    29   ELME000289          DEG_SCF_FBW7_1    ..          ...                     ...    217  ELME000061               MOD_PKB_1    218  ELME000147                 MOD_PLK    219  ELME000159           MOD_ProDKin_1    220  ELME000175        MOD_SPalmitoyl_2    221  ELME000168        MOD_SPalmitoyl_4    222  ELME000002          MOD_SUMO_for_1    223  ELME000393          MOD_SUMO_rev_2    224  ELME000013             MOD_TYR_CSK    225  ELME000092             MOD_TYR_DYR    226  ELME000152            MOD_WntLipid    227  ELME000247     TRG_AP2beta_CARGO_1    228  ELME000256       TRG_Cilium_Arf4_1    229  ELME000259       TRG_Cilium_RVxP_2    230  ELME000120         TRG_ENDOCYTIC_2    231  ELME000012          TRG_ER_diArg_1    232  ELME000011          TRG_ER_diLys_1    233  ELME000253           TRG_ER_FFAT_1    234  ELME000010           TRG_ER_KDEL_1    235  ELME000132       TRG_Golgi_diPhe_1    236  ELME000149    TRG_LysEnd_APsAcLL_1    237  ELME000150    TRG_LysEnd_APsAcLL_3    238  ELME000131    TRG_LysEnd_GGAAcLL_1    239  ELME000187    TRG_LysEnd_GGAAcLL_2    240  ELME000193          TRG_NES_CRM1_1    241  ELME000276     TRG_NLS_Bipartite_1    242  ELME000270      TRG_NLS_MonoCore_2    243  ELME000278      TRG_NLS_MonoExtC_3    244  ELME000271      TRG_NLS_MonoExtN_4    245  ELME000009                TRG_PTS1    246  ELME000069                TRG_PTS2                                        FunctionalSiteName  \ 0                              Caspase cleavage motif    1                        Melanisation activation site    2                                   NRD cleavage site    3                                  PCSK cleavage site    4                                  PCSK cleavage site    5                                  PCSK cleavage site    6                                  PCSK cleavage site    7                                  PCSK cleavage site    8                             Separase cleavage motif    9                             Separase cleavage motif    10                             Taspase1 cleavage site    11                    APCC-binding Destruction motifs    12                    APCC-binding Destruction motifs    13                            APCC_TPR-docking motifs    14                                 COP1 binding motif    15                       CRL4-Cdt2 binding PIP degron    16                       CRL4-Cdt2 binding PIP degron    17                          Actinfilin-binding degron    18                               KEAP1 binding degron    19                               KEAP1 binding degron    20                     KLHL2 and KLHL3 binding degron    21                                 MDM2 binding motif    22                                           N-degron    23                                           N-degron    24                                           N-degron    25                                           N-degron    26                                           N-degron    27   Hydroxyproline modification in hypoxia signaling    28     Phytohormone-dependent SCF-LRR-binding degrons    29        SCF ubiquitin ligase binding Phosphodegrons    ..                                                ...    217                          PKB Phosphorylation site    218                          Plk phosphorylation site    219                         MAPK Phosphorylation Site    220                             S-palmitoylation site    221                             S-palmitoylation site    222                                  Sumoylation site    223                                  Sumoylation site    224                          TYR phosphorylation site    225                          TYR phosphorylation site    226                  Wnt-Wingless palmitoylation site    227         AP-2 beta2 appendage CCV component motifs    228                          Ciliary targeting motifs    229                          Ciliary targeting motifs    230                            Y-based sorting signal    231           di Arginine retention/retrieving signal    232                    di Lysine ER retrieving signal    233                                        FFAT motif    234                           KDEL retrieving signals    235                                 ER export signals    236     Endosome-Lysosome-Basolateral sorting signals    237     Endosome-Lysosome-Basolateral sorting signals    238     Endosome-Lysosome-Basolateral sorting signals    239     Endosome-Lysosome-Basolateral sorting signals    240                         NES Nuclear Export Signal    241        NLS classical Nuclear Localization Signals    242        NLS classical Nuclear Localization Signals    243        NLS classical Nuclear Localization Signals    244        NLS classical Nuclear Localization Signals    245                                              PTS1    246                                              PTS2                                                Description  \ 0               Caspase-3 and Caspase-7 cleavage site.    1    Prophenoloxidase-activating proteinase (PAP) c...    2    N-Arg dibasic convertase (NRD/Nardilysin) clea...    3         Furin (PACE) cleavage site (R-X-[RK]-R-|-X).    4    Yeast kexin 2 cleavage site (K-R-|-X or R-R-|-X).    5                   NEC1/NEC2 cleavage site (K-R-|-X).    6    Proprotein convertase 7 (PC7, PCSK7) cleavage ...    7    Subtilisin/kexin isozyme-1 (SKI1) cleavage sit...    8    Separase cleavage site, best known in sister c...    9    Separase cleavage site, best known in sister c...    10   Taspase1 is a threonine aspartase which was fi...    11   An RxxL-based motif that binds to the Cdh1 and...    12   Motif conserving the exact sequence KEN that b...    13   This short C-terminal motif is present in co-a...    14   COP1 binding motif. The ring finger protein CO...    15   This degron overlaps a PCNA interaction protei...    16   This degron, occurring in non-Vertebrates, ove...    17   A hydrophobic degron motif present in some kai...    18   Motif that binds to the Kelch domain of KEAP1 ...    19   Motif that binds to the Kelch domain of KEAP1 ...    20   An Acidic degron motif present in wnk kinases ...    21   An amphipatic &amp;alpha;-helix found in p53 famil...    22   N-terminal motif that initiates protein degrad...    23   N-terminal motif that initiates protein degrad...    24   N-terminal motif that initiates protein degrad...    25   N-terminal motif that initiates protein degrad...    26   N-terminal motif that initiates protein degrad...    27   Oxygen dependent prolyl hydroxylation motif in...    28   This degron motif is present in JAZ transcript...    29   The TPxxS phospho-dependent degron binds the F...    ..                                                 ...    217                           PKB Phosphorylation site    218       Site phosphorylated by the Polo-like kinase.    219  Proline-Directed Kinase (e.g. MAPK) phosphoryl...    220                       Class 2 Palmitoylation motif    221                       Class 4 palmitoylation motif    222        Motif recognised for modification by SUMO-1    223  Inverted version of SUMOylation motif recogniz...    224  Members of the non-receptor tyrosine kinase Cs...    225  The kinase activity of the DYRK (dual specific...    226  Palmitoylation site in WNT signalling proteins...    227  AP-2 beta appendage platform subdomain (top su...    228  The QVxPx motif is located in the cytoplasmati...    229  The RVxPx motif is located in the cytoplasmati...    230  Tyrosine-based sorting signal responsible for ...    231  The di-Arg ER retention motif is defined by tw...    232  ER retention and retrieving signal found at th...    233  VAP-A/Scs2 MSP-domain binding FFAT (diphenylal...    234  Golgi-to-ER retrieving signal found at the C-t...    235  ER to Golgi anterograde transport signal found...    236  Sorting and internalisation signal found in th...    237  Sorting signal found in the cytoplasmic juxta-...    238  Sorting signal directing type I transmembrane ...    239  Internal acidic di Leucine motif found in GGA ...    240  Some proteins re-exported from the nucleus con...    241  Bipartite variant of the classical basically c...    242  Monopartite variant of the classical basically...    243  Monopartite variant of the classical basically...    244  Monopartite variant of the classical basically...    245                Generic PTS1 ELM for all eukaryotes    246  Generic PTS2 pattern for all eukaryotes (excep...                                                      Regex   Probability  \ 0                          [DSTE][^P][^DEWHFYC]D[GSAN]  3.093740e-03    1                                    [ILV]..R[VF][GS].  1.053756e-04    2                                      (.RK)|(RR[^KR])  7.464732e-03    3                                             R.[RK]R.  5.087229e-04    4                                               [KR]R.  7.973464e-03    5                                                  KR.  3.902768e-03    6                                           R...[KR]R.  5.087229e-04    7                                 [RK].[AILMFV][LTKF].  6.820527e-03    8                             S[IVLMH]E[IVPFMLYAQR]GR.  4.045449e-06    9                                     E[IMPVL][MLVP]R.  3.410442e-04    10                                     Q[MLVI]DG..[DE]  4.791251e-06    11                                      .R..L..[LIVM].  7.676973e-04    12                                               .KEN.  1.843120e-04    13                                            .[ILM]R$  1.360729e-05    14                                [DE][DE].{2,3}VP[DE]  2.307271e-05    15   [NQ]{0,1}..[ILMV][ST][DEN][FY][FY].{2,3}[KR]{2...  1.623747e-07    16   [NQ]{0,1}..[ILMV]T[DEN][HMFY][FMY].{2,3}[KR]{2...  2.236944e-07    17                                      [AP]P[MV][IM]V  2.148412e-06    18                                  [DNS].[DES][TNS]GE  5.950381e-05    19                                             QD.DLGV  3.480389e-08    20                                       E.EE.E[AV]DQH  5.476943e-10    21                             F[^P]{3}W[^P]{2,3}[VIL]  2.124658e-05    22                                  ^M{0,1}[FYLIW][^P]  2.302164e-04    23                                    ^M{0,1}[RK][^P].  2.063592e-04    24                                      ^M{0,1}([ED]).  2.537082e-04    25                                      ^M{0,1}([NQ]).  1.645353e-04    26                                         ^M{0,1}(C).  1.767924e-05    27                       [IL]A(P).{6,8}[FLIVM].[FLIVM]  7.037765e-05    28              ..[RK][RK].SL..F[FLM].[RK]R[HRK].[RK].  3.625581e-11    29                           [LIVMP].{0,2}(T)P..([ST])  7.138326e-04    ..                                                 ...           ...    217                                  R.R..([ST])[^P]..  6.034092e-04    218                            .[DE].([ST])[ILFWMVA]..  6.014559e-03    219                                       ...([ST])P..  1.543321e-02    220                                 G(C)M[GS][CL][KP]C  3.052304e-10    221                                ^M{0,1}G(C)..S[AKS]  3.260941e-08    222                                     [VILMAFP](K).E  1.914001e-03    223               [SDE].{0,5}[DE].(K).{0,1}[AIFLMPSTV]  1.280265e-02    224                    [TAD][EA].Q(Y)[QE].[GQA][PEDLS]  2.926178e-07    225                     ..[RKTC][IVL]Y[TQHS](Y)[IL]QSR  5.207093e-11    226                       [ETA](C)[QERK]..F...RWNC[ST]  2.518188e-13    227               [DE].{1,2}F[^P][^P][FL][^P][^P][^P]R  1.816933e-05    228                                             QV.P.$  4.318975e-07    229                                              RV.P.  2.731357e-04    230                                         Y..[LMVIF]  2.587492e-03    231  ([LIVMFYWPR]R[^YFWDE]{0,1}R)|(R[^YFWDE]{0,1}R[...  5.369273e-03    232                                    K.{0,1}K.{2,3}$  2.677473e-05    233                   [DE].{0,4}E[FY][FYK]D[AC].[ESTD]  2.403597e-07    234                                [KRHQSAP][DENQT]EL$  1.613662e-06    235                                   Q.{6,6}FF.{6,7}$  6.800871e-08    236                                    [DERQ]...L[LVI]  2.757672e-03    237                                  [DET]E[RK].PL[LI]  1.524554e-06    238                                       D..LL.{1,2}$  9.585499e-07    239                                  S[LW]LD[DE]EL[LM]  2.547958e-09    240  ([DEQ].{0,1}[LIM].{2,3}[LIVMF][^P]{2,3}[LMVF]....  7.626138e-04    241  [KR][KR].{7,15}[^DE]((K[RK])|(RK))(([^DE][KR])...  2.587966e-04    242                  [^DE]((K[RK])|(RK))[KRP][KR][^DE]  2.344852e-04    243  [^DE]((K[RK])|(RK))(([^DE][KR])|([KR][^DE]))((...  7.251821e-04    244  (([PKR].{0,1}[^DE])|([PKR]))((K[RK])|(RK))(([^...  1.276388e-03    245  (.[SAPTC][KRH][LMFI]$)|([KRH][SAPTC][NTS][LMFI]$)  1.519191e-05    246        ^.{1,40}R[^P][^P][^P][LIV][^P][^P][HQ][LIF]  3.939140e-06          #Instances  #Instances_in_PDB   0            39                  0   1            12                  0   2             2                  0   3            13                  0   4             1                  0   5             6                  0   6             1                  0   7             2                  0   8             4                  0   9             5                  0   10            2                  0   11           11                  0   12           16                  1   13           22                  0   14            7                  0   15            6                  0   16            1                  0   17            1                  0   18           13                  4   19            1                  1   20            4                  0   21            5                  2   22            0                  0   23            0                  0   24            0                  0   25            0                  0   26            8                  0   27            8                  1   28            9                  1   29            6                  2   ..          ...                ...   217          20                  1   218           2                  0   219          36                  0   220           2                  0   221           6                  0   222          45                  1   223          20                  0   224          12                  0   225           9                  0   226           1                  0   227           4                  2   228           1                  0   229           2                  0   230          15                  1   231          27                  0   232          14                  0   233          20                  1   234          12                  0   235          11                  0   236          16                  1   237           3                  0   238           6                  3   239           4                  0   240          18                  3   241           9                  4   242          17                  1   243          18                  2   244          26                  2   245           5                  1   246           2                  2    [247 rows x 8 columns]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kmtools/sequence_tools/elms.html#motif_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kmtools.sequence_tools.elms.motif_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>.</p>
+<p>Return all the ELM in a sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; sequence to query</li>
+<li><strong>ELMdefinitions</strong> (<em>pandas.DataFrame</em><em> (</em><em>default: totalELMdefinitions</em><em>)</em><em></em>) &#8211; Defintions and information about ELM in pandas format. Alternative
+PepXELMdefinitions can be used, ELM of domains in pepX</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>Returns a Datafram with all the motif in the sequnece</em></li>
+<li><em>columns {Accession,ELMIdentifier,Description,Regex,Probability,start,end}</em></li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kmtools.structure_tools.html" class="btn btn-neutral float-right" title="kmtools.structure_tools package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kmtools.py_tools.html" class="btn btn-neutral" title="kmtools.py_tools package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

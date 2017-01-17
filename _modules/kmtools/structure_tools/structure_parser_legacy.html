@@ -1,0 +1,1129 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.structure_tools.structure_parser_legacy &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.structure_tools.structure_parser_legacy</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.structure_tools.structure_parser_legacy</h1><div class="highlight"><pre>
+<span></span><span class="c1"># flake8: noqa</span>
+<span class="sd">&quot;&quot;&quot;Structure Tools.</span>
+
+<span class="sd">Tools for the analysis of PDB structures.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    This whole module is deprecated and will be deleted when I am totally sure that I don&#39;t need anything else from it for ELASPIC.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">import</span> <span class="nn">Bio</span>
+<span class="kn">from</span> <span class="nn">Bio.Alphabet</span> <span class="k">import</span> <span class="n">IUPAC</span>
+<span class="kn">from</span> <span class="nn">Bio.PDB</span> <span class="k">import</span> <span class="n">PDBIO</span><span class="p">,</span> <span class="n">NeighborSearch</span><span class="p">,</span> <span class="n">Select</span>
+<span class="kn">from</span> <span class="nn">Bio.PDB.Polypeptide</span> <span class="k">import</span> <span class="n">PPBuilder</span>
+<span class="kn">from</span> <span class="nn">Bio.Seq</span> <span class="k">import</span> <span class="n">Seq</span>
+<span class="kn">from</span> <span class="nn">kmtools</span> <span class="k">import</span> <span class="n">structure_tools</span>
+<span class="kn">from</span> <span class="nn">kmtools.structure_tools</span> <span class="k">import</span> <span class="n">A_DICT</span><span class="p">,</span> <span class="n">AAA_DICT</span><span class="p">,</span> <span class="n">AMINO_ACIDS</span><span class="p">,</span> <span class="n">LYSINE_ATOMS</span><span class="p">,</span> <span class="n">METHYLATED_LYSINES</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="euclidean_distance"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.euclidean_distance">[docs]</a><span class="k">def</span> <span class="nf">euclidean_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the Euclidean distance between two lists or tuples of arbitrary length.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="calculate_distance"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.calculate_distance">[docs]</a><span class="k">def</span> <span class="nf">calculate_distance</span><span class="p">(</span><span class="n">atom_1</span><span class="p">,</span> <span class="n">atom_2</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the distance between two points in 3D space.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cutoff : float, optional</span>
+<span class="sd">        The maximum distance allowable between two points.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="nb">type</span><span class="p">(</span><span class="n">atom_1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">atom_2</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">atom_1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">atom_2</span><span class="p">)</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">atom_1</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">atom_2</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atom_1</span><span class="p">,</span> <span class="s1">&#39;coord&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atom_2</span><span class="p">,</span> <span class="s1">&#39;coord&#39;</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">atom_1</span><span class="o">.</span><span class="n">coord</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">atom_2</span><span class="o">.</span><span class="n">coord</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Unsupported format </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">atom_1</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">atom_2</span><span class="p">)))</span>
+
+    <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cutoff</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">all</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">cutoff</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">euclidean_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_chain_seqres_sequence"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_chain_seqres_sequence">[docs]</a><span class="k">def</span> <span class="nf">get_chain_seqres_sequence</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">aa_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the amino acid sequence for the construct coding for the given chain.</span>
+
+<span class="sd">    Extracts a sequence from a PDB file. Usefull when interested in the</span>
+<span class="sd">    sequence that was used for crystallization and not the ATOM sequence.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    aa_only : bool</span>
+<span class="sd">        If aa_only is set to `False`, selenomethionines will be included in the sequence.</span>
+<span class="sd">        See: http://biopython.org/DIST/docs/api/Bio.PDB.Polypeptide-module.html.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">Seq</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">IUPAC</span><span class="o">.</span><span class="n">protein</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pb</span> <span class="ow">in</span> <span class="n">PPBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">build_peptides</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">aa_only</span><span class="o">=</span><span class="n">aa_only</span><span class="p">):</span>
+        <span class="n">sequence</span> <span class="o">+=</span> <span class="n">sequence</span> <span class="o">+</span> <span class="n">pb</span><span class="o">.</span><span class="n">get_sequence</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">sequence</span></div>
+
+
+<div class="viewcode-block" id="get_chain_sequence_and_numbering"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_chain_sequence_and_numbering">[docs]</a><span class="k">def</span> <span class="nf">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">domain_def_tuple</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_hetatms</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the amino acid sequence and a list of residue ids for the given chain.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    chain : Bio.PDB.Chain.Chain</span>
+<span class="sd">        The chain for which to get the amino acid sequence and numbering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">domain_def_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start_resid</span><span class="p">,</span> <span class="n">end_resid</span> <span class="o">=</span> <span class="n">domain_def_tuple</span>
+
+    <span class="n">chain_numbering</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chain_numbering_extended</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">chain_sequence</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inside_domain</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">:</span>
+        <span class="c1">#</span>
+        <span class="n">resid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">domain_def_tuple</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">resid</span> <span class="o">==</span> <span class="n">start_resid</span><span class="p">:</span>
+            <span class="n">inside_domain</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">inside_domain</span> <span class="ow">and</span> <span class="p">(</span><span class="n">include_hetatms</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">):</span>
+            <span class="n">chain_numbering</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">chain_numbering_extended</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resid</span><span class="p">)</span>
+            <span class="n">chain_sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AAA_DICT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">resname</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">domain_def_tuple</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">resid</span> <span class="o">==</span> <span class="n">end_resid</span><span class="p">:</span>
+            <span class="n">inside_domain</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">chain_sequence</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chain_sequence</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">chain_sequence</span><span class="p">,</span> <span class="n">chain_numbering_extended</span></div>
+
+
+<div class="viewcode-block" id="convert_position_to_resid"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.convert_position_to_resid">[docs]</a><span class="k">def</span> <span class="nf">convert_position_to_resid</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">domain_def_tuple</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert mutation_domain to mutation_modeller.</span>
+
+<span class="sd">    In mutation_modeller, the first amino acid in a chain may start</span>
+<span class="sd">    with something other than 1.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__</span><span class="p">,</span> <span class="n">chain_numbering</span> <span class="o">=</span> <span class="n">get_chain_sequence_and_numbering</span><span class="p">(</span>
+        <span class="n">chain</span><span class="p">,</span> <span class="n">domain_def_tuple</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;chain_numbering: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain_numbering</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;positions: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">positions</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">chain_numbering</span><span class="p">[</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_structure_sequences"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_structure_sequences">[docs]</a><span class="k">def</span> <span class="nf">get_structure_sequences</span><span class="p">(</span><span class="n">file_or_structure</span><span class="p">,</span> <span class="n">seqres_sequence</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a dictionary of sequences for a given file or Structure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    file_or_structure : str | biopython.Structure | biopython.Model | biopython.Chain</span>
+<span class="sd">        PDB filename or biopython object from which to extract the sequence.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_or_structure</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">load_structure</span><span class="p">(</span><span class="n">file_or_structure</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_or_structure</span><span class="p">,</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">Structure</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">file_or_structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_or_structure</span><span class="p">,</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">file_or_structure</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_or_structure</span><span class="p">,</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Chain</span><span class="o">.</span><span class="n">Chain</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_or_structure</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span>
+
+    <span class="n">chain_sequences</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">seqres_sequence</span><span class="p">:</span>
+            <span class="n">chain_sequence</span> <span class="o">=</span> <span class="n">get_chain_seqres_sequence</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">chain_sequence</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+        <span class="n">chain_sequences</span><span class="p">[</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">chain_sequence</span>
+    <span class="k">return</span> <span class="n">chain_sequences</span></div>
+
+
+<div class="viewcode-block" id="suppress_logger"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.suppress_logger">[docs]</a><span class="k">def</span> <span class="nf">suppress_logger</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">fn_quiet</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">level</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fn_quiet</span></div>
+
+
+<div class="viewcode-block" id="convert_aa"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.convert_aa">[docs]</a><span class="k">def</span> <span class="nf">convert_aa</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert amino acids from three letter code to one letter code or vice versa.</span>
+
+<span class="sd">    .. note:: Deprecated!</span>
+
+<span class="sd">       Use ``&#39;&#39;.join(AAA_DICT[aaa] for aaa in aa)`` and ``&#39;&#39;.join(A_DICT[a] for a in aa)``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">quiet</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">suppress_logger</span><span class="p">(</span><span class="n">convert_aa</span><span class="p">)(</span><span class="n">aa</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">AAA_DICT</span><span class="p">[</span><span class="n">aa</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Not a valid amino acid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aa</span><span class="p">))</span>
+            <span class="k">return</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">A_DICT</span><span class="p">[</span><span class="n">aa</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Not a valid amino acid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aa</span><span class="p">))</span>
+            <span class="k">return</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Not a valid amino acid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aa</span><span class="p">))</span></div>
+
+
+<span class="c1"># STANDALONE FUNCTIONS</span>
+<div class="viewcode-block" id="get_interactions"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_interactions">[docs]</a><span class="k">def</span> <span class="nf">get_interactions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">interactions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">chain_id_2</span><span class="p">,</span> <span class="n">chain_2</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">child_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">chain_id</span> <span class="o">==</span> <span class="n">chain_id_2</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">interactions</span><span class="p">[</span><span class="n">chain_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">get_interactions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="n">chain_id_2</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">interactions</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="get_interactions_between_chains"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_interactions_between_chains">[docs]</a><span class="k">def</span> <span class="nf">get_interactions_between_chains</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">chain_id_1</span><span class="p">,</span> <span class="n">chain_id_2</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate interactions between the residues of the two chains.</span>
+
+<span class="sd">    An interaction is defines as a pair of residues where at least one pair of atom</span>
+<span class="sd">    is closer than r_cutoff.</span>
+
+<span class="sd">    .. deprecated:: 1.0</span>
+<span class="sd">        Use python:fn:`get_interacting_residues` instead.</span>
+<span class="sd">        It gives you both the residue index and the resnum.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    OrderedDict</span>
+<span class="sd">        Keys are (residue_number, residue_amino_acid) tuples</span>
+<span class="sd">        (e.g. (&#39;0&#39;, &#39;M&#39;), (&#39;1&#39;, &#39;Q&#39;), ...).</span>
+<span class="sd">        Values are lists of (residue_number, residue_amino_acid) tuples.</span>
+<span class="sd">        (e.g. [(&#39;0&#39;, &#39;M&#39;), (&#39;1&#39;, &#39;Q&#39;), ...]).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">Bio.PDB</span> <span class="k">import</span> <span class="n">NeighborSearch</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Importing Biopython NeighborSearch returned an error: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Using the the slow version of the neighbour-finding algorithm...&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">get_interactions_between_chains_slow</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">chain_id_1</span><span class="p">,</span> <span class="n">chain_id_2</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="p">)</span>
+
+    <span class="c1"># Extract the chains of interest from the model</span>
+    <span class="n">chain_1</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chain_2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">chain_id_1</span><span class="p">:</span>
+            <span class="n">chain_1</span> <span class="o">=</span> <span class="n">child</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">chain_id_2</span><span class="p">:</span>
+            <span class="n">chain_2</span> <span class="o">=</span> <span class="n">child</span>
+    <span class="k">if</span> <span class="n">chain_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">chain_2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Chains </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1"> were not found in the model&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">chain_id_1</span><span class="p">,</span> <span class="n">chain_id_2</span><span class="p">))</span>
+
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">NeighborSearch</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">chain_2</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()))</span>
+    <span class="n">interactions_between_chains</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">residue_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chain_1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span> <span class="ow">and</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="n">resnum_1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">resaa_1</span> <span class="o">=</span> <span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">get_resname</span><span class="p">(),</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">interacting_residues</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">atom_1</span> <span class="ow">in</span> <span class="n">residue_1</span><span class="p">:</span>
+                <span class="n">interacting_residues</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">atom_1</span><span class="o">.</span><span class="n">get_coord</span><span class="p">(),</span> <span class="n">r_cutoff</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">))</span>
+            <span class="n">interacting_resids</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">residue_2</span> <span class="ow">in</span> <span class="n">interacting_residues</span><span class="p">:</span>
+                <span class="n">resnum_2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">resaa_2</span> <span class="o">=</span> <span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">get_resname</span><span class="p">(),</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span> <span class="ow">and</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                    <span class="n">interacting_resids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">resnum_2</span><span class="p">,</span> <span class="n">resaa_2</span><span class="p">,))</span>
+            <span class="k">if</span> <span class="n">interacting_resids</span><span class="p">:</span>
+                <span class="n">interacting_resids</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
+                    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()])))</span>
+                <span class="n">interactions_between_chains</span><span class="p">[(</span><span class="n">resnum_1</span><span class="p">,</span> <span class="n">resaa_1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">interacting_resids</span>
+    <span class="k">return</span> <span class="n">interactions_between_chains</span></div>
+
+
+<div class="viewcode-block" id="get_interactions_between_chains_slow"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_interactions_between_chains_slow">[docs]</a><span class="k">def</span> <span class="nf">get_interactions_between_chains_slow</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">pdb_chain_1</span><span class="p">,</span> <span class="n">pdb_chain_2</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate interactions between residues in pdb_chain_1 and pdb_chain_2.</span>
+
+<span class="sd">    An interaction is defines as a pair of residues where at least one pair of atom</span>
+<span class="sd">    is closer than r_cutoff. The default value for r_cutoff is 5 Angstroms.</span>
+
+<span class="sd">    .. deprecated:: 1.0</span>
+<span class="sd">        Use :func:`get_interacting_residues` instead.</span>
+<span class="sd">        It gives you both the residue index and the resnum.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract the chains of interest from the model</span>
+    <span class="n">chain_1</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chain_2</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">get_list</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">pdb_chain_1</span><span class="p">:</span>
+            <span class="n">chain_1</span> <span class="o">=</span> <span class="n">child</span>
+        <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">pdb_chain_2</span><span class="p">:</span>
+            <span class="n">chain_2</span> <span class="o">=</span> <span class="n">child</span>
+    <span class="k">if</span> <span class="n">chain_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">chain_2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="s1">&#39;Chains </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1"> were not found in the model&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pdb_chain_1</span><span class="p">,</span> <span class="n">pdb_chain_2</span><span class="p">))</span>
+
+    <span class="n">interactions_between_chains</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">residue_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chain_1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span> <span class="ow">and</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="n">resnum_1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">resaa_1</span> <span class="o">=</span> <span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">get_resname</span><span class="p">())</span>
+            <span class="n">interacting_resids</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">residue_2</span> <span class="ow">in</span> <span class="n">chain_2</span><span class="p">:</span>
+                <span class="n">resnum_2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">resaa_2</span> <span class="o">=</span> <span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">get_resname</span><span class="p">())</span>
+                <span class="n">r_min</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span> <span class="ow">and</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">atom_1</span> <span class="ow">in</span> <span class="n">residue_1</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">atom_2</span> <span class="ow">in</span> <span class="n">residue_2</span><span class="p">:</span>
+                            <span class="n">r</span> <span class="o">=</span> <span class="n">calculate_distance</span><span class="p">(</span><span class="n">atom_1</span><span class="p">,</span> <span class="n">atom_2</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">r_min</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">r_min</span><span class="p">:</span>
+                                    <span class="n">r_min</span> <span class="o">=</span> <span class="n">r</span>
+                                <span class="k">elif</span> <span class="ow">not</span> <span class="n">r_min</span><span class="p">:</span>
+                                    <span class="n">r_min</span> <span class="o">=</span> <span class="n">r</span>
+                <span class="k">if</span> <span class="n">r_min</span><span class="p">:</span>
+                    <span class="n">interacting_resids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">resnum_2</span><span class="p">,</span> <span class="n">resaa_2</span><span class="p">,</span> <span class="n">r_min</span><span class="p">,))</span>
+            <span class="k">if</span> <span class="n">interacting_resids</span><span class="p">:</span>
+                <span class="n">interactions_between_chains</span><span class="p">[(</span><span class="n">resnum_1</span><span class="p">,</span> <span class="n">resaa_1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">interacting_resids</span>
+    <span class="k">return</span> <span class="n">interactions_between_chains</span></div>
+
+
+<div class="viewcode-block" id="chain_is_hetatm"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.chain_is_hetatm">[docs]</a><span class="k">def</span> <span class="nf">chain_is_hetatm</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return True if the chain is made up entirely of HETATMs.&quot;&quot;&quot;</span>
+    <span class="n">hetatms</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">child_list</span><span class="p">)):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">child_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">hetatms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">resname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AAA_DICT</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">hetatms</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">hetatms</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Something went wrong.</span>
+        <span class="n">sequence</span><span class="p">,</span> <span class="n">numbering</span> <span class="o">=</span> <span class="n">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s1">&#39;Some but not all residues in chain </span><span class="si">{}</span><span class="s1"> are hetatms!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span>
+            <span class="s1">&#39;sequence: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">+</span>
+            <span class="s1">&#39;numbering: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numbering</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="get_aa_residues"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_aa_residues">[docs]</a><span class="k">def</span> <span class="nf">get_aa_residues</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
+    <span class="n">aa_residues</span> <span class="o">=</span> <span class="p">[</span><span class="n">residue</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">chain</span> <span class="k">if</span> <span class="n">residue</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">AAA_DICT</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">aa_residues</span></div>
+
+
+<div class="viewcode-block" id="get_interacting_residues"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.get_interacting_residues">[docs]</a><span class="k">def</span> <span class="nf">get_interacting_residues</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">skip_hetatm_chains</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return residue-residue interactions between all chains in `model`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : biopython.Model</span>
+<span class="sd">        Model to analyse.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        A dictionary of interactions between chains i (0..n-1) and j (i+1..n).</span>
+<span class="sd">        Keys are (chain_idx, chain_id, residue_idx, residue_resnum, residue_amino_acid) tuples.</span>
+<span class="sd">        (e.g. (0, &#39;A&#39;, 0, &#39;0&#39;, &#39;M&#39;), (0, 1, &#39;2&#39;, &#39;K&#39;), ...)</span>
+<span class="sd">        Values are a list of tuples having the same format as the keys.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    You can reverse the order of keys and values like this::</span>
+
+<span class="sd">        complement = dict()</span>
+<span class="sd">        for key, values in get_interacting_chains(model):</span>
+<span class="sd">            for value in values:</span>
+<span class="sd">                complement.setdefault(value, set()).add(key)</span>
+
+
+<span class="sd">    You can get a list of all interacting chains using this command::</span>
+
+<span class="sd">        {(key[0], value[0])</span>
+<span class="sd">         for (key, values) in get_interacting_chains(model).items()</span>
+<span class="sd">         for value in values}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">Bio.PDB</span> <span class="k">import</span> <span class="n">NeighborSearch</span>
+
+    <span class="n">interactions_between_chains</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="c1"># Chain 1</span>
+    <span class="k">for</span> <span class="n">chain_1_idx</span><span class="p">,</span> <span class="n">chain_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">skip_hetatm_chains</span> <span class="ow">and</span> <span class="n">chain_is_hetatm</span><span class="p">(</span><span class="n">chain_1</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Skipping chain_1 with idx </span><span class="si">{}</span><span class="s2"> because it contains only hetatms.&quot;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain_1_idx</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">chain_1_residue_ids</span> <span class="o">=</span> <span class="n">get_aa_residues</span><span class="p">(</span><span class="n">chain_1</span><span class="p">)</span>
+
+        <span class="c1"># Chain 2</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">chain_2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">child_list</span><span class="p">[</span><span class="n">chain_1_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]):</span>
+            <span class="n">chain_2_idx</span> <span class="o">=</span> <span class="n">chain_1_idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">j</span>
+            <span class="k">if</span> <span class="n">skip_hetatm_chains</span> <span class="ow">and</span> <span class="n">chain_is_hetatm</span><span class="p">(</span><span class="n">chain_2</span><span class="p">):</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Skipping chain_2 with idx </span><span class="si">{}</span><span class="s2"> because it contains only hetatms.&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain_2_idx</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">chain_2_residue_ids</span> <span class="o">=</span> <span class="n">get_aa_residues</span><span class="p">(</span><span class="n">chain_2</span><span class="p">)</span>
+            <span class="n">ns</span> <span class="o">=</span> <span class="n">NeighborSearch</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">chain_2</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()))</span>
+
+            <span class="c1"># Residue 1</span>
+            <span class="k">for</span> <span class="n">residue_1</span> <span class="ow">in</span> <span class="n">chain_1</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">residue_1_idx</span> <span class="o">=</span> <span class="n">chain_1_residue_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">residue_1_resnum</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">residue_1_aa</span> <span class="o">=</span> <span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">resname</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">residue_1_key</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">chain_1_idx</span><span class="p">,</span> <span class="n">chain_1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">residue_1_idx</span><span class="p">,</span> <span class="n">residue_1_resnum</span><span class="p">,</span> <span class="n">residue_1_aa</span>
+                <span class="p">)</span>
+                <span class="n">interacting_residues</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">atom_1</span> <span class="ow">in</span> <span class="n">residue_1</span><span class="p">:</span>
+                    <span class="n">interacting_residues</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">atom_1</span><span class="o">.</span><span class="n">get_coord</span><span class="p">(),</span> <span class="n">r_cutoff</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">))</span>
+
+                <span class="c1"># Residue 2</span>
+                <span class="n">interacting_residue_ids</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">residue_2</span> <span class="ow">in</span> <span class="n">interacting_residues</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">residue_2_idx</span> <span class="o">=</span> <span class="n">chain_2_residue_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">residue_2_resnum</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">residue_2_aa</span> <span class="o">=</span> <span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">get_resname</span><span class="p">(),</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">residue_2_key</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">chain_2_idx</span><span class="p">,</span> <span class="n">chain_2</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">residue_2_idx</span><span class="p">,</span> <span class="n">residue_2_resnum</span><span class="p">,</span> <span class="n">residue_2_aa</span>
+                    <span class="p">)</span>
+                    <span class="n">interacting_residue_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">residue_2_key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">interacting_residue_ids</span><span class="p">:</span>
+                    <span class="n">interactions_between_chains</span>\
+                        <span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">residue_1_key</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>\
+                        <span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">interacting_residue_ids</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">interactions_between_chains</span></div>
+
+
+<div class="viewcode-block" id="SelectChains"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.SelectChains">[docs]</a><span class="k">class</span> <span class="nc">SelectChains</span><span class="p">(</span><span class="n">Select</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Select class which accepts only the specified chains.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain_letters</span><span class="p">,</span> <span class="n">ns_chain_letters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">r_cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain_letters</span> <span class="o">=</span> <span class="n">chain_letters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ns_chain_letters</span> <span class="o">=</span> <span class="n">ns_chain_letters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ns</span> <span class="o">=</span> <span class="n">ns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span> <span class="o">=</span> <span class="n">r_cutoff</span>
+
+<div class="viewcode-block" id="SelectChains.accept_residue"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.SelectChains.accept_residue">[docs]</a>    <span class="k">def</span> <span class="nf">accept_residue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">residue</span><span class="p">):</span>
+        <span class="n">chain_id</span> <span class="o">=</span> <span class="n">residue</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">if</span> <span class="n">chain_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_letters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ns_chain_letters</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ns</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">chain_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ns_chain_letters</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ns</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">get_coord</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+
+
+<div class="viewcode-block" id="StructureParser"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser">[docs]</a><span class="k">class</span> <span class="nc">StructureParser</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">METHYLATED_LYSINES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MLZ&#39;</span><span class="p">,</span> <span class="s1">&#39;MLY&#39;</span><span class="p">,</span> <span class="s1">&#39;M3L&#39;</span><span class="p">]</span>
+    <span class="n">LYSINE_ATOMS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;CA&#39;</span><span class="p">,</span> <span class="s1">&#39;CB&#39;</span><span class="p">,</span> <span class="s1">&#39;CG&#39;</span><span class="p">,</span> <span class="s1">&#39;CD&#39;</span><span class="p">,</span> <span class="s1">&#39;CE&#39;</span><span class="p">,</span> <span class="s1">&#39;NZ&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pdb_file</span><span class="p">,</span> <span class="n">chain_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain_defs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pdb_file : str</span>
+<span class="sd">            Full path and filename of the structure.</span>
+<span class="sd">        output_dir : str</span>
+<span class="sd">            Folder where to save extracted structures and sequences.</span>
+<span class="sd">        chain_ids : list</span>
+<span class="sd">            Chains of the structure that should be kept.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">=</span> <span class="n">get_pdb_id</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdb_file</span> <span class="o">=</span> <span class="n">pdb_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_structure</span> <span class="o">=</span> <span class="n">get_pdb_structure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdb_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">chain_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">child_list</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chain_ids</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span> <span class="o">=</span> <span class="n">chain_ids</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chain_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">chain_ids</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain_ids</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="c1"># Rename empty chains (i.e. chain.id == &#39; &#39;)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">chain_ids</span> <span class="o">=</span> <span class="p">{</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">child_list</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">child_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">chain</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]:</span>
+                <span class="n">chain_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">chain</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">chain_ids</span><span class="p">)</span>
+                <span class="n">chain_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">child_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">chain</span> <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">child_list</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># remove hetatms more than x A away from the main chain(s)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_boundaries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">domain_def</span> <span class="ow">in</span> <span class="n">domain_defs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">domain_boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">decode_domain_def</span><span class="p">(</span><span class="n">domain_def</span><span class="p">,</span> <span class="n">merge</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_string</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;pdb_id: </span><span class="si">{}</span><span class="s1">, chain_ids: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Contact distance</span>
+        <span class="n">contact_distance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">chain_id_other</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">contact_distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interchain_distances</span><span class="p">(</span><span class="n">chain_id</span><span class="p">,</span> <span class="n">mutation</span><span class="p">)</span>
+                <span class="n">contact_distance</span> <span class="o">=</span> <span class="n">contact_distance</span><span class="p">[</span><span class="n">chain_id</span><span class="p">][</span><span class="n">chain_id_other</span><span class="p">]</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s1">&#39;The shortest interchain distance between chain </span><span class="si">{}</span><span class="s1"> and chain </span><span class="si">{}</span><span class="s1"> is </span><span class="si">{}</span><span class="s1">&#39;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain_id</span><span class="p">,</span> <span class="n">chain_id_other</span><span class="p">,</span> <span class="n">contact_distance</span><span class="p">))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">contact_distance</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s1">&#39;Could not calculate the shortest contact distance between two chains!&#39;</span>
+                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">contact_distance</span><span class="p">)</span>
+                <span class="k">raise</span>
+
+<div class="viewcode-block" id="StructureParser.extract"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.extract">[docs]</a>    <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract the wanted chains out of the PDB file.</span>
+
+<span class="sd">        Remove water atoms and selects the domain regions (i.e. selects only those parts</span>
+<span class="sd">        of the domain that are within the domain boundaries specified).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Extracting </span><span class="si">{}</span><span class="s1">...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">))</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># assuming that model 0 is always the desired one</span>
+        <span class="n">new_structure</span> <span class="o">=</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">Structure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span><span class="p">)</span>
+        <span class="n">new_model</span> <span class="o">=</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Always assigning hetatms to chain &#39;Z&#39; may lead to undesirable performance</span>
+        <span class="c1"># when the PDB stucture actually has a chain &#39;Z&#39;.</span>
+        <span class="c1"># As of 2015, there are ~1300 structures with chain &#39;Z&#39; in the elaspic.domain table.</span>
+        <span class="c1"># TODO: Convert `pdb_chain` tables in the database to use binary collation.</span>
+        <span class="c1"># I think the Bio.PDB module may have to be upgraded too as it currently does not support</span>
+        <span class="c1"># lowercase chain ids.</span>
+        <span class="n">hetatm_chain_id</span> <span class="o">=</span> <span class="s1">&#39;Z&#39;</span>
+        <span class="n">hetatm_chain</span> <span class="o">=</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Chain</span><span class="o">.</span><span class="n">Chain</span><span class="p">(</span><span class="n">hetatm_chain_id</span><span class="p">)</span>
+
+        <span class="c1"># Loop over every chain and every residue and make sure that everything is ok</span>
+        <span class="n">chain_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">chain_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">):</span>
+            <span class="n">chain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">[</span><span class="n">chain_idx</span><span class="p">]</span>
+            <span class="n">chain</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="n">chain_id</span><span class="p">]</span>
+
+            <span class="n">chain_numbering</span><span class="p">,</span> <span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_get_domain_def_idxs_for_chain</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">chain_idx</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s1">&#39;domain_def: </span><span class="si">%s</span><span class="s1">, domain_start_idxs: </span><span class="si">%s</span><span class="s1">, domain_end_idxs: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">domain_boundaries</span><span class="p">,</span> <span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span>
+            <span class="p">)</span>
+
+            <span class="n">res_idx</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">res_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">child_list</span><span class="p">[</span><span class="n">res_idx</span><span class="p">]</span>
+                <span class="n">original_res_id</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span>
+
+                <span class="c1"># Move water to the hetatm chain</span>
+                <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;W&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_move_hetatm_to_hetatm_chain</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">hetatm_chain</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+<span class="c1">#                # Move heteroatoms to the hetatm chain</span>
+<span class="c1">#                if res.id[0] != &#39; &#39;:</span>
+<span class="c1">#                    self._move_hetatm_to_hetatm_chain(chain, hetatm_chain, res, echo=True)</span>
+<span class="c1">#                    continue</span>
+
+                <span class="c1"># Now treating all unusual amino acids as hetatms</span>
+                <span class="c1"># Convert methylated lysines to regular lysines</span>
+                <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">resname</span> <span class="ow">in</span> <span class="n">METHYLATED_LYSINES</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_correct_methylated_lysines</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+                <span class="c1"># Move hetatms to the hetatm chain</span>
+                <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">resname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_move_hetatm_to_hetatm_chain</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">hetatm_chain</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Cut each chain to domain boundaries</span>
+                <span class="n">residue_is_outside_domain</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_residue_outside_domain</span><span class="p">(</span>
+                        <span class="n">chain</span><span class="p">,</span> <span class="n">chain_numbering</span><span class="p">,</span> <span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">residue_is_outside_domain</span><span class="p">:</span>
+                    <span class="n">chain</span><span class="o">.</span><span class="n">detach_child</span><span class="p">(</span><span class="n">original_res_id</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="n">res_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
+                <span class="n">new_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+                <span class="n">chain_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Chain </span><span class="si">{}</span><span class="s1"> is empty! Removing...&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="c1"># Make sure that the new model is not empty</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">PDBEmptySequenceError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">)</span>
+
+        <span class="c1"># Remove hetatms if they are &gt; 6A away from the chains of interest.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_distant_hatatms</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="n">hetatm_chain</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">hetatm_chain</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Adding hetatm chain of length </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hetatm_chain</span><span class="p">)))</span>
+            <span class="n">new_model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hetatm_chain</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hetatm_chain_id</span> <span class="o">=</span> <span class="n">hetatm_chain_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hetatm_chain_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># If the hetatm chain is not empty, add it to the model</span>
+        <span class="n">new_structure</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">new_structure</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;PDB </span><span class="si">{}</span><span class="s1"> extracted successfully.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span><span class="p">))</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interactions_between_chains</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">get_interacting_residues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interacting_chain_ids</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions_between_chains</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interacting_chain_idxs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactions_between_chains</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="StructureParser.get_structure_file"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_structure_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_structure_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chains</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;.pdb&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">working_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">+</span> <span class="n">chains</span> <span class="o">+</span> <span class="n">ext</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_validate_mutation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resname</span><span class="p">,</span> <span class="n">mutation</span><span class="p">):</span>
+        <span class="n">valid_aa</span> <span class="o">=</span> <span class="p">[</span><span class="n">mutation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">mutation</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">AAA_DICT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resname</span><span class="p">,</span> <span class="n">resname</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_aa</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">resname</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">mutation</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">AAA_DICT</span><span class="p">[</span><span class="n">resname</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">MutationMismatchError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="StructureParser.get_chain_sequence_and_numbering"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_chain_sequence_and_numbering">[docs]</a>    <span class="k">def</span> <span class="nf">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">varargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Call ``get_chain_sequence_and_numbering`` using chain with id ``chain_id``.&quot;&quot;&quot;</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">chain_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">varargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StructureParser.get_chain_seqres_sequence"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_chain_seqres_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">get_chain_seqres_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">varargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Call ``get_chain_seqres_sequence`` using chain with id ``chain_id``.&quot;&quot;&quot;</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">chain_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">get_chain_seqres_sequence</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">varargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StructureParser.save_structure"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.save_structure">[docs]</a>    <span class="k">def</span> <span class="nf">save_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">remove_disordered</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">remove_disordered</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unset_disordered_flags</span><span class="p">()</span>
+
+        <span class="n">io</span> <span class="o">=</span> <span class="n">PDBIO</span><span class="p">()</span>
+        <span class="n">io</span><span class="o">.</span><span class="n">set_structure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Save all chains together</span>
+            <span class="n">outFile</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.pdb&#39;</span><span class="p">)</span>
+            <span class="n">io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outFile</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Save each chain individually</span>
+                <span class="k">for</span> <span class="n">chain_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">:</span>
+                    <span class="n">chain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">chain_id</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">chain_is_hetatm</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="n">outFile</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">+</span> <span class="n">chain_id</span> <span class="o">+</span> <span class="s1">&#39;.pdb&#39;</span><span class="p">)</span>
+                    <span class="n">atom_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">chain_id</span><span class="p">]</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()]</span>
+                    <span class="n">hetatm_chain_ns</span> <span class="o">=</span> <span class="n">NeighborSearch</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
+                    <span class="n">select</span> <span class="o">=</span> <span class="n">SelectChains</span><span class="p">(</span>
+                        <span class="n">chain_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hetatm_chain_id</span><span class="p">,</span> <span class="n">hetatm_chain_ns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span><span class="p">)</span>
+                    <span class="n">io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outFile</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="n">select</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="c1"># Save each interacting chain pair.</span>
+                <span class="k">for</span> <span class="n">chain_ids</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interacting_chain_ids</span><span class="p">:</span>
+                    <span class="n">outFile</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chain_ids</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.pdb&#39;</span><span class="p">)</span>
+                    <span class="n">atom_list</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">atom</span> <span class="k">for</span> <span class="n">atom</span>
+                        <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">chain_id</span><span class="p">]</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()</span>
+                        <span class="k">for</span> <span class="n">chain_id</span> <span class="ow">in</span> <span class="n">chain_ids</span>
+                    <span class="p">]</span>
+                    <span class="n">hetatm_chain_ns</span> <span class="o">=</span> <span class="n">NeighborSearch</span><span class="p">(</span><span class="n">atom_list</span><span class="p">)</span>
+                    <span class="n">select</span> <span class="o">=</span> <span class="n">SelectChains</span><span class="p">(</span>
+                        <span class="n">chain_ids</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hetatm_chain_id</span><span class="p">,</span> <span class="n">hetatm_chain_ns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span><span class="p">)</span>
+                    <span class="n">io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outFile</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="n">select</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">remove_disordered</span><span class="p">:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_structure</span><span class="p">(</span><span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">remove_disordered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StructureParser.save_sequences"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.save_sequences">[docs]</a>    <span class="k">def</span> <span class="nf">save_sequences</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain_numbering_extended_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain_sequence_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">chain_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">:</span>
+            <span class="n">chain_sequence</span><span class="p">,</span> <span class="n">chain_numbering_extended</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="n">chain_id</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain_numbering_extended_dict</span><span class="p">[</span><span class="n">chain_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">chain_numbering_extended</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain_sequence_dict</span><span class="p">[</span><span class="n">chain_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">chain_sequence</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">+</span> <span class="n">chain_id</span> <span class="o">+</span> <span class="s1">&#39;.fasta&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdb_id</span> <span class="o">+</span> <span class="n">chain_id</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chain_sequence</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_domain_def_idxs_for_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="n">chain_idx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_boundaries</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_boundaries</span><span class="p">[</span><span class="n">chain_idx</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="n">__</span><span class="p">,</span> <span class="n">chain_numbering</span> <span class="o">=</span> <span class="n">get_chain_sequence_and_numbering</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">tuple</span><span class="p">(</span><span class="n">chain_numbering</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">resid</span><span class="p">)</span> <span class="k">for</span> <span class="n">resid</span> <span class="ow">in</span> <span class="n">resids</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">resids</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_boundaries</span><span class="p">[</span><span class="n">chain_idx</span><span class="p">])]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">PDBDomainDefsError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unique_id</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">chain_numbering</span><span class="p">,</span> <span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span>
+
+    <span class="k">def</span> <span class="nf">_correct_methylated_lysines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+        <span class="n">new_resname</span> <span class="o">=</span> <span class="s1">&#39;LYS&#39;</span>
+        <span class="n">new_resid</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s1">&#39;Renaming residue </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span>
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">resname</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">new_resname</span><span class="p">,</span> <span class="n">new_resid</span><span class="p">))</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">resname</span> <span class="o">=</span> <span class="n">new_resname</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">new_resid</span>
+        <span class="n">atom_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">atom_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+            <span class="n">atom_id</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">child_list</span><span class="p">[</span><span class="n">atom_idx</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+            <span class="k">if</span> <span class="n">atom_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LYSINE_ATOMS</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s1">&#39;Removing atom </span><span class="si">{}</span><span class="s1"> from residue </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">atom_id</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">resname</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">detach_child</span><span class="p">(</span><span class="n">atom_id</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">atom_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_move_hetatm_to_hetatm_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="n">hetatm_chain</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># logger.debug(</span>
+        <span class="c1">#     &#39;Moving hetatm residue {} {} to the hetatm chain&#39;</span>
+        <span class="c1">#     .format(res.resname, res.id))</span>
+        <span class="n">chain</span><span class="o">.</span><span class="n">detach_child</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">hetatm_res</span> <span class="o">=</span> <span class="n">res</span>
+        <span class="n">hetatm_res</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="n">hetatm_res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">hetatm_chain</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">hetatm_res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">)</span>
+        <span class="n">hetatm_chain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hetatm_res</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_residue_outside_domain</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="n">chain_numbering</span><span class="p">,</span> <span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return `True` if residue ``res`` is outside the domain.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">domain_start_idxs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">domain_end_idxs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">resid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">resid_idx</span> <span class="o">=</span> <span class="n">chain_numbering</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">resid</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">domain_start_idx</span><span class="p">,</span> <span class="n">domain_end_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">domain_start_idxs</span><span class="p">,</span> <span class="n">domain_end_idxs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">resid_idx</span> <span class="o">&gt;=</span> <span class="n">domain_start_idx</span> <span class="ow">and</span> <span class="n">resid_idx</span> <span class="o">&lt;=</span> <span class="n">domain_end_idx</span><span class="p">:</span>
+                <span class="c1"># Residue is inside the domain</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Residue is outside the domain</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_remove_distant_hatatms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_model</span><span class="p">,</span> <span class="n">hetatm_chain</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Detach hetatms that are more than ``self.r_cutoff`` away from the main chain(s).&quot;&quot;&quot;</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="n">NeighborSearch</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()))</span>
+        <span class="n">hetatm_chain</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">res_idx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">res_idx</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">hetatm_chain</span><span class="p">):</span>
+            <span class="n">res_1</span> <span class="o">=</span> <span class="n">hetatm_chain</span><span class="o">.</span><span class="n">child_list</span><span class="p">[</span><span class="n">res_idx</span><span class="p">]</span>
+            <span class="n">in_contact</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">atom_1</span> <span class="ow">in</span> <span class="n">res_1</span><span class="p">:</span>
+                <span class="n">interacting_residues</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">atom_1</span><span class="o">.</span><span class="n">get_coord</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_cutoff</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">interacting_residues</span><span class="p">:</span>
+                    <span class="c1"># logger.debug(res_1.id)</span>
+                    <span class="c1"># logger.debug(interacting_residues)</span>
+                    <span class="n">in_contact</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">in_contact</span><span class="p">:</span>
+                <span class="n">res_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+            <span class="c1"># logger.debug(&#39;Detaching child: {}&#39;.format(res_1.id))</span>
+            <span class="n">hetatm_chain</span><span class="o">.</span><span class="n">detach_child</span><span class="p">(</span><span class="n">res_1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="c1"># def _unset_disordered_flags(self):</span>
+    <span class="c1">#     &quot;&quot;&quot;Change atom and residue ``disordered`` flag to `False`.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Otherwise, Biopython may crash when saving the PDB structure.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     logger.debug(&#39;Setting all residues and atoms marked as disorded to non-disorded&#39;)</span>
+    <span class="c1">#     for m in self.structure:</span>
+    <span class="c1">#         for c in m:</span>
+    <span class="c1">#             for r in c:</span>
+    <span class="c1">#                 if r.is_disordered() or r.disordered:</span>
+    <span class="c1">#                     logger.debug(</span>
+    <span class="c1">#                         &#39;Changing disordered_flag on residue {} from {} to 0&#39;</span>
+    <span class="c1">#                         .format(r, r.disordered))</span>
+    <span class="c1">#                     r.disordered = 0</span>
+    <span class="c1">#                 for a in r:</span>
+    <span class="c1">#                     if a.is_disordered() or a.disordered_flag:</span>
+    <span class="c1">#                         logger.debug(</span>
+    <span class="c1">#                             &#39;Changing disordered_flag on atom {} from {} to 0&#39;</span>
+    <span class="c1">#                             .format(a, a.disordered_flag))</span>
+    <span class="c1">#                         a.disordered_flag = 0</span>
+    <span class="c1">#</span>
+<div class="viewcode-block" id="StructureParser.get_interchain_distances"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.structure_parser_legacy.StructureParser.get_interchain_distances">[docs]</a>    <span class="k">def</span> <span class="nf">get_interchain_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pdb_chain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pdb_mutation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate distance between two chains.&quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">structure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">shortest_interchain_distances</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Chain 1</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chain_1_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">):</span>
+            <span class="n">shortest_interchain_distances</span><span class="p">[</span><span class="n">chain_1_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">chain_1</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="n">chain_1_id</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">pdb_chain</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">chain_1_id</span> <span class="o">==</span> <span class="n">pdb_chain</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">chain_2_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">pdb_chain</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">chain_2_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+            <span class="c1"># Chain 2</span>
+            <span class="k">for</span> <span class="n">chain_2_id</span> <span class="ow">in</span> <span class="n">chain_2_ids</span><span class="p">:</span>
+                <span class="n">chain_2</span> <span class="o">=</span> <span class="n">model</span><span class="p">[</span><span class="n">chain_2_id</span><span class="p">]</span>
+                <span class="n">min_r</span> <span class="o">=</span> <span class="n">cutoff</span>
+                <span class="c1"># Residue 1</span>
+                <span class="k">for</span> <span class="n">residue_1</span> <span class="ow">in</span> <span class="n">chain_1</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">residue_1</span><span class="o">.</span><span class="n">resname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span> <span class="ow">or</span>
+                            <span class="n">residue_1</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="c1"># Residue 2</span>
+                    <span class="k">for</span> <span class="n">residue_2_idx</span><span class="p">,</span> <span class="n">residue_2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chain_2</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">resname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AMINO_ACIDS</span> <span class="ow">or</span>
+                                <span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">):</span>
+                            <span class="k">continue</span>
+                        <span class="k">if</span> <span class="n">pdb_mutation</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">pdb_mutation</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                                <span class="k">continue</span>
+                            <span class="k">if</span> <span class="p">((</span><span class="n">structure_tools</span><span class="o">.</span><span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">resname</span><span class="p">)</span> <span class="o">!=</span>
+                                    <span class="n">pdb_mutation</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span>
+                                    <span class="n">structure_tools</span><span class="o">.</span><span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">resname</span><span class="p">)</span> <span class="o">!=</span>
+                                    <span class="n">pdb_mutation</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span>
+                                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pdb_mutation</span><span class="p">)</span>
+                                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">structure_tools</span><span class="o">.</span><span class="n">convert_aa</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">resname</span><span class="p">))</span>
+                                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">residue_2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                                <span class="k">raise</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">exc</span><span class="o">.</span><span class="n">MutationMismatchError</span><span class="p">()</span>
+                        <span class="c1"># Atom 1</span>
+                        <span class="k">for</span> <span class="n">atom_1</span> <span class="ow">in</span> <span class="n">residue_1</span><span class="p">:</span>
+                            <span class="c1"># Atom 2</span>
+                            <span class="k">for</span> <span class="n">atom_2</span> <span class="ow">in</span> <span class="n">residue_2</span><span class="p">:</span>
+                                <span class="n">r</span> <span class="o">=</span> <span class="n">structure_tools</span><span class="o">.</span><span class="n">calculate_distance</span><span class="p">(</span><span class="n">atom_1</span><span class="p">,</span> <span class="n">atom_2</span><span class="p">,</span> <span class="n">min_r</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">min_r</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">min_r</span><span class="p">):</span>
+                                    <span class="n">min_r</span> <span class="o">=</span> <span class="n">r</span>
+
+                <span class="n">shortest_interchain_distances</span><span class="p">[</span><span class="n">chain_1_id</span><span class="p">][</span><span class="n">chain_2_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_r</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">shortest_interchain_distances</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s1">&#39;get_interchain_distances(</span><span class="si">{pdb_chain}</span><span class="s1">, </span><span class="si">{pdb_mutation}</span><span class="s1">, </span><span class="si">{cutoff}</span><span class="s1">) failed!&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_chain</span><span class="o">=</span><span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_mutation</span><span class="o">=</span><span class="n">pdb_mutation</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">()</span>
+
+        <span class="n">_shortest_interchain_distances_complement</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">shortest_interchain_distances</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key_2</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">shortest_interchain_distances</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">_shortest_interchain_distances_complement</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key_2</span><span class="p">,</span> <span class="nb">dict</span><span class="p">())[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">shortest_interchain_distances</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_shortest_interchain_distances_complement</span><span class="p">)</span>
+
+        <span class="n">all_chains</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">shortest_interchain_distances</span><span class="p">}</span>
+        <span class="n">all_chains</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">key_2</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">shortest_interchain_distances</span>
+             <span class="k">for</span> <span class="n">key_2</span> <span class="ow">in</span> <span class="n">shortest_interchain_distances</span><span class="p">[</span><span class="n">key</span><span class="p">]}</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">all_chains</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s1">&#39;get_interchain_distances(</span><span class="si">{pdb_chain}</span><span class="s1">, </span><span class="si">{pdb_mutation}</span><span class="s1">, </span><span class="si">{cutoff}</span><span class="s1">) failed!&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_chain</span><span class="o">=</span><span class="n">pdb_chain</span><span class="p">,</span> <span class="n">pdb_mutation</span><span class="o">=</span><span class="n">pdb_mutation</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Did not calculate chain distances for all chain pairs!&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;all_chains: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">all_chains</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;self.sp.chain_ids: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">chain_ids</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">key_1</span><span class="p">,</span> <span class="n">value_1</span> <span class="ow">in</span> <span class="n">shortest_interchain_distances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s1">&#39;Calculated interchain distances between chain </span><span class="si">{}</span><span class="s1"> and chains </span><span class="si">{}</span><span class="s1">.&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key_1</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">value_1</span><span class="o">.</span><span class="n">keys</span><span class="p">()))))</span>
+
+        <span class="k">return</span> <span class="n">shortest_interchain_distances</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

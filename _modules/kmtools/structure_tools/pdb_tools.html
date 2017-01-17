@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.structure_tools.pdb_tools &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.structure_tools.pdb_tools</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.structure_tools.pdb_tools</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">import</span> <span class="nn">Bio.PDB</span>
+<span class="kn">from</span> <span class="nn">kmtools</span> <span class="k">import</span> <span class="n">system_tools</span>
+
+<span class="c1"># __all__ = [&#39;fetch_structure&#39;, &#39;load_structure&#39;]</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_guess_pdb_id</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract the PDB id from a PDB file.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; _guess_pdb_id(&#39;4dkl.pdb&#39;)</span>
+<span class="sd">    &#39;4dkl&#39;</span>
+<span class="sd">    &gt;&gt;&gt; _guess_pdb_id(&#39;/data/structures/divided/pdb/26/pdb126d.ent.gz&#39;)</span>
+<span class="sd">    &#39;126d&#39;</span>
+<span class="sd">    &gt;&gt;&gt; _guess_pdb_id(&#39;/tmp/100d.cif.gz&#39;)</span>
+<span class="sd">    &#39;100d&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pdb_id</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;.pdb&#39;</span><span class="p">,</span> <span class="s1">&#39;.ent&#39;</span><span class="p">,</span> <span class="s1">&#39;.cif&#39;</span><span class="p">]:</span>
+        <span class="n">pdb_id</span> <span class="o">=</span> <span class="n">pdb_id</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="n">extension</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ent&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">pdb_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;pdb&#39;</span><span class="p">)):</span>
+        <span class="n">pdb_id</span> <span class="o">=</span> <span class="n">pdb_id</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span>
+    <span class="n">pdb_id</span> <span class="o">=</span> <span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">pdb_id</span> <span class="o">=</span> <span class="n">pdb_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pdb_id</span>
+
+
+<span class="k">def</span> <span class="nf">_guess_pdb_type</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Guess PDB file type from file name.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    &gt;&gt;&gt; _guess_pdb_type(&#39;4dkl.pdb&#39;)</span>
+<span class="sd">    &#39;pdb&#39;</span>
+<span class="sd">    &gt;&gt;&gt; _guess_pdb_type(&#39;/tmp/4dkl.cif.gz&#39;)</span>
+<span class="sd">    &#39;cif&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_name</span><span class="p">,</span> <span class="n">file_ext</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">file_ext</span><span class="p">:</span>
+        <span class="n">file_ext</span> <span class="o">=</span> <span class="n">file_ext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">file_ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.pdb&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s1">&#39;pdb&#39;</span>
+        <span class="k">if</span> <span class="n">file_ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.cif&#39;</span><span class="p">,</span> <span class="s1">&#39;.mmcif&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="s1">&#39;cif&#39;</span>
+        <span class="n">file_name</span><span class="p">,</span> <span class="n">file_ext</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="get_wwpdb_url"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.get_wwpdb_url">[docs]</a><span class="k">def</span> <span class="nf">get_wwpdb_url</span><span class="p">(</span>
+        <span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">wwpdb_base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get PDB filename (inlcuding path) from a local mirror of the PDB repository.</span>
+
+<span class="sd">    This assumes that you have mirrored the PDB ftp repository:</span>
+<span class="sd">    ftp://ftp.wwpdb.org/pub/pdb/data/</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; get_wwpdb_url(&#39;4DKL&#39;, &#39;pdb&#39;, biounit=False, wwpdb_base_url=&#39;&#39;)</span>
+<span class="sd">    &#39;structures/divided/pdb/dk/pdb4dkl.ent.gz&#39;</span>
+<span class="sd">    &gt;&gt;&gt; get_wwpdb_url(&#39;4dkl&#39;, &#39;cif&#39;, biounit=False, wwpdb_base_url=&#39;&#39;)</span>
+<span class="sd">    &#39;structures/divided/mmCIF/dk/4dkl.cif.gz&#39;</span>
+<span class="sd">    &gt;&gt;&gt; get_wwpdb_url(&#39;4DKL&#39;, &#39;pdb&#39;, biounit=True, wwpdb_base_url=&#39;/tmp&#39;)</span>
+<span class="sd">    &#39;/tmp/biounit/PDB/divided/dk/4dkl.pdb1.gz&#39;</span>
+<span class="sd">    &gt;&gt;&gt; get_wwpdb_url(&#39;4NWR&#39;, &#39;cif&#39;, biounit=True)</span>
+<span class="sd">    &#39;ftp://ftp.wwpdb.org/pub/pdb/data/biounit/mmCIF/divided/nw/4nwr-assembly1.cif.gz&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">wwpdb_base_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">wwpdb_base_url</span> <span class="o">=</span> <span class="s1">&#39;ftp://ftp.wwpdb.org/pub/pdb/data/&#39;</span>
+
+    <span class="k">if</span> <span class="n">pdb_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;pdb&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">biounit</span><span class="p">:</span>
+        <span class="n">subfolder</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;structures&#39;</span><span class="p">,</span> <span class="s1">&#39;divided&#39;</span><span class="p">,</span> <span class="s1">&#39;pdb&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;pdb</span><span class="si">{}</span><span class="s1">.ent.gz&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">pdb_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;pdb&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">biounit</span><span class="p">:</span>
+        <span class="n">subfolder</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;biounit&#39;</span><span class="p">,</span> <span class="s1">&#39;PDB&#39;</span><span class="p">,</span> <span class="s1">&#39;divided&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pdb1.gz&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">pdb_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;cif&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">biounit</span><span class="p">:</span>
+        <span class="n">subfolder</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;structures&#39;</span><span class="p">,</span> <span class="s1">&#39;divided&#39;</span><span class="p">,</span> <span class="s1">&#39;mmCIF&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.cif.gz&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">pdb_type</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;cif&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">biounit</span><span class="p">:</span>
+        <span class="n">subfolder</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;biounit&#39;</span><span class="p">,</span> <span class="s1">&#39;mmCIF&#39;</span><span class="p">,</span> <span class="s1">&#39;divided&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-assembly1.cif.gz&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span>
+
+    <span class="n">pdb_filename</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wwpdb_base_url</span><span class="p">,</span> <span class="n">subfolder</span><span class="p">,</span> <span class="n">pdb_id</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pdb_filename</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_pdb_url</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="n">mirror</span><span class="o">=</span><span class="s1">&#39;rcsb&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download PDB from RCSB or EBI website.</span>
+
+<span class="sd">    .. todo:: Add an option for biounit urls.</span>
+
+<span class="sd">    .. note:: Not used at the moment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mirror</span> <span class="o">==</span> <span class="s1">&#39;rcsb&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;http://www.rcsb.org/pdb/files/</span><span class="si">{}</span><span class="s1">.pdb&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">mirror</span> <span class="o">==</span> <span class="s1">&#39;ebi&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;http://www.ebi.ac.uk/pdbe/entry-files/download/pdb</span><span class="si">{}</span><span class="s1">.ent&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pdb_id</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unsupported mirror: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mirror</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="get_pdb_parser"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.get_pdb_parser">[docs]</a><span class="k">def</span> <span class="nf">get_pdb_parser</span><span class="p">(</span><span class="n">pdb_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get BioPython PDB parser appropriate for `pdb_type`.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pdb_type</span> <span class="o">==</span> <span class="s1">&#39;pdb&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">PDBParser</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">pdb_type</span> <span class="o">==</span> <span class="s1">&#39;cif&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">MMCIFParser</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+
+<span class="k">def</span> <span class="nf">_gen_assembly</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdirname</span><span class="p">:</span>
+        <span class="n">cif_file</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdirname</span><span class="p">,</span> <span class="s1">&#39;xxxx.cif&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cif_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ofh</span><span class="p">:</span>
+            <span class="n">ofh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;Assemblies&#39;</span><span class="p">,</span> <span class="n">cif_file</span><span class="p">],</span> <span class="n">cwd</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">cif_file</span><span class="p">))</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">cif_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.cif&#39;</span><span class="p">,</span> <span class="s1">&#39;-1.cif&#39;</span><span class="p">),</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifh</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">ifh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<div class="viewcode-block" id="allequal"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.allequal">[docs]</a><span class="k">def</span> <span class="nf">allequal</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="n">s2</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Atom</span><span class="o">.</span><span class="n">Atom</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">allequal</span><span class="p">(</span><span class="n">so1</span><span class="p">,</span> <span class="n">so2</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">so1</span><span class="p">,</span> <span class="n">so2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">))</span></div>
+
+
+<span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<div class="viewcode-block" id="fetch_structure"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.fetch_structure">[docs]</a><span class="k">def</span> <span class="nf">fetch_structure</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pdb_mirror</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fetch remote PDB file.</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">       For `cif` biounits, we have to run the ``Assembly`` binary</span>
+<span class="sd">       to generate the biounit structure.</span>
+
+<span class="sd">       Even for `pdb` biounits, some structures don&#39;t have a biounit file</span>
+<span class="sd">       (probably because they are NMR structures, etc.)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`Bio.PDB.Structure.Structure`</span>
+<span class="sd">        Protein structure.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; fetch_structure(&#39;4dkl&#39;)</span>
+<span class="sd">    Structure(id=&#39;4dkl&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; fetch_structure(&#39;4dkl&#39;, pdb_type=&#39;cif&#39;)</span>
+<span class="sd">    Structure(id=&#39;4dkl&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; fetch_structure(&#39;4NWR&#39;, pdb_type=&#39;cif&#39;, biounit=True)</span>
+<span class="sd">    Structure(id=&#39;4NWR&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_assembly</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">pdb_type</span> <span class="o">==</span> <span class="s1">&#39;cif&#39;</span> <span class="ow">and</span> <span class="n">biounit</span><span class="p">:</span>
+        <span class="n">biounit</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">gen_assembly</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="n">get_wwpdb_url</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="n">pdb_type</span><span class="p">,</span> <span class="n">biounit</span><span class="o">=</span><span class="n">biounit</span><span class="p">,</span> <span class="n">wwpdb_base_url</span><span class="o">=</span><span class="n">pdb_mirror</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;url: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+
+    <span class="n">pdb_data</span> <span class="o">=</span> <span class="n">system_tools</span><span class="o">.</span><span class="n">read_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">gen_assembly</span><span class="p">:</span>
+        <span class="n">pdb_data</span> <span class="o">=</span> <span class="n">_gen_assembly</span><span class="p">(</span><span class="n">pdb_data</span><span class="p">)</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">get_pdb_parser</span><span class="p">(</span><span class="n">pdb_type</span><span class="p">)</span>
+    <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">pdb_data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">structure</span></div>
+
+
+<div class="viewcode-block" id="load_structure"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.load_structure">[docs]</a><span class="k">def</span> <span class="nf">load_structure</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">,</span> <span class="n">pdb_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pdb_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load local PDB file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pdb_file : :obj:`str`</span>
+<span class="sd">        File to load</span>
+<span class="sd">    pdb_id : :obj:`str`, optional</span>
+<span class="sd">        PDB_ID to assign to the loaded structure.</span>
+<span class="sd">    pdb_type: :obj:`str`, one of: `{&#39;pdb&#39;, &#39;cif&#39;}`, optional</span>
+<span class="sd">        Type of PDB file. If ``None``, try all available types until one works.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`Bio.PDB.Structure.Structure`</span>
+<span class="sd">        Protein structure.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import urllib.request</span>
+
+<span class="sd">    &gt;&gt;&gt; pdb_file = op.join(tempfile.gettempdir(), &#39;4dkl.pdb&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; r = urllib.request.urlretrieve(&#39;https://files.rcsb.org/download/4dkl.pdb&#39;, pdb_file)</span>
+<span class="sd">    &gt;&gt;&gt; load_structure(pdb_file)</span>
+<span class="sd">    Structure(id=&#39;4dkl&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; os.remove(pdb_file)</span>
+
+<span class="sd">    &gt;&gt;&gt; pdb_file = op.join(tempfile.gettempdir(), &#39;3K1Q.cif&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; r = urllib.request.urlretrieve(&#39;https://files.rcsb.org/download/3K1Q.cif&#39;, pdb_file)</span>
+<span class="sd">    &gt;&gt;&gt; load_structure(pdb_file)</span>
+<span class="sd">    Structure(id=&#39;3k1q&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; os.remove(pdb_file)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pdb_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pdb_id</span> <span class="o">=</span> <span class="n">_guess_pdb_id</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pdb_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pdb_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">pdb_type</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pdb_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cif&#39;</span><span class="p">,</span> <span class="s1">&#39;pdb&#39;</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="n">system_tools</span><span class="o">.</span><span class="n">open_compressed</span><span class="p">(</span><span class="n">pdb_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifh</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pdb_type</span> <span class="ow">in</span> <span class="n">pdb_types</span><span class="p">:</span>
+            <span class="n">parser</span> <span class="o">=</span> <span class="n">get_pdb_parser</span><span class="p">(</span><span class="n">pdb_type</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">structure</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">pdb_id</span><span class="p">,</span> <span class="n">ifh</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Count not load structure using the </span><span class="si">%s</span><span class="s2"> parser.&quot;</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span>
+                <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">structure</span></div>
+
+
+<div class="viewcode-block" id="NotDisordered"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.NotDisordered">[docs]</a><span class="k">class</span> <span class="nc">NotDisordered</span><span class="p">(</span><span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Select</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Select only non-disordered residues and set their altloc flag to &#39; &#39;.</span>
+
+<span class="sd">    Source: http://biopython.org/wiki/Remove_PDB_disordered_atoms</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="NotDisordered.accept_residue"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.NotDisordered.accept_residue">[docs]</a>    <span class="k">def</span> <span class="nf">accept_residue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">residue</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">residue</span><span class="o">.</span><span class="n">disordered</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept_atom</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span><span class="p">):</span>
+            <span class="n">residue</span><span class="o">.</span><span class="n">disordered</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ignoring residue </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">residue</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="NotDisordered.accept_atom"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.NotDisordered.accept_atom">[docs]</a>    <span class="k">def</span> <span class="nf">accept_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">atom</span><span class="o">.</span><span class="n">disordered_flag</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">atom</span><span class="o">.</span><span class="n">altloc</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+            <span class="n">atom</span><span class="o">.</span><span class="n">disordered_flag</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">atom</span><span class="o">.</span><span class="n">altloc</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ignoring atom </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">atom</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+
+
+<div class="viewcode-block" id="save_structure"><a class="viewcode-back" href="../../../modules/kmtools.structure_tools.html#kmtools.structure_tools.pdb_tools.save_structure">[docs]</a><span class="k">def</span> <span class="nf">save_structure</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">include_disordered</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Save BioPython structure object as a PDB.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; tmpfile = tempfile.NamedTemporaryFile()</span>
+<span class="sd">    &gt;&gt;&gt; s1 = fetch_structure(&#39;4dkl&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; save_structure(s1, tmpfile.name)</span>
+<span class="sd">    &gt;&gt;&gt; s2 = load_structure(tmpfile.name)</span>
+<span class="sd">    &gt;&gt;&gt; allequal(s1, s2)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">io</span> <span class="o">=</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">PDBIO</span><span class="p">()</span>
+    <span class="n">io</span><span class="o">.</span><span class="n">set_structure</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
+    <span class="n">select</span> <span class="o">=</span> <span class="n">Bio</span><span class="o">.</span><span class="n">PDB</span><span class="o">.</span><span class="n">Select</span><span class="p">()</span> <span class="k">if</span> <span class="n">include_disordered</span> <span class="k">else</span> <span class="n">NotDisordered</span><span class="p">()</span>
+    <span class="n">io</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="n">select</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.sequence_tools.dna_util &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.sequence_tools.dna_util</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.sequence_tools.dna_util</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">bisect</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">.codons_info</span> <span class="k">import</span> <span class="n">A2C_DICT</span><span class="p">,</span> <span class="n">USAGE_FREQ</span>
+
+
+<div class="viewcode-block" id="translate2aa"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools.dna_util.translate2aa">[docs]</a><span class="k">def</span> <span class="nf">translate2aa</span><span class="p">(</span><span class="n">nseq</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Return AA sequence, from NA sequence (string)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    :param str nseq: Nucleotide sequence</span>
+<span class="sd">    :param int start: Start to translate from the</span>
+<span class="sd">     position, by default 1</span>
+
+<span class="sd">    :return: str with the aminoacid sequence.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">]</span>
+    <span class="n">codons</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">bases</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">]</span>
+    <span class="n">amino_acids</span> <span class="o">=</span> <span class="s1">&#39;FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG&#39;</span>
+    <span class="n">codon_table</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">codons</span><span class="p">,</span> <span class="n">amino_acids</span><span class="p">))</span>
+    <span class="n">pseq</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1"># the start point, is where the aligment begins, not the protein, that give us the read frame</span>
+    <span class="c1"># get the seq from this point until I found a stop codon</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">codon</span> <span class="o">=</span> <span class="n">nseq</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">3</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">codon</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">aminoacid</span> <span class="o">=</span> <span class="n">codon_table</span><span class="p">[</span><span class="n">codon</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">aminoacid</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">pseq</span> <span class="o">+=</span> <span class="n">aminoacid</span>
+
+    <span class="k">return</span> <span class="n">pseq</span></div>
+
+
+<div class="viewcode-block" id="translate2na"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools.dna_util.translate2na">[docs]</a><span class="k">def</span> <span class="nf">translate2na</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">specie</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Return a Nucleotide seq for a aminoacid sequences. the codon will be chosed</span>
+<span class="sd">        according the codon frequency of each specie, by default human</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    seq (str): Amino acid, in One letter code sequences</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    na seq (str): codon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seq_na</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+        <span class="n">codons</span> <span class="o">=</span> <span class="n">A2C_DICT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">seq_na</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">codon_weighted_random_choice</span><span class="p">(</span><span class="n">codons</span><span class="p">,</span> <span class="n">specie</span><span class="p">))</span>
+
+    <span class="c1"># print(random.choice(foo))</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seq_na</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="codon_weighted_random_choice"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools.dna_util.codon_weighted_random_choice">[docs]</a><span class="k">def</span> <span class="nf">codon_weighted_random_choice</span><span class="p">(</span><span class="n">codons</span><span class="p">,</span> <span class="n">specie</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Returns a random element from a list. The probability for</span>
+<span class="sd">    each element elem in list to be selected is weighted</span>
+<span class="sd">    by weight(elem).</span>
+<span class="sd">    weight_dictionary`` must be a callable accepting one argument,</span>
+<span class="sd">    and returning a  non-negative number. If ``weight(elem)`` is zero,</span>
+<span class="sd">    ``elem`` will not be considered.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    :param codons (list): must be an iterable containing more than one element.</span>
+<span class="sd">    :param specie (str): Codon usage specie, human, e.coli, etc.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    --------</span>
+<span class="sd">    codon (str)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weight_dictionary</span> <span class="o">=</span> <span class="n">USAGE_FREQ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">specie</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">elems</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">codons</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">weight_dictionary</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">is_neg</span> <span class="o">=</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Weight of element &#39;</span><span class="si">%s</span><span class="s2">&#39; is not a number (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span>
+                             <span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">is_neg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Weight of element &#39;</span><span class="si">%s</span><span class="s2">&#39; is negative (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span>
+                             <span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">w</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">weights</span> <span class="o">+=</span> <span class="n">w</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Weight of element &#39;</span><span class="si">%s</span><span class="s2">&#39; is not a number &quot;</span>
+                                 <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+            <span class="n">elems</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">weights</span><span class="p">,</span> <span class="n">elem</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">elems</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty sequence&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">codons</span><span class="p">,</span> <span class="n">weight_dictionary</span><span class="p">))</span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">elems</span><span class="p">,</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weights</span><span class="p">),</span> <span class="kc">None</span><span class="p">))</span>
+    <span class="c1"># print ix</span>
+    <span class="k">return</span> <span class="n">elems</span><span class="p">[</span><span class="n">ix</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="clean_restriction_sites"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools.dna_util.clean_restriction_sites">[docs]</a><span class="k">def</span> <span class="nf">clean_restriction_sites</span><span class="p">(</span><span class="n">naseq</span><span class="p">,</span> <span class="n">dict_restriction</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GAATTC&#39;</span><span class="p">,</span> <span class="s1">&#39;CCCGGG&#39;</span><span class="p">,</span> <span class="s1">&#39;GTCGAC&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Check if there is a restriction site for any of the enzymes in</span>
+<span class="sd">        self.set_restriction_enzyme for a sequence.</span>
+<span class="sd">        if it could find one, the afected codon is retranslated,</span>
+<span class="sd">        that will generate a codon selection,  and it check again.</span>
+<span class="sd">        Formed called _check_4_restricitions</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    :param naseq (str): ADN sequences to check</span>
+<span class="sd">    :param dict_restriction (list or dict): Restriction sites defintions.</span>
+<span class="sd">        (default) dict_restriction = [&#39;GAATTC&#39;,&#39;CCCGGG&#39;,&#39;GTCGAC&#39;] #or ecorI, XmaI, salI</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    naseq (str): if the seq contains restriction site, it will be returned recoded</span>
+<span class="sd">              to avoid them.</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clean</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">ilimit</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">clean</span><span class="p">:</span>
+        <span class="n">ilimit</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">has_restriction_sites</span><span class="p">(</span><span class="n">naseq</span><span class="p">,</span> <span class="n">dict_restriction</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">clean</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">naseq</span> <span class="o">=</span> <span class="n">reshufle_seq</span><span class="p">(</span><span class="n">naseq</span><span class="p">,</span> <span class="n">matches</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ilimit</span> <span class="o">==</span> <span class="mi">1000000</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;WARNING the cycles limit has been pass and the seq stil</span><span class="se">\</span>
+<span class="s1">                    contain a restriction site  </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">naseq</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">naseq</span>
+
+    <span class="k">return</span> <span class="n">naseq</span></div>
+
+
+<div class="viewcode-block" id="reshufle_seq"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools.dna_util.reshufle_seq">[docs]</a><span class="k">def</span> <span class="nf">reshufle_seq</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">position_pairs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Resampling codon usage. Avoid restriction enzyme sites</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    :param seq (str): Nucleotide sequence to be reshufled</span>
+<span class="sd">    :param position_pairs (list): list of list of positions.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">restriction_match</span> <span class="ow">in</span> <span class="n">position_pairs</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">afected</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">restriction_match</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">restriction_match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">afected</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">afected</span><span class="p">:</span>
+
+                <span class="c1"># This should return 0,1, or 2</span>
+                <span class="n">codon_coordinates</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span>
+                <span class="c1"># Use the module to find the codon in this postion</span>
+                <span class="n">codon</span> <span class="o">=</span> <span class="n">seq</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">codon_coordinates</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">codon_coordinates</span><span class="p">]</span>
+                <span class="n">aminoacid</span> <span class="o">=</span> <span class="n">translate2aa</span><span class="p">(</span><span class="n">codon</span><span class="p">)</span>
+                <span class="c1"># amino  acids with only one codon.</span>
+                <span class="k">if</span> <span class="n">aminoacid</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">]:</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+
+                    <span class="n">alternatives</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">A2C_DICT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">aminoacid</span><span class="p">))</span>
+                    <span class="n">alternatives</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">codon</span><span class="p">)</span>
+                    <span class="n">new_codon</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alternatives</span><span class="p">)</span>
+                    <span class="n">seq</span> <span class="o">=</span> <span class="n">seq</span><span class="p">[:</span><span class="n">i</span> <span class="o">-</span> <span class="n">codon_coordinates</span><span class="p">]</span> <span class="o">+</span> <span class="n">new_codon</span> <span class="o">+</span> <span class="n">seq</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">codon_coordinates</span><span class="p">:]</span>
+                    <span class="c1"># Go to the next codon</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">codon_coordinates</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">seq</span></div>
+
+
+<div class="viewcode-block" id="has_restriction_sites"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools.dna_util.has_restriction_sites">[docs]</a><span class="k">def</span> <span class="nf">has_restriction_sites</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">dict_restriction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Former match restrictions. Check if there are any restriction site in the sequences,</span>
+<span class="sd">    and if it have, return a list with the positions involved</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    :param seq (str); DNA sequence</span>
+<span class="sd">    :param dict_restriction (list or dict) with restriction enzymes</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    postions involved (list) [[strat,end],[strat,end]]</span>
+<span class="sd">    the list is emptty if there is no restriction sites</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># if the the restrictions are a dict, extract sites</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dict_restriction</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">dict_restriction</span> <span class="o">=</span> <span class="n">dict_restriction</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">restriction</span> <span class="ow">in</span> <span class="n">dict_restriction</span><span class="p">:</span>
+        <span class="c1"># print &#39;search&#39;,restriction,seq</span>
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">restriction</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
+
+            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">hit</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">hit</span><span class="o">.</span><span class="n">end</span><span class="p">()])</span>
+
+    <span class="k">return</span> <span class="n">matches</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.sequence_tools._alignment_tools &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.sequence_tools._alignment_tools</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.sequence_tools._alignment_tools</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+
+<div class="viewcode-block" id="align_pairwise"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools._alignment_tools.align_pairwise">[docs]</a><span class="k">def</span> <span class="nf">align_pairwise</span><span class="p">(</span><span class="n">sequence_ref</span><span class="p">,</span> <span class="n">sequence_alt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; align_pairwise(&#39;AAAGGVVV&#39;, &#39;AAAGGVVV&#39;)</span>
+<span class="sd">    (&#39;AAAGGVVV&#39;, &#39;AAAGGVVV&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; align_pairwise(&#39;AAAGGVVVAAA&#39;, &#39;AAAGGAAA&#39;)</span>
+<span class="sd">    (&#39;AAAGGVVVAAA&#39;, &#39;AAAGG---AAA&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">seqs</span> <span class="o">=</span> <span class="s2">&quot;&gt;1</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&gt;2</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence_ref</span><span class="p">,</span> <span class="n">sequence_alt</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="p">[</span><span class="s1">&#39;muscle&#39;</span><span class="p">],</span>
+        <span class="nb">input</span><span class="o">=</span><span class="n">seqs</span><span class="p">,</span>
+        <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+        <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">__</span><span class="p">,</span> <span class="n">alignment_ref</span><span class="p">,</span> <span class="n">alignment_alt</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)</span>
+    <span class="n">alignment_ref</span> <span class="o">=</span> <span class="n">alignment_ref</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> 12&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">alignment_alt</span> <span class="o">=</span> <span class="n">alignment_alt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> 12&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment_ref</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment_alt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">alignment_ref</span><span class="p">,</span> <span class="n">alignment_alt</span></div>
+
+
+<div class="viewcode-block" id="get_crossmapping"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools._alignment_tools.get_crossmapping">[docs]</a><span class="k">def</span> <span class="nf">get_crossmapping</span><span class="p">(</span><span class="n">alignment_ref</span><span class="p">,</span> <span class="n">alignment_alt</span><span class="p">,</span> <span class="n">skip_mismatch</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; get_crossmapping(&#39;ABCDF&#39;, &#39;A-CEF&#39;)</span>
+<span class="sd">    (&#39;1,3,,5&#39;, &#39;1,,2,,4&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; get_crossmapping(&#39;ABCDF&#39;, &#39;A-CEF&#39;, skip_mismatch=False)</span>
+<span class="sd">    (&#39;1,3,4,5&#39;, &#39;1,,2,3,4&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment_ref</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment_alt</span><span class="p">)</span>
+    <span class="n">mapping_ref2alt</span><span class="p">,</span> <span class="n">mapping_alt2ref</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">a_gaps</span><span class="p">,</span> <span class="n">b_gaps</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">alignment_ref</span><span class="p">,</span> <span class="n">alignment_alt</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">:</span>
+            <span class="n">mapping_ref2alt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">a_gaps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">mapping_alt2ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">b_gaps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">a</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+            <span class="n">a_gaps</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">mapping_ref2alt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="c1"># mapping_alt2ref.append(&#39;&#39;)</span>
+        <span class="k">elif</span> <span class="n">b</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+            <span class="n">b_gaps</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c1"># mapping_ref2alt.append(&#39;&#39;)</span>
+            <span class="n">mapping_alt2ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">skip_mismatch</span><span class="p">:</span>
+                <span class="n">mapping_ref2alt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">mapping_alt2ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mapping_ref2alt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">a_gaps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">mapping_alt2ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">b_gaps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
+    <span class="n">a2b</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mapping_ref2alt</span><span class="p">)</span>
+    <span class="n">b2a</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mapping_alt2ref</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">a2b</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment_alt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">b2a</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">alignment_ref</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">a2b</span><span class="p">,</span> <span class="n">b2a</span></div>
+
+
+<div class="viewcode-block" id="find_in_set"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools._alignment_tools.find_in_set">[docs]</a><span class="k">def</span> <span class="nf">find_in_set</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">string_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the index (1-based!) of `query` in `string_list`.</span>
+
+<span class="sd">    Analagous to the FIND_IN_SET function in MySQL.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; find_in_set(10, &#39;1,3,5,10&#39;)</span>
+<span class="sd">    4</span>
+<span class="sd">    &gt;&gt;&gt; find_in_set(&#39;40&#39;, &#39;,,,20,,30,40&#39;)</span>
+<span class="sd">    7</span>
+<span class="sd">    &gt;&gt;&gt; find_in_set(2, &#39;1,3,5&#39;)</span>
+<span class="sd">    0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">string_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">query</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<span class="c1"># Alignment with needle</span>
+<div class="viewcode-block" id="align_sw"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools._alignment_tools.align_sw">[docs]</a><span class="k">def</span> <span class="nf">align_sw</span><span class="p">(</span><span class="n">seqa</span><span class="p">,</span> <span class="n">seqb</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;.</span>
+
+<span class="sd">    Smith-Waterman aligment</span>
+<span class="sd">    central function, call  to get score, or identiy, or aligment etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;aln.needle2.</span><span class="si">{}</span><span class="s1">.out&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30000</span><span class="p">))</span>
+
+    <span class="n">call_needle</span><span class="p">(</span><span class="n">seqa</span><span class="p">,</span> <span class="n">seqb</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">load_scores</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="call_needle"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools._alignment_tools.call_needle">[docs]</a><span class="k">def</span> <span class="nf">call_needle</span><span class="p">(</span><span class="n">seqa</span><span class="p">,</span> <span class="n">seqb</span><span class="p">,</span> <span class="n">gapopen</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">gapextend</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;aln.needle2.out&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+
+    <span class="c1"># overwrite_files</span>
+    <span class="n">filename_a</span> <span class="o">=</span> <span class="s1">&#39;file_</span><span class="si">{}</span><span class="s1">.seq&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30000</span><span class="p">))</span>
+    <span class="n">filename_b</span> <span class="o">=</span> <span class="s1">&#39;file_</span><span class="si">{}</span><span class="s1">.seq&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">30001</span><span class="p">,</span> <span class="mi">90000</span><span class="p">))</span>
+    <span class="n">filea</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_a</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">fileb</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_b</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">seqa</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">file</span><span class="o">=</span><span class="n">filea</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">seqb</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">file</span><span class="o">=</span><span class="n">fileb</span><span class="p">)</span>
+    <span class="n">filea</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">fileb</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># exec_needle</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span>
+        <span class="s1">&#39;needle&#39;</span><span class="p">,</span> <span class="s1">&#39;-asequence&#39;</span><span class="p">,</span> <span class="n">filename_a</span><span class="p">,</span> <span class="s1">&#39;-bsequence&#39;</span><span class="p">,</span> <span class="n">filename_b</span><span class="p">,</span>
+        <span class="s1">&#39;-gapopen&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">gapopen</span><span class="p">),</span> <span class="s1">&#39;-gapextend&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">gapextend</span><span class="p">),</span> <span class="s1">&#39;-outfile&#39;</span><span class="p">,</span> <span class="n">outfile</span>
+    <span class="p">])</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename_a</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename_b</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">status</span></div>
+
+
+<div class="viewcode-block" id="load_scores"><a class="viewcode-back" href="../../../modules/kmtools.sequence_tools.html#kmtools.sequence_tools._alignment_tools.load_scores">[docs]</a><span class="k">def</span> <span class="nf">load_scores</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">lenght</span><span class="o">=</span><span class="mf">16.0</span><span class="p">):</span>
+    <span class="n">ident</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">:</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">input_file</span><span class="p">:</span>
+            <span class="c1"># print line</span>
+            <span class="n">tabdata</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tabdata</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tabdata</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Identity:&#39;</span><span class="p">:</span>
+                    <span class="n">matches</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">tabdata</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+                    <span class="n">ident</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">/</span> <span class="n">lenght</span>
+                    <span class="c1"># match = tabdata[3][1:-2]</span>
+                <span class="k">if</span> <span class="n">tabdata</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Similarity:&#39;</span><span class="p">:</span>
+                    <span class="n">matches</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">tabdata</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+                    <span class="n">sim</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">/</span> <span class="n">lenght</span>
+                    <span class="c1"># sim = tabdata[3][1:-2]</span>
+                    <span class="n">input_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">ident</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sim</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">return</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

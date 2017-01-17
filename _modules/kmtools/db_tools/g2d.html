@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kmtools.db_tools.g2d &mdash; kmtools 0.0.16 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="kmtools 0.0.16 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> kmtools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.16
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment_variables.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../environment_variables.html#pdb-database-dir">PDB_DATABASE_DIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/kmtools.html">kmtools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/kmtools.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.db_tools.html">kmtools.db_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.db_tools.html#module-kmtools.db_tools._db_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.df_tools.html">kmtools.df_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.df_tools.html#module-kmtools.df_tools._data_analysis">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.py_tools.html">kmtools.py_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.py_tools.html#module-kmtools.py_tools._py_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html">kmtools.sequence_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.sequence_tools.html#module-kmtools.sequence_tools._alignment_tools">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html">kmtools.structure_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.structure_tools.html#module-kmtools.structure_tools.constants">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/kmtools.system_tools.html">kmtools.system_tools package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/kmtools.system_tools.html#module-kmtools.system_tools._system_tools">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">kmtools</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>kmtools.db_tools.g2d</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kmtools.db_tools.g2d</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
+
+
+<span class="n">CREATE_TABLE_TEMPLATE_D</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">DROP TABLE IF EXISTS az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2">;</span>
+
+<span class="s2">CREATE TABLE az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> AS</span>
+<span class="s2">SELECT</span>
+<span class="s2">d2t.drug d,</span>
+<span class="si">{feature_columns_string}</span><span class="s2"></span>
+<span class="s2">FROM az_dream_2015.</span><span class="si">{d2t_table_name}</span><span class="s2"> d2t</span>
+<span class="si">{left}</span><span class="s2"> JOIN az_dream_2015_features.</span><span class="si">{g_table_name}</span><span class="s2"> t ON (t.g = d2t.hgnc_name)</span>
+<span class="s2">GROUP BY d2t.drug </span><span class="si">{cell_line}</span><span class="s2">;</span>
+
+<span class="s2">ALTER TABLE az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"></span>
+<span class="s2">MODIFY d VARCHAR(255);</span>
+
+<span class="s2">CREATE INDEX a ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> (d);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">CREATE_TABLE_TEMPLATE_DC</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">DROP INDEX a ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2">;</span>
+
+<span class="s2">ALTER TABLE az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"></span>
+<span class="s2">MODIFY c VARCHAR(255);</span>
+
+<span class="s2">CREATE INDEX a ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> (d, c);</span>
+<span class="s2">CREATE INDEX b ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> (c, d);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">CREATE_TABLE_TEMPLATE_DD</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">DROP TABLE IF EXISTS az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2">;</span>
+
+<span class="s2">CREATE TABLE az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> AS</span>
+<span class="s2">SELECT</span>
+<span class="s2">d2t_1.drug d_1,</span>
+<span class="s2">d2t_2.drug d_2,</span>
+<span class="si">{feature_columns_string}</span><span class="s2"></span>
+<span class="s2">FROM az_dream_2015.</span><span class="si">{d2t_table_name}</span><span class="s2"> d2t_1</span>
+<span class="s2">JOIN az_dream_2015.</span><span class="si">{d2t_table_name}</span><span class="s2"> d2t_2</span>
+<span class="si">{left}</span><span class="s2"> JOIN az_dream_2015_features.</span><span class="si">{g_table_name}</span><span class="s2"> t ON (</span>
+<span class="s2">    d2t_1.hgnc_name = t.g_1 AND d2t_2.hgnc_name = t.g_2)</span>
+<span class="s2">GROUP BY d2t_1.drug, d2t_2.drug </span><span class="si">{cell_line}</span><span class="s2">;</span>
+
+<span class="s2">ALTER TABLE az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"></span>
+<span class="s2">MODIFY d_1 VARCHAR(255),</span>
+<span class="s2">MODIFY d_2 VARCHAR(255);</span>
+
+<span class="s2">CREATE INDEX a ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> (d_1, d_2);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">CREATE_TABLE_TEMPLATE_DDC</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">ALTER TABLE az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"></span>
+<span class="s2">DROP INDEX a,</span>
+<span class="s2">MODIFY c VARCHAR(255);</span>
+
+<span class="s2">CREATE INDEX a ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> (d_1, d_2, c);</span>
+<span class="s2">CREATE INDEX b ON az_dream_2015_features.</span><span class="si">{d_table_name}</span><span class="s2"> (c, d_1, d_2);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="g2d"><a class="viewcode-back" href="../../../modules/kmtools.db_tools.html#kmtools.db_tools.g2d.g2d">[docs]</a><span class="k">def</span> <span class="nf">g2d</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">,</span> <span class="n">null_default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get the columns for the table you are converting</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;select * from </span><span class="si">{}</span><span class="s2"> limit 0&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">),</span> <span class="n">engine</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="k">for</span> <span class="n">d2t_source</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_stitch&#39;</span><span class="p">]:</span>
+        <span class="n">drug_pair</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">cell_line</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="s1">&#39;g&#39;</span><span class="p">:</span>
+                <span class="n">drug_pair</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="c1"># feature_columns.append(&quot;t.{0} {0}&quot;.format(column))</span>
+            <span class="k">elif</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;g_1&#39;</span><span class="p">,</span> <span class="s1">&#39;g_2&#39;</span><span class="p">]:</span>
+                <span class="n">drug_pair</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="c1"># feature_columns.append(&quot;t.{0} {0}&quot;.format(column))</span>
+            <span class="k">elif</span> <span class="n">column</span> <span class="o">==</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span>
+                <span class="n">cell_line</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;t.</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;_std&#39;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">null_default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;avg(t.</span><span class="si">{0}</span><span class="s2">) </span><span class="si">{0}{1}</span><span class="s2">_mean&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;avg(ifnull(t.</span><span class="si">{0}</span><span class="s2">, </span><span class="si">{2}</span><span class="s2">)) </span><span class="si">{0}{1}</span><span class="s2">_mean&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">,</span> <span class="n">null_default</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;_max&#39;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">null_default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;max(t.</span><span class="si">{0}</span><span class="s2">) </span><span class="si">{0}{1}</span><span class="s2">_max&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;ifnull(max(t.</span><span class="si">{0}</span><span class="s2">), </span><span class="si">{2}</span><span class="s2">) </span><span class="si">{0}{1}</span><span class="s2">_max&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">,</span> <span class="n">null_default</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;_min&#39;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">null_default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;min(t.</span><span class="si">{0}</span><span class="s2">) </span><span class="si">{0}{1}</span><span class="s2">_min&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="s2">&quot;ifnull(min(t.</span><span class="si">{0}</span><span class="s2">), </span><span class="si">{2}</span><span class="s2">) </span><span class="si">{0}{1}</span><span class="s2">_min&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">,</span> <span class="n">null_default</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown ending for column: </span><span class="si">{}</span><span class="s2">. Assuming mean...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+                <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;avg(t.</span><span class="si">{0}</span><span class="s2">) </span><span class="si">{0}{1}</span><span class="s2">_mean&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">d2t_source</span><span class="p">))</span>
+
+        <span class="n">feature_columns_string</span> <span class="o">=</span> <span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">drug_pair</span><span class="p">:</span>
+            <span class="n">d_table_name</span> <span class="o">=</span> <span class="n">table_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_gbg&#39;</span><span class="p">,</span> <span class="s1">&#39;_gbd&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">d2t_source</span>
+            <span class="n">create_table_template</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">CREATE_TABLE_TEMPLATE_D</span> <span class="o">+</span>
+                <span class="p">(</span><span class="n">CREATE_TABLE_TEMPLATE_DC</span> <span class="k">if</span> <span class="n">cell_line</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d_table_name</span> <span class="o">=</span> <span class="n">table_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_gbgg&#39;</span><span class="p">,</span> <span class="s1">&#39;_gbdd&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">d2t_source</span>
+            <span class="n">create_table_template</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">CREATE_TABLE_TEMPLATE_DD</span> <span class="o">+</span>
+                <span class="p">(</span><span class="n">CREATE_TABLE_TEMPLATE_DDC</span> <span class="k">if</span> <span class="n">cell_line</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="n">table_name</span> <span class="o">==</span> <span class="n">d_table_name</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s2">&quot;The old and new tables must have different names!</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;table_name: &#39;</span><span class="si">{}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;d_table_name: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">d_table_name</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">table_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">g_table_name</span><span class="o">=</span><span class="n">table_name</span><span class="p">,</span>
+            <span class="n">d_table_name</span><span class="o">=</span><span class="n">d_table_name</span><span class="p">,</span>
+            <span class="n">d2t_table_name</span><span class="o">=</span><span class="s1">&#39;drug_to_hgnc_target&#39;</span> <span class="o">+</span> <span class="n">d2t_source</span><span class="p">,</span>
+            <span class="n">feature_columns_string</span><span class="o">=</span><span class="n">feature_columns_string</span><span class="p">,</span>
+            <span class="n">cell_line</span><span class="o">=</span><span class="s1">&#39;, t.c&#39;</span> <span class="k">if</span> <span class="n">cell_line</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="s1">&#39;LEFT&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">cell_line</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">create_table_command</span> <span class="o">=</span> <span class="n">create_table_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">table_options</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">create_table_command</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">command</span> <span class="o">+</span> <span class="s1">&#39;;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">engine</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">argparse</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--table-name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">g2d</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">table_name</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, KimLab.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.0.16',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
