@@ -16,6 +16,7 @@
 # import sys
 # import os
 import sphinx_rtd_theme
+from recommonmark.parser import CommonMarkParser
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -39,15 +40,20 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
+    # 'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+source_parsers = {
+    '.md': CommonMarkParser,
+}
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
@@ -57,8 +63,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'kmtools'
-copyright = '2016, Alexey Strokach'
-author = 'Alexey Strokach'
+copyright = '2017, KimLab'
+author = 'KimLab'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -123,7 +129,21 @@ html_theme = 'sphinx_rtd_theme'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-# html_theme_options = {}
+html_theme_options = {
+    'collapse_navigation': False,
+    'display_version': True,
+}
+#
+# html_context = {
+#     # Enable the "Edit in GitHub link within the header of each page.
+#     'display_github': True,
+#     # Set the following variables to generate the resulting github URL for each page.
+#     # Format Template: https://{{ github_host|default("github.com") }}/{{ github_user }}
+#     # /{{ github_repo }}/blob/{{ github_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}
+#     'github_user': 'kimlaborg',
+#     'github_repo': 'kmtools',
+#     'github_version': 'master/docs/'
+# }
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
@@ -263,7 +283,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'kmtools', 'kmtools Documentation',
+    (master_doc, 'kmtools', 'Documentation',
      [author], 1)
 ]
 

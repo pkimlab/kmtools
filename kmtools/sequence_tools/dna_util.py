@@ -1,8 +1,10 @@
 from __future__ import print_function
-from .codons_info import USAGE_FREQ, A2C_DICT
+
 import bisect
-import re
 import random
+import re
+
+from .codons_info import A2C_DICT, USAGE_FREQ
 
 
 def translate2aa(nseq, start=1):
@@ -10,13 +12,13 @@ def translate2aa(nseq, start=1):
 
     Return AA sequence, from NA sequence (string)
 
-    Args:
-    -----
-        :param str nseq: Nucleotide sequence
-        :param int start: Start to translate from the
-         position, by default 1
+    Parameters
+    ----------
+    :param str nseq: Nucleotide sequence
+    :param int start: Start to translate from the
+     position, by default 1
 
-        :return: str with the aminoacid sequence.
+    :return: str with the aminoacid sequence.
     """
     bases = ['T', 'C', 'A', 'G']
     codons = [a + b + c for a in bases for b in bases for c in bases]
@@ -51,12 +53,13 @@ def translate2na(seq, specie='human'):
     Return a Nucleotide seq for a aminoacid sequences. the codon will be chosed
         according the codon frequency of each specie, by default human
 
-        Args:
-        =====
-            seq (str): Amino acid, in One letter code sequences
+    Parameters
+    ----------
+    seq (str): Amino acid, in One letter code sequences
 
-        Return:
-           na seq (str): codon
+    Returns
+    -------
+    na seq (str): codon
     """
     seq_na = []
     for a in seq:
@@ -77,18 +80,14 @@ def codon_weighted_random_choice(codons, specie):
     and returning a  non-negative number. If ``weight(elem)`` is zero,
     ``elem`` will not be considered.
 
-    Args:
-    -----
-        :param codons (list): must be an iterable containing more than one element.
-        :param specie (str): Codon usage specie, human, e.coli, etc.
+    Parameters
+    ----------
+    :param codons (list): must be an iterable containing more than one element.
+    :param specie (str): Codon usage specie, human, e.coli, etc.
 
-
-
-    Return:
-    -------
-
-        codon (str)
-
+    Returns
+    --------
+    codon (str)
     """
     weight_dictionary = USAGE_FREQ.get(specie)
     weights = 0
@@ -129,15 +128,14 @@ def clean_restriction_sites(naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC
 
     Parameters
     ----------
+    :param naseq (str): ADN sequences to check
+    :param dict_restriction (list or dict): Restriction sites defintions.
+        (default) dict_restriction = ['GAATTC','CCCGGG','GTCGAC'] #or ecorI, XmaI, salI
 
-        :param naseq (str): ADN sequences to check
-        :param dict_restriction (list or dict): Restriction sites defintions.
-            (default) dict_restriction = ['GAATTC','CCCGGG','GTCGAC'] #or ecorI, XmaI, salI
-
-    return
-    ------
-        naseq (str): if the seq contains restriction site, it will be returned recoded
-                  to avoid them.
+    Returns
+    -------
+    naseq (str): if the seq contains restriction site, it will be returned recoded
+              to avoid them.
 
 
     """
@@ -166,10 +164,10 @@ def reshufle_seq(seq, position_pairs):
 
     Resampling codon usage. Avoid restriction enzyme sites
 
-    Paramaters:
-    -----------
-        :param seq (str): Nucleotide sequence to be reshufled
-        :param position_pairs (list): list of list of positions.
+    Parameters
+    ----------
+    :param seq (str): Nucleotide sequence to be reshufled
+    :param position_pairs (list): list of list of positions.
 
     """
     for restriction_match in position_pairs:
@@ -207,15 +205,15 @@ def has_restriction_sites(seq, dict_restriction):
     Former match restrictions. Check if there are any restriction site in the sequences,
     and if it have, return a list with the positions involved
 
-    Paramaters
+    Parameters
     ----------
-        :param seq (str); DNA sequence
-        :param dict_restriction (list or dict) with restriction enzymes
+    :param seq (str); DNA sequence
+    :param dict_restriction (list or dict) with restriction enzymes
 
-    return
-    ------
-        postions involved (list) [[strat,end],[strat,end]]
-        the list is emptty if there is no restriction sites
+    Returns
+    -------
+    postions involved (list) [[strat,end],[strat,end]]
+    the list is emptty if there is no restriction sites
 
     """
     matches = []

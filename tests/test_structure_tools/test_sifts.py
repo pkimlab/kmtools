@@ -1,10 +1,10 @@
-import os.path as op
 import json
-from lxml import etree
+import os.path as op
 from tempfile import TemporaryDirectory
-import pandas as pd
 
+import pandas as pd
 import pytest
+from lxml import etree
 
 from kmtools import structure_tools
 

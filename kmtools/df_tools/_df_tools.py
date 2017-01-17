@@ -1,10 +1,11 @@
-import os.path as op
-import string
 import logging
-import re
 import math
+import os.path as op
+import re
+import string
+
 import pandas as pd
-from sqlalchemy.dialects.mysql import INTEGER, DOUBLE, BOOLEAN, VARCHAR, MEDIUMTEXT
+from sqlalchemy.dialects.mysql import BOOLEAN, DOUBLE, INTEGER, MEDIUMTEXT, VARCHAR
 
 from kmtools import system_tools
 

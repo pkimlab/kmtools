@@ -543,10 +543,10 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
     Returns
     -------
     dict with keys:
-        uniprot_id_sifts : str
-        uniprot_mutations_sifts : str
+        - uniprot_id_sifts : str
+        - uniprot_mutations_sifts : str
             Comma-separated list of mutations.
-        pfam_id_sifts : str
+        - pfam_id_sifts : str
             Comma-separated list of cleaned-up PDB mutations.
 
     Examples

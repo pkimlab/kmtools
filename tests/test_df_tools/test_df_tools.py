@@ -1,6 +1,6 @@
+import functools
 import logging
 import os.path as op
-import functools
 import random
 import string
 import tempfile
@@ -9,8 +9,8 @@ import tempfile
 import hypothesis.strategies as st
 import numpy as np
 import pandas as pd
-from pandas.util.testing import assert_frame_equal
 import pytest
+from pandas.util.testing import assert_frame_equal
 
 import kmtools.df_tools
 

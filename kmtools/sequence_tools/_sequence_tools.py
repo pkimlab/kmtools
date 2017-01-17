@@ -1,10 +1,11 @@
-import logging
-import numpy as np
 import functools
-import requests
 import io
+import logging
 
+import numpy as np
 import pandas as pd
+import requests
+
 import Bio.SeqIO
 
 logger = logging.getLogger(__name__)

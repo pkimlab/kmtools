@@ -1,13 +1,13 @@
 """Data Analysis Tools.
 """
-import os
-import logging
 import fcntl
-import tables
-import numpy as np
-import pandas as pd
+import logging
+import os
 from contextlib import contextmanager
 
+import numpy as np
+import pandas as pd
+import tables
 
 logger = logging.getLogger(__name__)
 

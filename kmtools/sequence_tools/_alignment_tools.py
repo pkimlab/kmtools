@@ -1,7 +1,8 @@
 from __future__ import print_function
-import subprocess
-import random
+
 import os
+import random
+import subprocess
 
 
 def align_pairwise(sequence_ref, sequence_alt):

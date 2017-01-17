@@ -1,17 +1,16 @@
 import logging
 
-import Bio.PDB
 import pandas as pd
 
-from kmtools import df_tools
+import Bio.PDB
 import kmtools.structure_tools.monkeypatch_biopython  # noqa
-from kmtools.structure_tools import (
-    AAA_DICT, AMINO_ACIDS, COMMON_HETATMS, CHAIN_IDS, LYSINE_ATOMS, METHYLATED_LYSINES)
+from kmtools import df_tools
+from kmtools.structure_tools import (AAA_DICT, AMINO_ACIDS, CHAIN_IDS, COMMON_HETATMS,
+                                     LYSINE_ATOMS, METHYLATED_LYSINES)
 
 logger = logging.getLogger(__name__)
 
-#: Source: http://www.wwpdb.org/documentation/procedure#toc_4
-
+# Source: http://www.wwpdb.org/documentation/procedure#toc_4
 R_CUTOFF = 5
 
 
@@ -125,16 +124,17 @@ def get_interactions(structure, interchain=True):
         This could probably be sped up by using the
         :py:meth:`Bio.PDB.NeighborSearch.search_all` method.
 
-    Preconditions
-    -------------
-    - For each chain, `residue.id[1]` is unique.
-
     Parameters
     ----------
     structure : Bio.PDB.Structure.Structure
         Structure to analyse.
-    interchain : :cls:`bool`
+    interchain : :class:`bool`
         Whether to include interactions between chains.
+
+    Notes
+    -------------
+    - For each chain, `residue.id[1]` is unique.
+
     """
     columns = [
         'structure_id', 'model_id_1', 'model_id_2', 'chain_id_1', 'chain_id_2',
@@ -173,12 +173,16 @@ def get_interactions(structure, interchain=True):
 
 
 def extract(structure, chain_ids=None, domain_defs=None):
-    """
+    """Select only the chains and residues of interest.
 
-    TODO: This has to be changed to work with structures that have several models
-          (apart from the HETATM model).
+    .. todo::
 
-    TODO: Use a more unique chain id for HETATMS (e.g. 'zz').
+        This has to be changed to work with structures that have several models
+        (apart from the HETATM model).
+
+    .. todo::
+
+        Use a more unique chain id for HETATMS (e.g. `zz`).
     """
     model_id = 0
     # Validate input

@@ -1,12 +1,14 @@
+import concurrent.futures
+import functools
+import logging
 import os
 import os.path as op
-import urllib.request
 import tarfile
-import logging
 import time
-import functools
+import urllib.request
+
 import pandas as pd
-import concurrent.futures
+
 from kmtools import sequence_tools
 
 logger = logging.getLogger(__name__)

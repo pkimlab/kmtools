@@ -1,5 +1,8 @@
+:github_url: https://github.com/kimlaborg/kmtools
+
 Welcome to kmtools's documentation!
 ====================================
+
 
 Contents:
 
@@ -7,9 +10,9 @@ Contents:
    :maxdepth: 2
    :glob:
 
-   environment_variables
+   environment_variables.md
+   modules/kmtools
    acknowledgements
-   modules
 
 Indices and tables
 ==================

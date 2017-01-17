@@ -1,8 +1,10 @@
-import subprocess
-import shlex
-import logging
 import io
+import logging
+import shlex
+import subprocess
+
 import pandas as pd
+
 import kmtools.sequence_tools
 
 logger = logging.getLogger(__name__)

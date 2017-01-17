@@ -1,7 +1,7 @@
-import os.path as op
-import tempfile
-import shutil
 import logging
+import os.path as op
+import shutil
+import tempfile
 
 from kmtools import system_tools
 
