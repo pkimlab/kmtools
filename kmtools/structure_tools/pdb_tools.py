@@ -140,7 +140,6 @@ def allequal(s1, s2):
     return all(allequal(so1, so2) for (so1, so2) in zip(s1, s2))
 
 
-@functools.lru_cache(maxsize=512)
 def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     """Fetch remote PDB file.
 
@@ -166,6 +165,14 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     >>> fetch_structure('4NWR', pdb_type='cif', biounit=True)
     <Structure id=4NWR>
     """
+    pdb_data = _fetch_structure(pdb_id, pdb_type, biounit, pdb_mirror)
+    parser = get_pdb_parser(pdb_type)
+    structure = parser.get_structure(pdb_id, io.StringIO(pdb_data.decode('utf-8')))
+    return structure
+
+
+@functools.lru_cache(maxsize=512)
+def _fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     gen_assembly = False
     if pdb_type == 'cif' and biounit:
         biounit = False
@@ -178,11 +185,7 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
 
     if gen_assembly:
         pdb_data = _gen_assembly(pdb_data)
-
-    parser = get_pdb_parser(pdb_type)
-    structure = parser.get_structure(pdb_id, io.StringIO(pdb_data.decode('utf-8')))
-
-    return structure
+    return pdb_data
 
 
 def load_structure(pdb_file, pdb_id=None, pdb_type=None):
