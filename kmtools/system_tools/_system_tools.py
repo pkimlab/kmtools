@@ -76,6 +76,7 @@ def _set_process_group(parent_process_group_id):
 
 @functools.wraps(subprocess.run)
 def run(system_command, **vargs):
+    logger.debug(system_command)
     if not isinstance(system_command, (list, tuple)):
         system_command = shlex.split(system_command)
     p = subprocess.run(

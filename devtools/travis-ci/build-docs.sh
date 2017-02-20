@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -v
 
 CWD=`pwd`
 
@@ -17,7 +17,7 @@ pip install -q sphinx sphinx_rtd_theme
 
 # Update modules
 cd "${TRAVIS_BUILD_DIR}/docs"
-rm -r modules
+rm -rf modules
 touch ../kmtools/__init__.py
 sphinx-apidoc ../kmtools -o modules/ -TEMP
 rm ../kmtools/__init__.py

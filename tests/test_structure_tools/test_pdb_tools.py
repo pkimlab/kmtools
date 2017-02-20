@@ -4,15 +4,15 @@ import os
 import pytest
 
 from conftest import (ATOM_DEFINED_TWICE_PDBS, LOCAL_REMOTE_MISMATCH, MISSING,
-                      NO_RESNAME_ATTRIBUTE_PDBS, PDB_IDS, random_subset)
+                      PDB_IDS, random_subset)
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)
 
 
 @pytest.mark.skipif(
-    'PDB_DATABASE_DIR' not in os.environ,
-    reason="set PDB_DATABASE_DIR environment variable to run this test!")
+    'PDB_DATA_DIR' not in os.environ,
+    reason="set PDB_DATA_DIR environment variable to run this test!")
 @pytest.mark.parametrize("pdb_id, pdb_type, biounit", random_subset([
     (pdb_id, pdb_type, biounit)
     for pdb_id in PDB_IDS
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 def test_local_vs_remote(pdb_id, pdb_type, biounit):
     """Make sure that loading local and remote files produces the same result."""
     s1 = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
-    url = structure_tools.get_wwpdb_url(pdb_id, pdb_type, biounit, os.environ['PDB_DATABASE_DIR'])
+    url = structure_tools.get_wwpdb_url(pdb_id, pdb_type, biounit, os.environ['PDB_DATA_DIR'])
     s2 = structure_tools.load_structure(url, pdb_id, pdb_type)
     assert structure_tools.allequal(s1, s2)
 
@@ -60,11 +60,3 @@ def test_atom_defined_twice(pdb_id):
     """Tests for the ``Atom defined twice`` error."""
     s = structure_tools.fetch_structure(pdb_id, 'cif', False)
     assert s
-
-
-@pytest.mark.parametrize("pdb_id", random_subset(NO_RESNAME_ATTRIBUTE_PDBS))
-def test_no_resname_attribute(pdb_id):
-    """Test for the ``'NoneType' has no resname attribute`` error."""
-    s = structure_tools.fetch_structure(pdb_id, 'cif', True)
-    ps = structure_tools.process_structure(s)
-    assert ps

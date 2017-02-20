@@ -160,11 +160,11 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     Examples
     --------
     >>> fetch_structure('4dkl')
-    Structure(id='4dkl')
+    <Structure id=4dkl>
     >>> fetch_structure('4dkl', pdb_type='cif')
-    Structure(id='4dkl')
+    <Structure id=4dkl>
     >>> fetch_structure('4NWR', pdb_type='cif', biounit=True)
-    Structure(id='4NWR')
+    <Structure id=4NWR>
     """
     gen_assembly = False
     if pdb_type == 'cif' and biounit:
@@ -209,13 +209,13 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     >>> pdb_file = op.join(tempfile.gettempdir(), '4dkl.pdb')
     >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
     >>> load_structure(pdb_file)
-    Structure(id='4dkl')
+    <Structure id=4dkl>
     >>> os.remove(pdb_file)
 
     >>> pdb_file = op.join(tempfile.gettempdir(), '3K1Q.cif')
     >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/3K1Q.cif', pdb_file)
     >>> load_structure(pdb_file)
-    Structure(id='3k1q')
+    <Structure id=3k1q>
     >>> os.remove(pdb_file)
     """
     if pdb_id is None:
@@ -265,7 +265,7 @@ class NotDisordered(Bio.PDB.Select):
             return False
 
 
-def save_structure(structure, filename, include_disordered=True):
+def save_structure(structure, filename, model_ids=None, chain_ids=None, include_disordered=True):
     """Save BioPython structure object as a PDB.
 
     Examples
@@ -281,3 +281,11 @@ def save_structure(structure, filename, include_disordered=True):
     io.set_structure(structure)
     select = Bio.PDB.Select() if include_disordered else NotDisordered()
     io.save(filename, select=select)
+
+
+def structure_from_chain(structure_id, model_id, chain):
+    structure = Bio.PDB.Structure.Structure(structure_id)
+    model = Bio.PDB.Model.Model(model_id)
+    structure.add(model)
+    model.add(chain.copy())
+    return structure

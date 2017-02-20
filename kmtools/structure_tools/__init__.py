@@ -11,7 +11,6 @@ from .structure_parser import *
 from .elaspic_legacy import *
 
 __all__ = [
-    'monkeypatch_biopython',
     'exc',
     'sifts',
     'pdb_tools',
