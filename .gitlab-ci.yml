@@ -28,7 +28,7 @@ build:
     - conda config --append channels ostrokach
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install 'requests<2.12'
+    - conda install -yq 'requests<2.12'
     - conda install -yq --use-local $CI_PROJECT_NAME
 
 documentation:
@@ -50,16 +50,16 @@ anaconda:
   stage: deploy
   script:
     - anaconda -t $ANACONDA_TOKEN upload $CI_PROJECT_DIR/conda-bld/linux-64/*.tar.bz2 -u $CI_PROJECT_NAMESPACE --force
-  only:
-    - master
+  # only:
+  #   - master
 
-anaconda-dev:
-  <<: *install_conda_package
-  stage: deploy
-  script:
-    - anaconda -t $ANACONDA_TOKEN upload $CI_PROJECT_DIR/conda-bld/linux-64/*.tar.bz2 -u $CI_PROJECT_NAMESPACE -t dev --force
-  except:
-    - master
+# anaconda-dev:
+#   <<: *install_conda_package
+#   stage: deploy
+#   script:
+#     - anaconda -t $ANACONDA_TOKEN upload $CI_PROJECT_DIR/conda-bld/linux-64/*.tar.bz2 -u $CI_PROJECT_NAMESPACE -t dev --force
+#   except:
+#     - master
 
 # Tests
 
@@ -70,7 +70,7 @@ anaconda-dev:
 pytest:
   <<: *test_job
   script:
-    - conda install pypy
+    - conda install -yq pypy
     - pip install -q flake8 pytest pytest-runner pytest-cov pytest-logging hypothesis codecov
     - flake8
     - py.test
