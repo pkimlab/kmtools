@@ -12,6 +12,7 @@ ID           | IDX                     | IDX starts with
 """
 import logging
 
+import numpy as np
 import pandas as pd
 
 import Bio.PDB
@@ -23,6 +24,34 @@ logger = logging.getLogger(__name__)
 
 # Source: http://www.wwpdb.org/documentation/procedure#toc_4
 R_CUTOFF = 5
+
+
+def euclidean_distance(a, b):
+    """Calculate the Euclidean distance between two lists or tuples of arbitrary length."""
+    return np.sqrt(sum((a - b)**2 for a, b in zip(a, b)))
+
+
+def calculate_distance(atom_1, atom_2, cutoff=None):
+    """Calculate the distance between two points in 3D space.
+
+    Parameters
+    ----------
+    cutoff : float, optional
+        The maximum distance allowable between two points.
+    """
+    if ((type(atom_1) == type(atom_2) == list) or
+            (type(atom_1) == type(atom_2) == tuple)):
+        a = atom_1
+        b = atom_2
+    elif hasattr(atom_1, 'coord') and hasattr(atom_2, 'coord'):
+        a = atom_1.coord
+        b = atom_2.coord
+    else:
+        raise Exception('Unsupported format {} {}'.format(type(atom_1), type(atom_2)))
+
+    assert(len(a) == 3 and len(b) == 3)
+    if cutoff is None or all(abs(p - q) <= cutoff for p, q in zip(a, b)):
+        return euclidean_distance(a, b)
 
 
 def process_structure(structure):
