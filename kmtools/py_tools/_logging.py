@@ -7,6 +7,8 @@ _`Use of alternative formatting styles`:
 """
 import functools
 import logging
+import sys
+from contextlib import contextmanager
 
 getLogger = logging.getLogger
 
@@ -40,3 +42,38 @@ def get_logger(*args, **kwargs):
 
 def patch_getLogger():
     logging.getLogger = get_logger
+
+
+# ========= Log print statements =========
+
+class WritableObject:
+    """A writable object which writes everything to the logger."""
+
+    def __init__(self, logger):
+        self.logger = logger
+
+    def write(self, string):
+        self.logger.debug(string.strip())
+
+
+@contextmanager
+def log_print_statements(logger):
+    """Channel print statements to the debug logger.
+
+    Useful for modules that default to printing things instead of using a logger (Modeller...).
+    """
+    original_stdout = sys.stdout
+    original_formatters = []
+    for i in range(len(logger.handlers)):
+        original_formatters.append(logger.handlers[0].formatter)
+        logger.handlers[i].formatter = logging.Formatter('%(message)s')
+    wo = WritableObject(logger)
+    try:
+        sys.stdout = wo
+        yield
+    except:
+        raise
+    finally:
+        sys.stdout = original_stdout
+        for i in range(len(logger.handlers)):
+            logger.handlers[i].formatter = original_formatters[i]
