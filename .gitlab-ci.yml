@@ -37,7 +37,7 @@ documentation:
   script:
     - pip install -q sphinx sphinx_rtd_theme
     - touch kmtools/__init__.py
-    - sphinx-apidoc elaspic -o docs/modules/ -TEMP --force
+    - sphinx-apidoc kmtools -o docs/modules/ -TEMP --force
     - rm kmtools/__init__.py
     - mkdir public
     - sphinx-build docs public
@@ -49,7 +49,7 @@ anaconda:
   <<: *install_conda_package
   stage: deploy
   script:
-    - anaconda -t $ANACONDA_TOKEN upload $CI_PROJECT_DIR/conda-bld/linux-64/*.tar.bz2 -u $CI_PROJECT_NAMESPACE --force
+    - anaconda -t $ANACONDA_TOKEN upload $CI_PROJECT_DIR/conda-bld/linux-64/*.tar.bz2 -u $CI_PROJECT_NAMESPACE --no-progress --force
   # only:
   #   - master
 
