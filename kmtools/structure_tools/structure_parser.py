@@ -64,15 +64,15 @@ def process_structure(structure):
     hetatm_chain = Bio.PDB.Chain.Chain(CHAIN_IDS[0])
     hetatm_model.add(hetatm_chain)
     hetatm_residue_idx = 0
-    for model in structure:
+    for model in structure.values():
         # Create new model
         new_model = Bio.PDB.Model.Model(model_idx)
         chain_idx = 0
-        for chain in model:
+        for chain in model.values():
             # Create new chain
             new_chain = Bio.PDB.Chain.Chain(CHAIN_IDS[chain_idx])
             residue_idx = 0
-            for residue in chain:
+            for residue in chain.values():
                 if residue.resname in METHYLATED_LYSINES:
                     residue = _correct_methylated_lysines(residue)
                 if residue.resname in AMINO_ACIDS:
@@ -111,7 +111,7 @@ def _copy_residue(residue, residue_idx):
         id=residue_idx,
         resname=residue.resname.strip(' '),
         segid=residue.segid,  # ' '
-        children=list(residue))
+        children=residue.values())
     if residue.resname != new_residue.resname:
         logger.debug("Renamed residue %s to %s" % (residue.resname, new_residue.resname))
     return new_residue
@@ -136,24 +136,24 @@ def _correct_methylated_lysines(residue):
 
 
 def _iter_interchain_ns(structure, interchain=True):
-    for model_1_idx, model_1 in enumerate(structure):
-        for chain_1_idx, chain_1 in enumerate(model_1):
+    for model_1_idx, model_1 in enumerate(structure.values()):
+        for chain_1_idx, chain_1 in enumerate(model_1.values()):
             atom_list = list(chain_1.get_atoms())
             if not atom_list:
                 logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
                 continue
             ns = Bio.PDB.NeighborSearch(atom_list)
-            for model_2_idx, model_2 in enumerate(structure):
+            for model_2_idx, model_2 in enumerate(structure.values()):
                 if model_1_idx > model_2_idx:
                     continue
-                for chain_2_idx, chain_2 in enumerate(model_2):
+                for chain_2_idx, chain_2 in enumerate(model_2.values()):
                     if (interchain and
                             (model_1_idx == model_2_idx and chain_1_idx > chain_2_idx)):
                         continue
                     if (not interchain and
                             (model_1_idx != model_2_idx or chain_1_idx != chain_2_idx)):
                         continue
-                    for residue_2_idx, residue_2 in enumerate(chain_2):
+                    for residue_2_idx, residue_2 in enumerate(chain_2.values()):
                         yield model_1.id, chain_1.id, model_2.id, chain_2.id, ns, residue_2
 
 
@@ -191,7 +191,7 @@ def get_interactions(structure, interchain=True):
         seen = set()
         interacting_residues = [
             r
-            for a in residue_2
+            for a in residue_2.values()
             for r in ns.search(a.coord, R_CUTOFF, 'R')
             if r.id not in seen and not seen.add(r.id)
         ]

@@ -137,7 +137,7 @@ def allequal(s1, s2):
         raise Exception
     if isinstance(s1, Bio.PDB.Atom.Atom):
         return s1 == s2
-    return all(allequal(so1, so2) for (so1, so2) in zip(s1, s2))
+    return all(allequal(so1, so2) for (so1, so2) in zip(s1.values(), s2.values()))
 
 
 def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
@@ -227,7 +227,7 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     if pdb_type is not None:
         pdb_types = [pdb_type]
     else:
-        pdb_types = ['cif', 'pdb']
+        pdb_types = ['pdb', 'cif']
 
     with system_tools.open_compressed(pdb_file, mode='rt') as ifh:
         for pdb_type in pdb_types:

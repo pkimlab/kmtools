@@ -28,18 +28,18 @@ def test_process_structure(pdb_id, pdb_type, biounit):
     structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
     structure_tools.process_structure(structure)
     # Test model ids
-    for model_idx, model in enumerate(structure):
+    for model_idx, model in enumerate(structure.values()):
         assert model_idx == model.id
         assert structure[model_idx] == model
     # Test chain ids
-    for model in structure:
-        for chain_idx, chain in enumerate(model):
+    for model in structure.values():
+        for chain_idx, chain in enumerate(model.values()):
             assert chain_idx == structure_tools.CHAIN_IDS.index(chain.id)
             assert model.ix[chain_idx] == chain
     # Test residue ids
-    for model in structure:
-        for chain in model:
-            for residue_idx, residue in enumerate(chain):
+    for model in structure.values():
+        for chain in model.values():
+            for residue_idx, residue in enumerate(chain.values()):
                 assert residue_idx == residue.id[1]
                 assert chain.ix[residue_idx] == residue
 
