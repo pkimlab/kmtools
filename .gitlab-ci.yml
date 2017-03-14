@@ -35,7 +35,7 @@ documentation:
   <<: *install_conda_package
   stage: deploy
   script:
-    - pip install -q sphinx sphinx_rtd_theme
+    - pip install -q sphinx sphinx_rtd_theme recommonmark
     - touch kmtools/__init__.py
     - sphinx-apidoc kmtools -o docs/modules/ -TEMP --force
     - rm kmtools/__init__.py

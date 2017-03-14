@@ -13,7 +13,7 @@ GITHUB_USERNAME=$(dirname $TRAVIS_REPO_SLUG)
 GITHUB_REPONAME=$(basename $TRAVIS_REPO_SLUG)
 
 # Install sphinx requirements
-pip install -q sphinx sphinx_rtd_theme
+pip install -q sphinx sphinx_rtd_theme recommonmark
 
 # Update modules
 cd "${TRAVIS_BUILD_DIR}/docs"
