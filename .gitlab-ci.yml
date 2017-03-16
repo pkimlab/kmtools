@@ -58,24 +58,14 @@ build-py36:
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
     - conda install -yq 'requests<2.12'
-    - conda install -yq --use-local $CI_PROJECT_NAME
-
-test-docs:
-  stage: test
-  <<: *conda_install
-  script:
-    - pip install -q sphinx sphinx_rtd_theme recommonmark
-    - sphinx-build docs public
-  artifacts:
-    paths:
-    - public
+    - conda install -yq --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME
 
 .test: &test
   stage: test
   <<: *conda_install
   script:
+    - pip install -yq flake8 pytest pytest-cov pytest-runner pytest-logging hypothesis codecov
     - conda install -yq pypy
-    - pip install -q flake8 pytest pytest-runner pytest-cov pytest-logging hypothesis codecov
     - flake8
     - py.test
     - codecov -t $CODECOV_TOKEN
@@ -89,6 +79,16 @@ test-py36:
   <<: *test
   dependencies:
     - build-py36
+
+test-docs:
+  stage: test
+  <<: *conda_install
+  script:
+    - pip install -q sphinx sphinx_rtd_theme recommonmark
+    - sphinx-build docs public
+  artifacts:
+    paths:
+    - public
 
 # === Deploy ===
 
