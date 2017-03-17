@@ -67,7 +67,7 @@ def add_seq2fq(sequence_info, file_output, write_mode='a'):
     return file_handle
 
 
-def write2fastq(grp_seq, output, overwrite=False):
+def write(grp_seq, output, overwrite=False):
     """Transform a batch of sequnces to a fasta format file.
 
     Parameters
