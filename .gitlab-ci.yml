@@ -92,7 +92,7 @@ test-py36:
 # === Pages ===
 
 pages:
-  stage: deploy
+  stage: test
   <<: *conda-install-py36
   script:
     - conda install -yq nbconvert ipython ipykernel pandoc
