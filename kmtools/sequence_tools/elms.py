@@ -1,8 +1,10 @@
 import os
 import re
+import logging
+
 import pandas as pd
 
-
+logger = logging.getLogger(__name__)
 # To improve. Motif definitios repositories
 absolute_path = os.path.dirname(__file__)
 
