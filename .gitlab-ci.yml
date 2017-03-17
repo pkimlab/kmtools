@@ -79,9 +79,10 @@ build-py36:
 .test: &test
   stage: test
   script:
-    - pip install -q flake8 pytest pytest-cov
+    - pip install -q flake8 pytest pytest-cov codecov hypothesis
     - flake8
     - py.test
+    - codecov -t $CODECOV_TOKEN
 
 test-py35:
   <<: [*conda-install-py35, *test]
