@@ -1,3 +1,10 @@
+"""DataFrame tools
+
+.. autosummary::
+   :toctree:
+
+   stats
+"""
 # flake8: noqa
 from ._pandas import *
 from ._data_analysis import *

@@ -1,6 +1,13 @@
 """Structure Tools
 
-Tools for loading and analysing PDB structures.
+.. autosummary::
+   :toctree:
+
+   constants
+   exc
+   pdb_tools
+   sifts
+   structure_parser
 """
 # flake8: noqa
 from .constants import *
