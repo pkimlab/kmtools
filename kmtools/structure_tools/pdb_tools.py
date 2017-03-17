@@ -137,10 +137,9 @@ def allequal(s1, s2):
         raise Exception
     if isinstance(s1, Bio.PDB.Atom.Atom):
         return s1 == s2
-    return all(allequal(so1, so2) for (so1, so2) in zip(s1, s2))
+    return all(allequal(so1, so2) for (so1, so2) in zip(s1.values(), s2.values()))
 
 
-@functools.lru_cache(maxsize=512)
 def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     """Fetch remote PDB file.
 
@@ -160,12 +159,20 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     Examples
     --------
     >>> fetch_structure('4dkl')
-    Structure(id='4dkl')
+    <Structure id=4dkl>
     >>> fetch_structure('4dkl', pdb_type='cif')
-    Structure(id='4dkl')
+    <Structure id=4dkl>
     >>> fetch_structure('4NWR', pdb_type='cif', biounit=True)
-    Structure(id='4NWR')
+    <Structure id=4NWR>
     """
+    pdb_data = _fetch_structure(pdb_id, pdb_type, biounit, pdb_mirror)
+    parser = get_pdb_parser(pdb_type)
+    structure = parser.get_structure(pdb_id, io.StringIO(pdb_data.decode('utf-8')))
+    return structure
+
+
+@functools.lru_cache(maxsize=512)
+def _fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     gen_assembly = False
     if pdb_type == 'cif' and biounit:
         biounit = False
@@ -178,11 +185,7 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
 
     if gen_assembly:
         pdb_data = _gen_assembly(pdb_data)
-
-    parser = get_pdb_parser(pdb_type)
-    structure = parser.get_structure(pdb_id, io.StringIO(pdb_data.decode('utf-8')))
-
-    return structure
+    return pdb_data
 
 
 def load_structure(pdb_file, pdb_id=None, pdb_type=None):
@@ -209,13 +212,13 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     >>> pdb_file = op.join(tempfile.gettempdir(), '4dkl.pdb')
     >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
     >>> load_structure(pdb_file)
-    Structure(id='4dkl')
+    <Structure id=4dkl>
     >>> os.remove(pdb_file)
 
     >>> pdb_file = op.join(tempfile.gettempdir(), '3K1Q.cif')
     >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/3K1Q.cif', pdb_file)
     >>> load_structure(pdb_file)
-    Structure(id='3k1q')
+    <Structure id=3k1q>
     >>> os.remove(pdb_file)
     """
     if pdb_id is None:
@@ -224,7 +227,7 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     if pdb_type is not None:
         pdb_types = [pdb_type]
     else:
-        pdb_types = ['cif', 'pdb']
+        pdb_types = ['pdb', 'cif']
 
     with system_tools.open_compressed(pdb_file, mode='rt') as ifh:
         for pdb_type in pdb_types:
@@ -265,7 +268,7 @@ class NotDisordered(Bio.PDB.Select):
             return False
 
 
-def save_structure(structure, filename, include_disordered=True):
+def save_structure(structure, filename, model_ids=None, chain_ids=None, include_disordered=True):
     """Save BioPython structure object as a PDB.
 
     Examples
@@ -281,3 +284,11 @@ def save_structure(structure, filename, include_disordered=True):
     io.set_structure(structure)
     select = Bio.PDB.Select() if include_disordered else NotDisordered()
     io.save(filename, select=select)
+
+
+def structure_from_chain(structure_id, model_id, chain):
+    structure = Bio.PDB.Structure.Structure(structure_id)
+    model = Bio.PDB.Model.Model(model_id)
+    structure.add(model)
+    model.add(chain.copy())
+    return structure

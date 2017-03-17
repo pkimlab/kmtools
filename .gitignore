@@ -9,7 +9,7 @@ prof
 _build
 __pycache__
 *.egg-info
-docs/modules
+docs/_modules
 
 # Hidden
 .*

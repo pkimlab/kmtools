@@ -1,9 +1,21 @@
+"""
+
+Conventions
+-----------
+
+ID           | IDX                     | IDX starts with
+-------------|-------------------------|-----------------
+`model_id`   | `model_idx`             | 0
+`chain_id`   | `CHAIN_IDS[chain_idx]`  | 0
+`residue_id` | `('', residue_idx, '')` | 0
+
+"""
 import logging
 
+import numpy as np
 import pandas as pd
 
 import Bio.PDB
-import kmtools.structure_tools.monkeypatch_biopython  # noqa
 from kmtools import df_tools
 from kmtools.structure_tools import (AAA_DICT, AMINO_ACIDS, CHAIN_IDS, COMMON_HETATMS,
                                      LYSINE_ATOMS, METHYLATED_LYSINES)
@@ -14,63 +26,92 @@ logger = logging.getLogger(__name__)
 R_CUTOFF = 5
 
 
+def euclidean_distance(a, b):
+    """Calculate the Euclidean distance between two lists or tuples of arbitrary length."""
+    return np.sqrt(sum((a - b)**2 for a, b in zip(a, b)))
+
+
+def calculate_distance(atom_1, atom_2, cutoff=None):
+    """Calculate the distance between two points in 3D space.
+
+    Parameters
+    ----------
+    cutoff : float, optional
+        The maximum distance allowable between two points.
+    """
+    if ((type(atom_1) == type(atom_2) == list) or
+            (type(atom_1) == type(atom_2) == tuple)):
+        a = atom_1
+        b = atom_2
+    elif hasattr(atom_1, 'coord') and hasattr(atom_2, 'coord'):
+        a = atom_1.coord
+        b = atom_2.coord
+    else:
+        raise Exception('Unsupported format {} {}'.format(type(atom_1), type(atom_2)))
+
+    assert(len(a) == 3 and len(b) == 3)
+    if cutoff is None or all(abs(p - q) <= cutoff for p, q in zip(a, b)):
+        return euclidean_distance(a, b)
+
+
 def process_structure(structure):
-    mapping = {}
-    # Create new structure
-    new_structure = Bio.PDB.Structure.Structure(structure.id)
+    """Process structure inplace."""
+    models = []
+    model_idx = 0
+    residue_mapping_fw = {}
     # Create model for storing common HETATMs
-    hetatm_model = Bio.PDB.Model.Model(len(structure.child_list))
+    hetatm_model = Bio.PDB.Model.Model(len(structure))
     hetatm_chain = Bio.PDB.Chain.Chain(CHAIN_IDS[0])
     hetatm_model.add(hetatm_chain)
     hetatm_residue_idx = 0
-    # ---
-    model_idx = 0
-    for model in structure:
+    for model in structure.values():
         # Create new model
         new_model = Bio.PDB.Model.Model(model_idx)
         chain_idx = 0
-        for chain in model:
+        for chain in model.values():
             # Create new chain
             new_chain = Bio.PDB.Chain.Chain(CHAIN_IDS[chain_idx])
             residue_idx = 0
-            for residue in chain:
+            for residue in chain.values():
                 if residue.resname in METHYLATED_LYSINES:
                     residue = _correct_methylated_lysines(residue)
                 if residue.resname in AMINO_ACIDS:
                     new_residue = _copy_residue(residue, (' ', residue_idx, ' '))
                     new_chain.add(new_residue)
-                    mapping[(model.id, chain.id, residue.id[1])] = (
-                        new_model.id, new_chain.id,
-                        ''.join(str(x) for x in new_residue.id).strip())
+                    residue_mapping_fw[(model.id, chain.id, residue.id)] = (
+                        new_model.id, new_chain.id, new_residue.id)
                     residue_idx += 1
                 else:
                     new_residue = _copy_residue(residue, (' ', hetatm_residue_idx, ' '))
                     hetatm_chain.add(new_residue)
-                    mapping[(model.id, chain.id, residue.id[1])] = (
-                        hetatm_model.id, hetatm_chain.id,
-                        ''.join(str(x) for x in new_residue.id).strip())
+                    residue_mapping_fw[(model.id, chain.id, residue.id)] = (
+                        hetatm_model.id, hetatm_chain.id, new_residue.id)
                     hetatm_residue_idx += 1
             # Finallize chain
             new_model.add(new_chain)
             chain_idx += 1
         # Finallize model
-        new_structure.add(new_model)
+        models.append(new_model)
         model_idx += 1
     # Finallize HETATM model
-    new_structure.add(hetatm_model)
+    models.append(hetatm_model)
     # Add residue mapping
-    new_structure.xtra['mapping'] = mapping
-    new_structure.xtra['reverse_mapping'] = {
-        v: k for k, v in new_structure.xtra['mapping'].items()}
-    assert all(' ' not in r.resname for r in new_structure.get_residues())
-    return new_structure
+    structure.clear()
+    structure.add(models)
+    structure.xtra['residue_mapping_fw'] = residue_mapping_fw
+    structure.xtra['residue_mapping_bw'] = {
+        v: k for k, v in residue_mapping_fw.items()}
+    assert len(structure.xtra['residue_mapping_fw']) == \
+        len(structure.xtra['residue_mapping_bw'])
+    assert all(' ' not in r.resname for r in structure.get_residues())
 
 
 def _copy_residue(residue, residue_idx):
-    new_residue = residue.copy()
-    new_residue.id = residue_idx
-    new_residue.resname = residue.resname.strip(' ')
-    new_residue.segin = ' '
+    new_residue = Bio.PDB.Residue.Residue(
+        id=residue_idx,
+        resname=residue.resname.strip(' '),
+        segid=residue.segid,  # ' '
+        children=residue.values())
     if residue.resname != new_residue.resname:
         logger.debug("Renamed residue %s to %s" % (residue.resname, new_residue.resname))
     return new_residue
@@ -84,35 +125,35 @@ def _correct_methylated_lysines(residue):
     logger.debug("New name: %s %s", residue.resname, residue.id)
     atom_idx = 0
     while atom_idx < len(residue):
-        atom_id = residue.child_list[atom_idx].id
+        atom_id = residue.ix[atom_idx].id
         if atom_id not in LYSINE_ATOMS:
             logger.debug(
                 'Removing atom %s from residue %s %s.', atom_id, residue.resname, residue.id)
-            residue.detach_child(atom_id)
+            del residue[atom_id]
         else:
             atom_idx += 1
     return residue
 
 
 def _iter_interchain_ns(structure, interchain=True):
-    for model_1_idx, model_1 in enumerate(structure):
-        for chain_1_idx, chain_1 in enumerate(model_1):
+    for model_1_idx, model_1 in enumerate(structure.values()):
+        for chain_1_idx, chain_1 in enumerate(model_1.values()):
             atom_list = list(chain_1.get_atoms())
             if not atom_list:
                 logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
                 continue
             ns = Bio.PDB.NeighborSearch(atom_list)
-            for model_2_idx, model_2 in enumerate(structure):
+            for model_2_idx, model_2 in enumerate(structure.values()):
                 if model_1_idx > model_2_idx:
                     continue
-                for chain_2_idx, chain_2 in enumerate(model_2):
+                for chain_2_idx, chain_2 in enumerate(model_2.values()):
                     if (interchain and
                             (model_1_idx == model_2_idx and chain_1_idx > chain_2_idx)):
                         continue
                     if (not interchain and
                             (model_1_idx != model_2_idx or chain_1_idx != chain_2_idx)):
                         continue
-                    for residue_2_idx, residue_2 in enumerate(chain_2):
+                    for residue_2_idx, residue_2 in enumerate(chain_2.values()):
                         yield model_1.id, chain_1.id, model_2.id, chain_2.id, ns, residue_2
 
 
@@ -132,7 +173,7 @@ def get_interactions(structure, interchain=True):
         Whether to include interactions between chains.
 
     Notes
-    -------------
+    -----
     - For each chain, `residue.id[1]` is unique.
 
     """
@@ -150,8 +191,8 @@ def get_interactions(structure, interchain=True):
         seen = set()
         interacting_residues = [
             r
-            for a in residue_2
-            for r in ns.search(a.get_coord(), R_CUTOFF, 'R')
+            for a in residue_2.values()
+            for r in ns.search(a.coord, R_CUTOFF, 'R')
             if r.id not in seen and not seen.add(r.id)
         ]
         for residue_1 in interacting_residues:
@@ -172,84 +213,66 @@ def get_interactions(structure, interchain=True):
     return df
 
 
-def extract(structure, chain_ids=None, domain_defs=None):
-    """Select only the chains and residues of interest.
+def extract(structure, mcd=None, select_hetatms=None):
+    """Update `structure` to contain only the chains and residues of interest."""
+    if mcd is None:
+        mcd = [(m.id, c.id, range(0, len(c))) for m in structure for c in m]
+        select_hetatms = False  # will be copied as-is
+    else:
+        select_hetatms = True
 
-    .. todo::
+    # Initialize
+    new_model = Bio.PDB.Model.Model(0)
+    residue_mapping_fw = dict()
 
-        This has to be changed to work with structures that have several models
-        (apart from the HETATM model).
-
-    .. todo::
-
-        Use a more unique chain id for HETATMS (e.g. `zz`).
-    """
-    model_id = 0
-    # Validate input
-    if chain_ids is None and domain_defs is None:
-        logger.warning("Nothing to extract!")
-        return structure
-    if chain_ids is None:
-        chain_ids = [chain.id for chain in structure[model_id]]
-    elif isinstance(chain_ids, str):
-        chain_ids = [chain_ids]
-    elif not isinstance(chain_ids, list):
-        raise ValueError
-    if domain_defs is None:
-        domain_defs = [
-            slice(0, len(structure[model_id][chain_id]))
-            for chain_id in chain_ids
-        ]
-    elif isinstance(domain_defs, slice):
-        domain_defs = [slice]
-    elif not isinstance(chain_ids, list):
-        raise ValueError
-    #
-    new_structure = Bio.PDB.Structure.Structure(structure.id)
-    new_model = Bio.PDB.Model.Model(model_id)
-    new_structure.add(new_model)
     # Regular chains
-    for chain_id, domain_def in zip(chain_ids, domain_defs):
-        new_chain = Bio.PDB.Chain.Chain(chain_id)
-        new_chain.add(structure[model_id][chain_id].child_list[domain_def])
+    for i, (model_id, chain_id, domain_def) in enumerate(mcd):
+        new_chain = Bio.PDB.Chain.Chain(
+            CHAIN_IDS[i], children=structure[model_id][chain_id].ix[domain_def])
         new_model.add(new_chain)
+        residue_mapping_fw.update({
+            k: (new_model.id, new_chain.id, r_id)
+            for k, (m_id, c_id, r_id) in structure.xtra['residue_mapping_fw'].items()
+            if m_id == model_id and c_id == chain_id and r_id[1] in domain_def})
+
     # Hetatm chain
-    assert len(structure.child_list[-1]) == 1
-    hetatm_chain = structure.child_list[-1].child_list[-1]
-    new_hetatm_chain = _get_hetatm_chain(new_structure, hetatm_chain)
-    new_model.add(new_hetatm_chain)
-    # Mapping
-    new_structure_keys = {
-        (model.id, chain.id, residue.id[1])
-        for model in new_structure for chain in model for residue in chain
-    }
-    new_structure.xtra['mapping'] = {
-        key: value
-        for key, value in structure.items()
-        if key in new_structure_keys
-    }
-    new_structure.xtra['reverse_mapping'] = {
-        v: k for k, v in new_structure.xtra['mapping'].items()}
-    return new_structure
+    if select_hetatms:
+        assert len(structure) > 1 and len(structure.ix[-1]) == 1
+        hetatm_model = structure.ix[-1]
+        hetatm_chain = hetatm_model.ix[-1]
+        new_hetatm_chain = copy_hetatm_chain(
+            Bio.PDB.Structure.Structure(id=structure.id, children=new_model),
+            hetatm_chain, CHAIN_IDS[i + 1])
+        new_model.add(new_hetatm_chain)
+        hetatm_residue_ids = set(r.id for r in new_hetatm_chain)
+        residue_mapping_fw.update({
+            k: (new_model.id, new_chain.id, r_id)
+            for k, (m_id, c_id, r_id) in structure.xtra['residue_mapping_fw'].items()
+            if m_id == hetatm_model.id and c_id == hetatm_chain.id and r_id in hetatm_residue_ids})
+
+    structure.clear()
+    structure.add(new_model)
+    structure.xtra['residue_mapping_fw'] = residue_mapping_fw
+    structure.xtra['residue_mapping_bw'] = {v: k for (k, v) in residue_mapping_fw.items()}
 
 
-def _get_hetatm_chain(structure, hetatm_chain):
+def copy_hetatm_chain(structure, hetatm_chain, new_hetatm_chain_id):
     """Return `new_hetatm_chain` which contains only those residues from `hetatm_chain`
-    which are less than `R_CUTOFF` away from a residue in `structure`.
+    which are less than `R_CUTOFF` away from some residue in `structure`.
     """
     # Old hetatm chain
-    hetatm_residues = hetatm_chain.child_list
+    hetatm_residues = hetatm_chain.ix[:]
     hetatm_atoms = list(hetatm_chain.get_atoms())
     ns = Bio.PDB.NeighborSearch(hetatm_atoms)
     # New hetatm chain (keeping only proximal hetatms)
-    new_hetatm_chain_id = 'Z'
     new_hetatm_chain = Bio.PDB.Chain.Chain(new_hetatm_chain_id)
     new_hetatm_residues = [
         residue
         for residue in hetatm_residues
-        if any(ns.search(a.get_coord(), R_CUTOFF) for a in residue)
+        if any(ns.search(a.coord, R_CUTOFF) for a in residue)
     ]
-    new_hetatm_chain.add(new_hetatm_residues)
+    for new_hetatm_residue in new_hetatm_residues:
+        new_hetatm_chain.add(new_hetatm_residue)
     return new_hetatm_chain
 
 

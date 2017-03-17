@@ -3,10 +3,18 @@ import logging
 import pandas as pd
 import pytest
 
-from conftest import DIFFICULT, MISSING, PDB_IDS, random_subset
+from conftest import DIFFICULT, MISSING, NO_RESNAME_ATTRIBUTE_PDBS, PDB_IDS, random_subset
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)
+
+
+@pytest.mark.parametrize("pdb_id", random_subset(NO_RESNAME_ATTRIBUTE_PDBS))
+def test_no_resname_attribute(pdb_id):
+    """Test for the ``'NoneType' has no resname attribute`` error."""
+    s = structure_tools.fetch_structure(pdb_id, 'cif', True)
+    structure_tools.process_structure(s)
+    assert s
 
 
 @pytest.mark.parametrize("pdb_id, pdb_type, biounit", random_subset([
@@ -18,22 +26,22 @@ logger = logging.getLogger(__name__)
 ]))
 def test_process_structure(pdb_id, pdb_type, biounit):
     structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
-    structure = structure_tools.process_structure(structure)
+    structure_tools.process_structure(structure)
     # Test model ids
-    for model_idx, model in enumerate(structure):
+    for model_idx, model in enumerate(structure.values()):
         assert model_idx == model.id
         assert structure[model_idx] == model
     # Test chain ids
-    for model in structure:
-        for chain_idx, chain in enumerate(model):
+    for model in structure.values():
+        for chain_idx, chain in enumerate(model.values()):
             assert chain_idx == structure_tools.CHAIN_IDS.index(chain.id)
-            assert model.child_list[chain_idx] == chain
+            assert model.ix[chain_idx] == chain
     # Test residue ids
-    for model in structure:
-        for chain in model:
-            for residue_idx, residue in enumerate(chain):
+    for model in structure.values():
+        for chain in model.values():
+            for residue_idx, residue in enumerate(chain.values()):
                 assert residue_idx == residue.id[1]
-                assert chain.child_list[residue_idx] == residue
+                assert chain.ix[residue_idx] == residue
 
 
 @pytest.mark.parametrize("pdb_id, pdb_type, biounit, interchain", random_subset([
@@ -68,14 +76,14 @@ def test_get_interactions_2(pdb_id, biounit, interchain):
     # with pytest.raises(AssertionError):
     #     pd.util.testing.assert_frame_equal(df_1, df_2)
     #
-    ps_1 = structure_tools.process_structure(s_1)
-    ps_2 = structure_tools.process_structure(s_2)
+    structure_tools.process_structure(s_1)
+    structure_tools.process_structure(s_2)
 
-    ps_1.child_list = ps_1.child_list[:-1]
-    ps_2.child_list = ps_2.child_list[:-1]
+    del s_1.ix[-1]
+    del s_2.ix[-1]
 
-    df_1 = structure_tools.get_interactions(ps_1, interchain)
-    df_2 = structure_tools.get_interactions(ps_2, interchain)
+    df_1 = structure_tools.get_interactions(s_1, interchain)
+    df_2 = structure_tools.get_interactions(s_2, interchain)
 
     pd.util.testing.assert_frame_equal(df_1, df_2)
 
@@ -106,6 +114,6 @@ def test_get_interactions_symmetrical(kwargs):
     df = structure_tools.get_interactions(s)
     _assert_symmetrical(df)
 
-    ps = structure_tools.process_structure(s)
-    df = structure_tools.get_interactions(ps)
+    structure_tools.process_structure(s)
+    df = structure_tools.get_interactions(s)
     _assert_symmetrical(df)

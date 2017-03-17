@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -v
 
 CWD=`pwd`
 
@@ -13,11 +13,11 @@ GITHUB_USERNAME=$(dirname $TRAVIS_REPO_SLUG)
 GITHUB_REPONAME=$(basename $TRAVIS_REPO_SLUG)
 
 # Install sphinx requirements
-pip install -q sphinx sphinx_rtd_theme
+pip install -q sphinx sphinx_rtd_theme recommonmark
 
 # Update modules
 cd "${TRAVIS_BUILD_DIR}/docs"
-rm -r modules
+rm -rf modules
 touch ../kmtools/__init__.py
 sphinx-apidoc ../kmtools -o modules/ -TEMP
 rm ../kmtools/__init__.py

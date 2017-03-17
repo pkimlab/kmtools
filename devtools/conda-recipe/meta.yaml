@@ -1,14 +1,14 @@
- {% set version = "0.0.16" %}
+{% set data = load_setup_py_data() %}
 
 package:
   name: kmtools
-  version: {{ version }}
+  version: {{ data.get('version') }}
 
 source:
   path: ../../
 
 build:
-  script: python setup.py install
+  script: $PYTHON setup.py install --single-version-externally-managed --record=record.txt
   number: 0
 
 requirements:
@@ -34,7 +34,7 @@ requirements:
     - numba
     - kmbio
     # Required by lxml
-    - icu ==56.1
+    - icu
     - libiconv
     # Plotting
     # - matplotlib

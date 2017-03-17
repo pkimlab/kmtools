@@ -1,6 +1,7 @@
 import functools
 import io
 import logging
+import re
 
 import numpy as np
 import pandas as pd
@@ -67,20 +68,37 @@ def crc64(s):
 def fetch_sequence(sequence_id, database='uniprot'):
     """Fetch sequence from remote database.
 
+    Parameters
+    ----------
+    sequence_id: str
+        Sequence accession.
+
     Examples
     --------
     >>> str(fetch_sequence('P13501').seq)
     'MKVSAAALAVILIATALCAPASASPYSSDTTPCCFAYIARPLPRAHIKEYFYTSGKCSNPAVVFVTRKNRQVCANPEKKWVREYINSLEMS'
     """
-    if database not in ['uniprot']:
-        raise Exception("Only the uniprot database is supported at this time!")
-    logger.debug('Downloading sequence {}...'.format(sequence_id + '.fasta'))
-    address = 'http://www.uniprot.org/uniprot/{}.fasta'.format(sequence_id)
-    r = requests.get(address)
-    if r.status_code == 200:
-        return Bio.SeqIO.read(io.StringIO(r.text), 'fasta')
+    if sequence_id.startswith('UPI'):
+        database = 'uniparc'
+        url_template = 'http://www.uniprot.org/uniparc/{}.fasta'
+    elif sequence_id.startswith('UniRef'):
+        database = 'uniref'
+        url_template = 'http://www.uniprot.org/uniref/{}.fasta'
     else:
+        database = 'uniprot'
+        url_template = 'http://www.uniprot.org/uniprot/{}.fasta'
+
+    url = url_template.format(sequence_id)
+    logger.debug('Downloading sequence {} from {}...'.format(sequence_id, url))
+
+    r = requests.get(url)
+    if r.status_code != 200:
         raise Exception("Failed to fetch sequence with return code: {}".format(r.status_code))
+
+    seq = Bio.SeqIO.read(io.StringIO(r.text), 'fasta')
+    if database == 'uniprot':
+        seq.annotations['db'], seq.id, seq.name = re.split('[\| ]', seq.id)
+    return seq
 
 
 def mutation_matches_sequence(mutation, sequence):
