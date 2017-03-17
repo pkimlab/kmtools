@@ -3,6 +3,10 @@
 
 
 """
+import logging
+
+logger = logging.getLogger(__name__)
+
 def write_fastq_sequence(sequence_info, file_output, write_mode='a'):
     """Add sequences to a file, in Fastq Format.
 

@@ -3,6 +3,10 @@
 
 
 """
+import logging
+
+logger = logging.getLogger(__name__)
+
 def write_fasta_sequence(sequence_data, file_output, write_mode='a'):
     """Add sequences to a file, in Fasta Format.
 
