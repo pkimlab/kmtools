@@ -3,7 +3,7 @@
 .. autosummary::
    :toctree:
 
-   codon_info
+   codons_info
    dna_util
    elms
 """
