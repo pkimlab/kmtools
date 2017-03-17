@@ -3,22 +3,22 @@
 
 
 """
+import os.path
 import logging
 
 logger = logging.getLogger(__name__)
 
-def write_fasta_sequence(sequence_data, file_output, write_mode='a'):
+def add_seq2fa(sequence_data, file_output, write_mode='a'):
     """Add sequences to a file, in Fasta Format.
 
 
     Parameters
     ----------
-    sequence_data : str
+    sequence_data : str, array_like
         Sequence to add to the fasta file. if only the sequence is provided,
     assume the header is not relevant and a random will be created, sequence base
     to avoid collisions
 
-    sequence_data : array_like
         sequence_data[0] == Header or id of the sequences, if do not contain > ,
     it will be added.
         sequence_data[1] == Sequence
@@ -76,18 +76,30 @@ def write_fasta_sequence(sequence_data, file_output, write_mode='a'):
     return file_handle
 
 
-def to_fasta(grp_seq, output, header=False):
+def write2fasta(grp_seq, output, overwrite=False):
     """Transform a batch of sequnces to a fasta format file.
 
     Parameters
     ----------
 
     grp_seq : array_like
-        Iterable object with sequneces
+        Iterable object with sequences
+
+    overwrite: bool
+        If True ignores the presence of a file with the same name
+
 
 
     """
-    if header == False:
-        for sequence in grp_seq:
-            output = write_fasta_sequence(sequence, output, write_mode='a')
-        output.close()
+    if isinstance(output, str):
+        if os.path.isfile(output) and not overwrite:
+            raise FileExistsError
+        else:
+            pass
+
+    for sequence in grp_seq:
+        output = add_seq2fa(sequence, output, write_mode='a')
+
+    output.close()
+
+    return
