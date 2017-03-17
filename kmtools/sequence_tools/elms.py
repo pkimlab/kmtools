@@ -1,3 +1,7 @@
+"""
+Tools to find Short Linear Motifs on Protein sequences - SLiM -
+
+"""
 import os
 import re
 import logging
@@ -5,44 +9,55 @@ import logging
 import pandas as pd
 
 logger = logging.getLogger(__name__)
-# To improve. Motif definitios repositories
+
+# TODO: improve this
+#Load Motif definitios repositories
 absolute_path = os.path.dirname(__file__)
-
-
+# File details:
 # ELM_Classes_Download_Version: 1.4
 # ELM_Classes_Download_Date: 2016-05-09 10:55:27.098737
 # Origin: elm.eu.org
 # Type: tsv
 # Num_Classes: 247
-totalELMdefinitions = pd.read_csv(absolute_path + "/support/elm_classes.tsv", sep='\t',
+ELM_SLiM_defs = pd.read_csv(absolute_path + "/support/elm_classes.tsv", sep='\t',
                                   encoding='utf-8')
-
-
+# Load
 # PepX database motives
-#
-PepXELMdefinitions = pd.read_csv(absolute_path + "/support/Pepx_completeELM_Redex.tsv", sep='\t')
+PepXELM_SLiM_defs = pd.read_csv(absolute_path + "/support/Pepx_completeELM_Redex.tsv", sep='\t')
 
 
-def motif_search(seq, ELMdefinitions=totalELMdefinitions):
-    """.
+def search_motif(seq, ELMdefinitions=ELM_SLiM_defs):
+    """Return all the Motif in a sequences
 
-    Return all the ELM in a sequences.
 
     Parameters
     ----------
     seq: str
         sequence to query
 
-    ELMdefinitions: pandas.DataFrame (default: totalELMdefinitions)
-        Defintions and information about ELM in pandas format. Alternative
-        PepXELMdefinitions can be used, ELM of domains in pepX
+    ELMdefinitions: str, list, dict, pandas.Dataframe['Regex']
+        Motif definitions, by default use  /support/elm_classes.tsv loaded to a pandas.DataFrame.
+        Alternative you can use PepXELM_SLiM_defs - SLiM of domains in PepX.
+        Custom regular expression can be inserted as str r'P.L', list [r'P.L',r'P.L.Y',r'L...P.L']
+        or  dict {'PxL SHORT':r'P.L','Experimental PxLxY':r'P.L.Y'}
 
-    Returns
-    -------
+
+    Return
+    ------
         Returns a Datafram with all the motif in the sequnece
-        columns {Accession,ELMIdentifier,Description,Regex,Probability,start,end}
+        columns {Accession,Identifier,Description,Regex,Probability,start,end}
 
     """
+    # Check input Parameter type and transform to pandas DataFrame
+    if isinstance(ELMdefinitions, str):
+        ELMdefinitions = list(ELMdefinitions)
+
+    if isinstance(ELMdefinitions, list):
+        ELMdefinitions = _convert_list(ELMdefinitions)
+
+    if isinstance(ELMdefinitions, dict):
+        ELMdefinitions = _convert_dict(ELMdefinitions)
+
     elmhits = list()
     for i, elm in ELMdefinitions.iterrows():
         # regex = Def[i][1]
@@ -54,9 +69,50 @@ def motif_search(seq, ELMdefinitions=totalELMdefinitions):
 
     return pd.DataFrame(elmhits)
 
-# Test
-# motif('A1L3X0', 'MNSVGEACTDMKREYDQCFNRWFAEKFLKGDSSGDPCTDLFKRYQQCVQKAIKEKEIPIEGLEFMGHGKEKPENSS')
-# a = motifsearch('MNSVGEACTDMKREYDQCFNRWFAEKFLKGDSSGDPCTDLFKRYQQCVQKAIKEKEIPIEGLEFMGHGKEKPENSS\
-    # PPPPPPPP')
-# print a
-# print a.shape
+
+def _convert_list(slim_list):
+    """Convert a list to a DataFrame.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+
+    """
+    # [r'P.L',r'P.L.Y',r'L...P.L']
+    paried_list = [[i, x] for i, x in enumerate(slim_list)]
+    return pd.DataFrame(paried_list, columns=['Identifier', 'Regex'])
+
+
+def _convert_dict(slim_dict):
+    """Convert a dictionary to a pandas DataFrame.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+
+    """
+    # {'PxL SHORT':r'P.L','Experimental PxLxY':r'P.L.Y'}
+    return pd.DataFrame.from_dict(slim_dict,
+                                  orient='index').reset_index().rename(columns={0: 'Regex',
+                                                                                'index': 'Identifier'})
+
+
+def _check_elm_dataframe(df):
+    """Check DataFrame Format.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+
+    """
+
+    if 'Regex' in df.columns and df.shape[0] > 0:
+        return True
+    else:
+        return False
