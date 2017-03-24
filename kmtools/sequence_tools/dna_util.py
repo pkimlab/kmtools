@@ -13,7 +13,7 @@ import logging
 import operator
 import functools
 
-from codons_info import A2C_DICT, STOP_CODONS, USAGE_FREQ, A2C_NNS_DICT
+from .codons_info import A2C_DICT, STOP_CODONS, USAGE_FREQ, A2C_NNS_DICT
 
 logger = logging.getLogger(__name__)
 
