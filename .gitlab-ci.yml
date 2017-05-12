@@ -102,13 +102,10 @@ test-py36:
     - conda install -yq nbconvert ipython ipykernel pandoc
     - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx
     - sphinx-build docs public
-<<<<<<< 44cf6af6a976c1b9187ae3ae289f1c74be2b4218
   only:
     - master
   except:
     - triggers
-=======
->>>>>>> Follow the development -> release life cycle
 
 pages:
   <<: [*conda_configure, *docs]
