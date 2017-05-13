@@ -1,4 +1,5 @@
-{% set data = load_setup_py_data() %}
+{% set name = "kmtools" %}
+{% set version = "0.0.16" %}
 
 package:
   name: kmtools
