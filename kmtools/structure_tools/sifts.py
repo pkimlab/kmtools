@@ -139,8 +139,11 @@ def get_sifts_data(pdb_id, cache_dict={}):
     sifts_filename = pdb_id.lower() + '.xml.gz'
     if not op.isfile(op.join(cache_dir, sifts_filename)):
         url = 'ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/xml/{}'.format(sifts_filename)
+        fp = op.join(cache_dir, sifts_filename)
         os.makedirs(cache_dir, exist_ok=True)
-        urllib.request.urlretrieve(url, op.join(cache_dir, sifts_filename))
+        logger.debug("url: %s", url)
+        logger.debug("local file: %s", fp)
+        urllib.request.urlretrieve(url, fp)
 
     # Go over the xml file and find all cross-references to uniprot
     pdb_sifts_data = []
@@ -154,8 +157,9 @@ def get_sifts_data(pdb_id, cache_dict={}):
 
     # Convert data to a DataFrame and make sure we have no duplicates
     sifts_df = pd.DataFrame(pdb_sifts_data)
-    assert len(sifts_df) == len(
-        sifts_df.drop_duplicates(subset=['pdb_chain', 'resnum']))
+    sifts_df = sifts_df[sifts_df['is_observed']]
+    assert not sifts_df.duplicated(subset=['pdb_chain', 'resnum'], keep=False).any(), (
+        sifts_df[sifts_df.duplicated(subset=['pdb_chain', 'resnum'], keep=False)].to_csv())
 
     # residx counts the index of the residue in the pdb, starting from 1
     residx = []
@@ -305,6 +309,7 @@ def convert_amino_acid(
     else:
         sifts_df_subset_0 = []
         sifts_df_subset_2 = []
+        sifts_df_subset_4 = []
 
     # Try mapping to a wildcard uniprot
     sifts_df_subset_1 = sifts_df[
@@ -477,9 +482,14 @@ def convert_pdb_mutations_to_uniprot(
     --------
     >>> from pprint import pprint
     >>> sifts_df = get_sifts_data('1jrh')
+    >>> pprint(convert_pdb_mutations_to_uniprot('1jrh', 'L', 'L_I116W', sifts_df=sifts_df))
+    {'pdb_mutations_sifts': 'L_I116W',
+     'pfam_id_sifts': 'PF07654',
+     'uniprot_id_sifts': 'P01837',
+     'uniprot_mutations_sifts': 'I9W'}
     >>> pprint(convert_pdb_mutations_to_uniprot('1jrh', 'I', 'I_T19L.I_E21K', sifts_df=sifts_df))
     {'pdb_mutations_sifts': 'I_T19L.I_E21K',
-     'pfam_id_sifts': 'PF01108',
+     'pfam_id_sifts': nan,
      'uniprot_id_sifts': 'P15260',
      'uniprot_mutations_sifts': 'T36L.E38K'}
     """
