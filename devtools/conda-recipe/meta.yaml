@@ -2,8 +2,8 @@
 {% set version = "0.0.17.dev0" %}
 
 package:
-  name: kmtools
-  version: {{ data.get('version') }}
+  name: {{ version }}
+  version: {{ version }}
 
 source:
   path: ../../
