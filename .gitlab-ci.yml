@@ -68,7 +68,7 @@ build-py36:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -y -q --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME >/dev/null
+    - conda install -y -q --use-local "python=$PYTHON_VERSION" "${CI_PROJECT_NAME}=${PACKAGE_VERSION}" >/dev/null
     # Test
     - pip install -q flake8 pytest pytest-cov codecov hypothesis
     - flake8
