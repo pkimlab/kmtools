@@ -12,19 +12,14 @@ from kmtools import structure_tools
 class TestPresent:
     """Test the case where the SIFTS xml file is already present in the cache directory."""
 
-    def test_1(self):
+    @pytest.mark.parametrize('pdb_id', ['1arr', '3mbp', '1jrh'])
+    def test_1(self, pdb_id):
         structure_tools.sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = structure_tools.sifts.get_sifts_data('1arr')
+        sifts_data = structure_tools.sifts.get_sifts_data(pdb_id)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
     def test_2(self):
-        structure_tools.sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
-        sifts_data = structure_tools.sifts.get_sifts_data('3mbp')
-        assert isinstance(sifts_data, pd.DataFrame)
-        assert not sifts_data.empty
-
-    def test_3(self):
         pdb_id = '1dvf'
         structure_tools.sifts.CACHE_DIR = op.abspath(op.splitext(__file__)[0])
         sifts_data = structure_tools.sifts.get_sifts_data(pdb_id)

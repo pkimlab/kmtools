@@ -72,7 +72,7 @@ def parse_connection_string(connection_string):
             '://'
             '(|\w*)'  # db_username
             '(|:\w*)'  # db_password
-            '(|@localhost|@[0-9\.]*)'  # db_url
+            '(|@localhost|@[a-zA-Z0-9\.-]*|@[0-9\.]*)'  # db_url
             '(|:[0-9]*)'  # db_port
             '(|\/[^?]*)'  # db_schema
             '(|\?unix_socket=.*)$',  # db_socket
