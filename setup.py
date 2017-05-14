@@ -26,7 +26,7 @@ def read_md(file):
 
 setup(
     name='kmtools',
-    version='0.0.16',
+    version='0.0.17.dev0',
     author='kimlab.org',
     author_email='alex.strokach@utoronto.ca',
     url="https://github.com/kimlaborg/kmtools",
@@ -41,7 +41,6 @@ setup(
     packages=['kmtools.' + x for x in find_packages('kmtools')],
     namespace_packages=['kmtools'],
     package_data={
-        'kmtools': [
-            'cluster_tools/scripts/*.sh',
-            'sequence_tools/support/*.tsv']},
+        'kmtools.sequence_tools': ['support/*.tsv'],
+    },
 )

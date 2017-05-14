@@ -8,7 +8,7 @@ stages:
 # === Variables ===
 
 variables:
-  PACKAGE_VERSION: 0.0.16
+  PACKAGE_VERSION: 0.0.17.dev0
 
 .py35: &py35
   PYTHON_VERSION: "3.5"
@@ -68,7 +68,7 @@ build-py36:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -y -q --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME >/dev/null
+    - conda install -y -q --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME} >/dev/null
     # Test
     - pip install -q flake8 pytest pytest-cov codecov hypothesis
     - flake8
@@ -102,10 +102,15 @@ test-py36:
     - conda install -yq nbconvert ipython ipykernel pandoc
     - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx
     - sphinx-build docs public
-  only:
-    - master
+
+test-pages:
+  <<: [*conda_configure, *docs]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*py36]
   except:
-    - triggers
+    - master
 
 pages:
   <<: [*conda_configure, *docs]
@@ -113,6 +118,10 @@ pages:
     - build-py36
   variables:
     <<: [*py36]
+  only:
+    - master
+  except:
+    - triggers
   artifacts:
     paths:
     - public
