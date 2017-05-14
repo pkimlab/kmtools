@@ -41,7 +41,6 @@ setup(
     packages=['kmtools.' + x for x in find_packages('kmtools')],
     namespace_packages=['kmtools'],
     package_data={
-        'kmtools': [
-            'cluster_tools/scripts/*.sh',
-            'sequence_tools/support/*.tsv']},
+        'kmtools.sequence_tools': ['support/*.tsv'],
+    },
 )
