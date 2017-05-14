@@ -7,6 +7,7 @@ import os.path as op
 import re
 import tempfile
 import urllib.request
+from collections import OrderedDict
 
 import lxml.etree
 import numpy as np
@@ -75,7 +76,7 @@ def _get_residue_info_xml(residue):
     -------
     residue_data : dict
     """
-    residue_data = {'is_observed': True, 'comments': []}
+    residue_data = OrderedDict([('is_observed', True), ('comments', [])])
 
     # Go over all database crossreferences keeping only those
     # that come from uniprot and match the given uniprot_id.
@@ -133,13 +134,13 @@ def get_sifts_data(pdb_id, cache_dir=None):
     --------
     >>> sifts_df = get_sifts_data('1jrh')
     >>> sifts_df.head(2)
-      comments is_observed pdb_aa pdb_chain pdb_id pfam_id resnum uniprot_aa  \\
-    0   T,loop        True      S         L   1jrh     NaN      1        NaN
-    1   T,loop        True      V         L   1jrh     NaN      2        NaN
+       is_observed comments pdb_id pdb_chain resnum pdb_aa uniprot_id  \\
+    0         True   T,loop   1jrh         L      1      S        NaN
+    1         True   T,loop   1jrh         L      2      V        NaN
     <BLANKLINE>
-      uniprot_id uniprot_position  residx
-    0        NaN              NaN       1
-    1        NaN              NaN       2
+      uniprot_position uniprot_aa pfam_id  residx
+    0              NaN        NaN     NaN       1
+    1              NaN        NaN     NaN       2
     """
     if cache_dir is None:
         cache_dir = tempfile.gettempdir()

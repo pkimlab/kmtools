@@ -11,12 +11,19 @@ from lxml import etree
 from kmtools import structure_tools
 
 
+def hash_df(df):
+    hs = hashlib.md5()
+    for c in sorted(df):
+        hs.update(df[c].values.data)
+    return hs
+
+
 @pytest.mark.parametrize(
-    'pdb_id, df_shape, df_md5_hash', [('1jrh', (442, 11), '8c45136a3db096221139ba0677d93adb')])
+    'pdb_id, df_shape, df_md5_hash', [('1jrh', (442, 11), '14f22d11a461eb3976cffd2efb5dc587')])
 def test_get_sifts_data(pdb_id, df_shape, df_md5_hash):
     sifts_df = structure_tools.sifts.get_sifts_data(pdb_id)
     assert sifts_df.shape == df_shape
-    assert hashlib.md5(sifts_df.to_msgpack()).hexdigest() == df_md5_hash
+    assert hashlib.md5(sifts_df.to_csv().encode('utf-8')).hexdigest() == df_md5_hash
 
 
 @pytest.mark.parametrize(
