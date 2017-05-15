@@ -47,9 +47,6 @@ requirements:
 test:
   requires:
     - pytest
-    - pytest-runner
-    - pytest-cov
-    - pytest-logging
     - pypy
     - flake8
   imports:
