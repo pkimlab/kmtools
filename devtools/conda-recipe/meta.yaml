@@ -45,12 +45,14 @@ requirements:
     - cifparse-obj  # Assemblies
 
 test:
-  requires:
-    - pytest
-    - pypy
-    - flake8
   imports:
     - kmtools
+    - kmtools.db_tools
+    - kmtools.df_tools
+    - kmtools.py_tools
+    - kmtools.sequence_tools
+    - kmtools.structure_tools
+    - kmtools.system_tools
 
 about:
   home: http://kimlaborg.github.io/kmtools
