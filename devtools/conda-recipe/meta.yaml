@@ -21,7 +21,6 @@ requirements:
     - python
     - pyyaml
     - requests
-    - lxml
     - pycurl
     - retrying
     - paramiko
@@ -34,9 +33,6 @@ requirements:
     - pytables
     - numba
     - kmbio
-    # Required by lxml
-    - icu
-    - libiconv
     # Plotting
     # - matplotlib
     # - seaborn
