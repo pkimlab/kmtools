@@ -46,7 +46,6 @@ variables:
     # Save built packages as artifacts
     - mkdir $CI_PROJECT_DIR/conda-bld
     - cp -r /opt/conda/conda-bld/{linux-64,noarch} $CI_PROJECT_DIR/conda-bld
-    - conda env export -f $CI_PROJECT_DIR/conda-bld/environment.yml
   artifacts:
     paths:
     - conda-bld
@@ -75,6 +74,11 @@ build-py36:
     - flake8
     - py.test
     - codecov -t $CODECOV_TOKEN
+    - conda env export -f $CI_PROJECT_DIR/environment-py${PYTHON_VERSION/./}.yml
+  coverage: /^TOTAL.*(\d+\%)/
+  artifacts:
+    paths:
+    - environment-py${PYTHON_VERSION/./}.yml
 
 test-py35:
   <<: [*conda_configure, *test]
