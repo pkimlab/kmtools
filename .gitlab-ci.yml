@@ -8,7 +8,7 @@ stages:
 # === Variables ===
 
 variables:
-  PACKAGE_VERSION: 0.0.17.dev0
+  PACKAGE_VERSION: 0.0.18
 
 .py35: &py35
   PYTHON_VERSION: "3.5"
@@ -74,6 +74,11 @@ build-py36:
     - flake8
     - py.test
     - codecov -t $CODECOV_TOKEN
+    - conda env export -f $CI_PROJECT_DIR/environment-py${PYTHON_VERSION/./}.yml
+  coverage: /^TOTAL.*(\d+\%)/
+  artifacts:
+    paths:
+    - environment-py${PYTHON_VERSION/./}.yml
 
 test-py35:
   <<: [*conda_configure, *test]

@@ -1,5 +1,5 @@
 {% set name = "kmtools" %}
-{% set version = "0.0.17.dev0" %}
+{% set version = "0.0.18" %}
 
 package:
   name: {{ name }}
@@ -21,7 +21,6 @@ requirements:
     - python
     - pyyaml
     - requests
-    - lxml
     - pycurl
     - retrying
     - paramiko
@@ -34,9 +33,6 @@ requirements:
     - pytables
     - numba
     - kmbio
-    # Required by lxml
-    - icu
-    - libiconv
     # Plotting
     # - matplotlib
     # - seaborn
@@ -49,15 +45,14 @@ requirements:
     - cifparse-obj  # Assemblies
 
 test:
-  requires:
-    - pytest
-    - pytest-runner
-    - pytest-cov
-    - pytest-logging
-    - pypy
-    - flake8
   imports:
     - kmtools
+    - kmtools.db_tools
+    - kmtools.df_tools
+    - kmtools.py_tools
+    - kmtools.sequence_tools
+    - kmtools.structure_tools
+    - kmtools.system_tools
 
 about:
   home: http://kimlaborg.github.io/kmtools

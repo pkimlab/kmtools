@@ -7,12 +7,12 @@ import os.path as op
 import re
 import tempfile
 import urllib.request
+import xml.etree
 from collections import OrderedDict
+import xml.etree.ElementTree as ET
 
-import lxml.etree
 import numpy as np
 import pandas as pd
-from lxml import etree
 
 from kmtools import sequence_tools, structure_tools
 
@@ -48,9 +48,9 @@ def _iter_residues_xml(xml_data):
 
     Yields
     ------
-    residue : lxml.etree._Element
+    residue : xml.etree._Element
     """
-    for entity in etree.fromstring(xml_data):
+    for entity in ET.fromstring(xml_data):
         # Entries
         if entity.tag.split('}')[-1] == 'entity':
             # Chain segments
@@ -70,7 +70,7 @@ def _get_residue_info_xml(residue):
 
     Parameters
     ----------
-    residue : lxml.etree._Element
+    residue : xml.etree._Element
 
     Returns
     -------
@@ -577,7 +577,7 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
     # Get SIFTS data
     try:
         sifts_df = get_sifts_data(pdb_id)
-    except lxml.etree.XMLSyntaxError:
+    except xml.etree.XMLSyntaxError:
         return _uniprot_fallback(uniprot_id, pdb_mutations)
 
     return convert_pdb_mutations_to_uniprot(
