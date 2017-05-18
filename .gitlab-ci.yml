@@ -116,6 +116,7 @@ test-pages:
     <<: [*py36]
   except:
     - master
+    - tags
 
 pages:
   <<: [*conda_configure, *docs]
@@ -125,6 +126,7 @@ pages:
     <<: [*py36]
   only:
     - master
+    - tags
   except:
     - triggers
   artifacts:
@@ -147,6 +149,7 @@ pages:
       esac
   only:
     - master
+    - tags
   except:
     - triggers
 
