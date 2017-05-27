@@ -5,7 +5,7 @@ import os.path as op
 import subprocess
 import tempfile
 
-import Bio.PDB
+import kmbio.PDB
 from kmtools import system_tools
 
 # __all__ = ['fetch_structure', 'load_structure']
@@ -112,11 +112,11 @@ def _get_pdb_url(pdb_id, pdb_type='cif', mirror='rcsb'):
 
 
 def get_pdb_parser(pdb_type):
-    """Get BioPython PDB parser appropriate for `pdb_type`."""
+    """Get kmbioPython PDB parser appropriate for `pdb_type`."""
     if pdb_type == 'pdb':
-        return Bio.PDB.PDBParser()
+        return kmbio.PDB.PDBParser()
     elif pdb_type == 'cif':
-        return Bio.PDB.MMCIFParser()
+        return kmbio.PDB.MMCIFParser()
     else:
         raise Exception
 
@@ -135,7 +135,7 @@ def _gen_assembly(data):
 def allequal(s1, s2):
     if type(s1) != type(s2):
         raise Exception
-    if isinstance(s1, Bio.PDB.Atom.Atom):
+    if isinstance(s1, kmbio.PDB.Atom.Atom):
         return s1 == s2
     return all(allequal(so1, so2) for (so1, so2) in zip(s1.values(), s2.values()))
 
@@ -153,7 +153,7 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
 
     Returns
     -------
-    :class:`Bio.PDB.Structure.Structure`
+    :class:`kmbio.PDB.Structure.Structure`
         Protein structure.
 
     Examples
@@ -202,7 +202,7 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
 
     Returns
     -------
-    :class:`Bio.PDB.Structure.Structure`
+    :class:`kmbio.PDB.Structure.Structure`
         Protein structure.
 
     Examples
@@ -241,7 +241,7 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     return structure
 
 
-class NotDisordered(Bio.PDB.Select):
+class NotDisordered(kmbio.PDB.Select):
     """Select only non-disordered residues and set their altloc flag to ' '.
 
     Source: http://biopython.org/wiki/Remove_PDB_disordered_atoms
@@ -269,7 +269,7 @@ class NotDisordered(Bio.PDB.Select):
 
 
 def save_structure(structure, filename, model_ids=None, chain_ids=None, include_disordered=True):
-    """Save BioPython structure object as a PDB.
+    """Save kmbioPython structure object as a PDB.
 
     Examples
     --------
@@ -280,15 +280,15 @@ def save_structure(structure, filename, model_ids=None, chain_ids=None, include_
     >>> allequal(s1, s2)
     True
     """
-    io = Bio.PDB.PDBIO()
+    io = kmbio.PDB.PDBIO()
     io.set_structure(structure)
-    select = Bio.PDB.Select() if include_disordered else NotDisordered()
+    select = kmbio.PDB.Select() if include_disordered else NotDisordered()
     io.save(filename, select=select)
 
 
 def structure_from_chain(structure_id, model_id, chain):
-    structure = Bio.PDB.Structure.Structure(structure_id)
-    model = Bio.PDB.Model.Model(model_id)
+    structure = kmbio.PDB.Structure.Structure(structure_id)
+    model = kmbio.PDB.Model.Model(model_id)
     structure.add(model)
     model.add(chain.copy())
     return structure
