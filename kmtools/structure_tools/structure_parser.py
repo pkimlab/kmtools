@@ -15,7 +15,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-import Bio.PDB
+import kmbio.PDB
 from kmtools import df_tools
 from kmtools.structure_tools import (AAA_DICT, AMINO_ACIDS, CHAIN_IDS, COMMON_HETATMS,
                                      LYSINE_ATOMS, METHYLATED_LYSINES)
@@ -60,17 +60,17 @@ def process_structure(structure):
     model_idx = 0
     residue_mapping_fw = {}
     # Create model for storing common HETATMs
-    hetatm_model = Bio.PDB.Model.Model(len(structure))
-    hetatm_chain = Bio.PDB.Chain.Chain(CHAIN_IDS[0])
+    hetatm_model = kmbio.PDB.Model.Model(len(structure))
+    hetatm_chain = kmbio.PDB.Chain.Chain(CHAIN_IDS[0])
     hetatm_model.add(hetatm_chain)
     hetatm_residue_idx = 0
     for model in structure.values():
         # Create new model
-        new_model = Bio.PDB.Model.Model(model_idx)
+        new_model = kmbio.PDB.Model.Model(model_idx)
         chain_idx = 0
         for chain in model.values():
             # Create new chain
-            new_chain = Bio.PDB.Chain.Chain(CHAIN_IDS[chain_idx])
+            new_chain = kmbio.PDB.Chain.Chain(CHAIN_IDS[chain_idx])
             residue_idx = 0
             for residue in chain.values():
                 if residue.resname in METHYLATED_LYSINES:
@@ -107,7 +107,7 @@ def process_structure(structure):
 
 
 def _copy_residue(residue, residue_idx):
-    new_residue = Bio.PDB.Residue.Residue(
+    new_residue = kmbio.PDB.Residue.Residue(
         id=residue_idx,
         resname=residue.resname.strip(' '),
         segid=residue.segid,  # ' '
@@ -142,7 +142,7 @@ def _iter_interchain_ns(structure, interchain=True):
             if not atom_list:
                 logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
                 continue
-            ns = Bio.PDB.NeighborSearch(atom_list)
+            ns = kmbio.PDB.NeighborSearch(atom_list)
             for model_2_idx, model_2 in enumerate(structure.values()):
                 if model_1_idx > model_2_idx:
                     continue
@@ -163,11 +163,11 @@ def get_interactions(structure, interchain=True):
     .. todo::
 
         This could probably be sped up by using the
-        :py:meth:`Bio.PDB.NeighborSearch.search_all` method.
+        :py:meth:`kmbio.PDB.NeighborSearch.search_all` method.
 
     Parameters
     ----------
-    structure : Bio.PDB.Structure.Structure
+    structure : kmbio.PDB.Structure.Structure
         Structure to analyse.
     interchain : :class:`bool`
         Whether to include interactions between chains.
@@ -222,12 +222,12 @@ def extract(structure, mcd=None, select_hetatms=None):
         select_hetatms = True
 
     # Initialize
-    new_model = Bio.PDB.Model.Model(0)
+    new_model = kmbio.PDB.Model.Model(0)
     residue_mapping_fw = dict()
 
     # Regular chains
     for i, (model_id, chain_id, domain_def) in enumerate(mcd):
-        new_chain = Bio.PDB.Chain.Chain(
+        new_chain = kmbio.PDB.Chain.Chain(
             CHAIN_IDS[i], children=structure[model_id][chain_id].ix[domain_def])
         new_model.add(new_chain)
         residue_mapping_fw.update({
@@ -241,7 +241,7 @@ def extract(structure, mcd=None, select_hetatms=None):
         hetatm_model = structure.ix[-1]
         hetatm_chain = hetatm_model.ix[-1]
         new_hetatm_chain = copy_hetatm_chain(
-            Bio.PDB.Structure.Structure(id=structure.id, children=new_model),
+            kmbio.PDB.Structure.Structure(id=structure.id, children=new_model),
             hetatm_chain, CHAIN_IDS[i + 1])
         new_model.add(new_hetatm_chain)
         hetatm_residue_ids = set(r.id for r in new_hetatm_chain)
@@ -263,9 +263,9 @@ def copy_hetatm_chain(structure, hetatm_chain, new_hetatm_chain_id):
     # Old hetatm chain
     hetatm_residues = hetatm_chain.ix[:]
     hetatm_atoms = list(hetatm_chain.get_atoms())
-    ns = Bio.PDB.NeighborSearch(hetatm_atoms)
+    ns = kmbio.PDB.NeighborSearch(hetatm_atoms)
     # New hetatm chain (keeping only proximal hetatms)
-    new_hetatm_chain = Bio.PDB.Chain.Chain(new_hetatm_chain_id)
+    new_hetatm_chain = kmbio.PDB.Chain.Chain(new_hetatm_chain_id)
     new_hetatm_residues = [
         residue
         for residue in hetatm_residues
