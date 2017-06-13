@@ -61,7 +61,7 @@ def process_structure(structure):
     residue_mapping_fw = {}
     # Create model for storing common HETATMs
     hetatm_model = kmbio.PDB.Model.Model(len(structure))
-    hetatm_chain = kmbio.PDB.Chain.Chain(CHAIN_IDS[0])
+    hetatm_chain = kmbio.PDB.Chain.Chain(0)
     hetatm_model.add(hetatm_chain)
     hetatm_residue_idx = 0
     for model in structure.values():
@@ -70,7 +70,7 @@ def process_structure(structure):
         chain_idx = 0
         for chain in model.values():
             # Create new chain
-            new_chain = kmbio.PDB.Chain.Chain(CHAIN_IDS[chain_idx])
+            new_chain = kmbio.PDB.Chain.Chain(chain_idx)
             residue_idx = 0
             for residue in chain.values():
                 if residue.resname in METHYLATED_LYSINES:
