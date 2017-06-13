@@ -1,6 +1,5 @@
 import functools
 import inspect
-import itertools
 import logging
 import os
 import signal
@@ -8,69 +7,6 @@ import time
 from contextlib import contextmanager
 
 logger = logging.getLogger(__name__)
-
-
-class Struct(dict):
-
-    def __init__(self, slots, *args, **kwargs):
-        """
-        Examples
-        --------
-        >>> Struct({'a', 'b', 'c'})
-        {}
-        """
-        self._slots = set(slots)
-        self.update(*args, **kwargs)
-
-    def __setitem__(self, key, value):
-        """
-        Examples
-        --------
-        >>> c = Struct({'a', 'b', 'c'})
-        >>> c['a'] = 100
-        >>> c['d'] = 100
-        Traceback (most recent call last):
-        KeyError:
-        """
-        if key not in self._slots:
-            raise KeyError("The following key is not allowed: {}".format(repr(key)))
-        super().__setitem__(key, value)
-
-    def __getitem__(self, key):
-        """
-        Examples
-        --------
-        >>> c = Struct({'a', 'b', 'c'}, {'a': 100, 'b': 200})
-        >>> c['a']
-        100
-        >>> c['c']
-        >>> c['d']
-        Traceback (most recent call last):
-        KeyError:
-        """
-        if key in self:
-            return super().__getitem__(key)
-        elif key in self._slots:
-            return None
-        else:
-            raise KeyError("The following key is not allowed: {}".format(repr(key)))
-
-    def update(self, *args, **kwargs):
-        """
-        Examples
-        --------
-        >>> c = Struct({'a', 'b', 'c'})
-        >>> c.update({'a': 'aaa', 'b': 'bbb'}, c='ccc')
-        >>> c == {'a': 'aaa', 'b': 'bbb', 'c': 'ccc'}
-        True
-        """
-        other = itertools.chain(*(d.items() for d in args) if args else {}.items(), kwargs.items())
-        for key, value in other:
-            self[key] = value
-
-    @property
-    def empty_slots(self):
-        return self.slots - set(self.keys())
 
 
 def log_calls(fn):
