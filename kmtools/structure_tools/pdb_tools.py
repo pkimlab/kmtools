@@ -56,8 +56,7 @@ def _guess_pdb_type(pdb_file):
     return None
 
 
-def get_wwpdb_url(
-        pdb_id, pdb_type='cif', biounit=False, wwpdb_base_url=None):
+def get_wwpdb_url(pdb_id, pdb_type='cif', biounit=False, wwpdb_base_url=None):
     """Get PDB filename (inlcuding path) from a local mirror of the PDB repository.
 
     This assumes that you have mirrored the PDB ftp repository:
@@ -208,18 +207,10 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     Examples
     --------
     >>> import urllib.request
-
     >>> pdb_file = op.join(tempfile.gettempdir(), '4dkl.pdb')
     >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
     >>> load_structure(pdb_file)
     <Structure id=4dkl>
-    >>> os.remove(pdb_file)
-
-    >>> pdb_file = op.join(tempfile.gettempdir(), '3K1Q.cif')
-    >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/3K1Q.cif', pdb_file)
-    >>> load_structure(pdb_file)
-    <Structure id=3k1q>
-    >>> os.remove(pdb_file)
     """
     if pdb_id is None:
         pdb_id = _guess_pdb_id(pdb_file)
@@ -246,6 +237,7 @@ class NotDisordered(kmbio.PDB.Select):
 
     Source: http://biopython.org/wiki/Remove_PDB_disordered_atoms
     """
+
     def accept_residue(self, residue):
         if not residue.disordered:
             return True
