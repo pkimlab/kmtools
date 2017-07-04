@@ -1,12 +1,28 @@
 import functools
+import importlib
 import inspect
 import logging
 import os
 import signal
 import time
+import pkgutil
 from contextlib import contextmanager
 
 logger = logging.getLogger(__name__)
+
+
+def iter_submodules(package):
+    """Import all submodules of a module, recursively, including subpackages.
+
+    Adapted from https://stackoverflow.com/a/25562415/2063031
+    """
+    yield package.__name__, package
+    for loader, name, ispkg in pkgutil.walk_packages(package.__path__):
+        module = importlib.import_module(package.__name__ + '.' + name)
+        if ispkg:
+            yield from iter_submodules(module)
+        else:
+            yield module.__name__, module
 
 
 def log_calls(fn):
