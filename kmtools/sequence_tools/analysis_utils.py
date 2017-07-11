@@ -8,22 +8,38 @@ import logging
 import subprocess
 
 import pandas as pd
-
-import kmtools.sequence_tools.fasta_tools as fasta_tools
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
 
 
 def generate_logo( sequences, seq_len = 80, filename='designs'):
+    """quick logo generation.
 
+    Parameters
+    ----------
+    sequences : array_like
+
+    seq_len : int
+
+
+    filename : str
+
+    Returns
+    -------
+
+    """
     # if pass , Folder name
-    output = filename+'.fasta'
 
-    fasta_tools.write(sequences, output)
+    ohandler =  open(filename+'.fasta', 'w')
+    for seq in sequences:
+        print(">{}".format(seq),file=ohandler)
+        print("{}".format(seq),file=ohandler)
 
+    ohandler.close()
     # quick and dirty logo generartion
-    command = Popen('weblogo -f {} -c chemistry -o {} -F pdf  -n {}'.format(filename+'.fasta',
+    command = subprocess.Popen('weblogo -f {} -c chemistry -o {} -F pdf  -n {} -U bits --composition equiprobable '.format(filename+'.fasta',
                                                                             filename+'.pdf',
                                                                             seq_len),
                     shell=True)
@@ -190,7 +206,7 @@ def dist_PWM(pwm1, pwm2):
     for c in pwm1.columns:
         rows = list()
         for r in pwm1.index:
-            rows.append((pwm1.at[r,c]-pwm2.at[r,c])**2))
+            rows.append((pwm1.at[r,c]-pwm2.at[r,c])**2)
         colum.append(sum(rows)*.5)
 
     return sum(colum)/float(w)

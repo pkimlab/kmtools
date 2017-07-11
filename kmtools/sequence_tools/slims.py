@@ -59,7 +59,7 @@ def search_motif(seq, ELMdefinitions=ELMdefinitions):
         ELMdefinitions = _convert_dict(ELMdefinitions)
 
     elmhits = list()
-    for i, elm in ELMdefinitions.iterrows():
+    for _ , elm in ELMdefinitions.iterrows():
         # regex = Def[i][1]
         m = re.search(elm['Regex'], seq)
         if str(m) != "None":
