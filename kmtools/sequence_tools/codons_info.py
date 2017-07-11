@@ -1,4 +1,8 @@
+"""
+DNA tables and other stuff
 
+.
+"""
 # Codon Usage probability for each scpecie'
 USAGE_FREQ = {'E.coli': {u'GGG': 0.15, u'GGA': 0.11, u'GGT': 0.34, u'GGC': 0.4,
                          u'GAG': 0.31, u'GAA': 0.69, u'GAT': 0.63, u'GAC': 0.37,
@@ -106,3 +110,8 @@ C2A_DICT = {u'ATT': 'I', u'ATC': 'I', u'ATA': 'I',
             u'AAA': 'K', u'AAG': 'K',
             u'CGT': 'R', u'CGC': 'R', u'CGA': 'R', u'CGG': 'R', u'AGA': 'R', u'AGG': 'R',
             u'TAA': '*', u'TAG': '*', u'TGA': '*'}
+
+
+# Stop codons dict
+STOP_DICT = {u'TAA': '*', u'TAG': '*', u'TGA': '*'}
+STOP_CODONS = [u'TAA', u'TAG', u'TGA']

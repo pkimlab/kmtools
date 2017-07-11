@@ -5,8 +5,41 @@ import random
 import subprocess
 
 
-def align_pairwise(sequence_ref, sequence_alt):
-    """.
+def align_pairwise(sequence_ref, sequence_alt, **arguments):
+"""Align two sequences using MUSCLE.
+
+    Parameters
+    ----------
+
+    sequence_ref : str
+        refernce sequence to align
+
+    sequence_alt : str
+        query sequence
+
+    Arguments
+    ---------
+    Optional argument for muscle, for example
+
+    gapopen : str, float
+        Open a gap penalty, i.e '-20.0'. Must be negative value
+
+    gapextend : str, float
+        penalty for extend the gap, must be a negative value
+
+
+
+    Notes
+    -----
+        See the MUSCLE manual for a much more complete list of arguments
+        http://www.drive5.com/muscle/muscle_userguide3.8.html
+
+
+
+    Returns
+    -------
+    tuple
+
 
     Examples
     --------
@@ -14,19 +47,29 @@ def align_pairwise(sequence_ref, sequence_alt):
     ('AAAGGVVV', 'AAAGGVVV')
     >>> align_pairwise('AAAGGVVVAAA', 'AAAGGAAA')
     ('AAAGGVVVAAA', 'AAAGG---AAA')
+
+
     """
+    # Parse arguments
+    commands = ['muscle']
+    [commands.extend(['-'+option, str(value)]) for option, value in arguments.items()]
+    # PArse sequences
     seqs = ">1\n{}\n>2\n{}\n".format(sequence_ref, sequence_alt)
     p = subprocess.run(
-        ['muscle'],
+        commands,
         input=seqs,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True,
         check=True)
+
+    # Parse output
     __, alignment_ref, alignment_alt = p.stdout.split('>')
     alignment_ref = alignment_ref.strip('\n 12').replace('\n', '')
     alignment_alt = alignment_alt.strip('\n 12').replace('\n', '')
+
     assert len(alignment_ref) == len(alignment_alt)
+
     return alignment_ref, alignment_alt
 
 
