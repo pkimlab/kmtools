@@ -9,43 +9,24 @@ import logging
 import pandas as pd
 
 logger = logging.getLogger(__name__)
-<<<<<<< HEAD
 # To improve. Motif definitios repositories
 absolute_path = os.path.dirname(__file__)
 
 
-=======
-
-# TODO: improve this
-#Load Motif definitios repositories
-absolute_path = os.path.dirname(__file__)
-# File details:
->>>>>>> 38d96f4b411cd430164a4af927f4b4497f60f5ad
 # ELM_Classes_Download_Version: 1.4
 # ELM_Classes_Download_Date: 2016-05-09 10:55:27.098737
 # Origin: elm.eu.org
 # Type: tsv
 # Num_Classes: 247
-<<<<<<< HEAD
 ELMdefinitions = pd.read_csv(absolute_path + "/support/elm_classes.csv")
 
 
 # PepX database motives
 #
-PEPXdefinitions = pd.read_csv(absolute_path + "/support/elms_pepx.csv:)
+PEPXdefinitions = pd.read_csv(absolute_path + "/support/elms_pepx.csv")
 
 
 def search_motif(seq, ELMdefinitions=ELMdefinitions):
-=======
-ELM_SLiM_defs = pd.read_csv(absolute_path + "/support/elm_classes.tsv", sep='\t',
-                                  encoding='utf-8')
-# Load
-# PepX database motives
-PepXELM_SLiM_defs = pd.read_csv(absolute_path + "/support/Pepx_completeELM_Redex.tsv", sep='\t')
-
-
-def search_motif(seq, ELMdefinitions=ELM_SLiM_defs):
->>>>>>> 38d96f4b411cd430164a4af927f4b4497f60f5ad
     """Return all the Motif in a sequences
 
 
@@ -135,7 +116,6 @@ def _check_elm_dataframe(df):
         return True
     else:
         return False
-<<<<<<< HEAD
     """.
 
     Return all the ELM in a sequences.
@@ -172,5 +152,3 @@ def _check_elm_dataframe(df):
     # PPPPPPPP')
 # print a
 # print a.shape
-=======
->>>>>>> 38d96f4b411cd430164a4af927f4b4497f60f5ad
