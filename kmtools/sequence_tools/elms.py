@@ -12,16 +12,15 @@ absolute_path = os.path.dirname(__file__)
 # Origin: elm.eu.org
 # Type: tsv
 # Num_Classes: 247
-totalELMdefinitions = pd.read_csv(absolute_path + "/support/elm_classes.tsv", sep='\t',
-                                  encoding='utf-8')
+ELMdefinitions = pd.read_csv(absolute_path + "/support/elm_classes.csv")
 
 
 # PepX database motives
 #
-PepXELMdefinitions = pd.read_csv(absolute_path + "/support/Pepx_completeELM_Redex.tsv", sep='\t')
+PEPXdefinitions = pd.read_csv(absolute_path + "/support/elms_pepx.csv:)
 
 
-def motif_search(seq, ELMdefinitions=totalELMdefinitions):
+def motif_search(seq, ELMdefinitions=ELMdefinitions):
     """.
 
     Return all the ELM in a sequences.
