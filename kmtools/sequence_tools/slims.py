@@ -138,7 +138,7 @@ def _check_elm_dataframe(df):
 
     """
     elmhits = list()
-    for i, elm in ELMdefinitions.iterrows():
+    for _, elm in ELMdefinitions.iterrows():
         # regex = Def[i][1]
         m = re.search(elm['Regex'], seq)
         if str(m) != "None":
@@ -330,7 +330,7 @@ def binding_score(seq, pwm):
     return sum(score)
 
 def dist_PWM(pwm1, pwm2):
-    """Euclidina distance in the PWM.
+    """Euclidian distance between two PWM.
 
     $ D_{(a,b)} = \frac{1}{W} \sum_{i=1}^{w} \frac{1}{2} \sum (a_{i,L} - b_{i,L})^2 $
 
