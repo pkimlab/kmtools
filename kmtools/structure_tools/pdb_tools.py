@@ -121,11 +121,18 @@ def get_pdb_parser(pdb_type):
 
 
 def _gen_assembly(data):
+    """Generate biological assembly structures for cif file with contents `data`.
+
+    .. warning::
+        This does not work with mmCIF files downloaded from RCSB
+        (``Assemblies`` executable fails in a segmentation fault!).
+    """
     with tempfile.TemporaryDirectory() as tmpdirname:
         cif_file = op.join(tmpdirname, 'xxxx.cif')
         with open(cif_file, 'wb') as ofh:
             ofh.write(data)
-        subprocess.run(['Assemblies', cif_file], cwd=op.dirname(cif_file))
+            ofh.flush()
+        subprocess.run(['Assemblies', cif_file], cwd=op.dirname(cif_file), check=True)
         with open(cif_file.replace('.cif', '-1.cif'), 'rb') as ifh:
             data = ifh.read()
     return data
@@ -155,14 +162,16 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     :class:`kmbio.PDB.Structure.Structure`
         Protein structure.
 
+    # TODO: Add test for biological assemblies
+    # >>> fetch_structure('4dkl', pdb_type='cif', biounit=True)
+    # <Structure id=4NWR>
+
     Examples
     --------
     >>> fetch_structure('4dkl')
     <Structure id=4dkl>
     >>> fetch_structure('4dkl', pdb_type='cif')
     <Structure id=4dkl>
-    >>> fetch_structure('4NWR', pdb_type='cif', biounit=True)
-    <Structure id=4NWR>
     """
     pdb_data = _fetch_structure(pdb_id, pdb_type, biounit, pdb_mirror)
     parser = get_pdb_parser(pdb_type)
@@ -183,6 +192,7 @@ def _fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     pdb_data = system_tools.read_url(url)
 
     if gen_assembly:
+        # logger.debug(pdb_data)
         pdb_data = _gen_assembly(pdb_data)
     return pdb_data
 
