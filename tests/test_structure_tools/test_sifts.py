@@ -2,11 +2,11 @@ import hashlib
 import json
 import os.path as op
 from tempfile import TemporaryDirectory
+import xml.etree.ElementTree as ET
 
 import numpy as np
 import pandas as pd
 import pytest
-from lxml import etree
 
 from kmtools import structure_tools
 
@@ -112,7 +112,7 @@ def residue_in_out(request):
     path_template = op.join(op.splitext(__file__)[0], 'residue_data_{}'.format(request.param))
     with open(path_template + '.xml', 'rb') as ifh:
         # Residue entries are wrapped inside <entry></entry> blocks, so take [0]
-        xml_data = etree.fromstring(ifh.read())[0]
+        xml_data = ET.fromstring(ifh.read())[0]
     with open(path_template + '.json', 'r') as ifh:
         json_data = json.load(ifh)
     return xml_data, json_data
