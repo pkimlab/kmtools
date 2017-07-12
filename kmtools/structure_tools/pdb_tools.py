@@ -208,7 +208,7 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     --------
     >>> import urllib.request
     >>> pdb_file = op.join(tempfile.gettempdir(), '4dkl.pdb')
-    >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
+    >>> r = urllib.request.urlretrieve('http://files.rcsb.org/download/4dkl.pdb', pdb_file)
     >>> load_structure(pdb_file)
     <Structure id=4dkl>
     """
