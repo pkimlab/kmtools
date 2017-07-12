@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
     (pdb_id, pdb_type, biounit)
     for pdb_id in PDB_IDS
     for pdb_type in ['pdb', 'cif']
-    for biounit in [False, True]
+    # TODO: enable testing for biounits
+    for biounit in [False]
     if (pdb_id, pdb_type, biounit) not in MISSING
     if (pdb_id, pdb_type, biounit) not in LOCAL_REMOTE_MISMATCH
     if (pdb_type, biounit) != ('cif', True)
@@ -34,7 +35,8 @@ def test_local_vs_remote(pdb_id, pdb_type, biounit):
 def test_allequal(pdb_id):
     """Make sure that structures that should be equal are equal."""
     for pdb_type in ['cif', 'pdb']:
-        for biounit in [False, True]:
+        # TODO: enable testing for biounits
+        for biounit in [False]:
             s1 = structure_tools.fetch_structure(pdb_id)
             s2 = structure_tools.fetch_structure(pdb_id)
             assert structure_tools.allequal(s1, s2)
@@ -49,7 +51,8 @@ def test_allequal(pdb_id):
 def test_allnotequal(pdb_id_1, pdb_id_2):
     """Make sure that structures that should be different are different."""
     for pdb_type in ['cif', 'pdb']:
-        for biounit in [False, True]:
+        # TODO: enable testing for biounits
+        for biounit in [False]:
             s1 = structure_tools.fetch_structure(pdb_id_1)
             s2 = structure_tools.fetch_structure(pdb_id_2)
             assert not structure_tools.allequal(s1, s2)
