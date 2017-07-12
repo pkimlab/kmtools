@@ -20,7 +20,7 @@ absolute_path = os.path.dirname(__file__)
 # Origin: elm.eu.org
 # Type: tsv
 # Num_Classes: 247
-ELMdefinitions = pd.read_csv(absolute_path + "/support/elm_classes.csv")
+ELMdefinitions = pd.read_csv(absolute_path + "/support/elms_classes.csv")
 
 
 # PepX database motives

@@ -6,7 +6,7 @@ import subprocess
 
 
 def align_pairwise(sequence_ref, sequence_alt, **arguments):
-"""Align two sequences using MUSCLE.
+    """Align two sequences using MUSCLE.
 
     Parameters
     ----------
