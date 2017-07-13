@@ -8,6 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def add_seq2fq(sequence_info, file_output, write_mode='a'):
     """Add sequences to a file, in Fastq Format.
 

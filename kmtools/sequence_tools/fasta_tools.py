@@ -8,6 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def add_seq2fa(sequence_data, file_output, write_mode='a'):
     """Add sequences to a file, in Fasta Format.
 
