@@ -3,25 +3,26 @@ import logging
 import pandas as pd
 import pytest
 
-from conftest import DIFFICULT, MISSING, NO_RESNAME_ATTRIBUTE_PDBS, PDB_IDS, random_subset
+from conftest import DIFFICULT, MISSING, PDB_IDS, random_subset  # NO_RESNAME_ATTRIBUTE_PDBS
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)
 
 
-@pytest.mark.parametrize("pdb_id", random_subset(NO_RESNAME_ATTRIBUTE_PDBS))
-def test_no_resname_attribute(pdb_id):
-    """Test for the ``'NoneType' has no resname attribute`` error."""
-    s = structure_tools.fetch_structure(pdb_id, 'cif', True)
-    structure_tools.process_structure(s)
-    assert s
-
+# @pytest.mark.parametrize("pdb_id", random_subset(NO_RESNAME_ATTRIBUTE_PDBS))
+# def test_no_resname_attribute(pdb_id):
+#     """Test for the ``'NoneType' has no resname attribute`` error."""
+#     s = structure_tools.fetch_structure(pdb_id, 'cif', True)
+#     structure_tools.process_structure(s)
+#     assert s
+#
 
 @pytest.mark.parametrize("pdb_id, pdb_type, biounit", random_subset([
     (pdb_id, pdb_type, biounit)
     for pdb_id in PDB_IDS
     for pdb_type in ['pdb', 'cif']
-    for biounit in [False, True]
+    # TODO: enable testing for biounits
+    for biounit in [False]
     if (pdb_id, pdb_type, biounit) not in MISSING
 ]))
 def test_process_structure(pdb_id, pdb_type, biounit):
@@ -48,7 +49,8 @@ def test_process_structure(pdb_id, pdb_type, biounit):
     (pdb_id, pdb_type, biounit, interchain)
     for pdb_id in PDB_IDS
     for pdb_type in ['pdb', 'cif']
-    for biounit in [False, True]
+    # TODO: enable testing for biounits
+    for biounit in [False]
     for interchain in [False, True]
     if (pdb_id, pdb_type, biounit) not in MISSING
 ]))
@@ -61,7 +63,8 @@ def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
 @pytest.mark.parametrize("pdb_id, biounit, interchain", random_subset([
     (pdb_id, biounit, interchain)
     for pdb_id in PDB_IDS
-    for biounit in [False, True]
+    # TODO: enable testing for biounits
+    for biounit in [False]
     for interchain in [False, True]
     if (pdb_id, 'pdb', biounit) not in MISSING
     if pdb_id not in DIFFICULT
@@ -91,7 +94,8 @@ def test_get_interactions_2(pdb_id, biounit, interchain):
 @pytest.mark.parametrize("kwargs", random_subset([
     {'pdb_id': pdb_id, 'biounit': biounit}
     for pdb_id in PDB_IDS
-    for biounit in [False, True]
+    # TODO: enable testing for biounits
+    for biounit in [False]
     if (pdb_id, 'pdb', biounit) not in MISSING
     if pdb_id not in DIFFICULT
 ]))

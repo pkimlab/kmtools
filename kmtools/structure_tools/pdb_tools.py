@@ -5,7 +5,7 @@ import os.path as op
 import subprocess
 import tempfile
 
-import Bio.PDB
+import kmbio.PDB
 from kmtools import system_tools
 
 # __all__ = ['fetch_structure', 'load_structure']
@@ -56,8 +56,7 @@ def _guess_pdb_type(pdb_file):
     return None
 
 
-def get_wwpdb_url(
-        pdb_id, pdb_type='cif', biounit=False, wwpdb_base_url=None):
+def get_wwpdb_url(pdb_id, pdb_type='cif', biounit=False, wwpdb_base_url=None):
     """Get PDB filename (inlcuding path) from a local mirror of the PDB repository.
 
     This assumes that you have mirrored the PDB ftp repository:
@@ -112,21 +111,28 @@ def _get_pdb_url(pdb_id, pdb_type='cif', mirror='rcsb'):
 
 
 def get_pdb_parser(pdb_type):
-    """Get BioPython PDB parser appropriate for `pdb_type`."""
+    """Get kmbioPython PDB parser appropriate for `pdb_type`."""
     if pdb_type == 'pdb':
-        return Bio.PDB.PDBParser()
+        return kmbio.PDB.PDBParser()
     elif pdb_type == 'cif':
-        return Bio.PDB.MMCIFParser()
+        return kmbio.PDB.MMCIFParser()
     else:
         raise Exception
 
 
 def _gen_assembly(data):
+    """Generate biological assembly structures for cif file with contents `data`.
+
+    .. warning::
+        This does not work with mmCIF files downloaded from RCSB
+        (``Assemblies`` executable fails in a segmentation fault!).
+    """
     with tempfile.TemporaryDirectory() as tmpdirname:
         cif_file = op.join(tmpdirname, 'xxxx.cif')
         with open(cif_file, 'wb') as ofh:
             ofh.write(data)
-        subprocess.run(['Assemblies', cif_file], cwd=op.dirname(cif_file))
+            ofh.flush()
+        subprocess.run(['Assemblies', cif_file], cwd=op.dirname(cif_file), check=True)
         with open(cif_file.replace('.cif', '-1.cif'), 'rb') as ifh:
             data = ifh.read()
     return data
@@ -135,7 +141,7 @@ def _gen_assembly(data):
 def allequal(s1, s2):
     if type(s1) != type(s2):
         raise Exception
-    if isinstance(s1, Bio.PDB.Atom.Atom):
+    if isinstance(s1, kmbio.PDB.Atom.Atom):
         return s1 == s2
     return all(allequal(so1, so2) for (so1, so2) in zip(s1.values(), s2.values()))
 
@@ -153,8 +159,12 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
 
     Returns
     -------
-    :class:`Bio.PDB.Structure.Structure`
+    :class:`kmbio.PDB.Structure.Structure`
         Protein structure.
+
+    # TODO: Add test for biological assemblies
+    # >>> fetch_structure('4dkl', pdb_type='cif', biounit=True)
+    # <Structure id=4NWR>
 
     Examples
     --------
@@ -162,8 +172,6 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     <Structure id=4dkl>
     >>> fetch_structure('4dkl', pdb_type='cif')
     <Structure id=4dkl>
-    >>> fetch_structure('4NWR', pdb_type='cif', biounit=True)
-    <Structure id=4NWR>
     """
     pdb_data = _fetch_structure(pdb_id, pdb_type, biounit, pdb_mirror)
     parser = get_pdb_parser(pdb_type)
@@ -184,6 +192,7 @@ def _fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     pdb_data = system_tools.read_url(url)
 
     if gen_assembly:
+        # logger.debug(pdb_data)
         pdb_data = _gen_assembly(pdb_data)
     return pdb_data
 
@@ -202,24 +211,16 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
 
     Returns
     -------
-    :class:`Bio.PDB.Structure.Structure`
+    :class:`kmbio.PDB.Structure.Structure`
         Protein structure.
 
     Examples
     --------
     >>> import urllib.request
-
     >>> pdb_file = op.join(tempfile.gettempdir(), '4dkl.pdb')
-    >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/4dkl.pdb', pdb_file)
+    >>> r = urllib.request.urlretrieve('http://files.rcsb.org/download/4dkl.pdb', pdb_file)
     >>> load_structure(pdb_file)
     <Structure id=4dkl>
-    >>> os.remove(pdb_file)
-
-    >>> pdb_file = op.join(tempfile.gettempdir(), '3K1Q.cif')
-    >>> r = urllib.request.urlretrieve('https://files.rcsb.org/download/3K1Q.cif', pdb_file)
-    >>> load_structure(pdb_file)
-    <Structure id=3k1q>
-    >>> os.remove(pdb_file)
     """
     if pdb_id is None:
         pdb_id = _guess_pdb_id(pdb_file)
@@ -241,11 +242,12 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
     return structure
 
 
-class NotDisordered(Bio.PDB.Select):
+class NotDisordered(kmbio.PDB.Select):
     """Select only non-disordered residues and set their altloc flag to ' '.
 
     Source: http://biopython.org/wiki/Remove_PDB_disordered_atoms
     """
+
     def accept_residue(self, residue):
         if not residue.disordered:
             return True
@@ -269,7 +271,7 @@ class NotDisordered(Bio.PDB.Select):
 
 
 def save_structure(structure, filename, model_ids=None, chain_ids=None, include_disordered=True):
-    """Save BioPython structure object as a PDB.
+    """Save kmbioPython structure object as a PDB.
 
     Examples
     --------
@@ -280,15 +282,15 @@ def save_structure(structure, filename, model_ids=None, chain_ids=None, include_
     >>> allequal(s1, s2)
     True
     """
-    io = Bio.PDB.PDBIO()
+    io = kmbio.PDB.PDBIO()
     io.set_structure(structure)
-    select = Bio.PDB.Select() if include_disordered else NotDisordered()
+    select = kmbio.PDB.Select() if include_disordered else NotDisordered()
     io.save(filename, select=select)
 
 
 def structure_from_chain(structure_id, model_id, chain):
-    structure = Bio.PDB.Structure.Structure(structure_id)
-    model = Bio.PDB.Model.Model(model_id)
+    structure = kmbio.PDB.Structure.Structure(structure_id)
+    model = kmbio.PDB.Model.Model(model_id)
     structure.add(model)
     model.add(chain.copy())
     return structure

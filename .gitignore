@@ -16,6 +16,7 @@ docs/_modules
 !.gitignore
 !.travis.yml
 !.gitlab-ci.yml
+!.codecov.yml
 !.pylintrc
 
 # Notebooks (for now...)
