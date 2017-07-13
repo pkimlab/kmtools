@@ -13,3 +13,4 @@ from ._blast import *
 from ._sequence_tools import *
 from .codons_info import *
 from .dna_util import *
+from .slims import *
