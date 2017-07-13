@@ -52,7 +52,7 @@ def align_pairwise(sequence_ref, sequence_alt, **arguments):
     """
     # Parse arguments
     commands = ['muscle']
-    [commands.extend(['-'+option, str(value)]) for option, value in arguments.items()]
+    [commands.extend(['-' + option, str(value)]) for option, value in arguments.items()]
     # PArse sequences
     seqs = ">1\n{}\n>2\n{}\n".format(sequence_ref, sequence_alt)
     p = subprocess.run(
