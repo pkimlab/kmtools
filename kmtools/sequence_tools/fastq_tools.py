@@ -41,12 +41,9 @@ def add_seq2fq(sequence_info, file_output, write_mode='a'):
     Examples
     --------
 
+        write_fastq_sequence(['SEQ_1', 'ATGATGATGA', '/66AA<<<6A'], 'my_file.fasta')
 
-        >>> write_fastq_sequence(['SEQ_1', 'ATGATGATGA', '/66AA<<<6A'], 'my_file.fasta')
-        <_io.TextIOWrapper name='my_file.fasta' mode='a' encoding='UTF-8'>
-
-        >>> write_fastq_sequence(['SEQ_1', 'ATGATGATGA', '/66AA<<<6A'], open('my_file.fasta', 'a'))
-        <_io.TextIOWrapper name='my_file.fasta' mode='a' encoding='UTF-8'>
+        write_fastq_sequence(['SEQ_1', 'ATGATGATGA', '/66AA<<<6A'], open('my_file.fasta', 'a'))
 
     """
     # check input lenght

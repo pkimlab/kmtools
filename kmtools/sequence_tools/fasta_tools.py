@@ -44,14 +44,11 @@ def add_seq2fa(sequence_data, file_output, write_mode='a'):
     Examples
     --------
 
-        >>> write_fasta_sequence('ATGATGATGA','my_file.fasta')
-        <_io.TextIOWrapper name='my_file.fasta' mode='a' encoding='UTF-8'>
+         write_fasta_sequence('ATGATGATGA','my_file.fasta')
 
-        >>> write_fasta_sequence('ATGATGATGA',open('my_file.fasta', 'a'))
-        <_io.TextIOWrapper name='my_file.fasta' mode='a' encoding='UTF-8'>
+         write_fasta_sequence('ATGATGATGA',open('my_file.fasta', 'a'))
 
-        >>> write_fasta_sequence(['SEQ_1', 'ATGATGATGA'],'my_file.fasta')
-        <_io.TextIOWrapper name='my_file.fasta' mode='a' encoding='UTF-8'>
+         write_fasta_sequence(['SEQ_1', 'ATGATGATGA'],'my_file.fasta')
 
     """
     # Check the input sequence
