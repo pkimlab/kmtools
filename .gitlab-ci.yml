@@ -74,8 +74,6 @@ build-py36:
     - flake8
     - py.test
     - conda env export -f $CI_PROJECT_DIR/environment-py${PYTHON_VERSION/./}.yml
-  after_script:
-    - codecov -t $CODECOV_TOKEN
   coverage: /^TOTAL.*(\d+\%)/
   artifacts:
     paths:
