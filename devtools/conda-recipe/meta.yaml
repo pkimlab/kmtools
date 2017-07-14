@@ -24,6 +24,7 @@ requirements:
     - pycurl
     - retrying
     - paramiko
+    - dill
     # Scientific python
     - numpy
     - scipy

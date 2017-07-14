@@ -25,3 +25,11 @@ def test_struct(data):
     for key in prohibited_keys:
         with pytest.raises(KeyError):
             s[key] = data.draw(_elements)
+
+
+@pytest.mark.parametrize("obj", [{'a': 10, 'b': 20}, 10, [1, 2, 3], range(100), "hello world"])
+def test_object_serialization(obj):
+    serialized = py_tools.serialize_object_to_string(obj)
+    assert isinstance(serialized, str)
+    deserialized = py_tools.deserialize_object_from_string(serialized)
+    assert deserialized == obj
