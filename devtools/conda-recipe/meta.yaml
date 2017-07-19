@@ -34,7 +34,7 @@ requirements:
     - pytables
     - numba
     - biopython
-    - kmbio
+    - kmbio >=1.69.5
     # Plotting
     # - matplotlib
     # - seaborn

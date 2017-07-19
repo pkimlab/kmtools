@@ -175,7 +175,7 @@ def fetch_structure(pdb_id, pdb_type='cif', biounit=False, pdb_mirror=None):
     """
     pdb_data = _fetch_structure(pdb_id, pdb_type, biounit, pdb_mirror)
     parser = get_pdb_parser(pdb_type)
-    structure = parser.get_structure(pdb_id, io.StringIO(pdb_data.decode('utf-8')))
+    structure = parser.get_structure(io.StringIO(pdb_data.decode('utf-8')), pdb_id)
     return structure
 
 
@@ -234,7 +234,7 @@ def load_structure(pdb_file, pdb_id=None, pdb_type=None):
         for pdb_type in pdb_types:
             parser = get_pdb_parser(pdb_type)
             try:
-                structure = parser.get_structure(pdb_id, ifh)
+                structure = parser.get_structure(ifh, pdb_id)
                 break
             except KeyError:
                 logger.info("Count not load structure using the %s parser.", parser)
