@@ -198,6 +198,8 @@ def get_interactions(structure, interchain=True):
         for residue_1 in interacting_residues:
             if residue_1.resname in COMMON_HETATMS:
                 continue
+            if residue_1.id == residue_2.id:
+                continue
             row = (
                 structure.id, model_1_id, model_2_id, chain_1_id, chain_2_id,
                 residue_1.id[1], residue_2.id[1], residue_1.resname, residue_2.resname,
