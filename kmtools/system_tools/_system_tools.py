@@ -166,15 +166,15 @@ def decompress(filename):
     """Temporarly decompress a file."""
     try:
         print("Gunzipping file '{}'...".format(filename))
-        subprocess.check_call("gunzip '{}'".format(filename), shell=True)
+        subprocess.check_call(shlex.split("gunzip '{}'".format(filename)))
     except Exception as e:
         print('Unzipping the file failed with an error: {}'.format(e))
         raise e
     else:
-        yield
+        yield op.splitext(filename)[0]
     finally:
         print("Gzipping the file back again...")
-        subprocess.check_call("gzip '{}'".format(filename.rstrip('.gz')), shell=True)
+        subprocess.check_call(shlex.split("gzip '{}'".format(filename.rstrip('.gz'))))
 
 
 @contextmanager
