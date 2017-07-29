@@ -3,7 +3,9 @@ import logging
 import pandas as pd
 import pytest
 
-from conftest import DIFFICULT, MISSING, PDB_IDS, random_subset  # NO_RESNAME_ATTRIBUTE_PDBS
+from conftest import (DIFFICULT, MISSING, PDB_IDS,  # NO_RESNAME_ATTRIBUTE_PDBS
+                      random_subset)
+from kmbio.PDB import load
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)
@@ -26,7 +28,7 @@ logger = logging.getLogger(__name__)
     if (pdb_id, pdb_type, biounit) not in MISSING
 ]))
 def test_process_structure(pdb_id, pdb_type, biounit):
-    structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
+    structure = load('rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
     structure_tools.process_structure(structure)
     # Test model ids
     for model_idx, model in enumerate(structure.values()):
@@ -55,7 +57,7 @@ def test_process_structure(pdb_id, pdb_type, biounit):
     if (pdb_id, pdb_type, biounit) not in MISSING
 ]))
 def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
-    structure = structure_tools.fetch_structure(pdb_id, pdb_type, biounit)
+    structure = load('rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
     df = structure_tools.get_interactions(structure, interchain)
     logger.info(df.head())
 
@@ -70,15 +72,15 @@ def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
     if pdb_id not in DIFFICULT
 ]))
 def test_get_interactions_2(pdb_id, biounit, interchain):
-    s_1 = structure_tools.fetch_structure(pdb_id, 'pdb', biounit)
-    s_2 = structure_tools.fetch_structure(pdb_id, 'cif', biounit)
+    s_1 = load('rcsb://{}.pdb'.format(pdb_id), bioassembly_id=int(biounit))
+    s_2 = load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=int(biounit))
 
     # df_1 = structure_tools.get_interactions(s_1, interchain)
     # df_2 = structure_tools.get_interactions(s_2, interchain)
     #
     # with pytest.raises(AssertionError):
     #     pd.util.testing.assert_frame_equal(df_1, df_2)
-    #
+
     structure_tools.process_structure(s_1)
     structure_tools.process_structure(s_2)
 
@@ -91,22 +93,19 @@ def test_get_interactions_2(pdb_id, biounit, interchain):
     pd.util.testing.assert_frame_equal(df_1, df_2)
 
 
-@pytest.mark.parametrize("kwargs", random_subset([
-    {'pdb_id': pdb_id, 'biounit': biounit}
+@pytest.mark.parametrize("pdb_id, bioassembly_id", random_subset([
+    (pdb_id, bioassembly_id)
     for pdb_id in PDB_IDS
-    # TODO: enable testing for biounits
-    for biounit in [False]
-    if (pdb_id, 'pdb', biounit) not in MISSING
+    for bioassembly_id in [0, 1]
+    if (pdb_id, 'pdb', bool(bioassembly_id)) not in MISSING
     if pdb_id not in DIFFICULT
 ]))
-def test_get_interactions_symmetrical(kwargs):
+def test_get_interactions_symmetrical(pdb_id, bioassembly_id):
     """Make sure that the output of `get_interactions` is symmetrical.
 
     That is, for each (model_id_1, chain_id_1, residue_id_1)
     there is a corresponding (model_id_2, chain_id_2, residue_id_2).
     """
-    logger.debug(kwargs)
-
     def _assert_symmetrical(df):
         df['residue_pair_1'] = df[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
         df['residue_pair_2'] = df[['residue_id_2', 'residue_id_1']].apply(tuple, axis=1)
@@ -114,10 +113,6 @@ def test_get_interactions_symmetrical(kwargs):
         set2 = set(df[['model_id_2', 'chain_id_2', 'residue_pair_2']].apply(tuple, axis=1))
         assert not set1 ^ set2
 
-    s = structure_tools.fetch_structure(**kwargs)
-    df = structure_tools.get_interactions(s)
-    _assert_symmetrical(df)
-
-    structure_tools.process_structure(s)
+    s = load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=bioassembly_id)
     df = structure_tools.get_interactions(s)
     _assert_symmetrical(df)
