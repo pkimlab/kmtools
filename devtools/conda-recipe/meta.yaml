@@ -25,6 +25,7 @@ requirements:
     - retrying
     - paramiko
     - dill
+    - smart_open
     # Scientific python
     - numpy
     - scipy
