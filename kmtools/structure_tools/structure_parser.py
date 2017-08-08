@@ -23,7 +23,7 @@ from kmtools.structure_tools import (AAA_DICT, AMINO_ACIDS, CHAIN_IDS, COMMON_HE
 logger = logging.getLogger(__name__)
 
 # Source: http://www.wwpdb.org/documentation/procedure#toc_4
-R_CUTOFF = 5
+R_CUTOFF = 4
 
 
 def euclidean_distance(a, b):
