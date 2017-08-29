@@ -10,6 +10,7 @@ import time
 from contextlib import contextmanager
 
 import dill
+import psutil
 
 logger = logging.getLogger(__name__)
 
@@ -167,23 +168,13 @@ def decorate_all_methods(decorator):
     return apply_decorator
 
 
-def kill_child_process(child_process):
-    if child_process.poll() is not None:
-        print('Child process with pid {} already terminated with return code {}'
-              .format(child_process.pid, child_process.returncode))
-        return
+def kill_child_processes(parent_pid, sig=signal.SIGTERM):
     try:
-        print('Trying to terminate gracefully child process with pid: {}'.child_process.pid)
-        os.killpg(child_process.pid, signal.SIGTERM)
-#        child_process.terminate()
-    except Exception as e:
-        print("Didn't work because of error: {}".format(e.__str__()))
-        try:
-            print('Trying to kill child process...')
-            os.killpg(child_process.pid, signal.SIGKILL)
-#            child_process.kill()
-        except:
-            print("Didn't work because of error: {}".format(e.__str__()))
-            print("Letting it go...")
-            pass
-    print('OK')
+        parent = psutil.Process(parent_pid)
+    except psutil.NoSuchProcess:
+        logger.debug("Counld not find parent process with pid '%s'", parent_pid)
+        return
+    children = parent.children(recursive=True)
+    for process in children:
+        logger.debug("Killing process '%s'...", process)
+        process.send_signal(sig)
