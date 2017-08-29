@@ -16,7 +16,7 @@ def write_parquet_tables(basedir='', **kwargs):
 
 
 def _write_parquet_table(table_name, table_df, basedir=''):
-    parquet_file = op.join(basedir, f'{table_name}.parquet')
+    parquet_file = op.join(basedir, '{}.parquet'.format(table_name))
     table_pq = pa.Table.from_pandas(table_df.rename(columns=format_column))
     parquet_schema = table_pq.schema
     parquet_writer = pq.ParquetWriter(parquet_file, parquet_schema, compression='snappy')
