@@ -14,6 +14,7 @@ import subprocess
 import time
 import urllib.request
 from contextlib import contextmanager
+from typing import Optional
 
 import paramiko
 import sqlalchemy as sa
@@ -81,8 +82,7 @@ def run(system_command, **vargs):
         system_command = shlex.split(system_command)
     p = subprocess.run(
         system_command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        preexec_fn=lambda: _set_process_group(os.getpgrp()),
-        **vargs)
+        preexec_fn=lambda: _set_process_group(os.getpgrp()), **vargs)
     p.stdout = p.stdout.strip()
     p.stderr = p.stderr.strip()
     return p
@@ -134,30 +134,23 @@ def retry_database(fn):
     """Decorator to keep probing the database untill you succeed."""
     _check_exception = functools.partial(check_exception, valid_exc=sa.exc.OperationalError)
     r = retry(
-        retry_on_exception=_check_exception,
-        wait_exponential_multiplier=1000,
-        wait_exponential_max=60000,
-        stop_max_attempt_number=7)
+        retry_on_exception=_check_exception, wait_exponential_multiplier=1000,
+        wait_exponential_max=60000, stop_max_attempt_number=7)
     return r(fn)
 
 
 def retry_subprocess(fn):
     _check_exception = functools.partial(check_exception, valid_exc=subprocess.SubprocessError)
     r = retry(
-        retry_on_exception=_check_exception,
-        wait_exponential_multiplier=1000,
-        wait_exponential_max=60000,
-        stop_max_attempt_number=7)
+        retry_on_exception=_check_exception, wait_exponential_multiplier=1000,
+        wait_exponential_max=60000, stop_max_attempt_number=7)
     return r(fn)
 
 
 def retry_archive(fn):
     """Decorator to keep probing the database untill you succeed."""
     _check_exception = functools.partial(check_exception, valid_exc=system_tools.exc.ArchiveError)
-    r = retry(
-        retry_on_exception=_check_exception,
-        wait_fixed=2000,
-        stop_max_attempt_number=2)
+    r = retry(retry_on_exception=_check_exception, wait_fixed=2000, stop_max_attempt_number=2)
     return r(fn)
 
 
@@ -250,11 +243,8 @@ def make_tarfile(source_dir, output_filename):
 
 def start_subprocess(system_command):
     p = subprocess.Popen(
-        shlex.split(system_command),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        universal_newlines=True,
-        bufsize=1)
+        shlex.split(system_command), stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        universal_newlines=True, bufsize=1)
     return p
 
 
@@ -271,6 +261,23 @@ def iter_stdout(p):
                 # logger.debug("DONE! (reached an empty line)")
                 return
         yield line
+
+
+def execute(system_command: str, cwd: Optional[str]=None) -> str:
+    """Execute a system command, passing STDERR to logger.
+
+    Source: https://stackoverflow.com/a/4417735/2063031
+    """
+    logger.info("system_command: '%s'", system_command)
+    popen = subprocess.Popen(
+        shlex.split(system_command), stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        cwd=cwd, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        logger.debug(stdout_line.strip())
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, system_command)
 
 
 # === Run command ====
@@ -314,7 +321,10 @@ def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[
         logger.debug("Running locally")
         sp = subprocess.run(
             system_command if shell else shlex.split(system_command),
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell, universal_newlines=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=shell,
+            universal_newlines=True,
         )
         stdout = sp.stdout
         stderr = sp.stderr
@@ -324,10 +334,8 @@ def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[
     if returncode not in allowed_returncodes:
         error_message = (
             "Encountered an error: '{}'\n".format(stderr) +
-            "System command: '{}'\n".format(system_command) +
-            "Output: '{}'\n".format(stdout) +
-            "Return code: {}".format(returncode)
-        )
+            "System command: '{}'\n".format(system_command) + "Output: '{}'\n".format(stdout) +
+            "Return code: {}".format(returncode))
         logger.error(error_message)
         raise exc.SubprocessError(
             command=system_command,
