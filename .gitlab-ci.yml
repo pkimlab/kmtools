@@ -70,7 +70,7 @@ build-py36:
     - conda index /opt/conda/conda-bld/
     - conda install -y -q --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME} >/dev/null
     # Test
-    - pip install -q flake8 pytest pytest-cov codecov hypothesis
+    - pip install -q flake8 pytest pytest-cov codecov pytest-logging hypothesis
     - flake8
     - py.test
     - conda env export -f $CI_PROJECT_DIR/environment-py${PYTHON_VERSION/./}.yml
@@ -148,7 +148,6 @@ pages:
       esac
   only:
     - master
-    - tags
   except:
     - triggers
 
