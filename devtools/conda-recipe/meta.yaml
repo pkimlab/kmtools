@@ -26,6 +26,7 @@ requirements:
     - paramiko
     - dill
     - smart_open
+    - psutil
     # Scientific python
     - numpy
     - scipy
