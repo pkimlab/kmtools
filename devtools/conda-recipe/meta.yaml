@@ -33,6 +33,7 @@ requirements:
     - sqlalchemy
     - scikit-learn
     - pytables
+    - pyarrow
     - numba
     - biopython
     - kmbio >=2.0.0
