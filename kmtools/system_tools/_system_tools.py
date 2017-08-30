@@ -289,8 +289,19 @@ class SSHClient:
 
     def __enter__(self):
         logger.debug("Initializing SSH client: '{}'".format(self.ssh_host))
-        self.ssh.connect(self.ssh_host)
+        hostname, username, password = self._parse_ssh_connection()
+        self.ssh.connect(hostname, username=username, password=password)
         return self.ssh
+
+    def _parse_ssh_connection(self):
+        hostname = self.ssh_host
+        username = None
+        password = None
+        if '@' in hostname:
+            username, hostname = self.ssh_host.split('@')
+            if ':' in username:
+                username, password = username.split(':')
+        return hostname, username, password
 
     def __exit__(self, exc_type, exc_value, exc_tb):
         self.ssh.close()
