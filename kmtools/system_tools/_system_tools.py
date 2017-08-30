@@ -88,14 +88,6 @@ def run(system_command, **vargs):
     return p
 
 
-def get_hostname():
-    return run('hostname | cut -d. -f1').stdout
-
-
-def which(bin_name):
-    return run('which ' + bin_name).stdout
-
-
 @contextmanager
 def open_exclusively(filename, mode='a'):
     fd = os.open(filename, os.O_CREAT | os.O_RDWR)
@@ -172,7 +164,10 @@ def decompress(filename):
 
 @contextmanager
 def open_compressed(filename, mode='rb'):
-    """Open a potentially compressed file."""
+    """Open a potentially compressed file.
+
+    .. deprecated:: Use `smart_open` instead.
+    """
     if filename.endswith('.gz'):
         fh = gzip.open(filename, mode)
     elif filename.endswith('.bz2'):
@@ -189,6 +184,9 @@ def open_compressed(filename, mode='rb'):
 
 
 def read_url(url):
+    """
+    .. deprecated:: Use `smart_open` instead.
+    """
     # Read PDB data
     if url.startswith(('ftp:', 'http:', 'https:', )):
         with urllib.request.urlopen(url) as ifh:
@@ -215,6 +213,7 @@ def makedirs(path, mode=None, exist_ok=True):
     if mode is None:
         os.makedirs(path, exist_ok=exist_ok)
     else:
+        # Don't think this works as expected...
         original_umask = os.umask(0)
         try:
             os.makedirs(path, mode=mode, exist_ok=exist_ok)
@@ -263,7 +262,7 @@ def iter_stdout(p):
         yield line
 
 
-def execute(system_command: str, cwd: Optional[str]=None) -> str:
+def execute(system_command: str, cwd: Optional[str] = None) -> str:
     """Execute a system command, passing STDERR to logger.
 
     Source: https://stackoverflow.com/a/4417735/2063031
@@ -281,7 +280,7 @@ def execute(system_command: str, cwd: Optional[str]=None) -> str:
 
 
 # === Run command ====
-class MySSHClient:
+class SSHClient:
 
     def __init__(self, ssh_host):
         self.ssh_host = ssh_host
@@ -312,7 +311,7 @@ def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[
     logger.debug(system_command)
     if host is not None:
         logger.debug("Running on host: '{}'".format(host))
-        with MySSHClient(host) as ssh:
+        with SSHClient(host) as ssh:
             _stdin, _stdout, _stderr = ssh.exec_command(system_command)
             stdout = _stdout.read().decode()
             stderr = _stderr.read().decode()
