@@ -27,6 +27,7 @@ requirements:
     - dill
     - smart_open
     - psutil
+    - pygments
     # Scientific python
     - numpy
     - scipy
