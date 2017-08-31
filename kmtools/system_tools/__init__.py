@@ -3,9 +3,9 @@ __all__ = [
     'exc',
 ]
 from . import *
-from .compression import *
-from .locking import *
-from .pathlib import *
-from .remote import *
-from .retrying import *
-from .subprocess import *
+from ._compression import *
+from ._locking import *
+from ._pathlib import *
+from ._remote import *
+from ._retrying import *
+from ._subprocess import *
