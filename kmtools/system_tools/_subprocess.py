@@ -2,9 +2,13 @@ import functools
 import logging
 import os
 import shlex
+import signal
 import subprocess
 import time
+from contextlib import contextmanager
 from typing import Optional
+
+import psutil
 
 from .remote import SSHClient
 from .retrying import retry_subprocess
@@ -117,3 +121,40 @@ def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[
     else:
         logger.debug("Command ran successfully:\n{}".format(stdout.strip()))
     return stdout, stderr, returncode
+
+
+def kill_child_processes(parent_pid, sig=signal.SIGTERM):
+    try:
+        parent = psutil.Process(parent_pid)
+    except psutil.NoSuchProcess:
+        logger.debug("Counld not find parent process with pid '%s'", parent_pid)
+        return
+    children = parent.children(recursive=True)
+    for process in children:
+        logger.debug("Killing process '%s'...", process)
+        process.send_signal(sig)
+
+
+@contextmanager
+def print_heartbeats():
+    """Spawn a fork that prints a message every minute.
+
+    This is required for travis-ci.
+    """
+    from elaspic import conf
+    # Don't print random stuff if not testing
+    if not conf.CONFIGS['testing']:
+        yield
+        return
+    # Print a heartbeat to keep travis happy.
+    pid = os.fork()
+    if pid == 0:
+        while True:
+            time.sleep(60)
+            logger.info("Subprocess is still running...")
+        os._exit()
+    try:
+        yield
+    finally:
+        os.kill(pid, 15)
+        os.waitpid(pid, 0)

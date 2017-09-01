@@ -17,3 +17,25 @@ def open_exclusively(filename, mode='a'):
         raise
     finally:
         f.close()
+
+
+@contextmanager
+def get_lock(name):
+    lock = None
+
+    def close_lock(lock):
+        if lock is not None:
+            lock.close()
+            os.remove(lock.name)
+
+    while True:
+        try:
+            lock = open(name + '.lock', 'x')
+            yield lock
+            close_lock(lock)
+            break
+        except FileExistsError:
+            time.sleep(60)
+        except:
+            close_lock(lock)
+            raise

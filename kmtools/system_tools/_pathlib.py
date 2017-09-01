@@ -8,6 +8,10 @@ from contextlib import contextmanager
 logger = logging.getLogger(__name__)
 
 
+# =============================================================================
+# Filename string formatting
+# =============================================================================
+
 def slugify(filename_string):
     valid_chars = "-_.()" + string.ascii_letters + string.digits
     return ''.join(c if c in valid_chars else '_' for c in filename_string)
@@ -35,6 +39,21 @@ def remove_extensions(filename, extensions):
     return filename
 
 
+def strip_ps(name, prefix=None, suffix=None):
+    """Remove `prefix` and / or `suffix` from `name`.
+
+    Examples
+    --------
+    >>> strip_ps('good_god_gomer', 'good', 'gomer')
+    '_god_'
+    """
+    if prefix and name.startswith(prefix):
+        name = name[len(prefix):]
+    if suffix and name.endswith(suffix):
+        name = name[:-len(suffix)]
+    return name
+
+
 def format_unprintable(string):
     r"""Escape tabs (\t), newlines (\n), etc. for system commands and printing.
 
@@ -45,6 +64,10 @@ def format_unprintable(string):
     """
     return repr(string).strip("'")
 
+
+# =============================================================================
+# Filesystem operation
+# =============================================================================
 
 @contextmanager
 def switch_paths(working_path):
