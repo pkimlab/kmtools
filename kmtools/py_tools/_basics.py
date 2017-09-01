@@ -1,4 +1,3 @@
-import functools
 import importlib
 import inspect
 import logging
