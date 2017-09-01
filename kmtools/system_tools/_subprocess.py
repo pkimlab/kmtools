@@ -10,8 +10,8 @@ from typing import Optional
 
 import psutil
 
-from .remote import SSHClient
-from .retrying import retry_subprocess
+from ._remote import SSHClient
+from ._retrying import retry_subprocess
 
 logger = logging.getLogger(__name__)
 
