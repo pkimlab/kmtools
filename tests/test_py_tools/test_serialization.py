@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 from hypothesis import given
 from hypothesis.extra.numpy import arrays
@@ -45,4 +47,12 @@ def test_serialization_sets(obj):
 @given(arrays(np.float, (6, 8)))
 def test_serialization_arrays(obj):
     deserialized = serialization(obj)
+    assert np.allclose(deserialized, obj, equal_nan=True)
+
+
+@given(arrays(np.float, (6, 8)))
+def test_json_encoder_numpy(obj):
+    serialized = json.dumps(obj, cls=py_tools.JSONEncoderNumPy)
+    assert isinstance(serialized, str)
+    deserialized = json.loads(serialized)
     assert np.allclose(deserialized, obj, equal_nan=True)

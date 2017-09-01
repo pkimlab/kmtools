@@ -1,9 +1,29 @@
 import codecs
+import json
 import logging
 
 import dill
+import numpy as np
 
 logger = logging.getLogger(__name__)
+
+
+class JSONEncoderNumPy(json.JSONEncoder):
+    """Class for encoding numpy arrays as json documents
+
+    Useful when you want to store numpy arrays inside the `results` attribute
+    of a given class.
+    """
+
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super().default(obj)
 
 
 def serialize_object_to_string(obj):
