@@ -33,6 +33,11 @@ class TestStructFactory:
         assert list(self.point) == ['a', 'b']
         assert tuple(self.point) == ('a', 'b')
 
+    def test_update(self):
+        self.point.update({'a': 100, 'b': 200})
+        assert self.point.a == 100
+        assert self.point['b'] == 200
+
     @pytest.mark.xfail(reason="May be desirable, but don't know how to implement.")
     def test_dict(self):
         assert dict(self.point) == {'a': None, 'b': None}

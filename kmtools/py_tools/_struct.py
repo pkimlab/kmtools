@@ -16,5 +16,10 @@ def struct_factory(name, slots):
         else:
             return self.__slots__[key]
 
-    variables = {'__slots__': tuple(slots), '__setitem__': __setitem__, '__getitem__': __getitem__}
+    def update(self, kwargs):
+        for key, value in kwargs.items():
+            self[key] = value
+
+    variables = {'__slots__': tuple(slots), '__setitem__': __setitem__,
+                 '__getitem__': __getitem__, 'update': update}
     return type(name, (), variables)
