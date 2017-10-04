@@ -51,14 +51,20 @@ def calculate_distance(atom_1, atom_2, cutoff=None):
         return euclidean_distance(a, b)
 
 
-def process_structure(structure: Structure):
+def process_structure(structure: Structure) -> Structure:
     """Process structure inplace.
 
     Note
     ----
     Running this function should not be neccessary if you obtain your structure from an mmCIF file
     using ``use_auth_id=False``.
+
+    Warnings
+    --------
+    - **Very** weird things happen if this function does not
+      make a copy of the structure first.
     """
+    structure = structure.copy()
     models = []
     model_idx = 0
     residue_mapping_fw = {}
@@ -106,6 +112,7 @@ def process_structure(structure: Structure):
     assert len(structure.xtra['residue_mapping_fw']) == \
         len(structure.xtra['residue_mapping_bw'])
     assert all(' ' not in r.resname for r in structure.residues)
+    return structure
 
 
 def _copy_residue(residue, residue_idx):
@@ -113,7 +120,7 @@ def _copy_residue(residue, residue_idx):
         id=residue_idx,
         resname=residue.resname.strip(' '),
         segid=residue.segid,  # ' '
-        children=residue)
+        children=list(residue.atoms))
     if residue.resname != new_residue.resname:
         logger.debug("Renamed residue %s to %s" % (residue.resname, new_residue.resname))
     return new_residue
@@ -127,7 +134,7 @@ def _correct_methylated_lysines(residue):
     logger.debug("New name: %s %s", residue.resname, residue.id)
     atom_idx = 0
     while atom_idx < len(residue):
-        atom_id = residue.ix[atom_idx].id
+        atom_id = list(residue.atoms)[atom_idx].id
         if atom_id not in LYSINE_ATOMS:
             logger.debug(
                 'Removing atom %s from residue %s %s.', atom_id, residue.resname, residue.id)
@@ -176,7 +183,6 @@ def get_interactions(structure, interchain=True):
     Notes
     -----
     - For each chain, `residue.id[1]` is unique.
-
     """
     columns = [
         'structure_id',

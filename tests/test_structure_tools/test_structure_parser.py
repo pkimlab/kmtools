@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 import pytest
 
-from conftest import (DIFFICULT, MISSING, PDB_IDS,  # NO_RESNAME_ATTRIBUTE_PDBS
+from conftest import (DIFFICULT, MISSING, PDB_IDS, NO_RESNAME_ATTRIBUTE_PDBS,
                       random_subset)
 from kmbio.PDB import load
 from kmtools import structure_tools
@@ -11,13 +11,14 @@ from kmtools import structure_tools
 logger = logging.getLogger(__name__)
 
 
-# @pytest.mark.parametrize("pdb_id", random_subset(NO_RESNAME_ATTRIBUTE_PDBS))
-# def test_no_resname_attribute(pdb_id):
-#     """Test for the ``'NoneType' has no resname attribute`` error."""
-#     s = structure_tools.fetch_structure(pdb_id, 'cif', True)
-#     structure_tools.process_structure(s)
-#     assert s
-#
+# @pytest.mark.xfail(reason="process_structure seems to be terribly broken...")
+@pytest.mark.parametrize("pdb_id", random_subset(NO_RESNAME_ATTRIBUTE_PDBS))
+def test_no_resname_attribute(pdb_id):
+    """Test for the ``'NoneType' has no resname attribute`` error."""
+    s = load('rcsb://{}.{}'.format(pdb_id, 'cif'), bioassembly_id=1)
+    s = structure_tools.process_structure(s)
+    assert s
+
 
 @pytest.mark.parametrize("pdb_id, pdb_type, biounit", random_subset([
     (pdb_id, pdb_type, biounit)
@@ -29,22 +30,20 @@ logger = logging.getLogger(__name__)
 ]))
 def test_process_structure(pdb_id, pdb_type, biounit):
     structure = load('rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
-    structure_tools.process_structure(structure)
+    structure = structure_tools.process_structure(structure)
     # Test model ids
-    for model_idx, model in enumerate(structure.values()):
+    for model_idx, model in enumerate(structure):
         assert model_idx == model.id
         assert structure[model_idx] == model
     # Test chain ids
-    for model in structure.values():
-        for chain_idx, chain in enumerate(model.values()):
+    for model in structure:
+        for chain_idx, chain in enumerate(model):
             assert chain_idx == structure_tools.CHAIN_IDS.index(chain.id)
-            assert model.ix[chain_idx] == chain
     # Test residue ids
-    for model in structure.values():
-        for chain in model.values():
-            for residue_idx, residue in enumerate(chain.values()):
+    for model in structure:
+        for chain in model:
+            for residue_idx, residue in enumerate(chain):
                 assert residue_idx == residue.id[1]
-                assert chain.ix[residue_idx] == residue
 
 
 @pytest.mark.parametrize("pdb_id, pdb_type, biounit, interchain", random_subset([
@@ -58,39 +57,14 @@ def test_process_structure(pdb_id, pdb_type, biounit):
 ]))
 def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
     structure = load('rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
+    logger.debug('atoms: %s', list(structure.atoms))
+    # Test 1
     df = structure_tools.get_interactions(structure, interchain)
     logger.info(df.head())
-
-
-@pytest.mark.parametrize("pdb_id, biounit, interchain", random_subset([
-    (pdb_id, biounit, interchain)
-    for pdb_id in PDB_IDS
-    # TODO: enable testing for biounits
-    for biounit in [False]
-    for interchain in [False, True]
-    if (pdb_id, 'pdb', biounit) not in MISSING
-    if pdb_id not in DIFFICULT
-]))
-def test_get_interactions_2(pdb_id, biounit, interchain):
-    s_1 = load('rcsb://{}.pdb'.format(pdb_id), bioassembly_id=int(biounit))
-    s_2 = load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=int(biounit))
-
-    # df_1 = structure_tools.get_interactions(s_1, interchain)
-    # df_2 = structure_tools.get_interactions(s_2, interchain)
-    #
-    # with pytest.raises(AssertionError):
-    #     pd.util.testing.assert_frame_equal(df_1, df_2)
-
-    structure_tools.process_structure(s_1)
-    structure_tools.process_structure(s_2)
-
-    del s_1.ix[-1]
-    del s_2.ix[-1]
-
-    df_1 = structure_tools.get_interactions(s_1, interchain)
-    df_2 = structure_tools.get_interactions(s_2, interchain)
-
-    pd.util.testing.assert_frame_equal(df_1, df_2)
+    # Test that get_interactions forks after process_structure
+    structure = structure_tools.process_structure(structure)
+    df = structure_tools.get_interactions(structure, interchain)
+    logger.info(df.head())
 
 
 @pytest.mark.parametrize("pdb_id, bioassembly_id", random_subset([
