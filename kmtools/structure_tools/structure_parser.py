@@ -67,15 +67,15 @@ def process_structure(structure: Structure):
     hetatm_chain = Chain(CHAIN_IDS[0])
     hetatm_model.add(hetatm_chain)
     hetatm_residue_idx = 0
-    for model in structure.values():
+    for model in structure:
         # Create new model
         new_model = Model(model_idx)
         chain_idx = 0
-        for chain in model.values():
+        for chain in model:
             # Create new chain
             new_chain = Chain(CHAIN_IDS[chain_idx])
             residue_idx = 0
-            for residue in chain.values():
+            for residue in chain:
                 if residue.resname in METHYLATED_LYSINES:
                     residue = _correct_methylated_lysines(residue)
                 if residue.resname in AMINO_ACIDS:
@@ -105,7 +105,7 @@ def process_structure(structure: Structure):
     structure.xtra['residue_mapping_bw'] = {v: k for k, v in residue_mapping_fw.items()}
     assert len(structure.xtra['residue_mapping_fw']) == \
         len(structure.xtra['residue_mapping_bw'])
-    assert all(' ' not in r.resname for r in structure.get_residues())
+    assert all(' ' not in r.resname for r in structure.residues)
 
 
 def _copy_residue(residue, residue_idx):
@@ -113,7 +113,7 @@ def _copy_residue(residue, residue_idx):
         id=residue_idx,
         resname=residue.resname.strip(' '),
         segid=residue.segid,  # ' '
-        children=residue.values())
+        children=residue)
     if residue.resname != new_residue.resname:
         logger.debug("Renamed residue %s to %s" % (residue.resname, new_residue.resname))
     return new_residue
@@ -138,23 +138,23 @@ def _correct_methylated_lysines(residue):
 
 
 def _iter_interchain_ns(structure, interchain=True):
-    for model_1_idx, model_1 in enumerate(structure.values()):
-        for chain_1_idx, chain_1 in enumerate(model_1.values()):
-            atom_list = list(chain_1.get_atoms())
+    for model_1_idx, model_1 in enumerate(structure):
+        for chain_1_idx, chain_1 in enumerate(model_1):
+            atom_list = list(chain_1.atoms)
             if not atom_list:
                 logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
                 continue
             ns = NeighborSearch(atom_list)
-            for model_2_idx, model_2 in enumerate(structure.values()):
+            for model_2_idx, model_2 in enumerate(structure):
                 if model_1_idx > model_2_idx:
                     continue
-                for chain_2_idx, chain_2 in enumerate(model_2.values()):
+                for chain_2_idx, chain_2 in enumerate(model_2):
                     if (interchain and (model_1_idx == model_2_idx and chain_1_idx > chain_2_idx)):
                         continue
                     if not interchain and (model_1_idx != model_2_idx or
                                            chain_1_idx != chain_2_idx):
                         continue
-                    for residue_2_idx, residue_2 in enumerate(chain_2.values()):
+                    for residue_2_idx, residue_2 in enumerate(chain_2):
                         yield model_1.id, chain_1.id, model_2.id, chain_2.id, ns, residue_2
 
 
@@ -197,7 +197,7 @@ def get_interactions(structure, interchain=True):
             continue
         seen = set()
         interacting_residues = [
-            r for a in residue_2.values() for r in ns.search(a.coord, R_CUTOFF, 'R')
+            r for a in residue_2 for r in ns.search(a.coord, R_CUTOFF, 'R')
             if r.id not in seen and not seen.add(r.id)]
         for residue_1 in interacting_residues:
             if residue_1.resname in COMMON_HETATMS:
@@ -265,7 +265,7 @@ def copy_hetatm_chain(structure, hetatm_chain, new_hetatm_chain_id):
     """
     # Old hetatm chain
     hetatm_residues = hetatm_chain.ix[:]
-    hetatm_atoms = list(hetatm_chain.get_atoms())
+    hetatm_atoms = list(hetatm_chain.atoms)
     ns = NeighborSearch(hetatm_atoms)
     # New hetatm chain (keeping only proximal hetatms)
     new_hetatm_chain = Chain(new_hetatm_chain_id)
