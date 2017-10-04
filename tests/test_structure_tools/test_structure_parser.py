@@ -1,6 +1,5 @@
 import logging
 
-import pandas as pd
 import pytest
 
 from conftest import (DIFFICULT, MISSING, PDB_IDS, NO_RESNAME_ATTRIBUTE_PDBS,
