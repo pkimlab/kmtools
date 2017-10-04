@@ -24,8 +24,9 @@ def _retry_urlopen(fn):
 
     Examples
     --------
+    >>> import urllib.request
     >>> with urllib.request.urlopen('http://google.ca') as ifh:
-    >>>     data = _retry_urlopen(ifh.read)()
+    ...     data = _retry_urlopen(ifh.read)()
     """
     _check_exception = functools.partial(check_exception, valid_exc=socket.timeout)
     wrapper = retry(
