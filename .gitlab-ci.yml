@@ -69,7 +69,7 @@ build-py36:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -y -q --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME} >/dev/null
+    - conda install -yq --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME} >/dev/null
     - SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
     # Test
     - pip install -q flake8 pytest pytest-cov codecov pytest-logging hypothesis
@@ -103,7 +103,7 @@ test-py36:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -y -q --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME >/dev/null
+    - conda install -yq --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME >/dev/null
     # Build docs
     - conda install -yq nbconvert ipython ipykernel pandoc
     - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx
