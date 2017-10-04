@@ -20,6 +20,20 @@ def struct_factory(name, slots):
         for key, value in kwargs.items():
             self[key] = value
 
-    variables = {'__slots__': tuple(slots), '__setitem__': __setitem__,
-                 '__getitem__': __getitem__, 'update': update}
-    return type(name, (), variables)
+    def values(self):
+        for key in self:
+            yield self[key]
+
+    def items(self):
+        for key in self:
+            yield key, self[key]
+
+    methods = {
+        '__slots__': tuple(slots),
+        '__setitem__': __setitem__,
+        '__getitem__': __getitem__,
+        'update': update,
+        'values': values,
+        'items': items
+    }
+    return type(name, (), methods)
