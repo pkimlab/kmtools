@@ -1,5 +1,6 @@
 import functools
 import logging
+import socket
 import subprocess
 
 import sqlalchemy as sa
@@ -18,25 +19,47 @@ def check_exception(exc, valid_exc):
     return to_retry
 
 
+def _retry_urlopen(fn):
+    """Retry downloading data from a url after a timeout.
+
+    Examples
+    --------
+    >>> with urllib.request.urlopen('http://google.ca') as ifh:
+    >>>     data = _retry_urlopen(ifh.read)()
+    """
+    _check_exception = functools.partial(check_exception, valid_exc=socket.timeout)
+    wrapper = retry(
+        retry_on_exception=_check_exception,
+        wait_exponential_multiplier=1000,
+        wait_exponential_max=10000,
+        stop_max_attempt_number=5)
+    return wrapper(fn)
+
+
 def retry_database(fn):
     """Decorator to keep probing the database untill you succeed."""
     _check_exception = functools.partial(check_exception, valid_exc=sa.exc.OperationalError)
-    r = retry(
-        retry_on_exception=_check_exception, wait_exponential_multiplier=1000,
-        wait_exponential_max=60000, stop_max_attempt_number=7)
-    return r(fn)
+    wrapper = retry(
+        retry_on_exception=_check_exception,
+        wait_exponential_multiplier=1000,
+        wait_exponential_max=60000,
+        stop_max_attempt_number=7)
+    return wrapper(fn)
 
 
 def retry_subprocess(fn):
     _check_exception = functools.partial(check_exception, valid_exc=subprocess.SubprocessError)
-    r = retry(
-        retry_on_exception=_check_exception, wait_exponential_multiplier=1000,
-        wait_exponential_max=60000, stop_max_attempt_number=7)
-    return r(fn)
+    wrapper = retry(
+        retry_on_exception=_check_exception,
+        wait_exponential_multiplier=1000,
+        wait_exponential_max=60000,
+        stop_max_attempt_number=7)
+    return wrapper(fn)
 
 
 def retry_archive(fn):
     """Decorator to keep probing the database untill you succeed."""
     _check_exception = functools.partial(check_exception, valid_exc=system_tools.exc.ArchiveError)
-    r = retry(retry_on_exception=_check_exception, wait_fixed=2000, stop_max_attempt_number=2)
-    return r(fn)
+    wrapper = retry(
+        retry_on_exception=_check_exception, wait_fixed=2000, stop_max_attempt_number=2)
+    return wrapper(fn)
