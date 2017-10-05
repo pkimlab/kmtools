@@ -142,9 +142,9 @@ def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[
         raise subprocess.CalledProcessError(
             command=system_command, host=host, stdout=stdout, stderr=stderr, returncode=returncode)
     elif 'warning' in stdout.lower() or 'error' in stdout.lower():
-        logger.warning("Command ran with warnings / errors:\n{}".format(stdout.strip()))
+        logger.warning("Command ran with warnings / errors! (%s)", stdout.strip())
     else:
-        logger.debug("Command ran successfully:\n{}".format(stdout.strip()))
+        logger.debug("Command ran successfully! (%s)", stdout.strip())
     return stdout, stderr, returncode
 
 
