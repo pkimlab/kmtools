@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE PubmedArticleSet SYSTEM "http://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_170101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">1845</PMID>
+      <DateCreated>
+        <Year>1976</Year>
+        <Month>03</Month>
+        <Day>20</Day>
+      </DateCreated>
+      <DateCompleted>
+        <Year>1976</Year>
+        <Month>03</Month>
+        <Day>20</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2004</Year>
+        <Month>11</Month>
+        <Day>17</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Print">0036-5513</ISSN>
+          <JournalIssue CitedMedium="Print">
+            <Volume>35</Volume>
+            <Issue>8</Issue>
+            <PubDate>
+              <Year>1975</Year>
+              <Month>Dec</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Scandinavian journal of clinical and laboratory investigation</Title>
+          <ISOAbbreviation>Scand. J. Clin. Lab. Invest.</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Diagnosis of liver diseases by laboratory results and discriminant analysis. Identification of best combinations of laboratory tests.</ArticleTitle>
+        <Pagination>
+          <MedlinePgn>713-21</MedlinePgn>
+        </Pagination>
+        <Abstract>
+          <AbstractText>Patients with different liver diseases were studied by discriminant analysis. Groups of patients classified mainly on the basis of liver biopsy findings showed functional differences which permitted a consistent reclassification by discriminant functions using laboratory results. Optimal combinations of laboratory tests for the separation of liver diseases were defined. Different combinations were found, dependent on the subsets of liver diseases studied.</AbstractText>
+        </Abstract>
+        <AuthorList CompleteYN="Y">
+          <Author ValidYN="Y">
+            <LastName>Solberg</LastName>
+            <ForeName>H E</ForeName>
+            <Initials>HE</Initials>
+          </Author>
+          <Author ValidYN="Y">
+            <LastName>Skrede</LastName>
+            <ForeName>S</ForeName>
+            <Initials>S</Initials>
+          </Author>
+          <Author ValidYN="Y">
+            <LastName>Blomhoff</LastName>
+            <ForeName>J P</ForeName>
+            <Initials>JP</Initials>
+          </Author>
+        </AuthorList>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Scand J Clin Lab Invest</MedlineTA>
+        <NlmUniqueID>0404375</NlmUniqueID>
+        <ISSNLinking>0036-5513</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D001798">Blood Proteins</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D008055">Lipids</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.3.2.2</RegistryNumber>
+          <NameOfSubstance UI="D005723">gamma-Glutamyltransferase</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.6.1.1</RegistryNumber>
+          <NameOfSubstance UI="D001219">Aspartate Aminotransferases</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.6.1.2</RegistryNumber>
+          <NameOfSubstance UI="D000410">Alanine Transaminase</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 3.1.3.1</RegistryNumber>
+          <NameOfSubstance UI="D000469">Alkaline Phosphatase</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000208" MajorTopicYN="N">Acute Disease</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000410" MajorTopicYN="N">Alanine Transaminase</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000469" MajorTopicYN="N">Alkaline Phosphatase</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D001219" MajorTopicYN="N">Aspartate Aminotransferases</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D001798" MajorTopicYN="N">Blood Proteins</DescriptorName>
+          <QualifierName UI="Q000032" MajorTopicYN="N">analysis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002908" MajorTopicYN="N">Chronic Disease</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003936" MajorTopicYN="Y">Diagnosis, Computer-Assisted</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006505" MajorTopicYN="N">Hepatitis</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006506" MajorTopicYN="N">Hepatitis A</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008055" MajorTopicYN="N">Lipids</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008103" MajorTopicYN="N">Liver Cirrhosis</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008105" MajorTopicYN="N">Liver Cirrhosis, Biliary</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008107" MajorTopicYN="N">Liver Diseases</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="Y">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008113" MajorTopicYN="N">Liver Neoplasms</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="Y">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005723" MajorTopicYN="N">gamma-Glutamyltransferase</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>1975</Year>
+          <Month>12</Month>
+          <Day>1</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>1975</Year>
+          <Month>12</Month>
+          <Day>1</Day>
+          <Hour>0</Hour>
+          <Minute>1</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>1975</Year>
+          <Month>12</Month>
+          <Day>1</Day>
+          <Hour>0</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">1845</ArticleId>
+        <ArticleId IdType="doi">10.3109/00365517509095802</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">21</PMID>
+      <DateCreated>
+        <Year>1976</Year>
+        <Month>01</Month>
+        <Day>26</Day>
+      </DateCreated>
+      <DateCompleted>
+        <Year>1976</Year>
+        <Month>01</Month>
+        <Day>26</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2016</Year>
+        <Month>12</Month>
+        <Day>03</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Print">0004-4172</ISSN>
+          <JournalIssue CitedMedium="Print">
+            <Volume>25</Volume>
+            <Issue>9</Issue>
+            <PubDate>
+              <Year>1975</Year>
+              <Month>Sep</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Arzneimittel-Forschung</Title>
+          <ISOAbbreviation>Arzneimittelforschung</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>[Biochemical studies on camomile components/III. In vitro studies about the antipeptic activity of (--)-alpha-bisabolol (author's transl)].</ArticleTitle>
+        <Pagination>
+          <MedlinePgn>1352-4</MedlinePgn>
+        </Pagination>
+        <Abstract>
+          <AbstractText>(--)-alpha-Bisabolol has a primary antipeptic action depending on dosage, which is not caused by an alteration of the pH-value. The proteolytic activity of pepsin is reduced by 50 percent through addition of bisabolol in the ratio of 1/0.5. The antipeptic action of bisabolol only occurs in case of direct contact. In case of a previous contact with the substrate, the inhibiting effect is lost.</AbstractText>
+        </Abstract>
+        <AuthorList CompleteYN="Y">
+          <Author ValidYN="Y">
+            <LastName>Isaac</LastName>
+            <ForeName>O</ForeName>
+            <Initials>O</Initials>
+          </Author>
+          <Author ValidYN="Y">
+            <LastName>Thiemer</LastName>
+            <ForeName>K</ForeName>
+            <Initials>K</Initials>
+          </Author>
+        </AuthorList>
+        <Language>ger</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D004740">English Abstract</PublicationType>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+        <VernacularTitle>Biochemische Untersuchungen von Kamilleninhaltsstoffen. III. In-vitro-Versuche über die antipeptische Wirkung des (-)-alpha-Bisabolols</VernacularTitle>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Germany</Country>
+        <MedlineTA>Arzneimittelforschung</MedlineTA>
+        <NlmUniqueID>0372660</NlmUniqueID>
+        <ISSNLinking>0004-4172</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D006454">Hemoglobins</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D012717">Sesquiterpenes</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>42HK56048U</RegistryNumber>
+          <NameOfSubstance UI="D014443">Tyrosine</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>5V2JDO056X</RegistryNumber>
+          <NameOfSubstance UI="D014238">Trichloroacetic Acid</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 3.4.23.1</RegistryNumber>
+          <NameOfSubstance UI="D010434">Pepsin A</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D004305" MajorTopicYN="N">Dose-Response Relationship, Drug</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006454" MajorTopicYN="N">Hemoglobins</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006863" MajorTopicYN="N">Hydrogen-Ion Concentration</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D066298" MajorTopicYN="N">In Vitro Techniques</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008722" MajorTopicYN="N">Methods</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010434" MajorTopicYN="N">Pepsin A</DescriptorName>
+          <QualifierName UI="Q000037" MajorTopicYN="Y">antagonists &amp; inhibitors</QualifierName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010946" MajorTopicYN="N">Plants, Medicinal</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012717" MajorTopicYN="N">Sesquiterpenes</DescriptorName>
+          <QualifierName UI="Q000494" MajorTopicYN="Y">pharmacology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D013056" MajorTopicYN="N">Spectrophotometry, Ultraviolet</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D014238" MajorTopicYN="N">Trichloroacetic Acid</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D014443" MajorTopicYN="N">Tyrosine</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>1975</Year>
+          <Month>9</Month>
+          <Day>1</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>1975</Year>
+          <Month>9</Month>
+          <Day>1</Day>
+          <Hour>0</Hour>
+          <Minute>1</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>1975</Year>
+          <Month>9</Month>
+          <Day>1</Day>
+          <Hour>0</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">21</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>
