@@ -63,7 +63,7 @@ def _find_authors(child):
 
 
 def _find_journal(child):
-    journal = child.find('MedlineCitation/Article/Journal/ISOAbbreviation')
+    journal = child.find('MedlineCitation/MedlineJournalInfo/MedlineTA')
     return None if journal is None else journal.text.strip()
 
 
