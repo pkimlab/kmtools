@@ -5,7 +5,15 @@ from typing import List
 from kmtools import system_tools
 
 PubmedRow = namedtuple("PubmedRow", [
-    'pmid', 'title', 'authors', 'journal', 'year_published', 'abstract', 'mesh_terms', 'doi'
+    'pmid',
+    'title',
+    'authors',
+    'journal',
+    'year_published',
+    'abstract',
+    'mesh_terms',
+    'doi',
+    'pmc',
 ])
 
 
@@ -34,7 +42,8 @@ def _process_child(child):
         _find_year_published(child),
         _find_abstract(child),
         _find_mesh_terms(child),
-        _find_doi(child),)
+        _find_doi(child),
+        _find_pmc(child),)
     return row
 
 
@@ -76,4 +85,10 @@ def _find_mesh_terms(child):
 def _find_doi(child) -> str:
     ids = child.findall('PubmedData/ArticleIdList/ArticleId')
     ids = [id_ for id_ in ids if id_.attrib['IdType'] == 'doi']
+    return None if not ids else ids[0].text.strip()
+
+
+def _find_pmc(child) -> str:
+    ids = child.findall('PubmedData/ArticleIdList/ArticleId')
+    ids = [id_ for id_ in ids if id_.attrib['IdType'] == 'pmc']
     return None if not ids else ids[0].text.strip()

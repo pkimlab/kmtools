@@ -34,6 +34,6 @@ def test_parse_pubmed_xml_file(xml_file):
     df = pd.DataFrame(data)
     assert df.doi.notnull().sum() >= 72
     assert df.abstract.notnull().sum() >= 967
-    assert df.shape == (1861, 8)
+    assert df.shape == (1861, 9)
     logger.info(df.tail())
     logger.info(df.year_published.isnull().sum())
