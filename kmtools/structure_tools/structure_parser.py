@@ -1,22 +1,10 @@
-"""
-Conventions
------------
-
-ID           | IDX                     | IDX starts with  | ID starts with |
--------------|-------------------------|----------------- | -------------- |
-`model_id`   | `model_idx`             | 0                | ?              |
-`chain_id`   | `CHAIN_IDS[chain_idx]`  | 0                | A              |
-`residue_id` | `('', residue_idx, '')` | 0                | ?              |
-"""
 import logging
 
 import numpy as np
-import pandas as pd
 
 from kmbio.PDB import Chain, Model, NeighborSearch, Residue, Structure
-from kmtools import df_tools
-from kmtools.structure_tools import (
-    AAA_DICT, AMINO_ACIDS, CHAIN_IDS, COMMON_HETATMS, LYSINE_ATOMS, METHYLATED_LYSINES)
+from kmtools.structure_tools import (AAA_DICT, AMINO_ACIDS, CHAIN_IDS, LYSINE_ATOMS,
+                                     METHYLATED_LYSINES)
 
 logger = logging.getLogger(__name__)
 
@@ -87,14 +75,15 @@ def process_structure(structure: Structure) -> Structure:
                 if residue.resname in AMINO_ACIDS:
                     new_residue = _copy_residue(residue, (' ', residue_idx, ' '))
                     new_chain.add(new_residue)
-                    residue_mapping_fw[(model.id, chain.id, residue.id)] = (
-                        new_model.id, new_chain.id, new_residue.id)
+                    residue_mapping_fw[(model.id, chain.id,
+                                        residue.id)] = (new_model.id, new_chain.id, new_residue.id)
                     residue_idx += 1
                 else:
                     new_residue = _copy_residue(residue, (' ', hetatm_residue_idx, ' '))
                     hetatm_chain.add(new_residue)
-                    residue_mapping_fw[(model.id, chain.id, residue.id)] = (
-                        hetatm_model.id, hetatm_chain.id, new_residue.id)
+                    residue_mapping_fw[(model.id, chain.id,
+                                        residue.id)] = (hetatm_model.id, hetatm_chain.id,
+                                                        new_residue.id)
                     hetatm_residue_idx += 1
             # Finallize chain
             new_model.add(new_chain)
@@ -136,90 +125,12 @@ def _correct_methylated_lysines(residue):
     while atom_idx < len(residue):
         atom_id = list(residue.atoms)[atom_idx].id
         if atom_id not in LYSINE_ATOMS:
-            logger.debug(
-                'Removing atom %s from residue %s %s.', atom_id, residue.resname, residue.id)
+            logger.debug('Removing atom %s from residue %s %s.', atom_id, residue.resname,
+                         residue.id)
             del residue[atom_id]
         else:
             atom_idx += 1
     return residue
-
-
-def _iter_interchain_ns(structure, interchain=True):
-    for model_1_idx, model_1 in enumerate(structure):
-        for chain_1_idx, chain_1 in enumerate(model_1):
-            atom_list = list(chain_1.atoms)
-            if not atom_list:
-                logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
-                continue
-            ns = NeighborSearch(atom_list)
-            for model_2_idx, model_2 in enumerate(structure):
-                if model_1_idx > model_2_idx:
-                    continue
-                for chain_2_idx, chain_2 in enumerate(model_2):
-                    if (interchain and (model_1_idx == model_2_idx and chain_1_idx > chain_2_idx)):
-                        continue
-                    if not interchain and (model_1_idx != model_2_idx or
-                                           chain_1_idx != chain_2_idx):
-                        continue
-                    for residue_2_idx, residue_2 in enumerate(chain_2):
-                        yield model_1.id, chain_1.id, model_2.id, chain_2.id, ns, residue_2
-
-
-def get_interactions(structure, interchain=True):
-    """Return residue-residue interactions within and between chains in `structure`.
-
-    .. todo::
-
-        This could probably be sped up by using the
-        :py:meth:`kmbio.PDB.NeighborSearch.search_all` method.
-
-    Parameters
-    ----------
-    structure : kmbio.PDB.Structure.Structure
-        Structure to analyse.
-    interchain : :class:`bool`
-        Whether to include interactions between chains.
-
-    Notes
-    -----
-    - For each chain, `residue.id[1]` is unique.
-    """
-    columns = [
-        'structure_id',
-        'model_id_1',
-        'model_id_2',
-        'chain_id_1',
-        'chain_id_2',
-        'residue_id_1',
-        'residue_id_2',
-        'residue_name_1',
-        'residue_name_2',
-        'residue_aa_1',
-        'residue_aa_2', ]
-    results = []
-    for model_1_id, chain_1_id, model_2_id, chain_2_id, ns, residue_2 in (_iter_interchain_ns(
-            structure, interchain=interchain)):
-        if residue_2.resname in COMMON_HETATMS:
-            continue
-        seen = set()
-        interacting_residues = [
-            r for a in residue_2 for r in ns.search(a.coord, R_CUTOFF, 'R')
-            if r.id not in seen and not seen.add(r.id)]
-        for residue_1 in interacting_residues:
-            if residue_1.resname in COMMON_HETATMS:
-                continue
-            row = (
-                structure.id, model_1_id, model_2_id, chain_1_id, chain_2_id, residue_1.id[1],
-                residue_2.id[1], residue_1.resname, residue_2.resname,
-                AAA_DICT.get(residue_1.resname), AAA_DICT.get(residue_2.resname))
-            results.append(row)
-    # df
-    df = pd.DataFrame(results, columns=columns)
-    df_reverse = df.rename(columns=df_tools.get_reverse_column).reindex(columns=pd.Index(columns))
-    df = pd.concat([df, df_reverse]).drop_duplicates()
-    df = df.sort_values(columns)  # will not work well for uppercase / lowercase columns
-    df.index = range(len(df))
-    return df
 
 
 def extract(structure, mcd=None, select_hetatms=None):
@@ -240,9 +151,9 @@ def extract(structure, mcd=None, select_hetatms=None):
         new_model.add(new_chain)
         residue_mapping_fw.update({
             k: (new_model.id, new_chain.id, r_id)
-            for k,
-            (m_id, c_id, r_id) in structure.xtra['residue_mapping_fw'].items()
-            if m_id == model_id and c_id == chain_id and r_id[1] in domain_def})
+            for k, (m_id, c_id, r_id) in structure.xtra['residue_mapping_fw'].items()
+            if m_id == model_id and c_id == chain_id and r_id[1] in domain_def
+        })
 
     # Hetatm chain
     if select_hetatms:
@@ -255,9 +166,9 @@ def extract(structure, mcd=None, select_hetatms=None):
         hetatm_residue_ids = set(r.id for r in new_hetatm_chain)
         residue_mapping_fw.update({
             k: (new_model.id, new_chain.id, r_id)
-            for k,
-            (m_id, c_id, r_id) in structure.xtra['residue_mapping_fw'].items()
-            if m_id == hetatm_model.id and c_id == hetatm_chain.id and r_id in hetatm_residue_ids})
+            for k, (m_id, c_id, r_id) in structure.xtra['residue_mapping_fw'].items()
+            if m_id == hetatm_model.id and c_id == hetatm_chain.id and r_id in hetatm_residue_ids
+        })
 
     structure.clear()
     structure.add(new_model)
@@ -277,7 +188,8 @@ def copy_hetatm_chain(structure, hetatm_chain, new_hetatm_chain_id):
     new_hetatm_chain = Chain(new_hetatm_chain_id)
     new_hetatm_residues = [
         residue for residue in hetatm_residues
-        if any(ns.search(a.coord, R_CUTOFF) for a in residue)]
+        if any(ns.search(a.coord, R_CUTOFF) for a in residue)
+    ]
     for new_hetatm_residue in new_hetatm_residues:
         new_hetatm_chain.add(new_hetatm_residue)
     return new_hetatm_chain

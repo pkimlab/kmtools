@@ -18,3 +18,4 @@ from .constants import *
 from .exc import *
 from .structure_parser import *
 from .elaspic_legacy import *
+from .interactions import *
