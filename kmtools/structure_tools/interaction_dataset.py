@@ -18,7 +18,7 @@ CORE_ID_COLUMNS = ['structure_id', 'model_id', 'chain_id']
 INTERFACE_ID_COLUMNS = ['structure_id', 'model_id_1', 'model_id_2', 'chain_id_1', 'chain_id_2']
 
 
-def main(filename: str, r_cutoff: float):
+def generate_interaction_dataset(filename: str, r_cutoff: float):
     pdb_id = op.basename(filename)[:4]
     pdb_path = op.dirname(filename)
 
