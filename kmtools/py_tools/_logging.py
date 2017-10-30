@@ -12,8 +12,16 @@ from contextlib import contextmanager
 
 getLogger = logging.getLogger
 
+LOGGING_LEVELS = {
+    0: logging.ERROR,
+    1: logging.WARNING,
+    2: logging.INFO,
+    3: logging.DEBUG,
+}
+
 
 class Message(object):
+
     def __init__(self, fmt, args):
         self.fmt = fmt
         self.args = args
@@ -26,6 +34,7 @@ class Message(object):
 
 
 class StyleAdapter(logging.LoggerAdapter):
+
     def __init__(self, logger, extra=None):
         super(StyleAdapter, self).__init__(logger, extra or {})
 
@@ -36,6 +45,7 @@ class StyleAdapter(logging.LoggerAdapter):
 
 
 class LoggingContext(object):
+
     def __init__(self, logger, level=None, handler=None, close=True):
         self.logger = logger
         self.level = level
@@ -80,14 +90,17 @@ def patch_getLogger():
 
 def log_function_calls(logger):
     """Log every call of the decorated function."""
+
     def decorator(fn):
+
         @functools.wraps(fn)
         def wrapper(*args, **kwargs):
-            logger.warning(
-                fn.__name__ + '(' + ', '.join(args) +
-                ', '.join('{}={}'.format(k, v) for k, v in kwargs.items()) + ')')
+            logger.warning(fn.__name__ + '(' + ', '.join(args) +
+                           ', '.join('{}={}'.format(k, v) for k, v in kwargs.items()) + ')')
             return fn(*args, **kwargs)
+
         return wrapper
+
     return decorator
 
 
