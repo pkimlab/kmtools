@@ -14,9 +14,9 @@ __all__ = [
     'sifts',
     'interaction_dataset',
 ]
-from . import *
 from .constants import *
-from .exc import *
-from .structure_parser import *
 from .elaspic_legacy import *
-from .interactions import *
+from .exc import *
+from .interaction import *
+from .structure_parser import *
+from . import *

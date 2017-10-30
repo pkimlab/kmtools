@@ -1,3 +1,5 @@
+import logging
+
 import fire
 
 from kmtools import structure_tools
@@ -13,4 +15,6 @@ def main():
 
 if __name__ == '__main__':
     import sys
+    logging.basicConfig(level=logging.INFO, format='%(message)s')
+    logging.getLogger('kmbio.PDB.Atom').setLevel(logging.WARNING)
     sys.exit(main())

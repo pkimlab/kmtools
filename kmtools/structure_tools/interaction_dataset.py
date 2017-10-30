@@ -2,7 +2,7 @@ import hashlib
 import logging
 import os.path as op
 import warnings
-from typing import Tuple
+from typing import Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -22,27 +22,34 @@ def generate_interaction_dataset(filename: str, r_cutoff: float):
     pdb_id = op.basename(filename)[:4]
     pdb_path = op.dirname(filename)
 
-    structure = kmbio.PDB.load(filename, type='cif', biounit_id=1)
+    try:
+        structure = kmbio.PDB.load(filename, bioassembly_id=1, use_auth_id=False)
+    except kmbio.PDB.exceptions.BioassemblyError as e:
+        logger.error(e)
+        structure = kmbio.PDB.load(filename, bioassembly_id=0, use_auth_id=False)
 
     interactions = structure_tools.get_interactions(structure, r_cutoff=r_cutoff, interchain=True)
     interactions_core, interactions_interface = process_interactions(interactions)
 
+    # Group interactions by chain / chan pair
     interactions_core_aggbychain = process_interactions_core(structure, interactions_core)
     interactions_interface_aggbychain = process_interactions_interface(
         structure, interactions_interface)
 
+    # Drop duplicate rows?
     interactions_core, interactions_core_aggbychain = drop_duplicates_core(
-        *process_interactions_core(structure, interactions_core))
-
+        interactions_core, interactions_core_aggbychain)
     interactions_interface, interactions_interface_aggbychain = drop_duplicates_interface(
-        *process_interactions_interface(structure, interactions_interface))
+        interactions_interface, interactions_interface_aggbychain)
 
-    save_csv(interactions_core, op.join(pdb_path, '{}_core_chain.tsv.gz'.format(pdb_id)))
-    save_csv(interactions_core_aggbychain,
-             op.join(pdb_path, '{}_core_residue.tsv.gz'.format(pdb_id)))
-    save_csv(interactions_interface, op.join(pdb_path, '{}_interface_chain.tsv.gz'.format(pdb_id)))
-    save_csv(interactions_interface_aggbychain,
+    # Save
+    save_csv(interactions_core, op.join(pdb_path, '{}_core_residue.tsv.gz'.format(pdb_id)))
+    save_csv(interactions_core_aggbychain, op.join(pdb_path,
+                                                   '{}_core_chain.tsv.gz'.format(pdb_id)))
+    save_csv(interactions_interface,
              op.join(pdb_path, '{}_interface_residue.tsv.gz'.format(pdb_id)))
+    save_csv(interactions_interface_aggbychain,
+             op.join(pdb_path, '{}_interface_chain.tsv.gz'.format(pdb_id)))
 
 
 def process_interactions(interactions: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
@@ -55,7 +62,9 @@ def process_interactions(interactions: pd.DataFrame) -> Tuple[pd.DataFrame, pd.D
         ] \
         .drop(pd.Index(['model_id_2', 'chain_id_2']), axis=1) \
         .rename(columns={'model_id_1': 'model_id', 'chain_id_1': 'chain_id'}) \
-        .assign(residue_pair=lambda df: (df.residue_id_1, df.residue_id_2))
+        .copy()
+    interactions_core['residue_pair'] = \
+        interactions_core[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
 
     # Inter-chain interactions
     interactions_interface = \
@@ -63,7 +72,9 @@ def process_interactions(interactions: pd.DataFrame) -> Tuple[pd.DataFrame, pd.D
             (interactions['model_id_1'] != interactions['model_id_2']) |
             (interactions['chain_id_1'] != interactions['chain_id_2'])
         ] \
-        .assign(residue_pair=lambda df: (df.residue_id_1, df.residue_id_2))
+        .copy()
+    interactions_interface['residue_pair'] = \
+        interactions_interface[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
 
     # Make sure everything adds up
     assert len(interactions) == len(interactions_core) + len(interactions_interface)
@@ -73,14 +84,18 @@ def process_interactions(interactions: pd.DataFrame) -> Tuple[pd.DataFrame, pd.D
 def process_interactions_core(structure: Structure, interactions_core: pd.DataFrame
                              ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Calculate aggregate features for interactions within each chain."""
+    assert 'residue_pair' in interactions_core
+
     interactions_core_aggbychain = \
         interactions_core \
-        .groupby(CORE_ID_COLUMNS, as_index=False)['residue_pair'] \
-        .agg(lambda x: tuple(x))
+        .groupby(CORE_ID_COLUMNS) \
+        ['residue_pair'] \
+        .agg(lambda x: tuple(x)) \
+        .reset_index()
 
     interactions_core_aggbychain['protein_sequence'] = [
         extract_aa_sequence(structure, model_id, chain_id)
-        for (model_id, chain_id) in interactions_core_aggbychain[['model_id', 'chain_id']].values
+        for model_id, chain_id in interactions_core_aggbychain[['model_id', 'chain_id']].values
     ]
 
     interactions_core_aggbychain['protein_sequence_hash'] = \
@@ -96,7 +111,7 @@ def process_interactions_core(structure: Structure, interactions_core: pd.DataFr
         interactions_core_aggbychain['residue_pair'] \
         .apply(hash_residue_pair)
 
-    return interactions_core, interactions_core_aggbychain
+    return interactions_core_aggbychain
 
 
 def process_interactions_interface(structure: Structure,
@@ -109,8 +124,10 @@ def process_interactions_interface(structure: Structure,
 
     interactions_interface_aggbychain = \
         interactions_interface \
-        .groupby(INTERFACE_ID_COLUMNS, as_index=False)['residue_pair'] \
-        .agg(lambda x: tuple(x))
+        .groupby(INTERFACE_ID_COLUMNS) \
+        ['residue_pair'] \
+        .agg(lambda x: tuple(x)) \
+        .reset_index()
 
     # Interacting partner 1 properties
     interactions_interface_aggbychain['protein_sequence_1'] = [
@@ -150,10 +167,12 @@ def drop_duplicates_core(
     Todo:
         * Figure out if we actually need this...
     """
-    # Remove hetatm chain
-    if interactions_core_aggbychain.iloc[-1]['protein_sequence'] is None:
-        logger.info("Removing last HETATM chain.")
-        interactions_core_aggbychain = interactions_core_aggbychain.iloc[:-1]
+    # Remove hetatm chains
+    _before = len(interactions_core_aggbychain)
+    interactions_core_aggbychain = \
+        interactions_core_aggbychain[
+            interactions_core_aggbychain['protein_sequence'].notnull()]
+    logger.debug("Removed %s hetatm chains!", _before - len(interactions_core_aggbychain))
 
     # Remove duplicates
     _before = interactions_core_aggbychain.shape[0]
@@ -193,26 +212,27 @@ def drop_duplicates_interface(
     return interactions_interface, interactions_interface_aggbychain
 
 
-def extract_aa_sequence(structure: Structure, model_id: int, chain_id: str) -> str:
+def extract_aa_sequence(structure: Structure, model_id: int, chain_id: str) -> Optional[str]:
     """Return amino acid sequence of all residues in chain.
 
     Residues which cannot be assigned a single-character amino acid code are skipped.
     """
     aa_list = []
-    skipped_resname_list = set()
+    skipped_resnames = set()
     for residue in structure[model_id][chain_id]:
         try:
             aa_list.append(AAA_DICT[residue.resname])
         except KeyError:
-            skipped_resname_list.add(residue.resname)
-    if skipped_resname_list:
-        warnings.warn("Skipped the following residues when generating chain sequence:\n"
-                      "{}".format(skipped_resname_list))
+            skipped_resnames.add(residue.resname)
+    if skipped_resnames:
+        warning = ("Skipped the following residues when generating chain sequence: {}"
+                   .format(skipped_resnames))
+        warnings.warn(warning)
     aa_string = ''.join(aa_list)
-    return aa_string
+    return aa_string if aa_string else None
 
 
-def extract_residue_sequence(structure: Structure, model_id: int, chain_id: str) -> str:
+def extract_residue_sequence(structure: Structure, model_id: int, chain_id: str) -> Optional[str]:
     """Return comma-delimited residue sequence of all residues in chain."""
     aa_string = ','.join(r.resname for r in structure[model_id][chain_id])
     return aa_string if aa_string else None

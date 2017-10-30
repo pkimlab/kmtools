@@ -46,7 +46,8 @@ def get_interactions(structure: Structure, r_cutoff: float = 5.0,
         A DataFrame with all interactions.
     """
     interactions = _get_interactions(structure, r_cutoff, interchain)
-    interaction_df = pd.DataFrame(interactions)
+    # Specify `columns` in case the DataFrame is empty
+    interaction_df = pd.DataFrame(interactions, columns=Interaction._fields)
     interaction_df = _add_reverse_interactions(interaction_df)
     return interaction_df
 
@@ -71,11 +72,15 @@ def _get_interactions(structure: Structure, r_cutoff: float,
                 if residue_1.resname in COMMON_HETATMS:
                     continue
                 residue_1_idx = chain_1_residue_ids.index(residue_1.id)
-                row = (structure.id, model_1.id, model_2.id, chain_1.id, chain_2.id, residue_1_idx,
-                       residue_2_idx, residue_1.id[1], residue_2.id[1], residue_1.resname,
-                       residue_2.resname, AAA_DICT.get(residue_1.resname),
-                       AAA_DICT.get(residue_2.resname))
+                if (model_1.id == model_2.id and chain_1.id == chain_2.id and
+                        residue_1_idx >= residue_2_idx):
+                    continue
+                row = Interaction(structure.id, model_1.id, model_2.id, chain_1.id, chain_2.id,
+                                  residue_1_idx, residue_2_idx, residue_1.id[1], residue_2.id[1],
+                                  residue_1.resname, residue_2.resname,
+                                  AAA_DICT.get(residue_1.resname), AAA_DICT.get(residue_2.resname))
                 results.append(row)
+    return results
 
 
 def _add_reverse_interactions(interaction_df: pd.DataFrame) -> pd.DataFrame:
@@ -89,17 +94,17 @@ def _add_reverse_interactions(interaction_df: pd.DataFrame) -> pd.DataFrame:
         between residue 1 and residue 2, there is a corresponding interaction between
         residue 2 and residue 1.
     """
-    interactions_reverse_df = \
+    interaction_reverse_df = \
         interaction_df \
         .rename(columns=df_tools.reverse_column) \
         .reindex(columns=pd.Index(interaction_df.columns))
 
     _length_before = len(interaction_df)
-    df = pd.concat([interaction_df, interactions_reverse_df]).drop_duplicates()
+    df = pd.concat([interaction_df, interaction_reverse_df]).drop_duplicates()
     # Make sure that there were no duplicates
     assert len(df) == _length_before * 2
-    # Will not work well for uppercase / lowercase columns
-    df = df.sort_values(interaction_df.columns)
+    # NB: Sorting will not work well for a mix of uppercase and lowercase columns
+    df = df.sort_values(interaction_df.columns.tolist())
     df.index = range(len(df))
     return df
 
