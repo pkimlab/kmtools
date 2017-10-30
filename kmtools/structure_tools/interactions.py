@@ -1,37 +1,59 @@
 import logging
+from collections import namedtuple
+from typing import Iterable, List
 
 import pandas as pd
 
-from kmbio.PDB import NeighborSearch
+from kmbio.PDB import NeighborSearch, Structure
 from kmtools import df_tools
 from kmtools.structure_tools import AAA_DICT, COMMON_HETATMS
 
 logger = logging.getLogger(__name__)
 
-
-def _iter_interchain_ns(structure, interchain=True):
-    for model_1_idx, model_1 in enumerate(structure):
-        for chain_1_idx, chain_1 in enumerate(model_1):
-            atom_list = list(chain_1.atoms)
-            if not atom_list:
-                logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
-                continue
-            chain_1_ns = NeighborSearch(atom_list)
-            if not interchain:
-                yield (model_1_idx, model_1, chain_1_idx, chain_1, chain_1_ns, model_1_idx,
-                       model_1, chain_1_idx, chain_1)
-            else:
-                for model_2_idx, model_2 in enumerate(structure):
-                    if model_1_idx > model_2_idx:
-                        continue
-                    for chain_2_idx, chain_2 in enumerate(model_2):
-                        if model_1_idx == model_2_idx and chain_1_idx > chain_2_idx:
-                            continue
-                        yield (model_1_idx, model_1, chain_1_idx, chain_1, chain_1_ns, model_2_idx,
-                               model_2, chain_2_idx, chain_2)
+Interaction = namedtuple("Interaction", [
+    'structure_id',
+    'model_id_1',
+    'model_id_2',
+    'chain_id_1',
+    'chain_id_2',
+    'residue_idx_1',
+    'residue_idx_2',
+    'residue_id_1',
+    'residue_id_2',
+    'residue_name_1',
+    'residue_name_2',
+    'residue_aa_1',
+    'residue_aa_2',
+])
 
 
-def _get_interactions(structure, r_cutoff, interchain):
+def get_interactions(structure: Structure, r_cutoff: float = 5.0,
+                     interchain: bool = True) -> pd.DataFrame:
+    """Return residue-residue interactions within and between chains in `structure`.
+
+    Note:
+        For each chain, ``residue.id[1]`` is unique.
+
+    Todo:
+        This could probably be sped up by using the
+        :py:meth:`kmbio.PDB.NeighborSearch.search_all` method.
+
+    Args:
+        structure: Structure to analyse.
+        interchain: Whether to include interactions between chains.
+
+    Returns:
+        A DataFrame with all interactions.
+    """
+    interactions = _get_interactions(structure, r_cutoff, interchain)
+    interaction_df = pd.DataFrame(interactions)
+    interaction_df = _add_reverse_interactions(interaction_df)
+    return interaction_df
+
+
+def _get_interactions(structure: Structure, r_cutoff: float,
+                      interchain: bool) -> List[Interaction]:
+    """Compile a list of all interactions present in `structure`."""
     results = []
     for (model_1_idx, model_1, chain_1_idx, chain_1, chain_1_ns, model_2_idx, model_2, chain_2_idx,
          chain_2) in _iter_interchain_ns(
@@ -56,51 +78,50 @@ def _get_interactions(structure, r_cutoff, interchain):
                 results.append(row)
 
 
-def _gen_interaction_df(interactions):
-    columns = [
-        'structure_id',
-        'model_id_1',
-        'model_id_2',
-        'chain_id_1',
-        'chain_id_2',
-        'residue_idx_1',
-        'residue_idx_2',
-        'residue_id_1',
-        'residue_id_2',
-        'residue_name_1',
-        'residue_name_2',
-        'residue_aa_1',
-        'residue_aa_2',
-    ]
-    df = pd.DataFrame(interactions, columns=columns)
-    df_reverse = df.rename(columns=df_tools.get_reverse_column).reindex(columns=pd.Index(columns))
-    _length_before = len(df)
-    df = pd.concat([df, df_reverse]).drop_duplicates()
-    assert len(df) == _length_before * 2  # Make sure that there were no duplicates
-    df = df.sort_values(columns)  # Will not work well for uppercase / lowercase columns
+def _add_reverse_interactions(interaction_df: pd.DataFrame) -> pd.DataFrame:
+    """Add reverse interactions to `interaction_df`.
+
+    Args:
+        interaction_df: DataFrame of residue-residue interactions.
+
+    Returns:
+        DataFrame of residue-residue interactions, where for each interactions
+        between residue 1 and residue 2, there is a corresponding interaction between
+        residue 2 and residue 1.
+    """
+    interactions_reverse_df = \
+        interaction_df \
+        .rename(columns=df_tools.reverse_column) \
+        .reindex(columns=pd.Index(interaction_df.columns))
+
+    _length_before = len(interaction_df)
+    df = pd.concat([interaction_df, interactions_reverse_df]).drop_duplicates()
+    # Make sure that there were no duplicates
+    assert len(df) == _length_before * 2
+    # Will not work well for uppercase / lowercase columns
+    df = df.sort_values(interaction_df.columns)
     df.index = range(len(df))
     return df
 
 
-def get_interactions(structure, r_cutoff=5.0, interchain=True):
-    """Return residue-residue interactions within and between chains in `structure`.
-
-    .. todo::
-
-        This could probably be sped up by using the
-        :py:meth:`kmbio.PDB.NeighborSearch.search_all` method.
-
-    Parameters
-    ----------
-    structure : kmbio.PDB.Structure.Structure
-        Structure to analyse.
-    interchain : :class:`bool`
-        Whether to include interactions between chains.
-
-    Notes
-    -----
-    - For each chain, `residue.id[1]` is unique.
-    """
-    interactions = _get_interactions(structure, r_cutoff, interchain)
-    interactions_df = _gen_interaction_df(interactions)
-    return interactions_df
+def _iter_interchain_ns(structure: Structure, interchain: bool = True) -> Iterable:
+    """Iterate over interactions present in the `structure`."""
+    for model_1_idx, model_1 in enumerate(structure):
+        for chain_1_idx, chain_1 in enumerate(model_1):
+            atom_list = list(chain_1.atoms)
+            if not atom_list:
+                logger.debug("Skipping %s %s because it is empty.", model_1, chain_1)
+                continue
+            chain_1_ns = NeighborSearch(atom_list)
+            if not interchain:
+                yield (model_1_idx, model_1, chain_1_idx, chain_1, chain_1_ns, model_1_idx,
+                       model_1, chain_1_idx, chain_1)
+            else:
+                for model_2_idx, model_2 in enumerate(structure):
+                    if model_1_idx > model_2_idx:
+                        continue
+                    for chain_2_idx, chain_2 in enumerate(model_2):
+                        if model_1_idx == model_2_idx and chain_1_idx > chain_2_idx:
+                            continue
+                        yield (model_1_idx, model_1, chain_1_idx, chain_1, chain_1_ns, model_2_idx,
+                               model_2, chain_2_idx, chain_2)
