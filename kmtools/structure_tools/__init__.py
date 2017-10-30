@@ -12,6 +12,7 @@
 # flake8: noqa
 __all__ = [
     'sifts',
+    'interaction_dataset',
 ]
 from . import *
 from .constants import *
