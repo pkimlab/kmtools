@@ -1,0 +1,3 @@
+structure_id,model_id,chain_id,residue_pair,protein_sequence,protein_sequence_hash,residue_sequence,residue_pair_hash
+t001,0,A,"((6, 10), (7, 9), (9, 7), (10, 6))",LVLYT,71BB5732C7400000,"LEU,VAL,LEU,TYR,THR",5eda8eafca36ab35a693a7c5fa82acd4
+t001,0,B,"((6, 10), (7, 9), (9, 7), (10, 6))",LVLYT,71BB5732C7400000,"LEU,VAL,LEU,TYR,THR",5eda8eafca36ab35a693a7c5fa82acd4

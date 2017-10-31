@@ -105,9 +105,47 @@ def test_process_interactions(interaction_file, interaction_file_core_,
         assert interactions_interface.reset_index(drop=True).equals(interactions_interface_)
 
 
-def test_process_interactions_core():
-    ...
+@pytest.mark.parametrize(
+    "structure_file, interaction_file_core, processed_interaction_file_core_",
+    [(d['structure_file'], d['interaction_file_core'], d['processed_interaction_file_core_'])
+     for d in TEST_DATA['test_process_interactions_core']])
+def test_process_interactions_core(structure_file, interaction_file_core,
+                                   processed_interaction_file_core_):
+    structure_file = op.join(TEST_FILES_DIR, structure_file)
+    interaction_file_core = op.join(TEST_FILES_DIR, interaction_file_core)
+    processed_interaction_file_core_ = op.join(TEST_FILES_DIR, processed_interaction_file_core_)
+
+    structure = kmbio.PDB.load(structure_file)
+    interactions_core = pd.read_csv(interaction_file_core)
+    processed_interactions_core = structure_tools.process_interactions_core(
+        structure, interactions_core)
+    processed_interactions_core.drop(pd.Index(['residue_pair']), axis=1, inplace=True)
+
+    processed_interactions_core_ = pd.read_csv(processed_interaction_file_core_)
+    processed_interactions_core_.drop(pd.Index(['residue_pair']), axis=1, inplace=True)
+
+    assert processed_interactions_core.equals(processed_interactions_core_)
 
 
-def test_process_interactions_interface():
-    ...
+@pytest.mark.parametrize(
+    "structure_file, interaction_file_interface, processed_interaction_file_interface_",
+    [(d['structure_file'], d['interaction_file_interface'],
+      d['processed_interaction_file_interface_'])
+     for d in TEST_DATA['test_process_interactions_interface']])
+def test_process_interactions_interface(structure_file, interaction_file_interface,
+                                        processed_interaction_file_interface_):
+    structure_file = op.join(TEST_FILES_DIR, structure_file)
+    interaction_file_interface = op.join(TEST_FILES_DIR, interaction_file_interface)
+    processed_interaction_file_interface_ = op.join(TEST_FILES_DIR,
+                                                    processed_interaction_file_interface_)
+
+    structure = kmbio.PDB.load(structure_file)
+    interactions_interface = pd.read_csv(interaction_file_interface)
+    processed_interactions_interface = structure_tools.process_interactions_interface(
+        structure, interactions_interface)
+    processed_interactions_interface.drop(pd.Index(['residue_pair']), axis=1, inplace=True)
+
+    processed_interactions_interface_ = pd.read_csv(processed_interaction_file_interface_)
+    processed_interactions_interface_.drop(pd.Index(['residue_pair']), axis=1, inplace=True)
+
+    assert processed_interactions_interface.equals(processed_interactions_interface_)

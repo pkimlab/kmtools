@@ -242,9 +242,17 @@ def process_interactions_interface(structure: Structure,
         .agg(lambda x: tuple(x)) \
         .reset_index()
 
+    def _extract_sequence(structure, model_id, chain_id):
+        """Extract AA sequence if possible but fall back to residue sequence."""
+        aa_sequence = structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        if aa_sequence:
+            return aa_sequence
+        else:
+            return structure_tools.extract_residue_sequence(structure, model_id, chain_id)
+
     # Interacting partner 1 properties
     interactions_interface_aggbychain['protein_sequence_1'] = [
-        structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        _extract_sequence(structure, model_id, chain_id)
         for model_id, chain_id in interactions_interface_aggbychain[['model_id_1', 'chain_id_1']]
         .values
     ]
@@ -255,7 +263,7 @@ def process_interactions_interface(structure: Structure,
 
     # Interacting partner 2 properties
     interactions_interface_aggbychain['protein_sequence_2'] = [
-        structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        _extract_sequence(structure, model_id, chain_id)
         for model_id, chain_id in interactions_interface_aggbychain[['model_id_2', 'chain_id_2']]
         .values
     ]
