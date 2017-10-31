@@ -17,6 +17,7 @@ __all__ = [
 from .constants import *
 from .elaspic_legacy import *
 from .exc import *
+from .sequence import *
 from .interaction import *
 from .structure_parser import *
 from . import *

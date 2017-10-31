@@ -1,0 +1,6 @@
+test_extract_sequence:
+  - structure_file: "t001.pdb"
+    model_id: 0
+    chain_id: "A"
+    aa_sequence_: "GAYAG"
+    residue_sequence_: "GLY,ALA,TYR,ALA,GLY"
