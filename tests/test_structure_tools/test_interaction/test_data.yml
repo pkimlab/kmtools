@@ -23,3 +23,36 @@ test_get_interactions:
     r_cutoff: 5
     interchain: True
     interaction_file_: "t001_5_1.csv"
+test_process_interactions:
+  - interaction_file: "t001_1_0.csv"
+    interaction_file_core_: "t001_1_core.csv"
+    interaction_file_interface_:
+  - interaction_file: "t001_3_0.csv"
+    interaction_file_core_: "t001_3_core.csv"
+    interaction_file_interface_:
+  - interaction_file: "t001_5_0.csv"
+    interaction_file_core_: "t001_5_core.csv"
+    interaction_file_interface_:
+  - interaction_file: "t001_1_1.csv"
+    interaction_file_core_: "t001_1_core.csv"
+    interaction_file_interface_: "t001_1_interface.csv"
+  - interaction_file: "t001_3_1.csv"
+    interaction_file_core_: "t001_3_core.csv"
+    interaction_file_interface_: "t001_3_interface.csv"
+  - interaction_file: "t001_5_1.csv"
+    interaction_file_core_: "t001_5_core.csv"
+    interaction_file_interface_: "t001_5_interface.csv"
+test_process_interactions_core:
+  - interaction_file_core: "t001_1_core.csv"
+    interaction_file_core_: ""
+  - interaction_file_core: "t001_3_core.csv"
+    interaction_file_core_: ""
+  - interaction_file_core: "t001_5_core.csv"
+    interaction_file_core_: ""
+test_process_interactions_interface:
+  - interaction_file_interface: "t001_1_interface.csv"
+    interaction_file_interface_: ""
+  - interaction_file_interface: "t001_3_interface.csv"
+    interaction_file_interface_: ""
+  - interaction_file_interface: "t001_5_interface.csv"
+    interaction_file_interface_: ""

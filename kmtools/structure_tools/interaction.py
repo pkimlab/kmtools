@@ -1,14 +1,17 @@
 import logging
 from collections import namedtuple
-from typing import Iterable, List
+from typing import Iterable, List, Tuple
 
 import pandas as pd
 
 from kmbio.PDB import NeighborSearch, Structure
-from kmtools import df_tools
+from kmtools import df_tools, sequence_tools, structure_tools
 from kmtools.structure_tools import AAA_DICT, COMMON_HETATMS
 
 logger = logging.getLogger(__name__)
+
+CORE_ID_COLUMNS = ['structure_id', 'model_id', 'chain_id']
+INTERFACE_ID_COLUMNS = ['structure_id', 'model_id_1', 'model_id_2', 'chain_id_1', 'chain_id_2']
 
 Interaction = namedtuple("Interaction", [
     'structure_id',
@@ -25,6 +28,10 @@ Interaction = namedtuple("Interaction", [
     'residue_aa_1',
     'residue_aa_2',
 ])
+
+# #############################################################################
+# Get interactions
+# #############################################################################
 
 
 def get_interactions(structure: Structure, r_cutoff: float = 5.0,
@@ -130,3 +137,136 @@ def _iter_interchain_ns(structure: Structure, interchain: bool = True) -> Iterab
                             continue
                         yield (model_1_idx, model_1, chain_1_idx, chain_1, chain_1_ns, model_2_idx,
                                model_2, chain_2_idx, chain_2)
+
+
+# #############################################################################
+# Process interactions
+# #############################################################################
+
+
+def process_interactions(interactions: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Split the `interactions` DataFrame into intra- and iner-chain interactions.
+
+    Args:
+        interactions: Interactions DataFrame, as returned by `get_interactions`.
+
+    Returns:
+        A DataFrame of core interactions and a DataFrame of interface interactions.
+    """
+    # Intra-chain interactions
+    interactions_core = \
+        interactions[
+            (interactions['model_id_1'] == interactions['model_id_2']) &
+            (interactions['chain_id_1'] == interactions['chain_id_2'])
+        ] \
+        .drop(pd.Index(['model_id_2', 'chain_id_2']), axis=1) \
+        .rename(columns={'model_id_1': 'model_id', 'chain_id_1': 'chain_id'}) \
+        .copy()
+
+    # Inter-chain interactions
+    interactions_interface = \
+        interactions[
+            (interactions['model_id_1'] != interactions['model_id_2']) |
+            (interactions['chain_id_1'] != interactions['chain_id_2'])
+        ] \
+        .copy()
+
+    # Make sure everything adds up
+    assert len(interactions) == len(interactions_core) + len(interactions_interface)
+    return interactions_core, interactions_interface
+
+
+def process_interactions_core(structure: Structure,
+                              interactions_core: pd.DataFrame) -> pd.DataFrame:
+    """Group core interactions by chain and add aggregate features.
+
+    Args:
+        structure: Structure for which the interactions were calculated.
+        interactions_core: Core interactions between residues on the  same chain.
+
+    Returns:
+        A DataFrame of interface interactions grouped by chain.
+    """
+    interactions_core['residue_pair'] = \
+        interactions_core[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
+
+    interactions_core_aggbychain = \
+        interactions_core \
+        .groupby(CORE_ID_COLUMNS) \
+        ['residue_pair'] \
+        .agg(lambda x: tuple(x)) \
+        .reset_index()
+
+    interactions_core_aggbychain['protein_sequence'] = [
+        structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        for model_id, chain_id in interactions_core_aggbychain[['model_id', 'chain_id']].values
+    ]
+
+    interactions_core_aggbychain['protein_sequence_hash'] = \
+        interactions_core_aggbychain['protein_sequence'] \
+        .apply(sequence_tools.crc64)
+
+    interactions_core_aggbychain['residue_sequence'] = [
+        structure_tools.extract_residue_sequence(structure, model_id, chain_id)
+        for model_id, chain_id in interactions_core_aggbychain[['model_id', 'chain_id']].values
+    ]
+
+    interactions_core_aggbychain['residue_pair_hash'] = \
+        interactions_core_aggbychain['residue_pair'] \
+        .apply(structure_tools.hash_residue_pair)
+
+    return interactions_core_aggbychain
+
+
+def process_interactions_interface(structure: Structure,
+                                   interactions_interface: pd.DataFrame) -> pd.DataFrame:
+    """Group interface interactions by chain pair and add aggregate features.
+
+    Args:
+        structure: Structure for which the interactions were calculated.
+        interactions_interface: Interface interactions between residues on different chains.
+
+    Returns:
+        A DataFrame of interface interactions grouped by chain pair.
+    """
+    interactions_interface['residue_pair'] = \
+        interactions_interface[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
+
+    if interactions_interface.empty:
+        return interactions_interface[INTERFACE_ID_COLUMNS]
+
+    interactions_interface_aggbychain = \
+        interactions_interface \
+        .groupby(INTERFACE_ID_COLUMNS) \
+        ['residue_pair'] \
+        .agg(lambda x: tuple(x)) \
+        .reset_index()
+
+    # Interacting partner 1 properties
+    interactions_interface_aggbychain['protein_sequence_1'] = [
+        structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        for model_id, chain_id in interactions_interface_aggbychain[['model_id_1', 'chain_id_1']]
+        .values
+    ]
+
+    interactions_interface_aggbychain['protein_sequence_hash_1'] = \
+        interactions_interface_aggbychain['protein_sequence_1'] \
+        .apply(sequence_tools.crc64)
+
+    # Interacting partner 2 properties
+    interactions_interface_aggbychain['protein_sequence_2'] = [
+        structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        for model_id, chain_id in interactions_interface_aggbychain[['model_id_2', 'chain_id_2']]
+        .values
+    ]
+
+    interactions_interface_aggbychain['protein_sequence_hash_2'] = \
+        interactions_interface_aggbychain['protein_sequence_2'] \
+        .apply(sequence_tools.crc64)
+
+    # Interaction properties
+    interactions_interface_aggbychain['residue_pair_hash'] = \
+        interactions_interface_aggbychain['residue_pair'] \
+        .apply(structure_tools.hash_residue_pair)
+
+    return interactions_interface_aggbychain
