@@ -1,12 +1,33 @@
 import logging
+import os.path as op
 
+import pandas as pd
 import pytest
+import yaml
 
+import kmbio.PDB
 from conftest import DIFFICULT, MISSING, PDB_IDS, random_subset
-from kmbio.PDB import load
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)
+
+TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])
+
+with open(op.join(TEST_FILES_DIR, 'test_data.yml'), 'r') as fin:
+    TEST_DATA = yaml.load(fin)
+
+
+@pytest.mark.parametrize(
+    "structure_file, r_cutoff, interchain, interaction_file_",
+    [tuple(d[key] for key in 'structure_file, r_cutoff, interchain, interaction_file_'.split(', '))
+     for d in TEST_DATA['test_get_interactions']])
+def test_get_interactions(structure_file, r_cutoff, interchain, interaction_file_):
+    structure_file = op.join(TEST_FILES_DIR, structure_file)
+    interaction_file_ = op.join(TEST_FILES_DIR, interaction_file_)
+    structure = kmbio.PDB.load(structure_file)
+    interaction_df = structure_tools.get_interactions(structure, r_cutoff, interchain)
+    interaction_df_ = pd.read_csv(interaction_file_)
+    assert interaction_df.equals(interaction_df_)
 
 
 @pytest.mark.parametrize(
@@ -18,8 +39,9 @@ logger = logging.getLogger(__name__)
         for biounit in [False] for interchain in [False, True]
         if (pdb_id, pdb_type, biounit) not in MISSING
     ]))
-def test_get_interactions(pdb_id, pdb_type, biounit, interchain):
-    structure = load('rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
+def test_get_interactions_mock(pdb_id, pdb_type, biounit, interchain):
+    structure = kmbio.PDB.load(
+        'rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
     logger.debug('atoms: %s', list(structure.atoms))
     # Test 1
     df = structure_tools.get_interactions(structure, interchain=interchain)
@@ -49,6 +71,6 @@ def test_get_interactions_symmetrical(pdb_id, bioassembly_id):
         set2 = set(df[['model_id_2', 'chain_id_2', 'residue_pair_2']].apply(tuple, axis=1))
         assert not set1 ^ set2
 
-    s = load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=bioassembly_id)
+    s = kmbio.PDB.load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=bioassembly_id)
     df = structure_tools.get_interactions(s)
     _assert_symmetrical(df)

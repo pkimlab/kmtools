@@ -1,0 +1,25 @@
+test_get_interactions:
+  - structure_file: "t001.pdb"
+    r_cutoff: 1
+    interchain: False
+    interaction_file_: "t001_1_0.csv"
+  - structure_file: "t001.pdb"
+    r_cutoff: 3
+    interchain: False
+    interaction_file_: "t001_3_0.csv"
+  - structure_file: "t001.pdb"
+    r_cutoff: 5
+    interchain: False
+    interaction_file_: "t001_5_0.csv"
+  - structure_file: "t001.pdb"
+    r_cutoff: 1
+    interchain: True
+    interaction_file_: "t001_1_1.csv"
+  - structure_file: "t001.pdb"
+    r_cutoff: 3
+    interchain: True
+    interaction_file_: "t001_3_1.csv"
+  - structure_file: "t001.pdb"
+    r_cutoff: 5
+    interchain: True
+    interaction_file_: "t001_5_1.csv"
