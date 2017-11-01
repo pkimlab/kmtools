@@ -12,7 +12,6 @@
 # flake8: noqa
 __all__ = [
     'sifts',
-    'interaction_dataset',
 ]
 from .constants import *
 from .elaspic_legacy import *
