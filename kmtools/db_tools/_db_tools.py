@@ -163,7 +163,7 @@ def lock_tables(tablenames, engine):
         engine.execute('set innodb_lock_wait_timeout=14400')
         engine.execute('lock tables ' + ' '.join([t + ' write' for t in tablenames]))
         yield
-    except:
+    except Exception:
         raise
     finally:
         engine.execute('unlock tables')
@@ -187,7 +187,7 @@ def open_hdf5_exclusively(filename, mode='a', db_cache_filename=None):
         fcntl.lockf(fd, fcntl.LOCK_EX)
         f = pd.HDFStore(DB_CACHE_FILENAME, mode)
         yield f
-    except:
+    except Exception:
         raise
     finally:
         f.close()

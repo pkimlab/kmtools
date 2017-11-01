@@ -119,7 +119,7 @@ def log_print_statements(logger):
     try:
         sys.stdout = wo
         yield
-    except:
+    except Exception:
         raise
     finally:
         sys.stdout = original_stdout

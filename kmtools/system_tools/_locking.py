@@ -14,7 +14,7 @@ def open_exclusively(filename, mode='a'):
     try:
         f = os.fdopen(fd, mode)
         yield f
-    except:
+    except Exception:
         raise
     finally:
         f.close()
@@ -37,6 +37,6 @@ def get_lock(name):
             break
         except FileExistsError:
             time.sleep(60)
-        except:
+        except Exception:
             close_lock(lock)
             raise

@@ -75,7 +75,7 @@ def switch_paths(working_path):
     try:
         os.chdir(working_path)
         yield
-    except:
+    except Exception:
         raise
     finally:
         os.chdir(current_path)

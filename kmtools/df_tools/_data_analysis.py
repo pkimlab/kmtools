@@ -45,7 +45,7 @@ def open_hdf5_exclusively(filename, mode='a'):
         fcntl.lockf(fd, fcntl.LOCK_EX)
         f = tables.openFile(filename, mode)
         yield f
-    except:
+    except Exception:
         raise
     finally:
         f.close()
