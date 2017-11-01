@@ -25,11 +25,11 @@ def reverse_column(column: str) -> str:
 
     Examples
     --------
-    >>> get_reverse_column('hello')
+    >>> reverse_column('hello')
     'hello'
-    >>> get_reverse_column('good_bye_1')
+    >>> reverse_column('good_bye_1')
     'good_bye_2'
-    >>> get_reverse_column('world_2')
+    >>> reverse_column('world_2')
     'world_1'
     """
     for suffix, other in [('_1', '_2'), ('_2', '_1')]:
