@@ -1,6 +1,7 @@
 import logging
 import os.path as op
 
+import numpy as np
 import pandas as pd
 import pytest
 import yaml
@@ -33,6 +34,63 @@ def test_get_interactions(structure_file, r_cutoff, interchain, interaction_file
     interaction_df = structure_tools.get_interactions(structure, r_cutoff, interchain)
     interaction_df_ = pd.read_csv(interaction_file_)
     assert interaction_df.equals(interaction_df_)
+
+
+def test_get_interaction_cutoffs():
+    """Test ``interactions.py`` using structures that we generate programatically."""
+    structure_file = op.join(TEST_FILES_DIR, 't001.pdb')
+    structure = kmbio.PDB.load(structure_file)
+    # Change atom coordinates such that the distance from residue 0 to residue 1 is 1.005,
+    # the distance from residue 1 to residue 2 is 2.005, etc.
+    for chain_id in ['A', 'B']:
+        coord = 0
+        for i, residue in enumerate(structure[0][chain_id].residues):
+            for atom in residue:
+                atom.coord = np.array([coord, coord, coord])
+            r_cutoff = i + 1
+            coord += (r_cutoff**2 / 3)**.5 + 0.005
+    # Assert that there are no core interactions past this cutoff
+    interaction_df = structure_tools.get_interactions(structure, 1.0, interchain=False)
+    assert interaction_df.empty
+    # Each residue interacts with exactly one residue on the opposite chain
+    interaction_df = structure_tools.get_interactions(structure, 1.0, interchain=True)
+    assert len(interaction_df) == len(list(structure[0].residues))
+    # Make sure that those interactions are actually interface interactions
+    interactions_core, interactions_interface = structure_tools.process_interactions(
+        interaction_df)
+    assert len(interactions_core) == 0
+    assert len(interactions_interface) == len(interaction_df)
+
+    # Make sure that we only interact with one successive residue
+    for residue_idx, r_cutoff in enumerate([1.01, 2.01, 3.01, 4.01]):
+        interaction_df = structure_tools.get_interactions(structure, r_cutoff, interchain=False)
+        interaction_df = \
+            interaction_df[
+                (interaction_df['chain_id_1'] == 'A') &
+                (interaction_df['residue_idx_1'] == residue_idx) &
+                (interaction_df['residue_idx_2'] >= interaction_df['residue_idx_1'])
+            ]
+        assert len(interaction_df) == 1
+
+    # Test `process_interactions_{core,interface}` and `drop_duplicates_{core,interface}`
+    interaction_df = structure_tools.get_interactions(structure, 2, interchain=True)
+    interactions_core, interactions_interface = structure_tools.process_interactions(
+        interaction_df)
+    # # Core
+    interactions_core_aggbychain = structure_tools.process_interactions_core(
+        structure, interactions_core)
+    assert len(interactions_core_aggbychain) == 2
+    interactions_core, interactions_core_aggbychain = structure_tools.drop_duplicates_core(
+        interactions_core, interactions_core_aggbychain)
+    assert len(interactions_core_aggbychain) == 1
+    # # Interface
+    interactions_interface_aggbychain = structure_tools.process_interactions_interface(
+        structure, interactions_interface)
+    assert len(interactions_interface_aggbychain) == 2
+    interactions_interface, interactions_interface_aggbychain = \
+        structure_tools.drop_duplicates_interface(
+            interactions_interface, interactions_interface_aggbychain)
+    assert len(interactions_interface_aggbychain) == 1
 
 
 @pytest.mark.parametrize("pdb_id", PDB_IDS)

@@ -1,3 +1,0 @@
-structure_id,model_id_1,model_id_2,chain_id_1,chain_id_2,residue_pair,protein_sequence_1,protein_sequence_hash_1,protein_sequence_2,protein_sequence_hash_2,residue_pair_hash
-t001,0,0,A,B,"((6, 8), (7, 7), (7, 9), (8, 6), (8, 10), (9, 7), (9, 9), (10, 8))",LVLYT,71BB5732C7400000,LVLYT,71BB5732C7400000,840b266ec85a762e0e7c1febc6fe454d
-t001,0,0,B,A,"((6, 8), (7, 7), (7, 9), (8, 6), (8, 10), (9, 7), (9, 9), (10, 8))",LVLYT,71BB5732C7400000,LVLYT,71BB5732C7400000,840b266ec85a762e0e7c1febc6fe454d
