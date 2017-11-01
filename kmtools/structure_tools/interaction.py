@@ -310,6 +310,12 @@ def drop_duplicates_core(
     if interactions_core.empty:
         return interactions_core, interactions_core_aggbychain
 
+    if 'protein_sequence' not in interactions_core_aggbychain and (
+            'protein_sequence_1' in interactions_core_aggbychain and
+            'protein_sequence_2' in interactions_core_aggbychain):
+        raise Exception(
+            "Looks like you are running `drop_duplicates_core` for **interface** interactions.")
+
     # Remove hetatm chains
     _before = len(interactions_core_aggbychain)
     interactions_core_aggbychain = \
@@ -361,6 +367,12 @@ def drop_duplicates_interface(
     """
     if interactions_interface.empty:
         return interactions_interface, interactions_interface_aggbychain
+
+    if 'protein_sequence' in interactions_interface_aggbychain and not (
+            'protein_sequence_1' in interactions_interface_aggbychain and
+            'protein_sequence_2' in interactions_interface_aggbychain):
+        raise Exception(
+            "Looks like you are running `drop_duplicates_interface` for **core** interactions.")
 
     # Make a copy that we will modify (prevents annothing 'indexing-view-versus-copy' errors)
     interactions_interface_aggbychain = interactions_interface_aggbychain.copy()
