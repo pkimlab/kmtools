@@ -62,3 +62,29 @@ test_process_interactions_interface:
   - interaction_file_interface: "t001_5_interface.csv"
     structure_file: "t001.pdb"
     processed_interaction_file_interface_: "t001_5_interface_bychain.csv"
+test_drop_duplicates_core:
+  - interaction_file_core: "t001_1_core.csv"
+    interaction_file_core_aggbychain: "t001_1_core_bychain.csv"
+    kept_idxs_: [0, 1, 2, 3]
+    kept_idxs_aggbychain_: [0]
+  - interaction_file_core: "t001_3_core.csv"
+    interaction_file_core_aggbychain: "t001_3_core_bychain.csv"
+    kept_idxs_: [0, 1, 2, 3]
+    kept_idxs_aggbychain_: [0]
+  - interaction_file_core: "t001_5_core.csv"
+    interaction_file_core_aggbychain: "t001_5_core_bychain.csv"
+    kept_idxs_: [0, 1, 2, 3]
+    kept_idxs_aggbychain_: [0]
+test_drop_duplicates_interface:
+  - interaction_file_interface: "t001_1_interface.csv"
+    interaction_file_interface_aggbychain: "t001_1_interface_bychain.csv"
+    kept_idxs_: [0, 1, 2, 3, 4, 5, 6, 7]
+    kept_idxs_aggbychain_: [0]
+  - interaction_file_interface: "t001_3_interface.csv"
+    interaction_file_interface_aggbychain: "t001_3_interface_bychain.csv"
+    kept_idxs_: [0, 1, 2, 3, 4, 5, 6, 7]
+    kept_idxs_aggbychain_: [0]
+  - interaction_file_interface: "t001_5_interface.csv"
+    interaction_file_interface_aggbychain: "t001_5_interface_bychain.csv"
+    kept_idxs_: [0, 1, 2, 3, 4, 5, 6, 7]
+    kept_idxs_aggbychain_: [0]

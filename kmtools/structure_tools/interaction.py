@@ -34,7 +34,7 @@ Interaction = namedtuple("Interaction", [
 # #############################################################################
 
 
-def get_interactions(structure: Structure, r_cutoff: float = 5.0,
+def get_interactions(structure: Structure, r_cutoff: float,
                      interchain: bool = True) -> pd.DataFrame:
     """Return residue-residue interactions within and between chains in `structure`.
 
@@ -314,7 +314,8 @@ def drop_duplicates_core(
     _before = len(interactions_core_aggbychain)
     interactions_core_aggbychain = \
         interactions_core_aggbychain[
-            interactions_core_aggbychain['protein_sequence'].notnull()]
+            interactions_core_aggbychain['protein_sequence'].notnull()] \
+        .copy()
     logger.info("Removed %s hetatm chains!", _before - len(interactions_core_aggbychain))
 
     # Remove duplicates
@@ -360,6 +361,9 @@ def drop_duplicates_interface(
     """
     if interactions_interface.empty:
         return interactions_interface, interactions_interface_aggbychain
+
+    # Make a copy that we will modify (prevents annothing 'indexing-view-versus-copy' errors)
+    interactions_interface_aggbychain = interactions_interface_aggbychain.copy()
 
     # Remove rows that correpond to interactions between existing chain pairs
     _before = len(interactions_interface_aggbychain)

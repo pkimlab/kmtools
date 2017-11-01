@@ -16,6 +16,10 @@ TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])
 with open(op.join(TEST_FILES_DIR, 'test_data.yml'), 'r') as fin:
     TEST_DATA = yaml.load(fin)
 
+# #############################################################################
+# Test get interactions
+# #############################################################################
+
 
 @pytest.mark.parametrize("structure_file, r_cutoff, interchain, interaction_file_", [
     tuple(d[key] for key in 'structure_file, r_cutoff, interchain, interaction_file_'.split(', '))
@@ -44,11 +48,11 @@ def test_get_interactions_pdb(pdb_id, pdb_type, biounit, interchain):
         'rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
     logger.debug('atoms: %s', list(structure.atoms))
     # Test 1
-    df = structure_tools.get_interactions(structure, interchain=interchain)
+    df = structure_tools.get_interactions(structure, r_cutoff=5, interchain=interchain)
     logger.info(df.head())
     # Test that get_interactions forks after process_structure
     structure = structure_tools.process_structure(structure)
-    df = structure_tools.get_interactions(structure, interchain=interchain)
+    df = structure_tools.get_interactions(structure, r_cutoff=5, interchain=interchain)
     logger.info(df.head())
 
 
@@ -66,8 +70,8 @@ def test_get_interactions_symmetrical(pdb_id, bioassembly_id):
     That is, for each (model_id_1, chain_id_1, residue_id_1)
     there is a corresponding (model_id_2, chain_id_2, residue_id_2).
     """
-    s = kmbio.PDB.load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=bioassembly_id)
-    df = structure_tools.get_interactions(s)
+    structure = kmbio.PDB.load('rcsb://{}.cif'.format(pdb_id), bioassembly_id=bioassembly_id)
+    df = structure_tools.get_interactions(structure, r_cutoff=5.0)
     _assert_symmetrical(df)
 
 
@@ -77,6 +81,11 @@ def _assert_symmetrical(df):
     set1 = set(df[['model_id_1', 'chain_id_1', 'residue_pair_1']].apply(tuple, axis=1))
     set2 = set(df[['model_id_2', 'chain_id_2', 'residue_pair_2']].apply(tuple, axis=1))
     assert not set1 ^ set2
+
+
+# #############################################################################
+# Test process interactions
+# #############################################################################
 
 
 @pytest.mark.parametrize(
@@ -149,3 +158,57 @@ def test_process_interactions_interface(structure_file, interaction_file_interfa
     processed_interactions_interface_.drop(pd.Index(['residue_pair']), axis=1, inplace=True)
 
     assert processed_interactions_interface.equals(processed_interactions_interface_)
+
+
+# #############################################################################
+# Test remove duplicates
+# #############################################################################
+
+
+@pytest.mark.parametrize(
+    "interaction_file_core, interaction_file_core_aggbychain, kept_idxs_, kept_idxs_aggbychain_",
+    [(d['interaction_file_core'], d['interaction_file_core_aggbychain'], d['kept_idxs_'],
+      d['kept_idxs_aggbychain_']) for d in TEST_DATA['test_drop_duplicates_core']])
+def test_drop_duplicates_core(interaction_file_core, interaction_file_core_aggbychain, kept_idxs_,
+                              kept_idxs_aggbychain_):
+    interaction_file_core = op.join(TEST_FILES_DIR, interaction_file_core)
+    interaction_file_core_aggbychain = op.join(TEST_FILES_DIR, interaction_file_core_aggbychain)
+
+    interaction_core = pd.read_csv(interaction_file_core)
+    interaction_core_aggbychain = pd.read_csv(interaction_file_core_aggbychain)
+
+    interaction_core_unique, interaction_core_aggbychain_unique = \
+        structure_tools.drop_duplicates_core(interaction_core,
+                                             interaction_core_aggbychain)
+
+    # Make sure that remaining columns have correct indexes
+    assert interaction_core_unique.index.tolist() == kept_idxs_
+    assert interaction_core_aggbychain_unique.index.tolist() == kept_idxs_aggbychain_
+
+    # TODO(AS): Add more checks here...
+
+
+@pytest.mark.parametrize(
+    "interaction_file_interface, interaction_file_interface_aggbychain, kept_idxs_, "
+    "kept_idxs_aggbychain_",
+    [(d['interaction_file_interface'], d['interaction_file_interface_aggbychain'], d['kept_idxs_'],
+      d['kept_idxs_aggbychain_']) for d in TEST_DATA['test_drop_duplicates_interface']])
+def test_drop_duplicates_interface(interaction_file_interface,
+                                   interaction_file_interface_aggbychain, kept_idxs_,
+                                   kept_idxs_aggbychain_):
+    interaction_file_interface = op.join(TEST_FILES_DIR, interaction_file_interface)
+    interaction_file_interface_aggbychain = op.join(TEST_FILES_DIR,
+                                                    interaction_file_interface_aggbychain)
+
+    interaction_interface = pd.read_csv(interaction_file_interface)
+    interaction_interface_aggbychain = pd.read_csv(interaction_file_interface_aggbychain)
+
+    interaction_interface_unique, interaction_interface_aggbychain_unique = \
+        structure_tools.drop_duplicates_interface(interaction_interface,
+                                                  interaction_interface_aggbychain)
+
+    # Make sure that remaining columns have correct indexes
+    assert interaction_interface_unique.index.tolist() == kept_idxs_
+    assert interaction_interface_aggbychain_unique.index.tolist() == kept_idxs_aggbychain_
+
+    # TODO(AS): Add more checks here...
