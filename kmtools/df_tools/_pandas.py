@@ -115,10 +115,14 @@ def random_df(n_rows: int = 100000) -> pd.DataFrame:
 
     Can help with tests where you need a random DataFrame.
     """
+
+    def gen_random_string(n_chars):
+        return ''.join(np.random.choice(list(string.printable)) for _ in range(n_chars))
+
     fns = [
-        lambda: np.array([''.join(np.random.choice(list(string.printable)) for _ in range(12))] * n_rows),
-        lambda: np.array([''.join(np.random.choice(list(string.printable)) for _ in range(256))] * n_rows),
-        lambda: np.array([''.join(np.random.choice(list(string.printable)) for _ in range(1024))] * n_rows),
+        lambda: np.array([gen_random_string(12)] * n_rows),
+        lambda: np.array([gen_random_string(256)] * n_rows),
+        lambda: np.array([gen_random_string(1024)] * n_rows),
         lambda: np.random.randint(0, 10000000000, n_rows),
         lambda: np.random.randn(n_rows),
     ]
