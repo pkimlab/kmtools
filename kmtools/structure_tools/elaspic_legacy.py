@@ -1,5 +1,5 @@
 """Legacy code to support the ELASPIC pipeline until we move to ELASPIC v2."""
-from kmtools.structure_tools import AAA_DICT, AMINO_ACIDS
+from kmtools.structure_tools import AAA_DICT
 
 
 def get_chain_sequence_and_numbering(chain, domain_def_tuple=None, include_hetatms=False):
@@ -24,7 +24,7 @@ def get_chain_sequence_and_numbering(chain, domain_def_tuple=None, include_hetat
         if domain_def_tuple is None or resid == start_resid:
             inside_domain = True
 
-        if inside_domain and (include_hetatms or res.resname in AMINO_ACIDS):
+        if inside_domain and (include_hetatms or res.resname in AAA_DICT):
             chain_numbering.append(res.id[1])
             chain_numbering_extended.append(resid)
             chain_sequence.append(AAA_DICT.get(res.resname, '.'))

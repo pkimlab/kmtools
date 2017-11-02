@@ -42,5 +42,6 @@ setup(
     namespace_packages=['kmtools'],
     package_data={
         'kmtools.sequence_tools': ['support/*.csv'],
+        'kmtools.structure_tools': ['data/*'],
     },
 )

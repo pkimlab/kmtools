@@ -3,8 +3,7 @@ import logging
 import numpy as np
 
 from kmbio.PDB import Chain, Model, NeighborSearch, Residue, Structure
-from kmtools.structure_tools import (AAA_DICT, AMINO_ACIDS, CHAIN_IDS, LYSINE_ATOMS,
-                                     METHYLATED_LYSINES)
+from kmtools.structure_tools import AAA_DICT, CHAIN_IDS, LYSINE_ATOMS, METHYLATED_LYSINES
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +71,7 @@ def process_structure(structure: Structure) -> Structure:
             for residue in chain:
                 if residue.resname in METHYLATED_LYSINES:
                     residue = _correct_methylated_lysines(residue)
-                if residue.resname in AMINO_ACIDS:
+                if residue.resname in AAA_DICT:
                     new_residue = _copy_residue(residue, (' ', residue_idx, ' '))
                     new_chain.add(new_residue)
                     residue_mapping_fw[(model.id, chain.id,
