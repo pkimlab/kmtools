@@ -187,6 +187,10 @@ def process_interactions_core(structure: Structure,
     Returns:
         A DataFrame of interface interactions grouped by chain.
     """
+    if interactions_core.empty:
+        return interactions_core[CORE_ID_COLUMNS]
+
+    interactions_core = interactions_core.copy()
     interactions_core['residue_pair'] = \
         interactions_core[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
 
@@ -229,11 +233,12 @@ def process_interactions_interface(structure: Structure,
     Returns:
         A DataFrame of interface interactions grouped by chain pair.
     """
-    interactions_interface['residue_pair'] = \
-        interactions_interface[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
-
     if interactions_interface.empty:
         return interactions_interface[INTERFACE_ID_COLUMNS]
+
+    interactions_interface = interactions_interface.copy()
+    interactions_interface['residue_pair'] = \
+        interactions_interface[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
 
     interactions_interface_aggbychain = \
         interactions_interface \
@@ -248,7 +253,9 @@ def process_interactions_interface(structure: Structure,
         if aa_sequence:
             return aa_sequence
         else:
-            return structure_tools.extract_residue_sequence(structure, model_id, chain_id)
+            residue_sequence = structure_tools.extract_residue_sequence(
+                structure, model_id, chain_id)
+            return residue_sequence + ','
 
     # Interacting partner 1 properties
     interactions_interface_aggbychain['protein_sequence_1'] = [
@@ -322,13 +329,13 @@ def drop_duplicates_core(
         interactions_core_aggbychain[
             interactions_core_aggbychain['protein_sequence'].notnull()] \
         .copy()
-    logger.info("Removed %s hetatm chains!", _before - len(interactions_core_aggbychain))
+    logger.debug("Removed %s hetatm chains!", _before - len(interactions_core_aggbychain))
 
     # Remove duplicates
     _before = interactions_core_aggbychain.shape[0]
     interactions_core_aggbychain = interactions_core_aggbychain.drop_duplicates(
         subset=['protein_sequence'])
-    logger.info("Removed %s duplicated chains!", _before - len(interactions_core_aggbychain))
+    logger.debug("Removed %s duplicated chains!", _before - len(interactions_core_aggbychain))
 
     # Remove corresponding residues from `interactions_core`
     _before = len(interactions_core)
@@ -337,8 +344,8 @@ def drop_duplicates_core(
         .merge(
             interactions_core_aggbychain[structure_tools.CORE_ID_COLUMNS],
             on=structure_tools.CORE_ID_COLUMNS)
-    logger.info("Lost %s residues from hetatm or duplicated chains!",
-                _before - len(interactions_core))
+    logger.debug("Lost %s residues from hetatm or duplicated chains!",
+                 _before - len(interactions_core))
 
     return interactions_core, interactions_core_aggbychain
 
@@ -379,6 +386,16 @@ def drop_duplicates_interface(
 
     # Remove rows that correpond to interactions between existing chain pairs
     _before = len(interactions_interface_aggbychain)
+    interactions_interface_aggbychain = \
+        interactions_interface_aggbychain[
+            ~((interactions_interface_aggbychain['protein_sequence_1'].str.contains(',')) &
+              (interactions_interface_aggbychain['protein_sequence_2'].str.contains(',')))
+        ].copy()
+    logger.debug("Removed %s HETATM chain pairs!",
+                 _before - len(interactions_interface_aggbychain))
+
+    # Remove rows that correpond to interactions between existing chain pairs
+    _before = len(interactions_interface_aggbychain)
     interactions_interface_aggbychain['unique_key'] = \
         interactions_interface_aggbychain[[
             'protein_sequence_1', 'protein_sequence_2']] \
@@ -387,7 +404,7 @@ def drop_duplicates_interface(
         interactions_interface_aggbychain \
         .drop_duplicates(subset=['unique_key'])
     interactions_interface_aggbychain.drop(pd.Index(['unique_key']), axis=1, inplace=True)
-    logger.info("Removed %s chain pairs!", _before - len(interactions_interface_aggbychain))
+    logger.debug("Removed %s chain pairs!", _before - len(interactions_interface_aggbychain))
 
     # Remove corresponding rows
     _before = len(interactions_interface)
@@ -395,6 +412,6 @@ def drop_duplicates_interface(
         interactions_interface \
         .merge(interactions_interface_aggbychain[structure_tools.INTERFACE_ID_COLUMNS],
                on=structure_tools.INTERFACE_ID_COLUMNS)
-    logger.info("Lost %s interacting residue pairs!", _before - len(interactions_interface))
+    logger.debug("Lost %s interacting residue pairs!", _before - len(interactions_interface))
 
     return interactions_interface, interactions_interface_aggbychain
