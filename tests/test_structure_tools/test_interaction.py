@@ -56,8 +56,7 @@ def test_get_interaction_cutoffs():
     interaction_df = structure_tools.get_interactions(structure, 1.0, interchain=True)
     assert len(interaction_df) == len(list(structure[0].residues))
     # Make sure that those interactions are actually interface interactions
-    interactions_core, interactions_interface = structure_tools.process_interactions(
-        interaction_df)
+    interactions_core, interactions_interface = structure_tools.process_interactions(interaction_df)
     assert len(interactions_core) == 0
     assert len(interactions_interface) == len(interaction_df)
 
@@ -74,8 +73,7 @@ def test_get_interaction_cutoffs():
 
     # Test `process_interactions_{core,interface}` and `drop_duplicates_{core,interface}`
     interaction_df = structure_tools.get_interactions(structure, 2, interchain=True)
-    interactions_core, interactions_interface = structure_tools.process_interactions(
-        interaction_df)
+    interactions_core, interactions_interface = structure_tools.process_interactions(interaction_df)
     # # Core
     interactions_core_aggbychain = structure_tools.process_interactions_core(
         structure, interactions_core)
@@ -95,23 +93,30 @@ def test_get_interaction_cutoffs():
 
 @pytest.mark.parametrize("pdb_id", PDB_IDS)
 @pytest.mark.parametrize("pdb_type", ['pdb', 'cif'])
-@pytest.mark.parametrize("biounit", [False])
+@pytest.mark.parametrize("bioassembly_id", [0, 1])
 @pytest.mark.parametrize("interchain", [False, True])
-def test_get_interactions_pdb(pdb_id, pdb_type, biounit, interchain):
-    """Test `get_interactions` using real structure files."""
-    if pdb_id in DIFFICULT or (pdb_id, pdb_type, biounit) in MISSING:
+def test_get_interactions_pdb(pdb_id, pdb_type, bioassembly_id, interchain):
+    """Test the entire pipeline using real structure files as input."""
+    if pdb_id in DIFFICULT or (pdb_id, pdb_type, bioassembly_id) in MISSING:
         pytest.skip("Difficult or missing from RCSB...")
 
     structure = kmbio.PDB.load(
-        'rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=int(biounit))
-    logger.debug('atoms: %s', list(structure.atoms))
-    # Test 1
-    df = structure_tools.get_interactions(structure, r_cutoff=5, interchain=interchain)
-    logger.info(df.head())
-    # Test that get_interactions forks after process_structure
-    structure = structure_tools.process_structure(structure)
-    df = structure_tools.get_interactions(structure, r_cutoff=5, interchain=interchain)
-    logger.info(df.head())
+        'rcsb://{}.{}'.format(pdb_id, pdb_type), bioassembly_id=bioassembly_id)
+    interactions = structure_tools.get_interactions(structure, r_cutoff=5, interchain=interchain)
+    interactions_core, interactions_interface = structure_tools.process_interactions(interactions)
+
+    # Group interactions by chain / chan pair
+    interactions_core_aggbychain = structure_tools.process_interactions_core(
+        structure, interactions_core)
+    interactions_interface_aggbychain = structure_tools.process_interactions_interface(
+        structure, interactions_interface)
+
+    # Drop duplicate rows
+    interactions_core, interactions_core_aggbychain = \
+        structure_tools.drop_duplicates_core(interactions_core, interactions_core_aggbychain)
+    interactions_interface, interactions_interface_aggbychain = \
+        structure_tools.drop_duplicates_interface(interactions_interface,
+                                                  interactions_interface_aggbychain)
 
 
 GET_INTERACTIONS_SYMMETRICAL_DATA = [(pdb_id, bioassembly_id)
@@ -120,8 +125,7 @@ GET_INTERACTIONS_SYMMETRICAL_DATA = [(pdb_id, bioassembly_id)
                                      if pdb_id not in DIFFICULT]
 
 
-@pytest.mark.parametrize("pdb_id, bioassembly_id",
-                         random_subset(GET_INTERACTIONS_SYMMETRICAL_DATA))
+@pytest.mark.parametrize("pdb_id, bioassembly_id", random_subset(GET_INTERACTIONS_SYMMETRICAL_DATA))
 def test_get_interactions_symmetrical(pdb_id, bioassembly_id):
     """Make sure that the output of `get_interactions` is symmetrical.
 
