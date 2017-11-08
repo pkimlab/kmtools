@@ -192,7 +192,7 @@ def process_interactions_core(structure: Structure,
 
     interactions_core = interactions_core.copy()
     interactions_core['residue_pair'] = \
-        interactions_core[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
+        interactions_core[['residue_idx_1', 'residue_idx_2']].apply(tuple, axis=1)
 
     interactions_core_aggbychain = \
         interactions_core \
@@ -238,7 +238,7 @@ def process_interactions_interface(structure: Structure,
 
     interactions_interface = interactions_interface.copy()
     interactions_interface['residue_pair'] = \
-        interactions_interface[['residue_id_1', 'residue_id_2']].apply(tuple, axis=1)
+        interactions_interface[['residue_idx_1', 'residue_idx_2']].apply(tuple, axis=1)
 
     interactions_interface_aggbychain = \
         interactions_interface \
@@ -250,7 +250,7 @@ def process_interactions_interface(structure: Structure,
     def _extract_sequence(structure, model_id, chain_id):
         """Extract AA sequence if possible but fall back to residue sequence."""
         aa_sequence = structure_tools.extract_aa_sequence(structure, model_id, chain_id)
-        if aa_sequence:
+        if aa_sequence and aa_sequence.count('X') < (len(aa_sequence) // 3):
             return aa_sequence
         else:
             residue_sequence = structure_tools.extract_residue_sequence(
@@ -393,6 +393,9 @@ def drop_duplicates_interface(
         ].copy()
     logger.debug("Removed %s HETATM chain pairs!",
                  _before - len(interactions_interface_aggbychain))
+
+    if interactions_interface_aggbychain.empty:
+        return interactions_interface.iloc[0:0], interactions_interface_aggbychain.iloc[0:0]
 
     # Remove rows that correpond to interactions between existing chain pairs
     _before = len(interactions_interface_aggbychain)
