@@ -32,8 +32,8 @@ def extract_aa_sequence(structure: Structure, model_id: int, chain_id: str) -> O
         elif residue.resname in RESIDUE_MAPPING_TO_CANONICAL:
             residue_aa = AAA_DICT[RESIDUE_MAPPING_TO_CANONICAL[residue.resname]]
         else:
-            logger.warning("Cannot map residue %s to a single-character amino acid string.",
-                           residue.resname)
+            logger.debug("Cannot map residue %s to a single-character amino acid string.",
+                         residue.resname)
             residue_aa = 'X'
         aa_list.append(residue_aa)
     aa_string = ''.join(aa_list)
@@ -47,7 +47,7 @@ def extract_residue_sequence(structure: Structure, model_id: int, chain_id: str)
     return aa_string if aa_string else None
 
 
-def hash_residue_pair(residue_pair):
+def hash_residue_pair(residue_pair) -> str:
     """Create a hash of a pair of residues.
 
     Note:
