@@ -3,154 +3,80 @@ import hashlib
 import os
 import re
 from contextlib import contextmanager
-
+from textwrap import dedent
+from typing import NamedTuple, Optional, Union
 
 import pandas as pd
 
 DB_CACHE_FILENAME = None
 
 
+class ConOpts(NamedTuple):
+    name: str
+    username: str
+    password: Optional[str]
+    url: str
+    port: Optional[int]
+    schema: str
+    socket: str
+
+
 def parse_connection_string(connection_string):
     """Split `connection_string` into a dictionary of connection properties.
 
-    .. note::
-
-        The returned dictionary maps everything to strings (including `db_port`)
+    Notes:
+        The returned dictionary maps everything to strings (including `port`)
         to make it compatible with :class:`configparser.configParser`.
 
-    Parameters
-    ----------
-    connection_string : str
-        String describing database connection in SQLAlchemy-compatible format.
+    Args:
+        connection_string: String describing database connection in SQLAlchemy-compatible format.
 
-    Returns
-    -------
-    Mapping[str, str]
-
-    Examples
-    --------
-    >>> from pprint import pprint
-    >>> pprint(parse_connection_string('mysql://user:@localhost'))
-    {'db_password': '',
-     'db_port': '',
-     'db_schema': '',
-     'db_socket': '',
-     'db_type': 'mysql',
-     'db_url': 'localhost',
-     'db_username': 'user'}
-    >>> pprint(parse_connection_string('mysql://user:pass@192.168.0.1:3306/test'))
-    {'db_password': 'pass',
-     'db_port': '3306',
-     'db_schema': 'test',
-     'db_socket': '',
-     'db_type': 'mysql',
-     'db_url': '192.168.0.1',
-     'db_username': 'user'}
-    >>> pprint(parse_connection_string('sqlite:////absolute/path/to/foo.db'))
-    {'db_password': None,
-     'db_port': '',
-     'db_schema': '/absolute/path/to/foo.db',
-     'db_socket': '',
-     'db_type': 'sqlite',
-     'db_url': '',
-     'db_username': ''}
-    >>> connection_string = 'mysql://user@192.168.0.1:3306/test?unix_socket=/tmp/mysql.sock'
-    >>> pprint(parse_connection_string(connection_string))
-    {'db_password': None,
-     'db_port': '3306',
-     'db_schema': 'test',
-     'db_socket': '/tmp/mysql.sock',
-     'db_type': 'mysql',
-     'db_url': '192.168.0.1',
-     'db_username': 'user'}
+    Returns:
+        A tuple of connection parameters.
     """
     db_params = {}
-    (db_params['db_type'], db_params['db_username'], db_params['db_password'],
-     db_params['db_url'], db_params['db_port'], db_params['db_schema'],
-     db_params['db_socket']) = (
-        re.match(
-            '^(\w*)'  # db_type
-            '://'
-            '(|\w*)'  # db_username
-            '(|:\w*)'  # db_password
-            '(|@localhost|@[a-zA-Z0-9\.-]*|@[0-9\.]*)'  # db_url
-            '(|:[0-9]*)'  # db_port
-            '(|\/[^?]*)'  # db_schema
-            '(|\?unix_socket=.*)$',  # db_socket
-            connection_string)
-        .groups()
-    )
-    if db_params['db_password'].startswith(':'):
-        if db_params['db_password'] == ':':
-            db_params['db_password'] = ''
+    (db_params['name'], db_params['username'], db_params['password'], db_params['url'],
+     db_params['port'], db_params['schema'], db_params['socket']) = (
+         re.match(
+             '^(\w*)'  # name
+             '://'
+             '(|\w*)'  # username
+             '(|:\w*)'  # password
+             '(|@localhost|@[a-zA-Z0-9\.-]*|@[0-9\.]*)'  # url
+             '(|:[0-9]*)'  # port
+             '(|\/[^?]*)'  # schema
+             '(|\?unix_socket=.*)$',  # socket
+             connection_string).groups())
+    if db_params['password'].startswith(':'):
+        if db_params['password'] == ':':
+            db_params['password'] = ''
         else:
-            db_params['db_password'] = db_params['db_password'][1:]
+            db_params['password'] = db_params['password'][1:]
     else:
-        db_params['db_password'] = None
-    db_params['db_url'] = db_params['db_url'].lstrip('@')
-    db_params['db_port'] = db_params['db_port'].lstrip(':')
-    db_params['db_schema'] = (
-        db_params['db_schema'][1:]
-        if db_params['db_schema'].startswith('/')
-        else db_params['db_schema'])
-    db_params['db_socket'] = db_params['db_socket'].partition('?unix_socket=')[-1]
-    return db_params
+        db_params['password'] = None
+    db_params['url'] = db_params['url'].lstrip('@')
+    db_params['port'] = db_params['port'].lstrip(':')
+    try:
+        db_params['port'] = int(db_params['port'])
+    except ValueError:
+        db_params['port'] = None
+    db_params['schema'] = (db_params['schema'][1:]
+                           if db_params['schema'].startswith('/') else db_params['schema'])
+    db_params['socket'] = db_params['socket'].partition('?unix_socket=')[-1]
+    return ConOpts._make((db_params[key] for key in ConOpts._fields))
 
 
-def make_connection_string(**vargs):
-    """Join a dictionary of connection properties (`vargs`) into a connection string.
-
-    Examples
-    --------
-    >>> make_connection_string(**{ \
-        'db_password': None, \
-        'db_port': '', \
-        'db_schema': '', \
-        'db_socket': '', \
-        'db_type': 'mysql', \
-        'db_url': 'localhost', \
-        'db_username': 'user'})
-    'mysql://user@localhost/'
-    >>> make_connection_string(**{ \
-        'db_password': 'pass', \
-        'db_port': '3306', \
-        'db_schema': 'test', \
-        'db_socket': '', \
-        'db_type': 'mysql', \
-        'db_url': '192.168.0.1', \
-        'db_username': 'user'})
-    'mysql://user:pass@192.168.0.1:3306/test'
-    >>> make_connection_string(**{ \
-        'db_password': '', \
-        'db_port': '', \
-        'db_schema': '/absolute/path/to/foo.db', \
-        'db_socket': '', \
-        'db_type': 'sqlite', \
-        'db_url': '', \
-        'db_username': ''})
-    'sqlite:////absolute/path/to/foo.db'
-    """
-    vargs['db_password'] = (
-        ':{}'.format(vargs['db_password'])
-        if vargs.get('db_password') is not None and not vargs.get('db_schema', '').startswith('/')
-        else ''
-    )
-    vargs['db_url'] = (
-        '@{}'.format(vargs['db_url']) if vargs.get('db_url') else ''
-    )
-    vargs['db_port'] = (
-        ':{}'.format(vargs['db_port']) if vargs.get('db_port') else ''
-    )
-    vargs['db_schema'] = (
-        '/{}'.format(vargs['db_schema']) if vargs.get('db_schema') else '/'
-    )
-    vargs['db_socket'] = (
-        '?unix_socket={}'.format(vargs['db_socket']) if vargs.get('db_socket') else ''
-    )
-    connection_string = (
-        '{db_type}://{db_username}{db_password}{db_url}{db_port}{db_schema}{db_socket}'
-        .format(**vargs)
-    )
+def make_connection_string(vargs: Union[dict, ConOpts]):
+    """Join a dictionary of connection properties (`vargs`) into a connection string."""
+    if isinstance(vargs, ConOpts):
+        vargs = vargs._asdict()
+    vargs['password'] = (':{}'.format(vargs['password']) if vargs.get('password') is not None
+                         and not vargs.get('schema', '').startswith('/') else '')
+    vargs['url'] = ('@{}'.format(vargs['url']) if vargs.get('url') else '')
+    vargs['port'] = (':{}'.format(vargs['port']) if vargs.get('port') else '')
+    vargs['schema'] = ('/{}'.format(vargs['schema']) if vargs.get('schema') else '/')
+    vargs['socket'] = ('?unix_socket={}'.format(vargs['socket']) if vargs.get('socket') else '')
+    connection_string = ('{name}://{username}{password}{url}{port}{schema}{socket}'.format(**vargs))
     return connection_string
 
 
@@ -173,9 +99,9 @@ def _validate_db_cache_filename(db_cache_filename):
     if db_cache_filename is None:
         db_cache_filename = DB_CACHE_FILENAME
     if db_cache_filename is None:
-        error_message = """\
-You must provide `db_cache_filename` or set `DB_CACHE_FILENAME`.\
-"""
+        error_message = dedent("""\
+            You must provide `db_cache_filename` or set `DB_CACHE_FILENAME`.
+            """).strip()
         raise Exception(error_message)
 
 
