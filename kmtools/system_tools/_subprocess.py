@@ -83,7 +83,7 @@ def iter_stdout(p):
         yield line
 
 
-def execute(system_command: str, cwd: Optional[str]=None) -> str:
+def execute(system_command: str, cwd: Optional[str] = None) -> None:
     """Execute a system command, passing STDERR to logger.
 
     Source: https://stackoverflow.com/a/4417735/2063031
@@ -101,27 +101,6 @@ def execute(system_command: str, cwd: Optional[str]=None) -> str:
     return_code = popen.wait()
     if return_code:
         raise subprocess.CalledProcessError(return_code, system_command)
-
-
-def _run_command_ssh(system_command, host):
-    logger.debug("Running on host: '%s'", host)
-    with SSHClient(host) as ssh:
-        _stdin, _stdout, _stderr = ssh.exec_command(system_command)
-        stdout = _stdout.read().decode()
-        stderr = _stderr.read().decode()
-        returncode = _stdout.channel.recv_exit_status()
-    return stdout, stderr, returncode
-
-
-def _run_command_local(system_command, shell):
-    logger.debug("Running locally")
-    process = subprocess.run(
-        system_command if shell else shlex.split(system_command),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        shell=shell,
-        universal_newlines=True,)
-    process.stdout, process.stderr, process.returncode
 
 
 @retry_subprocess
@@ -146,6 +125,28 @@ def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[
     else:
         logger.debug("Command ran successfully! (%s)", stdout.strip())
     return stdout, stderr, returncode
+
+
+def _run_command_ssh(system_command, host):
+    logger.debug("Running on host: '%s'", host)
+    with SSHClient(host) as ssh:
+        _stdin, _stdout, _stderr = ssh.exec_command(system_command)
+        stdout = _stdout.read().decode()
+        stderr = _stderr.read().decode()
+        returncode = _stdout.channel.recv_exit_status()
+    return stdout, stderr, returncode
+
+
+def _run_command_local(system_command, shell):
+    logger.debug("Running locally")
+    process = subprocess.run(
+        system_command if shell else shlex.split(system_command),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        shell=shell,
+        universal_newlines=True,
+    )
+    process.stdout, process.stderr, process.returncode
 
 
 def kill_child_processes(parent_pid, sig=signal.SIGTERM):
