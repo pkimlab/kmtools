@@ -14,6 +14,7 @@ PDB_IDS = [
 MISSING = [
     # (pdb_id, pdb_type, biounit)
     ('1arr', 'pdb', 1),
+    ('1arr', 'cif', 1),
     ('4p6f', 'pdb', 0),
     ('4p6f', 'pdb', 1),
 ]
