@@ -1,1 +1,1 @@
-from gridsearch import *
+from .gridsearch import *
