@@ -10,9 +10,6 @@ stages:
 variables:
   PACKAGE_VERSION: 0.0.23.dev0
 
-.py35: &py35
-  PYTHON_VERSION: "3.5"
-
 .py36: &py36
   PYTHON_VERSION: "3.6"
 
@@ -51,11 +48,6 @@ variables:
     paths:
     - conda-bld
 
-build-py35:
-  <<: *build
-  variables:
-    <<: [*py35]
-
 build-py36:
   <<: *build
   variables:
@@ -80,13 +72,6 @@ build-py36:
   artifacts:
     paths:
     - environment-py${PYTHON_VERSION/./}.yml
-
-test-py35:
-  <<: [*conda_configure, *test]
-  dependencies:
-    - build-py35
-  variables:
-    <<: [*py35]
 
 test-py36:
   <<: [*conda_configure, *test]
@@ -152,11 +137,6 @@ pages:
     - master
   except:
     - triggers
-
-deploy-py35:
-  <<: *deploy
-  dependencies:
-    - build-py35
 
 deploy-py36:
   <<: *deploy
