@@ -19,5 +19,9 @@ docs/_modules
 !.codecov.yml
 !.pylintrc
 
+# Script data
+scripts/components.cif
+
 # Notebooks (for now...)
 notebooks
+.ipynb_checkpoints
