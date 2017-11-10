@@ -104,26 +104,27 @@ def execute(system_command: str, cwd: Optional[str] = None) -> None:
 
 
 @retry_subprocess
-def run_command(system_command, host=None, *, shell=False, allowed_returncodes=[0]):
-    """Run system command either locally or over ssh."""
+def run_command(system_command, host=None, allowed_returncodes=[0]):
+    """Run system command either locally or over ssh.
+    
+    Notes:
+        * For consistency with remote execution, local commands are executed with ``shell=True``.
+          Accordingly, we should follow all neccessary precautions.
+    """
     # === Run command ===
     logger.debug(system_command)
     if host is not None:
         stdout, stderr, returncode = _run_command_ssh(system_command, host)
     else:
-        stdout, stderr, returncode = _run_command_local(system_command, shell)
+        stdout, stderr, returncode = _run_command_local(system_command)
     # === Process results ===
     if returncode not in allowed_returncodes:
-        error_message = ("Encountered an error: '{}'\n".format(stderr) +
-                         "System command: '{}'\n".format(system_command) +
-                         "Output: '{}'\n".format(stdout) + "Return code: {}".format(returncode))
-        logger.error(error_message)
         raise subprocess.CalledProcessError(
-            command=system_command, host=host, stdout=stdout, stderr=stderr, returncode=returncode)
+            returncode=returncode, cmd=system_command, output=stdout, stderr=stderr)
     elif 'warning' in stdout.lower() or 'error' in stdout.lower():
-        logger.warning("Command ran with warnings / errors! (%s)", stdout.strip())
+        logger.warning("Command ran with warnings / errors! (%s)", stdout)
     else:
-        logger.debug("Command ran successfully! (%s)", stdout.strip())
+        logger.debug("Command ran successfully! (%s)", stdout)
     return stdout, stderr, returncode
 
 
@@ -131,22 +132,22 @@ def _run_command_ssh(system_command, host):
     logger.debug("Running on host: '%s'", host)
     with SSHClient(host) as ssh:
         _stdin, _stdout, _stderr = ssh.exec_command(system_command)
-        stdout = _stdout.read().decode()
-        stderr = _stderr.read().decode()
+        stdout = _stdout.read().decode().strip()
+        stderr = _stderr.read().decode().strip()
         returncode = _stdout.channel.recv_exit_status()
     return stdout, stderr, returncode
 
 
-def _run_command_local(system_command, shell):
+def _run_command_local(system_command):
     logger.debug("Running locally")
     process = subprocess.run(
-        system_command if shell else shlex.split(system_command),
+        system_command,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        shell=shell,
+        shell=True,
         universal_newlines=True,
     )
-    process.stdout, process.stderr, process.returncode
+    return process.stdout.strip(), process.stderr.strip(), process.returncode
 
 
 def kill_child_processes(parent_pid, sig=signal.SIGTERM):
