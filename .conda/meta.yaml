@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  path: ../../
+  path: ../
 
 build:
   script: $PYTHON setup.py install --single-version-externally-managed --record=record.txt
