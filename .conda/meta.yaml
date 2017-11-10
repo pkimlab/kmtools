@@ -28,6 +28,7 @@ requirements:
     - smart_open
     - psutil
     - pygments
+    - pytest
     # Scientific python
     - numpy
     - scipy
