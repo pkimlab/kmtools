@@ -12,12 +12,10 @@ __pycache__
 docs/_modules
 
 # Hidden
-.*
-!.gitignore
-!.travis.yml
-!.gitlab-ci.yml
-!.codecov.yml
-!.pylintrc
+.mypy_cache
+.vscode
+.hypothesis
+.eggs
 
 # Script data
 scripts/components.cif
