@@ -4,8 +4,10 @@ random.seed(42)
 
 
 PDB_IDS = [
-    '4dkl', '1arr', '1dvf', '3mbp',
-    '4p6f', '1dcg'
+    # Crash with errors
+    '3lki',
+    # Older ones
+    '4dkl', '1arr', '1dvf', '3mbp', '4p6f', '1dcg',
 ]
 
 
