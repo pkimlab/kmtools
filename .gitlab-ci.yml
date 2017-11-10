@@ -39,7 +39,7 @@ variables:
   <<: *conda_configure
   script:
     # Build conda packages
-    - cd $CI_PROJECT_DIR/devtools/conda-recipe
+    - cd $CI_PROJECT_DIR/.conda
     - conda build --python $PYTHON_VERSION .
     # Save built packages as artifacts
     - mkdir $CI_PROJECT_DIR/conda-bld
