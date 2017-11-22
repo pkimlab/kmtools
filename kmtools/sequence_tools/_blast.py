@@ -18,9 +18,6 @@ BLAST_OUTFMT6_COLUMN_NAMES = [
 ]
 
 
-# TODO: Add a2b and b2a columns.
-
-
 # @lru_cache(maxsize=1024, typed=False)
 def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
     """Run `blastp`.
@@ -50,6 +47,11 @@ def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
     if error_message:
         logger.error(error_message)
     result_df = pd.read_csv(io.StringIO(result), sep='\t', names=BLAST_OUTFMT6_COLUMN_NAMES)
+    return result_df
+
+
+def expand_blast_results(result_df: pd.DataFrame) -> pd.DataFrame:
+    result_df = result_df.copy()
     result_df['a2b'], result_df['b2a'] = list(zip(*(
         kmtools.sequence_tools.get_crossmapping(*x, skip_mismatch=False)
         for x in result_df[['qseq', 'sseq']].values)))
