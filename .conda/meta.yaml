@@ -16,6 +16,9 @@ requirements:
   build:
     # Basic python
     - python
+    # Setuptools
+    - pandoc
+    - pypandoc
   run:
     # Basic python
     - python
