@@ -1,16 +1,17 @@
 import os.path as op
+import warnings
 
 from setuptools import find_packages, setup
 
 
 def _read_md_as_rst(file):
-    """Read MarkDown file and convert it to ReStructuredText."""
-    from pypandoc import convert
-    return convert(file, 'rst')
+    """Read Markdown file and convert it to ReStructuredText."""
+    from pypandoc import convert_file
+    return convert_file(file, 'rst', format='md')
 
 
 def _read_md_as_md(file):
-    """Read MarkDown file."""
+    """Read Markdown file."""
     with open(op.join(op.dirname(__file__), file)) as ifh:
         return ifh.read()
 
@@ -20,7 +21,7 @@ def read_md(file):
     try:
         return _read_md_as_rst(file)
     except ImportError:
-        print("WARNING: pypandoc module not found, could not convert Markdown to RST!")
+        warnings.warn("pypandoc module not found, could not convert Markdown to RST!")
         return _read_md_as_md(file)
 
 
