@@ -1,6 +1,7 @@
 import inspect
 import logging
 from contextlib import closing
+from pathlib import Path
 from typing import Any, Callable, Dict, Generator, Union
 
 import pandas as pd
@@ -20,7 +21,7 @@ def csv_to_parquet(csv_file: str,
 
 
 def write_parquet_file(dfs: Union[pd.DataFrame, Generator[pd.DataFrame, None, None]],
-                       parquet_file: str, **kwargs) -> None:
+                       parquet_file: Union[str, Path], **kwargs) -> None:
     """Write a DataFrame, or an iterator over DataFrames, to a Parquet file.
 
     Args:
@@ -33,6 +34,12 @@ def write_parquet_file(dfs: Union[pd.DataFrame, Generator[pd.DataFrame, None, No
         Execption: If keyword arguments don't match the signatures of the methods
             listed above.
     """
+    if isinstance(parquet_file, Path):
+        parquet_file = parquet_file.absolute().as_posix()
+
+    kwargs.setdefault('flavor', 'spark')
+    kwargs.setdefault('compression', 'snappy')
+
     pa_kwargs = {k: kwargs.pop(k) for k in list(kwargs) if k in ['preserve_index']}
     # This should work in the future versions of PyArrow:
     # pw_kwargs = extract_kwargs(pq.ParquetWriter, kwargs)
