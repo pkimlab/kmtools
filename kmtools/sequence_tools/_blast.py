@@ -44,16 +44,20 @@ def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         universal_newlines=True)
     result, error_message = cp.communicate(sequence)
-    if error_message:
-        logger.error(error_message)
+    if error_message.strip():
+        logger.error(error_message.strip())
     result_df = pd.read_csv(io.StringIO(result), sep='\t', names=BLAST_OUTFMT6_COLUMN_NAMES)
+    assert (result_df['qseq'].str.len() == result_df['sseq'].str.len()).all()
     return result_df
 
 
-def expand_blast_results(result_df: pd.DataFrame) -> pd.DataFrame:
+def extend_blast_results(result_df: pd.DataFrame) -> pd.DataFrame:
     result_df = result_df.copy()
-    result_df['a2b'], result_df['b2a'] = list(zip(*(
+    a2b, b2a = list(zip(*(
         kmtools.sequence_tools.get_crossmapping(*x, skip_mismatch=False)
         for x in result_df[['qseq', 'sseq']].values)))
-    assert (result_df['qseq'].str.len() == result_df['sseq'].str.len()).all()
+    a2b = [[(int(i) if i else None) for i in s.split(',')] for s in a2b]
+    b2a = [[(int(i) if i else None) for i in s.split(',')] for s in b2a]
+    result_df.loc[:, 'a2b'] = pd.Series(a2b)
+    result_df.loc[:, 'b2a'] = pd.Series(b2a)
     return result_df
