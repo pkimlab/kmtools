@@ -26,20 +26,16 @@ class JSONEncoderNumPy(json.JSONEncoder):
             return super().default(obj)
 
 
-def serialize_object_to_string(obj):
+def serialize_object_to_string(obj: object) -> str:
     """Serialize a Python object into a string.
 
     Useful for when you want to pass an object as a command-line
     argument to a file.
 
-    Parameters
-    ----------
-    obj : object
-        The object that you want to serialize.
+    Args:
+        obj: The object that you want to serialize.
 
-    Returns
-    -------
-    data_hex_string : str
+    Returns:
         String representation of the object.
     """
     data_bytes = dill.dumps(obj)
@@ -48,17 +44,13 @@ def serialize_object_to_string(obj):
     return data_hex_string
 
 
-def deserialize_object_from_string(data_hex_string):
+def deserialize_object_from_string(data_hex_string: str) -> object:
     """Deserialize a Python object from a string.
 
-    Parameters
-    ----------
-    data_hex_string : str
-        String representation of the Python object.
+    Args:
+        data_hex_string: String representation of the Python object.
 
-    Returns
-    -------
-    obj : object
+    Returns:
         The object that was encoded inside the string argument.
     """
     data_hex = data_hex_string.encode('utf-8')

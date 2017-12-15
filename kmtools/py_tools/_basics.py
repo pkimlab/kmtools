@@ -9,10 +9,9 @@ logger = logging.getLogger(__name__)
 def uniquify(l):
     """Return a list of unique elements of `l`, preserving order.
 
-    Examples
-    --------
-    >>> list(uniquify([1, 2, 3, 2, 1]))
-    [1, 2, 3]
+    Examples:
+        >>> list(uniquify([1, 2, 3, 2, 1]))
+        [1, 2, 3]
     """
     seen = set()
     for x in l:
