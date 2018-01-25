@@ -78,7 +78,7 @@ author = 'KimLab'
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = '0.0.24'
+release = '0.0.25'
 # The short X.Y version.
 version = release.partition('-')[0]
 
