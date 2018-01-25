@@ -1,9 +1,10 @@
-import codecs
 import json
 import logging
+import zlib
+
+import numpy as np
 
 import dill
-import numpy as np
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +39,7 @@ def serialize_object_to_string(obj: object) -> str:
     Returns:
         String representation of the object.
     """
-    data_bytes = dill.dumps(obj)
-    data_hex = codecs.encode(data_bytes, "hex")
-    data_hex_string = data_hex.decode('utf-8')
-    return data_hex_string
+    return zlib.compress(dill.dumps(obj), level=9).hex()
 
 
 def deserialize_object_from_string(data_hex_string: str) -> object:
@@ -53,7 +51,4 @@ def deserialize_object_from_string(data_hex_string: str) -> object:
     Returns:
         The object that was encoded inside the string argument.
     """
-    data_hex = data_hex_string.encode('utf-8')
-    data_bytes = codecs.decode(data_hex, "hex")
-    obj = dill.loads(data_bytes)
-    return obj
+    return dill.loads(zlib.decompress(bytes.fromhex(data_hex_string)))
