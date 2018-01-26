@@ -3,7 +3,6 @@ More comprehensive tests using complete PDB structures.
 """
 import os.path as op
 
-import numpy as np
 import pytest
 
 import kmbio.PDB

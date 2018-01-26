@@ -106,7 +106,7 @@ def execute(system_command: str, cwd: Optional[str] = None) -> None:
 @retry_subprocess
 def run_command(system_command, host=None, allowed_returncodes=[0]):
     """Run system command either locally or over ssh.
-    
+
     Notes:
         * For consistency with remote execution, local commands are executed with ``shell=True``.
           Accordingly, we should follow all neccessary precautions.
