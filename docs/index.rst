@@ -12,6 +12,7 @@ Contents:
    examples/index.rst
    environment_variables.md
    modules
+   api/generated/kmtools
 
 Indices and tables
 ==================
