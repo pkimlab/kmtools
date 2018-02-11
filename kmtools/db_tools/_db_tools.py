@@ -12,6 +12,10 @@ DB_CACHE_FILENAME = None
 
 
 class ConOpts(NamedTuple):
+    """
+    .. deprecated::
+        Use `urllib.parse.ParseResult` instead.
+    """
     name: str
     username: str
     password: Optional[str]
@@ -30,6 +34,9 @@ def parse_connection_string(connection_string):
 
     Args:
         connection_string: String describing database connection in SQLAlchemy-compatible format.
+
+    .. deprecated::
+        Use `urllib.parse.urlparse` instead.
 
     Returns:
         A tuple of connection parameters.
@@ -67,7 +74,11 @@ def parse_connection_string(connection_string):
 
 
 def make_connection_string(vargs: Union[dict, ConOpts]):
-    """Join a dictionary of connection properties (`vargs`) into a connection string."""
+    """Join a dictionary of connection properties (`vargs`) into a connection string.
+
+    .. deprecated::
+        Use `urllib.parse.urlunparse` / `urllib.parse.urlunsplit` instead.
+    """
     if isinstance(vargs, ConOpts):
         vargs = vargs._asdict()
     vargs['password'] = (':{}'.format(vargs['password']) if vargs.get('password') is not None
