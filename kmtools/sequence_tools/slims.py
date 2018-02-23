@@ -5,6 +5,7 @@ Tools for Short Linear Motifs on Protein sequences - SLiM -
 import os
 import re
 import logging
+import random
 
 import pandas as pd
 import numpy as np
@@ -316,3 +317,136 @@ def dist_PWM(pwm1, pwm2):
         colum.append(sum(rows) * .5)
 
     return sum(colum) / float(w)
+
+
+    def mutual_information(sequences, i, j):
+    """To identify correlated positions in peptide alignments, we used
+    mutual information for all possible position pairs. Mutual information is computed as:.
+(j)
+    MI = sum 1-20 sum 1-20 p(i,j) log {P(i,j)/ P1i P2}
+
+    where P(i,j) stands for the probability of having amino acid i at one position together
+    with amino acid j at the other position in a peptide. P1(i) is the probability of having amino
+    acid i at one position and P2(j) the probability of having amino acid j at the other position.
+    MI=0 corresponds to independence of the two positions, whereas larger values indicate that
+    knowing which amino acids are found at one position gives some information about which ones
+    are expected at the other position. One limitation of mutual information is that non-zero
+    values are often expected to be present by chance, even for randomly generated peptides.
+    We therefore used the mutual information P-value as a filter (other statistical measures
+    such as the Z-scores could also be used). All P-values have been computed by randomly
+    shuffling the amino acids within the alignment columns. A threshold of 0.001 has been
+    used to define correlated positions.
+
+    Parameters
+    ----------
+    ppm : dict
+    i: int
+    j: int
+
+    Returns
+    -------
+    float
+
+    """
+    aminoacids = ["R", "H", "K", "D", "E", "S", "T", "N", "Q", "C",
+    "G", "P", "A", "V", "I", "L", "M", "F", "Y", "W"]
+    # get Total seq
+    #N = sum([X for X in ptm[i].values()])
+    # n = sum([ sum(position.values()) for position in pfm.values()])
+    frequencies = get_pfm(sequences)
+    N = float(len(sequences))
+
+    # transform to ....
+
+    # insert frequency matrix, and positions1, position2
+    # return MI of a pairf positions
+    # given position K1, and poistion K2
+    mi = list()
+    for ai in aminoacids:
+        for aj in aminoacids:
+            mi.append(calc_mutual(sequences, frequencies, N, i, j ,  ai, aj ))
+        #with Pool() as p:
+        #    func = partial(calc_mutual,
+        #               sequences=sequences,
+        #               frequencies= frequencies,
+        #               N = N,
+        #               i=i,
+        #               j=j,
+        #               ai=ai)
+        #    mi += p.map(func, aminoacids)
+
+
+    return mi
+
+
+def _freq_pairs(sequences, i, j, ai, aj):
+
+    filteri = [seq   for seq in sequences if seq[i] == ai]
+    filterj =  [seq for seq in filteri if seq[j] == aj  ]
+
+    return filterj
+
+def calc_mutual(sequences, frequencies,N,  i, j ,  ai, aj ):
+
+    prob_ai =  float(frequencies[i].get(ai, 0.0)) / N # get freq for that a in i
+    prob_aj =  float(frequencies[j].get(aj, 0.0)) / N# get freq for that a in j
+    freq_pairs_ij =  len(_freq_pairs(sequences, i, j, ai, aj))
+    prob_ij =  freq_pairs_ij / N# from fequency
+    # print prob_ij, prob_ai, prob_aj, N, i, j , ai , aj
+    try:
+
+        r =  prob_ij*np.log(prob_ij/(prob_ai*prob_aj))
+
+        #if r == np.float64('nan'):
+        #    return 0.
+        #else:
+        return r
+
+    except ZeroDivisionError:
+        return np.nan
+
+
+def get_entropy(sequences):
+    """return a array with entropy for each postion.
+
+    Parameters
+    ----------
+    ppm: pandas.DataFrame()
+
+    Returns
+    -------
+    array
+
+    """
+    
+    ppm = get_ppm(sequences)
+    entropy_vec = np.empty(ppm.shape[1])
+    # for position
+    for idx, a in enumerate(ppm.columns):
+        e = np.empty(ppm.shape[0])
+        # get entropy for all aminoacids
+        for jdx, i in enumerate(ppm.index.get_values()):
+            prob = ppm.at[i,a]
+            e[jdx] = prob*(np.log(prob)/np.log(20))
+
+        entropy_vec[idx] = -1 * np.nansum(e)
+
+    return entropy_vec
+
+def random_peptide(n=7):
+    """Random generation of a peptide of len n
+
+    Parameters
+    ----------
+        n : int lenght of the peptide
+    Returns
+    -------
+        str
+    """
+    aminoacids = ["R", "H", "K", "D", "E", "S", "T", "N", "Q", "C",
+    "G", "P", "A", "V", "I", "L", "M", "F", "Y", "W"]
+    
+
+    peptide = random.sample(aminoacids, n)
+    
+    return ''.join(peptide)
