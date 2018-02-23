@@ -8,10 +8,7 @@ stages:
 # === Variables ===
 
 variables:
-  PACKAGE_VERSION: 0.0.20
-
-.py35: &py35
-  PYTHON_VERSION: "3.5"
+  PACKAGE_VERSION: 0.0.25
 
 .py36: &py36
   PYTHON_VERSION: "3.6"
@@ -35,13 +32,14 @@ variables:
         conda config --append channels ostrokach;
       ;;
       esac
+    - conda update -yq conda
 
 .build: &build
   stage: build
   <<: *conda_configure
   script:
     # Build conda packages
-    - cd $CI_PROJECT_DIR/devtools/conda-recipe
+    - cd $CI_PROJECT_DIR/.conda
     - conda build --python $PYTHON_VERSION .
     # Save built packages as artifacts
     - mkdir $CI_PROJECT_DIR/conda-bld
@@ -49,11 +47,6 @@ variables:
   artifacts:
     paths:
     - conda-bld
-
-build-py35:
-  <<: *build
-  variables:
-    <<: [*py35]
 
 build-py36:
   <<: *build
@@ -68,23 +61,17 @@ build-py36:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -y -q --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME} >/dev/null
+    - conda install -yq --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME}
+    - SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
     # Test
-    - pip install -q flake8 pytest pytest-cov codecov hypothesis
+    - pip install -q flake8 pytest-cov codecov pytest-logging hypothesis
     - flake8
-    - py.test
+    - py.test --cov="${SITE_PACKAGES}/${CI_PROJECT_NAME}"
     - conda env export -f $CI_PROJECT_DIR/environment-py${PYTHON_VERSION/./}.yml
-  coverage: /^TOTAL.*(\d+\%)/
+  coverage: /^TOTAL.* (\d+\%)/
   artifacts:
     paths:
     - environment-py${PYTHON_VERSION/./}.yml
-
-test-py35:
-  <<: [*conda_configure, *test]
-  dependencies:
-    - build-py35
-  variables:
-    <<: [*py35]
 
 test-py36:
   <<: [*conda_configure, *test]
@@ -101,7 +88,7 @@ test-py36:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -y -q --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME >/dev/null
+    - conda install -yq --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME
     # Build docs
     - conda install -yq nbconvert ipython ipykernel pandoc
     - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx
@@ -148,14 +135,8 @@ pages:
       esac
   only:
     - master
-    - tags
   except:
     - triggers
-
-deploy-py35:
-  <<: *deploy
-  dependencies:
-    - build-py35
 
 deploy-py36:
   <<: *deploy

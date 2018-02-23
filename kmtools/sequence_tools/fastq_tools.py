@@ -14,18 +14,15 @@ def add_seq2fq(sequence_info, file_output, write_mode='a'):
 
     Parameters
     ----------
-
     sequence_data : array_like
         sequence_info[0] == Header or id of the sequences, if do not contain @ ,
     it will be added.
         sequence_info[1] == Sequence
         sequence_info[2] == Quality
-
     file_output: str, obj
         This function can recive both a file_handler or file name. In the former
         scenario it will create a file_handler, and in both cases it will let
         it open, to improve I/O.
-
 
     Returns
     -------
@@ -70,15 +67,10 @@ def write(grp_seq, output, overwrite=False):
 
     Parameters
     ----------
-
     grp_seq : array_like
         Iterable object with sequences
-
     overwrite: bool
-        If True ignores the presence of a file with the same name
-
-
-
+        If True ignores the presence of a file with the same name.
     """
     if isinstance(output, str):
         if os.path.isfile(output) and not overwrite:
@@ -106,7 +98,6 @@ def avg_score(qual):
     -------
     float
         Average quality of the sequences
-
     """
     # Translate the Quality to numbers
     avgQual = [ord(c) - 33 for c in qual.rstrip("\n")]

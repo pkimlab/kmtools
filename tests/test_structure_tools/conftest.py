@@ -4,8 +4,10 @@ random.seed(42)
 
 
 PDB_IDS = [
-    '4dkl', '1arr', '1dvf', '3mbp',
-    '4p6f',
+    # Crash with errors
+    '3lki',
+    # Older ones
+    '4dkl', '1arr', '1dvf', '3mbp', '4p6f', '1dcg',
 ]
 
 
@@ -13,9 +15,10 @@ PDB_IDS = [
 #: Conversely, PDBs which make up a large biounit often only have mmCIF structure.
 MISSING = [
     # (pdb_id, pdb_type, biounit)
-    ('1arr', 'pdb', True),
-    ('4p6f', 'pdb', False),
-    ('4p6f', 'pdb', True),
+    ('1arr', 'pdb', 1),
+    ('1arr', 'cif', 1),
+    ('4p6f', 'pdb', 0),
+    ('4p6f', 'pdb', 1),
 ]
 
 

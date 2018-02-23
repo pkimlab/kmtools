@@ -1,6 +1,7 @@
 import logging
 import string
 from collections import Counter, OrderedDict
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -19,16 +20,16 @@ def split_df(df, n_chunks):
     return chunks
 
 
-def get_reverse_column(column):
+def reverse_column(column: str) -> str:
     """Change column 'xxx_1' to 'xxx_2' and vice versa.
 
     Examples
     --------
-    >>> get_reverse_column('hello')
+    >>> reverse_column('hello')
     'hello'
-    >>> get_reverse_column('good_bye_1')
+    >>> reverse_column('good_bye_1')
     'good_bye_2'
-    >>> get_reverse_column('world_2')
+    >>> reverse_column('world_2')
     'world_1'
     """
     for suffix, other in [('_1', '_2'), ('_2', '_1')]:
@@ -37,7 +38,7 @@ def get_reverse_column(column):
     return column
 
 
-def reverse_columns(columns):
+def reverse_columns(columns: List[str]) -> List[str]:
     """Flip the suffix of columns which end in '_1' and '_2'.
 
     Examples
@@ -45,7 +46,7 @@ def reverse_columns(columns):
     >>> reverse_columns(['a_1', 'a_2', 'b_2', 'b_1', 'c'])
     ['a_2', 'a_1', 'b_1', 'b_2', 'c']
     """
-    return [get_reverse_column(c) for c in columns]
+    return [reverse_column(c) for c in columns]
 
 
 def remove_duplicate_columns(df, keep_first=True, add_suffix=False):
@@ -109,21 +110,19 @@ def remove_duplicate_columns(df, keep_first=True, add_suffix=False):
     return df
 
 
-def random_df(n_rows: int=100000) -> pd.DataFrame:
+def random_df(n_rows: int = 100000) -> pd.DataFrame:
     """Return a random class:`pandas.DataFrame`.
 
     Can help with tests where you need a random DataFrame.
     """
+
+    def gen_random_string(n_chars):
+        return ''.join(np.random.choice(list(string.printable)) for _ in range(n_chars))
+
     fns = [
-        lambda: np.array(
-            [''.join(np.random.choice(list(string.printable)) for _ in range(12))] * n_rows
-        ),
-        lambda: np.array(
-            [''.join(np.random.choice(list(string.printable)) for _ in range(256))] * n_rows
-        ),
-        lambda: np.array(
-            [''.join(np.random.choice(list(string.printable)) for _ in range(1024))] * n_rows
-        ),
+        lambda: np.array([gen_random_string(12)] * n_rows),
+        lambda: np.array([gen_random_string(256)] * n_rows),
+        lambda: np.array([gen_random_string(1024)] * n_rows),
         lambda: np.random.randint(0, 10000000000, n_rows),
         lambda: np.random.randn(n_rows),
     ]

@@ -1,12 +1,12 @@
 {% set name = "kmtools" %}
-{% set version = "0.0.20" %}
+{% set version = "0.0.25" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  path: ../../
+  path: ../
 
 build:
   script: $PYTHON setup.py install --single-version-externally-managed --record=record.txt
@@ -16,6 +16,9 @@ requirements:
   build:
     # Basic python
     - python
+    # Setuptools
+    - pandoc
+    - pypandoc
   run:
     # Basic python
     - python
@@ -25,6 +28,10 @@ requirements:
     - retrying
     - paramiko
     - dill
+    - smart_open
+    - psutil
+    - pygments
+    - pytest
     # Scientific python
     - numpy
     - scipy
@@ -32,9 +39,10 @@ requirements:
     - sqlalchemy
     - scikit-learn
     - pytables
+    - pyarrow
     - numba
     - biopython
-    - kmbio >=1.69.5
+    - kmbio >=2.0.0
     # Plotting
     # - matplotlib
     # - seaborn

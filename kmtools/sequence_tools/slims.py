@@ -31,7 +31,6 @@ PEPX = pd.read_csv(absolute_path + "/support/elms_pepx.csv")
 def search_motif(seq, ELMdefinitions=ELM):
     """Return all the Motif in a sequences
 
-
     Parameters
     ----------
     seq: str
@@ -209,9 +208,6 @@ def get_ppm(sequences):
     -------
     pandas.DataFrame
          Position Probability Matrix , index is aminoacid, each column is the position
-
-
-
     """
 
     amino = ["R", "H", "K", "D", "E", "S", "T", "N", "Q", "C",
@@ -249,9 +245,6 @@ def get_pwm(sequences):
     -------
     pandas.DataFrame
          Position Probability Matrix , index is aminoacid, each column is the position
-
-
-
     """
 
     amino = ["R", "H", "K", "D", "E", "S", "T", "N", "Q", "C",
@@ -285,15 +278,12 @@ def binding_score(seq, pwm):
     ----------
     seq: str
 
-    pwm: Pandas.DataFrame
+    pwm: :class:`pandas.DataFrame`
 
     Returns
     -------
-
     float
-
     """
-
     score = list()
     for pos, symbol in enumerate(seq):
         score.append(pwm.at[symbol, pos])

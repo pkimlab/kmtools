@@ -12,8 +12,16 @@ from contextlib import contextmanager
 
 getLogger = logging.getLogger
 
+LOGGING_LEVELS = {
+    0: logging.ERROR,
+    1: logging.WARNING,
+    2: logging.INFO,
+    3: logging.DEBUG,
+}
+
 
 class Message(object):
+
     def __init__(self, fmt, args):
         self.fmt = fmt
         self.args = args
@@ -26,6 +34,7 @@ class Message(object):
 
 
 class StyleAdapter(logging.LoggerAdapter):
+
     def __init__(self, logger, extra=None):
         super(StyleAdapter, self).__init__(logger, extra or {})
 
@@ -35,18 +44,8 @@ class StyleAdapter(logging.LoggerAdapter):
             self.logger._log(level, Message(msg, args), (), **kwargs)
 
 
-@functools.wraps(logging.getLogger)
-def get_logger(*args, **kwargs):
-    return StyleAdapter(getLogger(*args, **kwargs))
-
-
-def patch_getLogger():
-    logging.getLogger = get_logger
-
-
-# ========= Context Manager =========
-
 class LoggingContext(object):
+
     def __init__(self, logger, level=None, handler=None, close=True):
         self.logger = logger
         self.level = level
@@ -70,8 +69,6 @@ class LoggingContext(object):
         # implicit return of None => don't swallow exceptions
 
 
-# ========= Log print statements =========
-
 class WritableObject:
     """A writable object which writes everything to the logger."""
 
@@ -80,6 +77,31 @@ class WritableObject:
 
     def write(self, string):
         self.logger.debug(string.strip())
+
+
+@functools.wraps(logging.getLogger)
+def get_logger(*args, **kwargs):
+    return StyleAdapter(getLogger(*args, **kwargs))
+
+
+def patch_getLogger():
+    logging.getLogger = get_logger
+
+
+def log_function_calls(logger):
+    """Log every call of the decorated function."""
+
+    def decorator(fn):
+
+        @functools.wraps(fn)
+        def wrapper(*args, **kwargs):
+            logger.warning(fn.__name__ + '(' + ', '.join(args) +
+                           ', '.join('{}={}'.format(k, v) for k, v in kwargs.items()) + ')')
+            return fn(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
 
 
 @contextmanager
@@ -97,7 +119,7 @@ def log_print_statements(logger):
     try:
         sys.stdout = wo
         yield
-    except:
+    except Exception:
         raise
     finally:
         sys.stdout = original_stdout

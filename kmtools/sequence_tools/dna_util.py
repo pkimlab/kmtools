@@ -96,10 +96,8 @@ def codon_weighted_random_choice(codons, specie):
 
     Parameters
     ----------
-
     codons : array_like
         must be an iterable containing more than one element.
-
     specie : str
         Codon usage specie, human, e.coli, etc.
 
@@ -151,6 +149,10 @@ def clean_restriction_sites(naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC
     """.
 
     Check if there is a restriction site for any of the enzymes in
+    self.set_restriction_enzyme for a sequence.
+    if it could find one, the afected codon is retranslated,
+    that will generate a codon selection,  and it check again.
+    Formed called _check_4_restricitions
         self.set_restriction_enzyme for a sequence.
         if it could find one, the afected codon is retranslated,
         that will generate a codon selection,  and it check again.
@@ -158,17 +160,18 @@ def clean_restriction_sites(naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC
 
     Parameters
     ----------
+    naseq : str
+        ADN sequences to check
+    dict_restriction : list | dict
+        Restriction sites defintions.
+    dict_restriction : list, default ['GAATTC','CCCGGG','GTCGAC']
+        or ecorI, XmaI, salI
 
-        :param naseq (str): ADN sequences to check
-        :param dict_restriction (list or dict): Restriction sites defintions.
-            (default) dict_restriction = ['GAATTC','CCCGGG','GTCGAC'] #or ecorI, XmaI, salI
-
-    return
-    ------
-        naseq (str): if the seq contains restriction site, it will be returned recoded
-                  to avoid them.
-
-
+    Returns
+    -------
+    naseq : str
+        If the seq contains restriction site, it will be returned recoded
+        to avoid them.
     """
     clean = False
 
@@ -192,7 +195,6 @@ def clean_restriction_sites(naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC
 
 def reshufle_seq(seq, position_pairs):
     """Resampling codon usage. Avoid restriction enzyme sites.
-
 
     Paramaters:
     -----------

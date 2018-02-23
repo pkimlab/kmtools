@@ -10,10 +10,8 @@ def align_pairwise(sequence_ref, sequence_alt, **arguments):
 
     Parameters
     ----------
-
     sequence_ref : str
         refernce sequence to align
-
     sequence_alt : str
         query sequence
 
@@ -23,23 +21,17 @@ def align_pairwise(sequence_ref, sequence_alt, **arguments):
 
     gapopen : str, float
         Open a gap penalty, i.e '-20.0'. Must be negative value
-
     gapextend : str, float
         penalty for extend the gap, must be a negative value
-
-
 
     Notes
     -----
         See the MUSCLE manual for a much more complete list of arguments
         http://www.drive5.com/muscle/muscle_userguide3.8.html
 
-
-
     Returns
     -------
     tuple
-
 
     Examples
     --------

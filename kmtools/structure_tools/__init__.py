@@ -10,16 +10,13 @@
    structure_parser
 """
 # flake8: noqa
-from .constants import *
-from .exc import *
-from .pdb_tools import *
-# from sifts import *
-from .structure_parser import *
-from .elaspic_legacy import *
-
 __all__ = [
-    'exc',
     'sifts',
-    'pdb_tools',
 ]
+from .constants import *
+from .elaspic_legacy import *
+from .exc import *
+from .sequence import *
+from .interaction import *
+from .structure_parser import *
 from . import *

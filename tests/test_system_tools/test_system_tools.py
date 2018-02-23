@@ -1,11 +1,27 @@
 import logging
+import os
 import os.path as op
 import shutil
 import tempfile
 
+import pytest
+
 from kmtools import system_tools
 
 logger = logging.getLogger(__name__)
+
+
+@pytest.mark.parametrize("host", [None, '127.0.0.1'])
+def test_run_command(host):
+    """
+    Used by `odbo`.
+    """
+    root_files_ = sorted(os.listdir(op.expanduser('~')))
+    stdout, stderr, returncode = system_tools.run_command('ls -A1 ~')
+    assert stderr == ''
+    assert returncode == 0
+    root_files = sorted(stdout.split())
+    assert root_files == root_files_
 
 
 class TestOpenExclusively:
