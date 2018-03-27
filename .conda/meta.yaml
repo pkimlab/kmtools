@@ -64,6 +64,11 @@ test:
     - kmtools.structure_tools
     - kmtools.system_tools
 
+outputs:
+  - name: {{ name }}
+    type: conda
+  - type: wheel
+
 about:
   home: http://kimlaborg.github.io/kmtools
   license: MIT
