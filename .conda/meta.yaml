@@ -55,6 +55,7 @@ requirements:
     - blast
     - muscle
     - cifparse-obj  # Assemblies
+    - hh-suite  # psipred
 
 test:
   source_files:

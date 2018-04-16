@@ -1,16 +1,18 @@
 """Sequence tools
 
 .. autosummary::
-   :toctree:
+    :toctree: _modules
 
-   codons_info
-   dna_util
-   elms
+    codons_info
+    dna_util
+    elms
+    run_psipred
+    read_psipred
 """
-# flake8: noqa
 from .alignment_tools import *
 from .blast import *
 from .sequence_tools import *
 from .codons_info import *
 from .dna_util import *
 from .slims import *
+from .psipred import run_psipred, read_psipred
