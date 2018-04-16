@@ -23,4 +23,8 @@ scripts/components.cif
 # Notebooks (for now...)
 notebooks
 .ipynb_checkpoints
+
+# Python cache
 .cache/
+.coverage
+htmlcov/
