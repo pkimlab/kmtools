@@ -11,6 +11,8 @@ source:
 build:
   script: $PYTHON setup.py install --single-version-externally-managed --record=record.txt
   number: 0
+  script_env:
+    - SUBPKG_NAME
 
 requirements:
   build:

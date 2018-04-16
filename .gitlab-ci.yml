@@ -13,26 +13,74 @@ variables:
 .py36: &py36
   PYTHON_VERSION: "3.6"
 
-# === Build ===
+.db_tools: &db_tools
+  SUBPKG_NAME: db_tools
+
+.df_tools: &df_tools
+  SUBPKG_NAME: df_tools
+
+.ml_tools: &ml_tools
+  SUBPKG_NAME: ml_tools
+
+.py_tools: &py_tools
+  SUBPKG_NAME: py_tools
+
+.sequence_tools: &sequence_tools
+  SUBPKG_NAME: sequence_tools
+
+.structure_tools: &structure_tools
+  SUBPKG_NAME: structure_tools
+
+.system_tools: &system_tools
+  SUBPKG_NAME: system_tools
+
+# === Configurations ===
 
 .conda_configure: &conda_configure
+  cache:
+    key: ${CI_JOB_NAME}-mod1
+    paths:
+      - .conda_packages/*.tar.bz2
+      - .conda_packages/urls.txt
   before_script:
+    # Conda environment variables
+    - export CONDA_PKGS_DIRS="${CI_PROJECT_DIR}/.conda_packages"
+    # Make conda cache and bld folders
+    - mkdir -p "${CI_PROJECT_DIR}/conda-bld" "${CONDA_PKGS_DIRS}"
+    - rm -rf ${CONDA_PKGS_DIRS}/${CI_PROJECT_NAME}-*
     # Conda configure
-    - conda config --append channels bioconda
+    - conda config --set channel_priority true
+    - conda config --append pkgs_dirs "${CONDA_PKGS_DIRS}"
+    - conda config --append channels pytorch
     - conda config --append channels ostrokach-forge
+    - conda config --append channels bioconda
     - case "${PACKAGE_VERSION}" in
       *dev*)
-        conda config --append channels kimlab/label/dev;
         conda config --append channels kimlab;
-        conda config --append channels ostrokach/label/dev;
+        conda config --append channels kimlab/label/dev;
         conda config --append channels ostrokach;
+        conda config --append channels ostrokach/label/dev;
       ;;
       *)
         conda config --append channels kimlab;
         conda config --append channels ostrokach;
       ;;
       esac
-    - conda update -yq conda
+
+# === Lint ===
+
+lint:
+  stage: lint
+  <<: *conda_configure
+  variables:
+    <<: [*py36]
+  script:
+    - conda install -yq "python=${PYTHON_VERSION}" isort flake8 mypy
+    - python -m isort -p "${CI_PROJECT_NAME}" -c
+    - python -m flake8
+    - python -m mypy -p "${CI_PROJECT_NAME}" || true
+
+# === Build ===
 
 .build: &build
   stage: build
@@ -58,27 +106,70 @@ build-py36:
 .test: &test
   stage: test
   script:
-    # Conda install
+    # Restore built packages
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
     - conda index /opt/conda/conda-bld/
-    - conda install -yq --use-local "python=$PYTHON_VERSION" ${CI_PROJECT_NAME}
-    - SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
-    # Test
-    - pip install -q flake8 pytest-cov codecov pytest-logging hypothesis
-    - flake8
-    - py.test --cov="${SITE_PACKAGES}/${CI_PROJECT_NAME}"
-    - conda env export -f $CI_PROJECT_DIR/environment-py${PYTHON_VERSION/./}.yml
-  coverage: /^TOTAL.* (\d+\%)/
+    # Run tests
+    - cd $CI_PROJECT_DIR/.conda
+    - conda build .
+      --test
+      --python $PYTHON_VERSION
+    # Code coverage
+    - mkdir "${CI_PROJECT_DIR}/coverage"
+    - mv .conda/.coverage "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
   artifacts:
     paths:
-    - environment-py${PYTHON_VERSION/./}.yml
+      - environment-py${PYTHON_VERSION/./}.yml
+      - "${CI_PROJECT_DIR}/.coverage_${SUBPKG_NAME}"
 
-test-py36:
+test-db_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
-    <<: [*py36]
+    <<: [*db_tools, *py36]
+
+test-df_tools-py36:
+  <<: [*conda_configure, *test]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*df_tools, *py36]
+
+test-ml_tools-py36:
+  <<: [*conda_configure, *test]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*ml_tools, *py36]
+
+test-py_tools-py36:
+  <<: [*conda_configure, *test]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*py_tools, *py36]
+
+test-sequence_tools-py36:
+  <<: [*conda_configure, *test]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*sequence_tools, *py36]
+
+test-structure_tools-py36:
+  <<: [*conda_configure, *test]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*structure_tools, *py36]
+
+test-system_tools-py36:
+  <<: [*conda_configure, *test]
+  dependencies:
+    - build-py36
+  variables:
+    <<: [*system_tools, *py36]
 
 # === Pages ===
 
@@ -94,6 +185,12 @@ test-py36:
     - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx
     - (cd docs && sphinx-apidoc ../$CI_PROJECT_NAME -o api/generated -TeMP)
     - sphinx-build docs public
+    # Coverage
+    - coverage combine coverage
+    - coverage report
+    - coverage html
+    - mv htmlcov public/
+  coverage: /^TOTAL.* (\d+\%)/
 
 test-pages:
   <<: [*conda_configure, *docs]
