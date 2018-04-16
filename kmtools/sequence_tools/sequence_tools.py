@@ -3,11 +3,10 @@ import io
 import logging
 import re
 
+import Bio.SeqIO
 import numpy as np
 import pandas as pd
 import requests
-
-import Bio.SeqIO
 
 logger = logging.getLogger(__name__)
 

@@ -3,8 +3,8 @@ import logging
 from typing import Optional
 
 import numpy as np
-
 from kmbio.PDB import Structure
+
 from kmtools.structure_tools import AAA_DICT, RESIDUE_MAPPING_TO_CANONICAL
 
 logger = logging.getLogger(__name__)

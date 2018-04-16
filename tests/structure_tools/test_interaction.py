@@ -4,12 +4,12 @@ Unit tests using toy pdb structures.
 import logging
 import os.path as op
 
+import kmbio.PDB
 import numpy as np
 import pandas as pd
 import pytest
 import yaml
 
-import kmbio.PDB
 from kmtools import structure_tools
 from kmtools.py_tools import parametrize
 

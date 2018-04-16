@@ -1,8 +1,8 @@
 import logging
 
 import numpy as np
-
 from kmbio.PDB import Chain, Model, NeighborSearch, Residue, Structure
+
 from kmtools.structure_tools import AAA_DICT, CHAIN_IDS, LYSINE_ATOMS, METHYLATED_LYSINES
 
 logger = logging.getLogger(__name__)

@@ -7,13 +7,13 @@ Functions to deal with DNA, translate, recode to avoid restriction enzymes, ...
 from __future__ import print_function
 
 import bisect
-import re
-import random
+import functools
 import logging
 import operator
-import functools
+import random
+import re
 
-from .codons_info import A2C_DICT, STOP_CODONS, USAGE_FREQ, A2C_NNS_DICT
+from .codons_info import A2C_DICT, A2C_NNS_DICT, STOP_CODONS, USAGE_FREQ
 
 logger = logging.getLogger(__name__)
 

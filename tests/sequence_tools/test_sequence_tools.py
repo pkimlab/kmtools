@@ -1,6 +1,6 @@
 import os.path as op
-import pandas as pd
 
+import pandas as pd
 import pytest
 
 import kmtools.sequence_tools

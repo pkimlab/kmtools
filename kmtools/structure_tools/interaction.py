@@ -3,8 +3,8 @@ from collections import namedtuple
 from typing import Iterable, List, Tuple
 
 import pandas as pd
-
 from kmbio.PDB import NeighborSearch, Structure
+
 from kmtools import df_tools, sequence_tools, structure_tools
 from kmtools.structure_tools import AAA_DICT, COMMON_HETATMS
 

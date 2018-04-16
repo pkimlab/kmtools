@@ -8,8 +8,8 @@ import re
 import tempfile
 import urllib.request
 import xml.etree
-from collections import OrderedDict
 import xml.etree.ElementTree as ET
+from collections import OrderedDict
 
 import numpy as np
 import pandas as pd

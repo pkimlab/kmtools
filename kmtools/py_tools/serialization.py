@@ -2,9 +2,8 @@ import json
 import logging
 import zlib
 
-import numpy as np
-
 import dill
+import numpy as np
 
 logger = logging.getLogger(__name__)
 

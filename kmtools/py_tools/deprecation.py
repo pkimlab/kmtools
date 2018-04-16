@@ -1,7 +1,7 @@
 import functools
 import inspect
 import warnings
-from typing import Callable, Union, Optional
+from typing import Callable, Optional, Union
 
 
 def deprecated(fn_or_reason: Union[Callable, str]):

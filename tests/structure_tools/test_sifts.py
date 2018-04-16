@@ -1,8 +1,8 @@
 import hashlib
 import json
 import os.path as op
-from tempfile import TemporaryDirectory
 import xml.etree.ElementTree as ET
+from tempfile import TemporaryDirectory
 
 import numpy as np
 import pandas as pd

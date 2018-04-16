@@ -1,9 +1,9 @@
 import os.path as op
 
+import kmbio.PDB
 import pytest
 import yaml
 
-import kmbio.PDB
 from kmtools import structure_tools
 
 TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])

@@ -3,10 +3,10 @@ More comprehensive tests using complete PDB structures.
 """
 import os.path as op
 
-import pytest
-
 import kmbio.PDB
+import pytest
 from conftest import DIFFICULT, MISSING, PDB_IDS, random_subset
+
 from kmtools import structure_tools
 
 TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])

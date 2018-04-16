@@ -3,8 +3,8 @@
 
 
 """
-import os.path
 import logging
+import os.path
 
 logger = logging.getLogger(__name__)
 

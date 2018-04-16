@@ -1,9 +1,9 @@
 import logging
 
 import pytest
-
 from conftest import MISSING, NO_RESNAME_ATTRIBUTE_PDBS, PDB_IDS, random_subset
 from kmbio.PDB import load
+
 from kmtools import structure_tools
 
 logger = logging.getLogger(__name__)

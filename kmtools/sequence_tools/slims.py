@@ -2,13 +2,13 @@
 Tools for Short Linear Motifs on Protein sequences - SLiM -
 
 """
+import logging
 import os
 import re
-import logging
-
-import pandas as pd
-import numpy as np
 import subprocess
+
+import numpy as np
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 # To improve. Motif definitios repositories
