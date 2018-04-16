@@ -87,12 +87,13 @@ lint:
   stage: build
   <<: *conda_configure
   script:
+    - export SUBPKG_NAME="all"  # to silence warnings
     # Build conda packages
-    - cd $CI_PROJECT_DIR/.conda
-    - conda build --python $PYTHON_VERSION .
-    # Save built packages as artifacts
-    - mkdir $CI_PROJECT_DIR/conda-bld
-    - cp -r /opt/conda/conda-bld/{linux-64,noarch} $CI_PROJECT_DIR/conda-bld
+    - cd "${CI_PROJECT_DIR}/.conda"
+    - conda build .
+      --no-test
+      --python $PYTHON_VERSION
+      --output-folder "${CI_PROJECT_DIR}/conda-bld"
   artifacts:
     paths:
     - conda-bld
@@ -121,7 +122,7 @@ build-py36:
   artifacts:
     paths:
       - environment-py${PYTHON_VERSION/./}.yml
-      - "${CI_PROJECT_DIR}/.coverage_${SUBPKG_NAME}"
+      - "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
 
 test-db_tools-py36:
   <<: [*conda_configure, *test]
