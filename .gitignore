@@ -26,5 +26,6 @@ notebooks
 
 # Python cache
 .cache/
+.pytest_cache
 .coverage
 htmlcov/
