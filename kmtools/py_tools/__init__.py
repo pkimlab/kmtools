@@ -5,10 +5,10 @@
 
    colors
 """
-from ._test_tools import *
-from ._basics import *
-from ._logging import *
-from ._serialization import *
-from ._struct import *
-from ._itertools import *
+from .test_tools import *
+from .basics import *
+from .logging import *
+from .serialization import *
+from .struct import *
+from .itertools import *
 from .deprecation import *

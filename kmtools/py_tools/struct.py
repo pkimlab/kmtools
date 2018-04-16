@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 def struct_factory(name, slots):
     """
     Notes:
-        - This is deprecated. Used `typing.NamedTuple` instead.
+        - This is deprecated. Used `typing.NamedTuple` / `attr.s` instead.
     """
 
     def __setitem__(self, key, value):

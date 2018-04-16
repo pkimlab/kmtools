@@ -1,7 +1,5 @@
-import importlib
 import inspect
 import logging
-import pkgutil
 
 logger = logging.getLogger(__name__)
 
@@ -56,20 +54,3 @@ def decorate_all_methods(decorator):
         return cls
 
     return apply_decorator
-
-
-def iter_submodules(package):
-    """Import all submodules of a module, recursively, including subpackages.
-
-    Adapted from https://stackoverflow.com/a/25562415/2063031
-    """
-    yield package.__name__, package
-    for loader, name, ispkg in pkgutil.walk_packages(package.__path__):
-        if name in ['scripts.update_metadata']:
-            # No clue why this anaconda script appears in the package path
-            continue
-        module = importlib.import_module(package.__name__ + '.' + name)
-        if ispkg:
-            yield from iter_submodules(module)
-        else:
-            yield module.__name__, module
