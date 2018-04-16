@@ -1,6 +1,7 @@
 image: condaforge/linux-anvil:latest
 
 stages:
+  - lint
   - build
   - test
   - deploy
