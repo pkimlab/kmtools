@@ -39,7 +39,7 @@ variables:
 
 .conda_configure: &conda_configure
   cache:
-    key: ${CI_JOB_NAME}-mod1
+    key: ${CI_JOB_NAME}
     paths:
       - .conda_packages/*.tar.bz2
       - .conda_packages/urls.txt
