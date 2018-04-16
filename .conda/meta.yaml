@@ -60,6 +60,10 @@ requirements:
 test:
   source_files:
     - setup.cfg
+  requires:
+    - pytest
+    - pytest-cov
+    - pytest-benchmark
   imports:
     - kmtools
     - kmtools.db_tools
