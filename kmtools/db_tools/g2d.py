@@ -1,3 +1,5 @@
+import argparse
+
 import pandas as pd
 import sqlalchemy as sa
 
@@ -147,7 +149,6 @@ def g2d(table_name, connection_string, null_default=None):
 
 
 if __name__ == '__main__':
-    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--table-name', type=str)
     args = parser.parse_args()
