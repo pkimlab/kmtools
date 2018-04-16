@@ -57,6 +57,8 @@ requirements:
     - cifparse-obj  # Assemblies
 
 test:
+  source_files:
+    - setup.cfg
   imports:
     - kmtools
     - kmtools.db_tools
