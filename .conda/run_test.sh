@@ -8,4 +8,4 @@ python -m pytest \
     -c ./setup.cfg \
     --cov="${SP_DIR}/${PKG_NAME}/${SUBPKG_NAME}" \
     --benchmark-disable \
-    "${PKG_DIR}/${SUBPKG_NAME}"
+    "${PKG_DIR}/tests/${SUBPKG_NAME}"
