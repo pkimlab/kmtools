@@ -9,3 +9,5 @@ python -m pytest \
     --cov="${SP_DIR}/${PKG_NAME}/${SUBPKG_NAME}" \
     --benchmark-disable \
     "${PKG_DIR}/tests/${SUBPKG_NAME}"
+
+mv .coverage "${RECIPE_DIR}/.coverage"

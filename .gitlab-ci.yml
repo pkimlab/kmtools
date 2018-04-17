@@ -118,7 +118,7 @@ build-py36:
       --python $PYTHON_VERSION
     # Code coverage
     - mkdir "${CI_PROJECT_DIR}/coverage"
-    - mv .conda/.coverage "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
+    - mv "$CI_PROJECT_DIR/.coverage" "$CI_PROJECT_DIR/coverage/${SUBPKG_NAME}"
   artifacts:
     paths:
       - environment-py${PYTHON_VERSION/./}.yml
