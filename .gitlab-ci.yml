@@ -1,4 +1,4 @@
-image: condaforge/linux-anvil:latest
+image: registry.gitlab.com/kimlab/linux-anvil:latest
 
 stages:
   - lint
