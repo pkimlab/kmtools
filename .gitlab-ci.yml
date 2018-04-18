@@ -127,49 +127,49 @@ build-py36:
       - "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
 
 db_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*db_tools, *py36]
 
 df_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*df_tools, *py36]
 
 ml_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*ml_tools, *py36]
 
 py_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*py_tools, *py36]
 
 sequence_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*sequence_tools, *py36]
 
 structure_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*structure_tools, *py36]
 
 system_tools-py36:
-  <<: [*conda_configure, *test]
+  <<: [*configure, *test]
   dependencies:
     - build-py36
   variables:
