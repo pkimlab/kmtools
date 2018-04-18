@@ -18,31 +18,26 @@ def hash_df(df):
     return hs
 
 
-@pytest.mark.parametrize(
-    'pdb_id, df_shape, df_md5_hash', [('1jrh', (442, 11), '14f22d11a461eb3976cffd2efb5dc587')])
-def test_get_sifts_data(pdb_id, df_shape, df_md5_hash):
+@pytest.mark.parametrize('pdb_id, df_shape', [('1jrh', (442, 11))])
+def test_get_sifts_data(pdb_id, df_shape):
     sifts_df = structure_tools.sifts.get_sifts_data(pdb_id)
     assert sifts_df.shape == df_shape
-    assert hashlib.md5(sifts_df.to_csv().encode('utf-8')).hexdigest() == df_md5_hash
 
 
-@pytest.mark.parametrize(
-    'pdb_id, pdb_chains, pdb_mutations, results', [
-        (
-            '1jrh', 'L', 'L_I116W', {
-                'pdb_mutations_sifts': 'L_I116W',
-                'pfam_id_sifts': 'PF07654',
-                'uniprot_id_sifts': 'P01837',
-                'uniprot_mutations_sifts': 'I9W',
-            }),
-        (
-            '1jrh', 'I', 'I_T19L.I_E21K', {
-                'pdb_mutations_sifts': 'I_T19L.I_E21K',
-                'pfam_id_sifts': np.nan,
-                'uniprot_id_sifts': 'P15260',
-                'uniprot_mutations_sifts': 'T36L.E38K',
-            }),
-    ])
+@pytest.mark.parametrize('pdb_id, pdb_chains, pdb_mutations, results', [
+    ('1jrh', 'L', 'L_I116W', {
+        'pdb_mutations_sifts': 'L_I116W',
+        'pfam_id_sifts': 'PF07654',
+        'uniprot_id_sifts': 'P01837',
+        'uniprot_mutations_sifts': 'I10W',
+    }),
+    ('1jrh', 'I', 'I_T19L.I_E21K', {
+        'pdb_mutations_sifts': 'I_T19L.I_E21K',
+        'pfam_id_sifts': np.nan,
+        'uniprot_id_sifts': 'P15260',
+        'uniprot_mutations_sifts': 'T36L.E38K',
+    }),
+])
 def test_convert_pdb_mutation_to_uniprot(pdb_id, pdb_chains, pdb_mutations, results):
     sifts_df = structure_tools.sifts.get_sifts_data('1jrh')
     assert structure_tools.sifts.convert_pdb_mutations_to_uniprot(
@@ -65,9 +60,9 @@ class TestPresent:
         sifts_data = structure_tools.sifts.get_sifts_data(pdb_id, cache_dir)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
-        sifts_data_subset = (
-            sifts_data[(sifts_data['pdb_id'] == pdb_id) & (sifts_data['pdb_chain'] == 'A') &
-                       (sifts_data['resnum'] == '98')])
+        sifts_data_subset = (sifts_data[(sifts_data['pdb_id'] == pdb_id) &
+                                        (sifts_data['pdb_chain'] == 'A') &
+                                        (sifts_data['resnum'] == '98')])
         assert not sifts_data_subset.empty
         return sifts_data
 
@@ -95,10 +90,9 @@ class TestAbscent:
         del sifts_data
 
 
-@pytest.mark.parametrize(
-    "pdb_id,pdb_chains,pdb_mutations", [
-        ('2qja', 'C', 'T74A,L78M,G79K,L80Y'),
-    ])
+@pytest.mark.parametrize("pdb_id,pdb_chains,pdb_mutations", [
+    ('2qja', 'C', 'T74A,L78M,G79K,L80Y'),
+])
 def test_sifts_exception(pdb_id, pdb_chains, pdb_mutations):
     """Test the case where PDB AA and UniProt AA are different."""
     sifts_df = structure_tools.sifts.get_sifts_data(pdb_id)
