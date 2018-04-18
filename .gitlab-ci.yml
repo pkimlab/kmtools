@@ -206,7 +206,7 @@ system_tools-py36:
     - structure_tools-py36
     - system_tools-py36
 
-docs-test:
+test-docs:
   <<: [*configure, *docs]
   variables:
     <<: [*py36]
