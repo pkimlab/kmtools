@@ -10,4 +10,4 @@ python -m pytest \
     --benchmark-disable \
     "${PKG_DIR}/tests/${SUBPKG_NAME}"
 
-mv .coverage "${RECIPE_DIR}/.coverage"
+mv .coverage "${PKG_DIR}/.coverage"
