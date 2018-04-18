@@ -37,7 +37,7 @@ variables:
 
 # === Configurations ===
 
-.conda_configure: &conda_configure
+.configure: &configure
   cache:
     key: ${CI_JOB_NAME}
     paths:
@@ -45,10 +45,9 @@ variables:
       - .conda_packages/urls.txt
   before_script:
     # Conda environment variables
-    - export CONDA_PKGS_DIRS="${CI_PROJECT_DIR}/.conda_packages"
+    - export CONDA_PKGS_DIRS="$CI_PROJECT_DIR/.conda_packages"
     # Make conda cache and bld folders
-    - mkdir -p "${CI_PROJECT_DIR}/conda-bld" "${CONDA_PKGS_DIRS}"
-    - rm -rf ${CONDA_PKGS_DIRS}/${CI_PROJECT_NAME}-*
+    - mkdir -p "$CI_PROJECT_DIR/conda-bld" "${CONDA_PKGS_DIRS}"
     # Conda configure
     - conda config --set channel_priority true
     - conda config --append pkgs_dirs "${CONDA_PKGS_DIRS}"
@@ -67,12 +66,15 @@ variables:
         conda config --append channels ostrokach;
       ;;
       esac
+    # Update conda
+    - conda update -n root -yq conda --no-channel-priority
+    - conda update -n root -yq conda-build python --no-channel-priority
 
 # === Lint ===
 
 lint:
   stage: lint
-  <<: *conda_configure
+  <<: *configure
   variables:
     <<: [*py36]
   script:
@@ -85,7 +87,7 @@ lint:
 
 .build: &build
   stage: build
-  <<: *conda_configure
+  <<: *configure
   script:
     - export SUBPKG_NAME="all"  # to silence warnings
     # Build conda packages
@@ -124,49 +126,49 @@ build-py36:
       - environment-py${PYTHON_VERSION/./}.yml
       - "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
 
-test-db_tools-py36:
+db_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*db_tools, *py36]
 
-test-df_tools-py36:
+df_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*df_tools, *py36]
 
-test-ml_tools-py36:
+ml_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*ml_tools, *py36]
 
-test-py_tools-py36:
+py_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*py_tools, *py36]
 
-test-sequence_tools-py36:
+sequence_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*sequence_tools, *py36]
 
-test-structure_tools-py36:
+structure_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
   variables:
     <<: [*structure_tools, *py36]
 
-test-system_tools-py36:
+system_tools-py36:
   <<: [*conda_configure, *test]
   dependencies:
     - build-py36
@@ -176,7 +178,7 @@ test-system_tools-py36:
 # === Pages ===
 
 .docs: &docs
-  stage: test
+  stage: deploy
   script:
     # Conda install
     - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
@@ -184,7 +186,7 @@ test-system_tools-py36:
     - conda install -yq --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME
     # Build docs
     - conda install -yq nbconvert ipython ipykernel pandoc
-    - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx
+    - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx coverage
     - (cd docs && sphinx-apidoc ../$CI_PROJECT_NAME -o api/generated -TeMP)
     - sphinx-build docs public
     # Coverage
@@ -202,8 +204,8 @@ test-system_tools-py36:
     - test-structure_tools-py36
     - test-system_tools-py36
 
-test-pages:
-  <<: [*conda_configure, *docs]
+docs-test:
+  <<: [*configure, *docs]
   dependencies:
     - build-py36
   variables:
@@ -212,10 +214,8 @@ test-pages:
     - master
     - tags
 
-pages:
-  <<: [*conda_configure, *docs]
-  dependencies:
-    - build-py36
+docs:
+  <<: [*configure, *docs]
   variables:
     <<: [*py36]
   only:
@@ -256,3 +256,37 @@ deploy-py36:
   <<: *deploy
   dependencies:
     - build-py36
+
+# === Pages ===
+
+pages:
+  stage: deploy
+  before_script:
+    - sudo yum install -y -q unzip
+  script:
+    # Create docs folder for the current version
+    - mv public "v${PACKAGE_VERSION%.dev}"
+    - mkdir public
+    - mv "v${PACKAGE_VERSION%.dev}" public/
+    # Create docs folder for each tag
+    - 'for tag in $(git tag) ; do
+      echo ${tag} ;
+      curl -L --header "JOB-TOKEN: $CI_JOB_TOKEN"
+      "https://gitlab.com/${CI_PROJECT_NAME}/${CI_PROJECT_NAMESPACE}/-/jobs/artifacts/${tag}/download?job=docs"
+      -o artifact-${tag}.zip || continue ;
+      unzip artifact-${tag}.zip -d public || continue ;
+      rm -rf public/${tag} ;
+      mv public/public public/${tag} ;
+      done'
+    # Create index file
+    # TODO:
+  dependencies:
+    - docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+    - tags
+  except:
+    - triggers
