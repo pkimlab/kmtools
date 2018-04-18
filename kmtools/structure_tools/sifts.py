@@ -498,7 +498,7 @@ def convert_pdb_mutations_to_uniprot(pdb_id,
     {'pdb_mutations_sifts': 'L_I116W',
      'pfam_id_sifts': 'PF07654',
      'uniprot_id_sifts': 'P01837',
-     'uniprot_mutations_sifts': 'I9W'}
+     'uniprot_mutations_sifts': 'I10W'}
     >>> pprint(convert_pdb_mutations_to_uniprot('1jrh', 'I', 'I_T19L.I_E21K', sifts_df=sifts_df))
     {'pdb_mutations_sifts': 'I_T19L.I_E21K',
      'pfam_id_sifts': nan,
