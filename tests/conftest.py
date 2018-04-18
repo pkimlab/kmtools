@@ -1,4 +1,7 @@
-import torch  # noqa
+try:
+    import torch  # noqa
+except ModuleNotFoundError:
+    pass
 
 
 def pytest_addoption(parser):
