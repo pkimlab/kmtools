@@ -195,6 +195,14 @@ test-system_tools-py36:
     - coverage html
     - mv htmlcov public/
   coverage: /^TOTAL.* (\d+\%)/
+  dependencies:
+    - test-db_tools-py36
+    - test-df_tools-py36
+    - test-ml_tools-py36
+    - test-py_tools-py36
+    - test-sequence_tools-py36
+    - test-structure_tools-py36
+    - test-system_tools-py36
 
 test-pages:
   <<: [*conda_configure, *docs]
