@@ -22,27 +22,25 @@ def deprecated(fn_or_reason: Union[Callable, str]):
 
         To use this, decorate your deprecated function with **@deprecated** decorator:
 
-        >>> from deprecated import deprecated
         >>> @deprecated
-        >>> def some_old_function(x, y):
-            return x + y
+        ... def some_old_function(x, y):
+        ...     return x + y
 
         You can also decorate a class or a method:
 
-        >>> from deprecated import deprecated
         >>> class SomeClass(object):
+        ...     @deprecated
+        ...     def some_old_method(self, x, y):
+        ...         return x + y
+
         >>> @deprecated
-        >>> def some_old_method(self, x, y):
-        ...     return x + y
-        >>> @deprecated
-        >>> class SomeOldClass(object):
+        ... class SomeOldClass(object):
         ...     pass
 
         You can give a "reason" message to help the developer to choose another function/class:
 
-        >>> from deprecated import deprecated
-        >>> @deprecated(reason="use another function")
-        >>> def some_old_function(x, y):
+        >>> @deprecated("use another function")
+        ... def some_old_function(x, y):
         ...     return x + y
     """
     if isinstance(fn_or_reason, str):
