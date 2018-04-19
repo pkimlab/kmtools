@@ -191,7 +191,7 @@ system_tools-py36:
     - (cd docs && sphinx-apidoc ../$CI_PROJECT_NAME -o api/generated -TeMP)
     - sphinx-build docs public
     # Coverage
-    - coverage combine coverage
+    - coverage combine coverage/*
     - coverage report
     - coverage html
     - mv htmlcov public/
