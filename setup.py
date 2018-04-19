@@ -39,8 +39,7 @@ setup(
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
     license='MIT',
-    packages=['kmtools.' + x for x in find_packages('kmtools')],
-    namespace_packages=['kmtools'],
+    packages=find_packages(),
     package_data={
         'kmtools.sequence_tools': ['support/*.csv'],
         'kmtools.structure_tools': ['data/*'],
