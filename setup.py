@@ -30,7 +30,7 @@ setup(
     version='0.0.25',
     author='kimlab.org',
     author_email='alex.strokach@utoronto.ca',
-    url="https://github.com/kimlaborg/kmtools",
+    url="https://gitlab.com/kimlab/kmtools",
     description="Bits of reusable code to make our lives easier.",
     long_description=read_md("README.md"),
     classifiers=[
