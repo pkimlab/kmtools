@@ -1,6 +1,6 @@
 # KMTools
 
-[![anaconda](https://anaconda.org/kimlab/kmtools/badges/downloads.svg)](https://anaconda.org/kimlab/kmtools/)
+[![anaconda](https://img.shields.io/conda/dn/kimlab/kmtools.svg)](https://anaconda.org/kimlab/kmtools/)
 [![docs](https://img.shields.io/badge/docs-v0.0.26-blue.svg?version=latest)](https://kimlab.gitlab.io/kmtools/v0.0.26/)
 [![build status](https://gitlab.com/kimlab/kmtools/badges/v0.0.26/build.svg)](https://gitlab.com/kimlab/kmtools/commits/v0.0.26/)
 [![coverage report](https://gitlab.com/kimlab/kmtools/badges/v0.0.26/coverage.svg)](https://kimlab.gitlab.io/kmtools/v0.0.26/htmlcov/)
