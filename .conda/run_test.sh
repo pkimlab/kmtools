@@ -12,4 +12,5 @@ python -m pytest \
     "tests/${SUBPKG_NAME}"
     # "${PACKAGE_ROOT_DIR}/tests/${SUBPKG_NAME}"
 
+sed -i "s|${SP_DIR}||g" .coverage
 mv .coverage "${PACKAGE_ROOT_DIR}/.coverage"

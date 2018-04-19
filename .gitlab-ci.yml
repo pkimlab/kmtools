@@ -1,3 +1,4 @@
+# TODO: Probably should use jinja to control all submodules.
 image: registry.gitlab.com/kimlab/linux-anvil:latest
 
 stages:
@@ -191,6 +192,11 @@ system_tools-py36:
     - (cd docs && sphinx-apidoc ../$CI_PROJECT_NAME -o api/generated -TeMP)
     - sphinx-build docs public
     # Coverage
+    - PROJECT_INSTALL_DIR=$(python -c "import kmtools; print(kmtools.__path__[0])") ;
+      for i in coverage/* ; do 
+        echo "${i}" ;
+        sed -i "s|/${CI_PROJECT_NAME}/|${PROJECT_INSTALL_DIR}/|g" "${i}" ;
+      done
     - coverage combine coverage/*
     - coverage report
     - coverage html
