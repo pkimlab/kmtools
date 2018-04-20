@@ -18,6 +18,7 @@
 import sphinx_rtd_theme
 from recommonmark.parser import CommonMarkParser
 
+import kmtools
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -78,7 +79,7 @@ author = 'KimLab'
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = '0.0.26'
+release = kmtools.__version__
 # The short X.Y version.
 version = release.partition('-')[0]
 
