@@ -10,7 +10,7 @@ import Bio.SeqIO
 logger = logging.getLogger(__name__)
 
 
-def run_psipred(fasta_file: Path) -> Path:
+def run_psipred(fasta_file: Path, hhblits_database: Path) -> Path:
     """Predict secondary structure of sequence in `fasta_file`."""
     hhblits_system_command = dedent(f"""\
     hhblits \
@@ -21,7 +21,7 @@ def run_psipred(fasta_file: Path) -> Path:
         -realign_max 100000 \
         -B 100000 \
         -Z 100000 \
-        -d /home/kimlab1/database_data/hh-suite/uniprot20_2016_02/uniprot20_2016_02
+        -d {hhblits_database}/{hhblits_database.name}
     """)
     _execute(hhblits_system_command)
 
