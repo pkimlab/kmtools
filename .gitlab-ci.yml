@@ -1,5 +1,5 @@
 # TODO: Probably should use jinja to control all submodules.
-image: registry.gitlab.com/kimlab/linux-anvil:latest
+image: registry.gitlab.com/ostrokach-docker/conda:latest
 
 stages:
   - lint
