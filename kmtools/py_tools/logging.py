@@ -1,13 +1,8 @@
-"""Enable '{}' formatting for logging statements.
-
-Source: `Use of alternative formatting styles`_.
-
-_`Use of alternative formatting styles`:
-    https://docs.python.org/3/howto/logging-cookbook.html#use-of-alternative-formatting-styles
-"""
 import functools
 import logging
+import os
 import sys
+import threading
 from contextlib import contextmanager
 
 getLogger = logging.getLogger
@@ -18,6 +13,49 @@ LOGGING_LEVELS = {
     2: logging.INFO,
     3: logging.DEBUG,
 }
+
+
+class LogPipe(threading.Thread):
+    """Redirect messages written to a pipe into a log.
+
+    Source: https://codereview.stackexchange.com/a/17959/62763
+
+    Examples:
+        >>> import subprocess
+        >>> from contextlib import closing
+        >>> with closing(LogPipe(logging.DEBUG)) as log_pipe:
+        ...     cp = subprocess.run(
+        ...         ["echo", "hello world"], stdout=log_pipe, universal_newlines=True)
+    """
+
+    logger = logging.getLogger(__name__)
+
+    def __init__(self, level):
+        """Setup the object with a logger and a loglevel and start the thread.
+        """
+        super().__init__()
+        self.daemon = False
+        self.level = level
+        self.fout, self.fin = os.pipe()
+        self.pipe_reader = os.fdopen(self.fout)
+        self.start()
+
+    def fileno(self):
+        """Return the write file descriptor of the pipe.
+        """
+        return self.fin
+
+    def run(self):
+        """Run the thread, logging everything.
+        """
+        for line in iter(self.pipe_reader.readline, ''):
+            self.logger.log(self.level, line.strip('\n'))
+        self.pipe_reader.close()
+
+    def close(self):
+        """Close the write end of the pipe.
+        """
+        os.close(self.fin)
 
 
 class Message(object):
@@ -34,6 +72,13 @@ class Message(object):
 
 
 class StyleAdapter(logging.LoggerAdapter):
+    """Enable '{}' formatting for logging statements.
+
+    Source: `Use of alternative formatting styles`_.
+
+    _`Use of alternative formatting styles`:
+        https://docs.python.org/3/howto/logging-cookbook.html#use-of-alternative-formatting-styles
+    """
 
     def __init__(self, logger, extra=None):
         super(StyleAdapter, self).__init__(logger, extra or {})
