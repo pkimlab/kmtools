@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 import threading
+import time
 from contextlib import contextmanager
 
 getLogger = logging.getLogger
@@ -28,34 +29,36 @@ class LogPipe(threading.Thread):
         ...         ["echo", "hello world"], stdout=log_pipe, universal_newlines=True)
     """
 
-    logger = logging.getLogger(__name__)
-
-    def __init__(self, level):
+    def __init__(self, fn):
         """Setup the object with a logger and a loglevel and start the thread.
         """
         super().__init__()
         self.daemon = False
-        self.level = level
-        self.fout, self.fin = os.pipe()
-        self.pipe_reader = os.fdopen(self.fout)
+        self._fn = fn
+        self._fout, self._fin = os.pipe()
+        self._pipe_reader = os.fdopen(self._fout)
         self.start()
 
     def fileno(self):
         """Return the write file descriptor of the pipe.
         """
-        return self.fin
+        return self._fin
 
     def run(self):
         """Run the thread, logging everything.
         """
-        for line in iter(self.pipe_reader.readline, ''):
-            self.logger.log(self.level, line.strip('\n'))
-        self.pipe_reader.close()
+        for line in iter(self._pipe_reader.readline, ''):
+            self._fn(line.strip('\n'))
+        self._pipe_reader.close()
 
     def close(self):
         """Close the write end of the pipe.
         """
-        os.close(self.fin)
+        # Close the input channel
+        os.close(self._fin)
+        # Wait for the output channel to flush out
+        while self.is_alive():
+            time.sleep(0.01)
 
 
 class Message(object):
