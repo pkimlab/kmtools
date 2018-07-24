@@ -23,8 +23,10 @@ class LogPipe(threading.Thread):
 
     Examples:
         >>> import subprocess
+        >>> import logging
         >>> from contextlib import closing
-        >>> with closing(LogPipe(logging.DEBUG)) as log_pipe:
+        >>> logger = logging.getLogger(__name__)
+        >>> with closing(LogPipe(logger.debug)) as log_pipe:
         ...     cp = subprocess.run(
         ...         ["echo", "hello world"], stdout=log_pipe, universal_newlines=True)
     """
