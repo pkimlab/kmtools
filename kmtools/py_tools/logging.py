@@ -48,7 +48,9 @@ class LogPipe(threading.Thread):
         """Run the thread, logging everything.
         """
         for line in iter(self._pipe_reader.readline, ''):
-            self._fn(line.strip('\n'))
+            line = line.strip()
+            if line:
+                self._fn(line)
         self._pipe_reader.close()
 
     def close(self):
