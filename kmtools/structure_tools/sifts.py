@@ -223,9 +223,9 @@ def split_mutation(mutation):
         wt, pos, mut = mutation_split
     elif len(mutation_split) == 2:
         if any(c.isdigit() for c in mutation_split[0]):
-            wt, pos, mut = '', *mutation_split
+            wt, pos, mut = '', *mutation_split  # type: ignore
         elif any(c.isdigit() for c in mutation_split[1]):
-            wt, pos, mut = *mutation_split, ''
+            wt, pos, mut = *mutation_split, ''  # type: ignore
         else:
             raise Exception(mutation)
     else:
