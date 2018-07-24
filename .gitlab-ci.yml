@@ -69,8 +69,7 @@ variables:
       ;;
       esac
     # Update conda
-    - conda update -n root -yq conda --no-channel-priority
-    - conda update -n root -yq conda-build python --no-channel-priority
+    - conda update -n root -yq conda conda-build --no-channel-priority
 
 # === Lint ===
 
