@@ -6,6 +6,7 @@ import shlex
 import signal
 import subprocess
 import time
+import warnings
 from contextlib import contextmanager
 from typing import Optional
 
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def format_system_command(system_command):
     """Remove repeating whitespace from system command."""
-    return ' '.join(re.split(' *', system_command.strip()))
+    return " ".join(re.split(" *", system_command.strip()))
 
 
 def _set_process_group(parent_process_group_id):
@@ -47,14 +48,16 @@ def run(system_command, cwd=None, **vargs):
         stderr=subprocess.PIPE,
         universal_newlines=True,
         preexec_fn=lambda: _set_process_group(os.getpgrp()),
-        **vargs)
+        **vargs
+    )
     process.stdout = process.stdout.strip()
     process.stderr = process.stderr.strip()
     if process.returncode != 0:
         logger.info(process.stdout)
         logger.error(process.stderr)
-        raise subprocess.CalledProcessError(process.returncode, system_command, process.stdout,
-                                            process.stderr)
+        raise subprocess.CalledProcessError(
+            process.returncode, system_command, process.stdout, process.stderr
+        )
     return process
 
 
@@ -64,15 +67,16 @@ def start_subprocess(system_command):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         universal_newlines=True,
-        bufsize=1)
+        bufsize=1,
+    )
     return process
 
 
 def iter_stdout(p):
     for line in p.stdout:
         line = line.strip()
-        if ' [Note] ' in line:
-            line = line.partition(' [Note] ')[-1]
+        if " [Note] " in line:
+            line = line.partition(" [Note] ")[-1]
         if not line:
             if p.poll() is None:
                 time.sleep(0.1)
@@ -87,14 +91,21 @@ def execute(system_command: str, cwd: Optional[str] = None) -> None:
     """Execute a system command, passing STDERR to logger.
 
     Source: https://stackoverflow.com/a/4417735/2063031
+
+    .. deprecated:: Use `kmtools.py_tools.LogPipe` instead.
     """
+    warnings.warn(
+        "`kmtools.system_tools.execute` is deprecated; use `kmtools.py_tools.LogPipe` instead.",
+        DeprecationWarning,
+    )
     logger.info("system_command: '%s'", system_command)
     popen = subprocess.Popen(
         shlex.split(system_command),
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         cwd=cwd,
-        universal_newlines=True)
+        universal_newlines=True,
+    )
     for stdout_line in iter(popen.stdout.readline, ""):
         logger.debug(stdout_line.strip())
     popen.stdout.close()
@@ -120,8 +131,9 @@ def run_command(system_command, host=None, allowed_returncodes=[0]):
     # === Process results ===
     if returncode not in allowed_returncodes:
         raise subprocess.CalledProcessError(
-            returncode=returncode, cmd=system_command, output=stdout, stderr=stderr)
-    elif 'warning' in stdout.lower() or 'error' in stdout.lower():
+            returncode=returncode, cmd=system_command, output=stdout, stderr=stderr
+        )
+    elif "warning" in stdout.lower() or "error" in stdout.lower():
         logger.warning("Command ran with warnings / errors! (%s)", stdout)
     else:
         logger.debug("Command ran successfully! (%s)", stdout)
@@ -169,8 +181,9 @@ def print_heartbeats():
     This is required for travis-ci.
     """
     from elaspic import conf
+
     # Don't print random stuff if not testing
-    if not conf.CONFIGS['testing']:
+    if not conf.CONFIGS["testing"]:
         yield
         return
     # Print a heartbeat to keep travis happy.
