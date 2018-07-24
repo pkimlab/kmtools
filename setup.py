@@ -27,7 +27,7 @@ def read_md(file):
 
 setup(
     name='kmtools',
-    version='0.0.26',
+    version='0.0.27',
     author='kimlab.org',
     author_email='alex.strokach@utoronto.ca',
     url="https://gitlab.com/kimlab/kmtools",

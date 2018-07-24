@@ -1,5 +1,5 @@
 {% set name = "kmtools" %}
-{% set version = "0.0.26" %}
+{% set version = "0.0.27" %}
 
 package:
   name: {{ name }}
