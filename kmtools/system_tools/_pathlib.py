@@ -1,20 +1,15 @@
 import logging
 import os
 import os.path as op
+import re
 import shutil
-import string
 from contextlib import contextmanager
 
 logger = logging.getLogger(__name__)
 
-
 # =============================================================================
 # Filename string formatting
 # =============================================================================
-
-def slugify(filename_string):
-    valid_chars = "-_.()" + string.ascii_letters + string.digits
-    return ''.join(c if c in valid_chars else '_' for c in filename_string)
 
 
 def remove_extensions(filename, extensions):
@@ -68,6 +63,7 @@ def format_unprintable(string):
 # =============================================================================
 # Filesystem operation
 # =============================================================================
+
 
 @contextmanager
 def switch_paths(working_path):
