@@ -80,6 +80,8 @@ outputs:
   - name: {{ name }}
     type: conda
   - type: wheel
+    requirements:
+      - cython
 
 about:
   home: http://kimlaborg.github.io/kmtools
