@@ -2,7 +2,6 @@ import functools
 import io
 import logging
 import re
-import warnings
 
 import Bio.SeqIO
 import numpy as np
