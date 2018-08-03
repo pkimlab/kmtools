@@ -76,12 +76,12 @@ test:
     - kmtools.structure_tools
     - kmtools.system_tools
 
-outputs:
-  - name: {{ name }}
-    type: conda
-  - type: wheel
-    requirements:
-      - cython
+# outputs:
+#   - name: {{ name }}
+#     type: conda
+#   - type: wheel
+#     requirements:
+#       - cython
 
 about:
   home: http://kimlaborg.github.io/kmtools
