@@ -2,6 +2,7 @@ import functools
 import io
 import logging
 import re
+import warnings
 
 import Bio.SeqIO
 import numpy as np
@@ -11,59 +12,8 @@ import requests
 logger = logging.getLogger(__name__)
 
 
-def _init_table_h():
-    _table_h = []
-    for i in range(256):
-        part_h = 0
-        for j in range(8):
-            rflag = i & 1
-            i >>= 1
-            if part_h & 1:
-                i |= (1 << 31)
-            part_h >>= 1
-            if rflag:
-                part_h ^= 0xd8000000
-        _table_h.append(part_h)
-    return _table_h
-
-
-_TABLE_H = _init_table_h()
-
-
-def crc64(s):
-    """Returns the crc64 checksum for a sequence (string or Seq object).
-
-    Copied from BioPython.
-
-    Examples
-    --------
-    From UniParc:
-    >>> crc64('MSGGKYVDSE')
-    '368583B2DB533878'
-
-    Note that the case is important:
-    >>> crc64("ACGTACGTACGT")
-    'C4FBB762C4A87EBD'
-    >>> crc64("acgtACGTacgt")
-    'DA4509DC64A87EBD'
-    """
-    if not s:
-        return None
-    _table_h = _TABLE_H  # speed up lookups by creating a local copy
-    crcl = 0
-    crch = 0
-    for c in s:
-        shr = (crch & 0xFF) << 24
-        temp1h = crch >> 8
-        temp1l = (crcl >> 8) | shr
-        idx = (crcl ^ ord(c)) & 0xFF
-        crch = temp1h ^ _table_h[idx]
-        crcl = temp1l
-    return "%08X%08X" % (crch, crcl)
-
-
 @functools.lru_cache(maxsize=512)
-def fetch_sequence(sequence_id, database='uniprot'):
+def fetch_sequence(sequence_id, database="uniprot"):
     """Fetch sequence from remote database.
 
     Parameters
@@ -76,26 +26,28 @@ def fetch_sequence(sequence_id, database='uniprot'):
     >>> str(fetch_sequence('P13501').seq)
     'MKVSAAALAVILIATALCAPASASPYSSDTTPCCFAYIARPLPRAHIKEYFYTSGKCSNPAVVFVTRKNRQVCANPEKKWVREYINSLEMS'
     """
-    if sequence_id.startswith('UPI'):
-        database = 'uniparc'
-        url_template = 'http://www.uniprot.org/uniparc/{}.fasta'
-    elif sequence_id.startswith('UniRef'):
-        database = 'uniref'
-        url_template = 'http://www.uniprot.org/uniref/{}.fasta'
+    if sequence_id.startswith("UPI"):
+        database = "uniparc"
+        url_template = "http://www.uniprot.org/uniparc/{}.fasta"
+    elif sequence_id.startswith("UniRef"):
+        database = "uniref"
+        url_template = "http://www.uniprot.org/uniref/{}.fasta"
     else:
-        database = 'uniprot'
-        url_template = 'http://www.uniprot.org/uniprot/{}.fasta'
+        database = "uniprot"
+        url_template = "http://www.uniprot.org/uniprot/{}.fasta"
 
     url = url_template.format(sequence_id)
-    logger.debug('Downloading sequence {} from {}...'.format(sequence_id, url))
+    logger.debug("Downloading sequence {} from {}...".format(sequence_id, url))
 
     r = requests.get(url)
     if r.status_code != 200:
-        raise Exception("Failed to fetch sequence with return code: {}".format(r.status_code))
+        raise Exception(
+            "Failed to fetch sequence with return code: {}".format(r.status_code)
+        )
 
-    seq = Bio.SeqIO.read(io.StringIO(r.text), 'fasta')
-    if database == 'uniprot':
-        seq.annotations['db'], seq.id, seq.name = re.split('[\| ]', seq.id)
+    seq = Bio.SeqIO.read(io.StringIO(r.text), "fasta")
+    if database == "uniprot":
+        seq.annotations["db"], seq.id, seq.name = re.split("[\| ]", seq.id)
     return seq
 
 
@@ -124,10 +76,7 @@ def mutation_matches_sequence(mutation, sequence):
     except ValueError:
         logger.warning("Could not extract position from mutation '{}'".format(mutation))
         return np.nan
-    return (
-        mutation_pos < len(sequence) and
-        sequence[mutation_pos - 1] == mutation[0]
-    )
+    return mutation_pos < len(sequence) and sequence[mutation_pos - 1] == mutation[0]
 
 
 def mutation_in_domain(mutation, domain):
@@ -151,7 +100,7 @@ def mutation_in_domain(mutation, domain):
     except ValueError:
         logger.error("Could not extract position from mutation '{}'!".format(mutation))
         return np.nan
-    domain_range = range(int(domain.split(':')[0]), int(domain.split(':')[1]) + 1)
+    domain_range = range(int(domain.split(":")[0]), int(domain.split(":")[1]) + 1)
     return mutation_pos in domain_range
 
 
@@ -171,7 +120,7 @@ def format_hgvs_mutation(mutation_refseq_aa):
     """
     if pd.isnull(mutation_refseq_aa):
         return (np.nan, np.nan, np.nan)
-    refseq_base_id = mutation_refseq_aa.split(':')[0].split('.')[0]
-    refseq_mutation = mutation_refseq_aa.split(':')[-1].lstrip('p.')
+    refseq_base_id = mutation_refseq_aa.split(":")[0].split(".")[0]
+    refseq_mutation = mutation_refseq_aa.split(":")[-1].lstrip("p.")
     refseq_mutation_pos = int(refseq_mutation[1:-1])
     return refseq_base_id, refseq_mutation, refseq_mutation_pos

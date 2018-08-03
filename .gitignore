@@ -29,3 +29,7 @@ notebooks
 .pytest_cache
 .coverage
 htmlcov/
+
+# Cythonized code
+*.c
+*.so

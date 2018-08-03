@@ -15,12 +15,13 @@ build:
     - SUBPKG_NAME
 
 requirements:
-  build:
-    # Basic python
+  host:
+    - setuptools
+    - wheel
+    - cython
     - python
-    # Setuptools
-    - pandoc
-    - pypandoc
+  build:
+    - {{ compiler('c') }}
   run:
     # Basic python
     - python

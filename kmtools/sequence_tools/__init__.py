@@ -9,6 +9,17 @@
     run_psipred
     read_psipred
 """
+try:
+    from ._hashes import crc64
+except ImportError:
+    import warnings
+
+    warnings.warn("Could not import Cythonized functions!")
+    from .hashes import crc64_slow as crc64
+
+    del warnings
+
+from .hashes import crc64_slow
 from .alignment_tools import *
 from .blast import *
 from .sequence_tools import *
