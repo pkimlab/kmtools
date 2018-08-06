@@ -1,6 +1,5 @@
 import logging
-from collections import namedtuple
-from typing import Iterable, List, Tuple, NamedTuple
+from typing import Iterable, List, NamedTuple, Tuple
 
 import pandas as pd
 from kmbio.PDB import NeighborSearch, Structure
