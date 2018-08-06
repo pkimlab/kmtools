@@ -175,8 +175,8 @@ system_tools-py36:
 
 # === Docs ===
 
-docs:
-  stage: test
+.docs: &docs
+  stage: post-test
   <<: [*configure]
   script:
     # Restore built packages
