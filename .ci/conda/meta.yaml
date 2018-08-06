@@ -46,17 +46,6 @@ requirements:
     - numba
     - biopython
     - kmbio >=2.0.0
-    # Plotting
-    # - matplotlib
-    # - seaborn
-    # IPython
-    # - ipython
-    # - pygments
-    # Binaries
-    - blast
-    - muscle
-    - cifparse-obj  # Assemblies
-    - hh-suite  # psipred
 
 test:
   source_files:
