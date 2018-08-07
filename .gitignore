@@ -72,4 +72,9 @@ public/
 .pytest_cache/
 .idea/
 .vscode/
+.ipynb_checkpoints
 *-bak.py
+*.c
+
+# Custom
+scripts/components.cif
