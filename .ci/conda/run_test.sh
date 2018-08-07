@@ -6,7 +6,7 @@ PACKAGE_ROOT_DIR="${RECIPE_DIR}/.."
 
 python -m pytest \
     -c setup.cfg \
-    --cov="${SP_DIR}/${PKG_NAME}/${SUBPKG_NAME}" \
+    --cov="${SP_DIR}/kmtools/${SUBPKG_NAME}" \
     --benchmark-disable \
     --color=yes \
     "tests/${SUBPKG_NAME}"

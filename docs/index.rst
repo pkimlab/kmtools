@@ -1,17 +1,20 @@
- :github_url: https://github.com/kimlaborg/kmtools
-
-Welcome to kmtools's documentation!
-===================================
-
-Contents:
+========
+Contents
+========
 
 .. toctree::
    :maxdepth: 2
    :glob:
 
-   examples/index.rst
-   environment_variables.md
+   readme
+   installation
+   usage
    modules
+   contributing
+   authors
+   history
+   environment_variables.md
+   examples/index.rst
    api/generated/kmtools
 
 Indices and tables

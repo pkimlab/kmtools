@@ -1,35 +1,75 @@
-# Files
-*.pyc
-*.bak
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Folders
-build
-dist
-prof
-_build
-__pycache__
-*.egg-info
-docs/_modules
+# C extensions
+*.so
 
-# Hidden
-.mypy_cache
-.vscode
-.hypothesis
-.eggs
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Script data
-scripts/components.cif
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
 
-# Notebooks (for now...)
-notebooks
-.ipynb_checkpoints
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Python cache
-.cache/
-.pytest_cache
-.coverage
+# Unit test / coverage reports
 htmlcov/
 
 # Cythonized code
 *.c
 *.so
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+docs/_modules/
+
+# PyBuilder
+target/
+
+# pyenv python configuration file
+.python-version
+
+# AS
+public/
+.mypy_cache/
+.pytest_cache/
+.idea/
+.vscode/
+*-bak.py

@@ -1,0 +1,18 @@
+default_context:
+    full_name: KimLab
+    email: alex.strokach@utoronto.ca
+    git_url: https://gitlab.com
+    git_username: kimlab
+    anaconda_username: kimlab
+    pypi_username: kimlab
+    project_name: kmtools
+    project_slug: kmtools
+    project_import: kmtools
+    project_short_description: Bits of reusable code to make our lives easier.
+    docs_secret_key: ""
+    version: "0.0.27"
+    create_author_file: "y"
+    open_source_license: MIT License
+    _copy_without_render:
+        - docs/output_toggle.tpl
+        - docs/_templates/logo-image.html

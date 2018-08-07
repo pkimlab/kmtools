@@ -1,4 +1,4 @@
-# KMTools
+# kmtools
 
 [![anaconda](https://img.shields.io/conda/dn/kimlab/kmtools.svg)](https://anaconda.org/kimlab/kmtools/)
 [![docs](https://img.shields.io/badge/docs-v0.0.28-blue.svg?version=latest)](https://kimlab.gitlab.io/kmtools/v0.0.28/)
@@ -11,14 +11,12 @@ Follows the *Whole Sort of General Mish Mash* design principle.
 
 ## Contents
 
-- [Tools](#tools)
-  - [DB tools](#db-tools)
-  - [DF tools](#df-tools)
-  - [PY tools](#py-tools)
-  - [Sequence tools](#sequence-tools)
-  - [Structure tools](#structure-tools)
-  - [System tools](#system-tools)
-- [Contributing](#contributing)
+- [kmtools](#kmtools)
+    - [Contents](#contents)
+    - [Tools](#tools)
+        - [Structure tools](#structure-tools)
+            - [To do](#to-do)
+    - [Contributing](#contributing)
 
 ## Tools
 
