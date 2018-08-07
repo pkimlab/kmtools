@@ -1,13 +1,13 @@
 import hashlib
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 import kmbio.PDB
 import numpy as np
 from kmbio.PDB import Structure
 
-from kmtools.structure_tools import A_DICT, AAA_DICT, PDB_RESIDUES, RESIDUE_MAPPING_TO_CANONICAL
+from kmtools.structure_tools import AAA_DICT, RESIDUE_MAPPING_TO_CANONICAL
 
 logger = logging.getLogger(__name__)
 
@@ -68,35 +68,62 @@ def hash_residue_pair(residue_pair) -> str:
     return myhash.hexdigest()
 
 
-def standardize_mutation(pdb_file: Path, pdb_mutation: str) -> str:
-    """Convert a residue RESNUM to a residue ID."""
-    structure = kmbio.PDB.load(pdb_file)
+def standardize_mutation(structure: Union[str, Path, Structure], pdb_mutation: str) -> str:
+    """Convert mutation from using residue resnum to using residue id.
 
-    if "-" in pdb_mutation:
-        pdb_chain, mutation = pdb_mutation.split("-")
-    elif "_" in pdb_mutation:
-        pdb_chain, mutation = pdb_mutation.split("_")
-    else:
-        raise Exception(
-            "`pdb_mutation` must contain the chain and the mutation separated by '-' or '_'!"
-        )
+    The residue id is a sequential number that starts at 1.
+
+    Args:
+        structure: Location of the PDB or mmCIF file describing the structure
+            or the structure iteself.
+        pdb_mutation: PDB chain and mutation for a single residue.
+
+    Returns:
+        Mutation in the same format as `pdb_mutation` but using the standardized residue id.
+
+    Raises:
+        ValueError: If `pdb_mutation` does not match the expected format.
+        KeyError: If the chain specified in `pdb_mutation` is not found in the provided structure.
+        IndexError: If we fail to map `pdb_mutation` to a residue in the structure,
+            for whatever reason.
+
+    Examples:
+        >>> standardize_mutation("rscb://1ak4.pdb", "D-A488G")
+        D_A88G
+    """
+    if isinstance(structure, (Path, str)):
+        structure = kmbio.PDB.load(structure)
+
+    seps = ["_", "-"]
+    for sep in seps + [None]:
+        if sep is None:
+            raise ValueError(
+                f"`pdb_mutation` must contain the chain and the mutation separated one of: {seps}"
+            )
+        if sep in pdb_mutation:
+            pdb_chain, mutation = pdb_mutation.split(sep)
+            break
 
     try:
         chain = structure[0][pdb_chain]
     except KeyError:
-        raise Exception(f"Could not find chain '{pdb_chain}' in structure '{structure.id}'!")
+        raise KeyError(f"Could not find chain '{pdb_chain}' in structure '{structure.id}'!")
 
-    found = False
     residue_idx = 0
     for residue in chain:
-        residue_id = f"{residue.id[1]}{residue.id[2]}"
-        if residue_id == mutation[1:-1]:
-            found = residue.resname == A_DICT[pdb_mutation[0]]
-            break
-        if residue.resname in PDB_RESIDUES:
-            residue_idx += 1
-
-    if found:
-        return f"{pdb_chain}-{pdb_mutation[0]}{residue_idx + 1}{pdb_mutation[-1]}"
-    else:
-        return None
+        if residue.resname not in RESIDUE_MAPPING_TO_CANONICAL:
+            continue
+        if (str(residue.id[1]) + residue.id[2].strip()) == mutation[1:-1]:
+            ref_wt = mutation[0]
+            mapped_wt = AAA_DICT[RESIDUE_MAPPING_TO_CANONICAL[residue.resname]]
+            if mapped_wt != ref_wt:
+                raise IndexError(
+                    f"Reference AA '{ref_wt}' does not match the mapped AA '{mapped_wt}' "
+                    f"for residue '{residue.id}' and mutation '{pdb_mutation}'!"
+                )
+            else:
+                return f"{pdb_chain}_{mutation[0]}{residue_idx + 1}{mutation[-1]}"
+        residue_idx += 1
+    raise IndexError(
+        f"Could not map mutation {pdb_mutation} to a residue in the provided structure!"
+    )
