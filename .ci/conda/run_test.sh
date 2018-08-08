@@ -2,7 +2,7 @@
 
 set -ev
 
-PACKAGE_ROOT_DIR="${RECIPE_DIR}/.."
+PACKAGE_ROOT_DIR="${RECIPE_DIR}/../.."
 
 python -m pytest \
     -c setup.cfg \
