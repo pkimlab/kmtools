@@ -119,6 +119,9 @@ build-py36:
     - conda build .
       --test
       --python $PYTHON_VERSION
+    # Code coverage
+    - mkdir "${CI_PROJECT_DIR}/coverage"
+    - mv "${CI_PROJECT_DIR}/.coverage" "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
   coverage: /^TOTAL.* (\d+\%)/
   artifacts:
     paths:
