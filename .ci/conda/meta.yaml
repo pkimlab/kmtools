@@ -56,6 +56,8 @@ test:
     - pytest-cov
     - pytest-benchmark
     - hypothesis
+    # Extra binaries
+    - muscle
   imports:
     - kmtools
     - kmtools.db_tools
