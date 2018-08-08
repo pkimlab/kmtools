@@ -254,7 +254,7 @@ docs:
     # Tagged releases go to the Anaconda and PyPI main channels
     - if [[ -n ${CI_COMMIT_TAG} ]] ; then
         anaconda -t $ANACONDA_TOKEN upload $CI_PROJECT_DIR/conda-bld/linux-64/*.tar.bz2 -u kimlab --no-progress ;
-        twine upload $CI_PROJECT_DIR/conda-bld/linux-64/*.whl ;
+        twine upload $CI_PROJECT_DIR/conda-bld/linux-64/*.whl || true ;
       fi
 
 deploy-py36:
