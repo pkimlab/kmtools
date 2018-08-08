@@ -214,23 +214,10 @@ system_tools-py36:
     - structure_tools-py36
     - system_tools-py36
 
-test-docs:
-  <<: [*configure, *docs]
-  variables:
-    <<: [*py36]
-  except:
-    - master
-    - tags
-
 docs:
   <<: [*configure, *docs]
   variables:
     <<: [*py36]
-  only:
-    - master
-    - tags
-  except:
-    - triggers
   artifacts:
     paths:
     - public
@@ -290,11 +277,11 @@ pages:
     # TODO:
   dependencies:
     - docs
-  artifacts:
-    paths:
-      - public
   only:
     - master
     - tags
   except:
     - triggers
+  artifacts:
+    paths:
+      - public
