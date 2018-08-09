@@ -88,7 +88,7 @@ def standardize_mutation(structure: Union[str, Path, Structure], pdb_mutation: s
             for whatever reason.
 
     Examples:
-        >>> standardize_mutation("rscb://1ak4.pdb", "D-A488G")
+        >>> standardize_mutation("rcsb://1ak4.pdb", "D-A488G")
         D_A88G
     """
     if isinstance(structure, (Path, str)):
