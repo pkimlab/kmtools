@@ -201,7 +201,7 @@ system_tools-py36:
       done
     - coverage combine coverage/*
     - coverage report
-    - coverage html
+    - coverage html -i
     - mv htmlcov public/
   coverage: /^TOTAL.* (\d+\%)/
   dependencies:
