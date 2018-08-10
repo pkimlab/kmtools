@@ -19,4 +19,6 @@ from .exceptions import *
 from .sequence import *
 from .interaction import *
 from .structure_parser import *
+from .modeling import *
+from .modeller import *
 from . import *

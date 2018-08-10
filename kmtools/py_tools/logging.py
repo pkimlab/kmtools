@@ -130,7 +130,9 @@ class WritableObject:
         self.logger = logger
 
     def write(self, string):
-        self.logger.debug(string.strip())
+        string = string.strip()
+        if string:
+            self.logger.debug(string.replace('\n', ' '))
 
 
 @functools.wraps(logging.getLogger)

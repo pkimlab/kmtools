@@ -22,7 +22,7 @@ def remove_extensions(filename, extensions):
     'do.re'
     """
     # Add missing '.'
-    extensions = [(ext if ext.startswith('.') else '.' + ext) for ext in extensions]
+    extensions = [(ext if ext.startswith(".") else "." + ext) for ext in extensions]
     # Strip extensions
     while True:
         file_name, file_ext = op.splitext(filename)
@@ -42,9 +42,9 @@ def strip_ps(name, prefix=None, suffix=None):
     '_god_'
     """
     if prefix and name.startswith(prefix):
-        name = name[len(prefix):]
+        name = name[len(prefix) :]
     if suffix and name.endswith(suffix):
-        name = name[:-len(suffix)]
+        name = name[: -len(suffix)]
     return name
 
 
@@ -70,8 +70,6 @@ def switch_paths(working_path):
     try:
         os.chdir(working_path)
         yield
-    except Exception:
-        raise
     finally:
         os.chdir(current_path)
 
@@ -97,5 +95,6 @@ def makedirs(path, mode=None, exist_ok=True):
 def make_tarfile(source_dir, output_filename):
     """Compress folder into a `*.tar.gz` file."""
     import tarfile
+
     with tarfile.open(output_filename, "w:gz") as tar:
         tar.add(source_dir, arcname=op.basename(source_dir))
