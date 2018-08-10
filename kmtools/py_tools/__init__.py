@@ -5,7 +5,7 @@
 
    colors
 """
-from .test_tools import *
+from .testing import *
 from .basics import *
 from .logging import *
 from .serialization import *
