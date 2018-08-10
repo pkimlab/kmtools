@@ -8,12 +8,16 @@ from contextlib import contextmanager
 
 getLogger = logging.getLogger
 
-LOGGING_LEVELS = {
-    0: logging.ERROR,
-    1: logging.WARNING,
-    2: logging.INFO,
-    3: logging.DEBUG,
-}
+LOGGING_LEVELS = {0: logging.ERROR, 1: logging.WARNING, 2: logging.INFO, 3: logging.DEBUG}
+
+
+@contextmanager
+def disable_logging():
+    try:
+        logging.disable(logging.CRITICAL)
+        yield
+    finally:
+        logging.disable(logging.NOTSET)
 
 
 class LogPipe(threading.Thread):
@@ -49,7 +53,7 @@ class LogPipe(threading.Thread):
     def run(self):
         """Run the thread, logging everything.
         """
-        for line in iter(self._pipe_reader.readline, ''):
+        for line in iter(self._pipe_reader.readline, ""):
             line = line.strip()
             if line:
                 self._fn(line)
@@ -66,7 +70,6 @@ class LogPipe(threading.Thread):
 
 
 class Message(object):
-
     def __init__(self, fmt, args):
         self.fmt = fmt
         self.args = args
@@ -97,7 +100,6 @@ class StyleAdapter(logging.LoggerAdapter):
 
 
 class LoggingContext(object):
-
     def __init__(self, logger, level=None, handler=None, close=True):
         self.logger = logger
         self.level = level
@@ -144,11 +146,15 @@ def log_function_calls(logger):
     """Log every call of the decorated function."""
 
     def decorator(fn):
-
         @functools.wraps(fn)
         def wrapper(*args, **kwargs):
-            logger.warning(fn.__name__ + '(' + ', '.join(args) +
-                           ', '.join('{}={}'.format(k, v) for k, v in kwargs.items()) + ')')
+            logger.warning(
+                fn.__name__
+                + "("
+                + ", ".join(args)
+                + ", ".join("{}={}".format(k, v) for k, v in kwargs.items())
+                + ")"
+            )
             return fn(*args, **kwargs)
 
         return wrapper
@@ -166,7 +172,7 @@ def log_print_statements(logger):
     original_formatters = []
     for i in range(len(logger.handlers)):
         original_formatters.append(logger.handlers[0].formatter)
-        logger.handlers[i].formatter = logging.Formatter('%(message)s')
+        logger.handlers[i].formatter = logging.Formatter("%(message)s")
     wo = WritableObject(logger)
     try:
         sys.stdout = wo
