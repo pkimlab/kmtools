@@ -221,3 +221,9 @@ def get_chain_sequence(chain: Chain) -> str:
             if residue.resname in RESIDUE_MAPPING_TO_CANONICAL
         ]
     )
+
+
+def chain_is_hetatm(chain: Chain) -> bool:
+    """Return `True` if `chain` contains predominantly heteroatoms."""
+    fraction_hetatm = sum(bool(residue.id[0].strip()) for residue in chain) / len(chain)
+    return fraction_hetatm > 0.80
