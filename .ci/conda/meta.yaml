@@ -46,8 +46,6 @@ requirements:
     - numba
     - biopython
     - kmbio >=2.0.7
-    #
-    - salilab::modeller
 
 test:
   source_files:

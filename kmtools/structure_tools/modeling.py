@@ -1,5 +1,9 @@
+import io
+import shlex
+import subprocess
 from typing import List, NamedTuple, Optional, Tuple
 
+import kmbio.PDB
 from Bio.AlignIO import MultipleSeqAlignment
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -70,3 +74,29 @@ def _chain_is_hetatm(chain: Chain) -> bool:
     """Return `True` if `chain` contains predominantly heteroatoms."""
     fraction_hetatm = sum(bool(residue.id[0].strip()) for residue in chain) / len(chain)
     return fraction_hetatm > 0.80
+
+
+def protonate(method, structure, **kwargs):
+    ...
+
+
+def _protonate_with_reduce(structure, method=None):
+    assert method in [None, "FLIP", "NOFLIP", "BUILD"]
+    system_command = "reduce {} -".format("-" + method if method is not None else "")
+    input_file = io.StringIO()
+    kmbio.PDB.save(structure, input_file)
+    input_file.seek(0)
+    output_file = io.StringIO()
+    proc = subprocess.run(
+        shlex.split(system_command),
+        input=input_file,
+        stdout=output_file,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+    )
+    if proc.returncode not in [0, 1]:
+        raise subprocess.CalledProcessError(proc)
+
+
+def _protonate_with_openmm(structure, num_steps=None):
+    ...
