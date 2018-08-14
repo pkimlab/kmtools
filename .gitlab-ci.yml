@@ -52,6 +52,7 @@ variables:
     # Conda configure
     - conda config --set channel_priority true
     - conda config --append pkgs_dirs "${CONDA_PKGS_DIRS}"
+    - conda config --add channels salilab
     - conda config --add channels bioconda
     - conda config --add channels kimlab
     - conda config --add channels conda-forge
