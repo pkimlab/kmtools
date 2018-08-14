@@ -5,9 +5,10 @@ import os.path as op
 
 import kmbio.PDB
 import pytest
-from .conftest import DIFFICULT, MISSING, PDB_IDS, random_subset
 
 from kmtools import structure_tools
+
+from .conftest import DIFFICULT, MISSING, PDB_IDS, random_subset
 
 TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])
 
