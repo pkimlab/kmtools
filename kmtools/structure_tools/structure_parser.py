@@ -202,7 +202,17 @@ def copy_hetatm_chain(
     structure_atoms = list(structure.atoms)
     ns = NeighborSearch(structure_atoms)
     # Old HETATM chain
-    hetatm_residues = list(hetatm_chain.residues)
+    hetatm_residues = []
+    for residue in hetatm_chain.residues:
+        if residue.resname in RESIDUE_MAPPING_TO_CANONICAL and residue.id[0] == " ":
+            pass
+        else:
+            hetatm_residues.append(residue)
+            if residue.resname in RESIDUE_MAPPING_TO_CANONICAL or residue.id[0] == " ":
+                logger.warning(
+                    f"Encountered a strange residue with resname '{residue.resname}' and "
+                    f"id '{residue.id}'. Treating as HETATM."
+                )
     # New HETATM chain (keeping only proximal HETATMs)
     new_hetatm_chain = Chain(hetatm_chain.id)
     new_hetatm_residues = [
