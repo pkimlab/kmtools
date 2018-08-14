@@ -1,17 +1,15 @@
-import io
-import shlex
-import subprocess
+import logging
+from pathlib import Path
 from typing import List, NamedTuple, Optional, Tuple
 
-import kmbio.PDB
 from Bio.AlignIO import MultipleSeqAlignment
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from kmbio.PDB import Chain, Model, Structure
+from kmbio.PDB import Chain, Model, Residue, Structure
 
-from kmtools.structure_tools import CHAIN_IDS
+from kmtools import structure_tools
 
-from .structure_parser import copy_hetatm_chain, get_chain_sequence
+logger = logging.getLogger(__name__)
 
 
 class DomainTarget(NamedTuple):
@@ -22,11 +20,23 @@ class DomainTarget(NamedTuple):
     target_sequence: str
     #: Sequence of the template protein, with gaps in the alignment indicated with '-'
     template_sequence: str
-    # Domain start and stop
-    target_start: Optional[int] = None
-    target_end: Optional[int] = None
     template_start: Optional[int] = None
     template_end: Optional[int] = None
+
+
+def write_pir_alignment(alignment: MultipleSeqAlignment, file: Path):
+    """Write `alignment` into a pir file."""
+    assert len(alignment) == 2
+    seqrec_1, seqrec_2 = alignment
+    with open(file, "wt") as fout:
+        # Sequence
+        fout.write(f">P1;{seqrec_1.id}\n")
+        fout.write(f"sequence:{seqrec_1.id}:.:.:.:.::::\n")
+        fout.write(f"{seqrec_1.seq}*\n\n")
+        # Structure
+        fout.write(f">P1;{seqrec_2.id}\n")
+        fout.write(f"structure:{seqrec_2.id}:.:.:.:.::::\n")
+        fout.write(f"{seqrec_2.seq}*\n")
 
 
 def prepare_for_modeling(
@@ -35,68 +45,46 @@ def prepare_for_modeling(
     """Return a structure and an alignment that can be provided as input to Modeller."""
     template_structure = Structure(structure.id, [Model(0)])
     # Add amino acid chains
-    for chain_id, target in zip(CHAIN_IDS, targets):
-        residues = list(structure[target.model_id][target.chain_id])
+    for chain_id, target in zip(structure_tools.CHAIN_IDS, targets):
+        residues = list(structure[target.model_id][target.chain_id].residues)
         if target.template_start is not None and target.template_end is not None:
             residues = residues[target.template_start - 1 : target.template_end]
         chain = Chain(chain_id, residues)
-        chain_sequence = get_chain_sequence(chain)
+        chain_sequence = structure_tools.get_chain_sequence(chain)
         chain_sequence_expected = target.template_sequence.replace("-", "")
         assert chain_sequence == chain_sequence_expected, (chain_sequence, chain_sequence_expected)
         template_structure[0].add(chain)
-    # Add hetatm chain
-    hetatm_chain_final = Chain(CHAIN_IDS[CHAIN_IDS.index(chain_id) + 1])
-    residue_idx = 0
-    for chain in structure.chains:
-        if not _chain_is_hetatm(chain):
-            continue
-        hetatm_chain = copy_hetatm_chain(template_structure, chain, r_cutoff=5)
-        for residue in list(hetatm_chain.residues):
-            residue.id = (residue.id[0], residue_idx + 1, residue.id[2])
-            residue_idx += 1
-            hetatm_chain_final.add(residue)
-    if list(hetatm_chain_final.residues):
-        template_structure[0].add(hetatm_chain_final)
-    # Generate alignment
+    # Extract chain sequences
     target_seq = "/".join([target.target_sequence for target in targets])
     template_seq = "/".join([target.template_sequence for target in targets])
-    num_hetatm_residues = len(list(hetatm_chain_final.residues))
-    if num_hetatm_residues:
-        target_seq += "/" + ("." * num_hetatm_residues)
-        template_seq += "/" + ("." * num_hetatm_residues)
+    # Add hetatm chain
+    hetatm_chain_final = Chain(
+        structure_tools.CHAIN_IDS[structure_tools.CHAIN_IDS.index(chain_id) + 1]
+    )
+    residue_idx = 0
+    for chain in structure.chains:
+        hetatm_chain = structure_tools.copy_hetatm_chain(template_structure, chain, r_cutoff=5)
+        for residue in hetatm_chain.residues:
+            new_residue = Residue(
+                id=(residue.id[0], residue_idx + 1, residue.id[2]),
+                resname=residue.resname,
+                segid=residue.segid,
+                children=list(residue.atoms),
+            )
+            residue_idx += 1
+            hetatm_chain_final.add(new_residue)
+    if list(hetatm_chain_final.residues):
+        template_structure[0].add(hetatm_chain_final)
+        # Add hetatm chain sequences
+        hetatm_chain_sequence = ""
+        for residue in hetatm_chain_final.residues:
+            if residue.resname not in ["HOH", "W"]:
+                hetatm_chain_sequence += "."
+        if hetatm_chain_sequence:
+            target_seq += "/" + hetatm_chain_sequence
+            template_seq += "/" + hetatm_chain_sequence
+    # Generate final alignment
     alignment = MultipleSeqAlignment(
         [SeqRecord(Seq(target_seq), "target"), SeqRecord(Seq(template_seq), template_structure.id)]
     )
     return template_structure, alignment
-
-
-def _chain_is_hetatm(chain: Chain) -> bool:
-    """Return `True` if `chain` contains predominantly heteroatoms."""
-    fraction_hetatm = sum(bool(residue.id[0].strip()) for residue in chain) / len(chain)
-    return fraction_hetatm > 0.80
-
-
-def protonate(method, structure, **kwargs):
-    ...
-
-
-def _protonate_with_reduce(structure, method=None):
-    assert method in [None, "FLIP", "NOFLIP", "BUILD"]
-    system_command = "reduce {} -".format("-" + method if method is not None else "")
-    input_file = io.StringIO()
-    kmbio.PDB.save(structure, input_file)
-    input_file.seek(0)
-    output_file = io.StringIO()
-    proc = subprocess.run(
-        shlex.split(system_command),
-        input=input_file,
-        stdout=output_file,
-        stderr=subprocess.PIPE,
-        universal_newlines=True,
-    )
-    if proc.returncode not in [0, 1]:
-        raise subprocess.CalledProcessError(proc)
-
-
-def _protonate_with_openmm(structure, num_steps=None):
-    ...
