@@ -15,27 +15,33 @@ TESTS_DIR = Path(__file__).absolute().parent
 
 
 @pytest.mark.parametrize(
-    "structure_file, targets, num_hetatms, num_waters",
+    "structure_file, targets, num_hetatms",
     [
         (
             TESTS_DIR.joinpath("structures", "1yf4b.pdb"),
             [DomainTarget("1yf4b", 0, "B", "CAFQNCPRG", "CYFQNCPRG")],
-            1,
-            3,
+            4,
         )
     ],
 )
-def test_prepare_for_modeling(structure_file, targets, num_hetatms, num_waters):
+def test_prepare_for_modeling(structure_file, targets, num_hetatms):
     structure = kmbio.PDB.load(structure_file)
     structure_fm, alignment = structure_tools.prepare_for_modeling(structure, targets)
     assert len(alignment[0].seq) == len(alignment[1].seq)
     # Validate structure
-    num_chains = len(targets) + (1 if (num_hetatms + num_waters) > 0 else 0)
+    num_chains = len(targets) + (1 if num_hetatms > 0 else 0)
     assert len(list(structure_fm[0].chains)) == num_chains
+    for chain, target in zip(structure_fm.chains, targets):
+        assert structure_tools.get_chain_sequence(chain) == target.template_sequence
+    assert len(list(list(structure_fm[0].chains)[-1].residues)) == num_hetatms
     # Validate alignment
     num_seqs = len(targets) + (1 if num_hetatms > 0 else 0)
+    assert len(alignment) == 2
     assert len(alignment[0].seq.split("/")) == num_seqs
     assert len(alignment[1].seq.split("/")) == num_seqs
+    if num_hetatms:
+        assert alignment[0].seq.split("/")[-1] == "." * num_hetatms
+        assert alignment[1].seq.split("/")[-1] == "." * num_hetatms
 
 
 def test_write_pir_alignment():

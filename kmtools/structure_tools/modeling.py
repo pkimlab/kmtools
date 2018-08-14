@@ -57,7 +57,7 @@ def prepare_for_modeling(
     # Extract chain sequences
     target_seq = "/".join([target.target_sequence for target in targets])
     template_seq = "/".join([target.template_sequence for target in targets])
-    # Add hetatm chain
+    # Create hetatm chain
     hetatm_chain_final = Chain(
         structure_tools.CHAIN_IDS[structure_tools.CHAIN_IDS.index(chain_id) + 1]
     )
@@ -73,16 +73,12 @@ def prepare_for_modeling(
             )
             residue_idx += 1
             hetatm_chain_final.add(new_residue)
-    if list(hetatm_chain_final.residues):
+    # Add hetatm chain and sequences
+    num_hetatm_residues = len(list(hetatm_chain_final.residues))
+    if num_hetatm_residues:
         template_structure[0].add(hetatm_chain_final)
-        # Add hetatm chain sequences
-        hetatm_chain_sequence = ""
-        for residue in hetatm_chain_final.residues:
-            if residue.resname not in ["HOH", "W"]:
-                hetatm_chain_sequence += "."
-        if hetatm_chain_sequence:
-            target_seq += "/" + hetatm_chain_sequence
-            template_seq += "/" + hetatm_chain_sequence
+        target_seq += "/" + "." * num_hetatm_residues
+        template_seq += "/" + "." * num_hetatm_residues
     # Generate final alignment
     alignment = MultipleSeqAlignment(
         [SeqRecord(Seq(target_seq), "target"), SeqRecord(Seq(template_seq), template_structure.id)]
