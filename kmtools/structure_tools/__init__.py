@@ -19,5 +19,6 @@ from .exceptions import *
 from .sequence import *
 from .interaction import *
 from .structure_parser import *
+from .fixes import *
 from .modeling import *
 from . import *
