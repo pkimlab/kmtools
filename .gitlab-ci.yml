@@ -179,8 +179,10 @@ system_tools-py36:
 
 # === Docs ===
 
-.docs: &docs
+docs:
   stage: post-test
+  variables:
+    <<: [*py36]
   <<: [*configure]
   script:
     # Restore built packages
@@ -213,14 +215,9 @@ system_tools-py36:
     - sequence_tools-py36
     - structure_tools-py36
     - system_tools-py36
-
-docs:
-  <<: [*configure, *docs]
-  variables:
-    <<: [*py36]
   artifacts:
     paths:
-    - public
+      - public
 
 # === Deploy ===
 
