@@ -21,7 +21,23 @@ TESTS_DIR = Path(__file__).absolute().parent
             TESTS_DIR.joinpath("structures", "1yf4b.pdb"),
             [DomainTarget("1yf4b", 0, "B", "CAFQNCPRG", "CYFQNCPRG")],
             4,
-        )
+        ),
+        (
+            TESTS_DIR.joinpath("structures", "1yf4.cif"),
+            [
+                DomainTarget(
+                    "1yf4",
+                    0,
+                    "A",
+                    "LGGGVSWGYGCAQKNKPGVYTKGGGGGV",
+                    "LQGIVSWGYGCAQKNKPGVYT-----KV",
+                    187,
+                    209,
+                ),
+                DomainTarget("1yf4", 0, "B", "CYFQNCPRG", "CYFQNCPRG"),
+            ],
+            35,
+        ),
     ],
 )
 def test_prepare_for_modeling(structure_file, targets, num_hetatms):
@@ -32,7 +48,8 @@ def test_prepare_for_modeling(structure_file, targets, num_hetatms):
     num_chains = len(targets) + (1 if num_hetatms > 0 else 0)
     assert len(list(structure_fm[0].chains)) == num_chains
     for chain, target in zip(structure_fm.chains, targets):
-        assert structure_tools.get_chain_sequence(chain) == target.template_sequence
+        seq = target.template_sequence.replace("-", "")
+        assert structure_tools.get_chain_sequence(chain) == seq
     assert len(list(list(structure_fm[0].chains)[-1].residues)) == num_hetatms
     # Validate alignment
     num_seqs = len(targets) + (1 if num_hetatms > 0 else 0)
