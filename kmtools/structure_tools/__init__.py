@@ -14,6 +14,7 @@ __all__ = [
     'sifts',
 ]
 from .constants import *
+from .types import *
 from .elaspic_legacy import *
 from .exceptions import *
 from .sequence import *

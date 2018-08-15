@@ -9,7 +9,7 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
 from kmtools import structure_tools
-from kmtools.structure_tools import DomainTarget
+from kmtools.structure_tools import DomainMutation, DomainTarget
 
 TESTS_DIR = Path(__file__).absolute().parent
 
@@ -19,22 +19,16 @@ TESTS_DIR = Path(__file__).absolute().parent
     [
         (
             TESTS_DIR.joinpath("structures", "1yf4b.pdb"),
-            [DomainTarget("1yf4b", 0, "B", "CAFQNCPRG", "CYFQNCPRG")],
+            [DomainTarget(0, "B", "CYFQNCPRG", None, None, "CAFQNCPRG")],
             4,
         ),
         (
             TESTS_DIR.joinpath("structures", "1yf4.cif"),
             [
                 DomainTarget(
-                    "1yf4",
-                    0,
-                    "A",
-                    "LGGGVSWGYGCAQKNKPGVYTKGGGGGV",
-                    "LQGIVSWGYGCAQKNKPGVYT-----KV",
-                    187,
-                    209,
+                    0, "A", "LQGIVSWGYGCAQKNKPGVYT-----KV", 187, 209, "LGGGVSWGYGCAQKNKPGVYTKGGGGGV"
                 ),
-                DomainTarget("1yf4", 0, "B", "CYFQNCPRG", "CYFQNCPRG"),
+                DomainTarget(0, "B", "CYFQNCPRG", None, None, "CYFQNCPRG"),
             ],
             35,
         ),
@@ -79,3 +73,18 @@ def test_write_pir_alignment():
                 MVTAITIM*
                 """
             )
+
+
+@pytest.mark.parametrize(
+    "mutation, target_in, target_out",
+    [
+        (
+            DomainMutation(0, "B", "C", 1, "A"),
+            DomainTarget(0, "B", "CYFQNCPRG", None, None, "CAFQNCPRG"),
+            DomainTarget(0, "B", "CYFQNCPRG", None, None, "AAFQNCPRG"),
+        )
+    ],
+)
+def test_mutation_to_target(mutation, target_in, target_out):
+    target_out_ = structure_tools.mutation_to_target(mutation, target_in)
+    assert target_out_ == target_out

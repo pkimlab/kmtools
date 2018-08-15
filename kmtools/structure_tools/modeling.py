@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import List, NamedTuple, Optional, Tuple
+from typing import Dict, List, Tuple
 
 from Bio.AlignIO import MultipleSeqAlignment
 from Bio.Seq import Seq
@@ -9,19 +9,10 @@ from kmbio.PDB import Chain, Model, Residue, Structure
 
 from kmtools import structure_tools
 
+from .constants import CHAIN_IDS
+from .types import DomainMutation, DomainTarget
+
 logger = logging.getLogger(__name__)
-
-
-class DomainTarget(NamedTuple):
-    structure_id: str
-    model_id: int
-    chain_id: str
-    #: Sequence of the target protein, with gaps in the alignmend indicated with '-'
-    target_sequence: str
-    #: Sequence of the template protein, with gaps in the alignment indicated with '-'
-    template_sequence: str
-    template_start: Optional[int] = None
-    template_end: Optional[int] = None
 
 
 def write_pir_alignment(alignment: MultipleSeqAlignment, file: Path):
@@ -45,7 +36,7 @@ def prepare_for_modeling(
     """Return a structure and an alignment that can be provided as input to Modeller."""
     template_structure = Structure(structure.id, [Model(0)])
     # Add amino acid chains
-    for chain_id, target in zip(structure_tools.CHAIN_IDS, targets):
+    for chain_id, target in zip(CHAIN_IDS, targets):
         residues = list(structure[target.model_id][target.chain_id].residues)
         if target.template_start is not None and target.template_end is not None:
             residues = residues[target.template_start - 1 : target.template_end]
@@ -58,9 +49,7 @@ def prepare_for_modeling(
     target_seq = "/".join([target.target_sequence for target in targets])
     template_seq = "/".join([target.template_sequence for target in targets])
     # Create hetatm chain
-    hetatm_chain_final = Chain(
-        structure_tools.CHAIN_IDS[structure_tools.CHAIN_IDS.index(chain_id) + 1]
-    )
+    hetatm_chain_final = Chain(CHAIN_IDS[CHAIN_IDS.index(chain_id) + 1])
     residue_idx = 0
     for chain in structure.chains:
         hetatm_chain = structure_tools.copy_hetatm_chain(template_structure, chain, r_cutoff=5)
@@ -84,3 +73,27 @@ def prepare_for_modeling(
         [SeqRecord(Seq(target_seq), "target"), SeqRecord(Seq(template_seq), template_structure.id)]
     )
     return template_structure, alignment
+
+
+def get_target_map(structure: Structure) -> Dict[Tuple[int, str], DomainTarget]:
+    target_map: Dict[Tuple[int, str], DomainTarget] = {}
+    for model in structure.models:
+        for chain in model.chains:
+            id_ = (model.id, chain.id)
+            assert id_ not in target_map
+            chain_sequence = structure_tools.get_chain_sequence(chain)
+            target = DomainTarget(model.id, chain.id, chain_sequence, None, None, chain_sequence)
+            target_map[id_] = target
+    return target_map
+
+
+def mutation_to_target(mutation: DomainMutation, target: DomainTarget) -> DomainTarget:
+    assert target.target_sequence[mutation.residue_id - 1] == mutation.residue_wt
+    target_sequence = (
+        target.target_sequence[: mutation.residue_id - 1]
+        + mutation.residue_mut
+        + target.target_sequence[mutation.residue_id :]
+    )
+    target = target._replace(target_sequence=target_sequence)
+    assert len(target.template_sequence) == len(target.target_sequence)
+    return target
