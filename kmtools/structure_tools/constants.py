@@ -59,6 +59,15 @@ STANDARD_SASA = {x[3]: float(x[4]) for x in STANDARD_SASA_ALL}
 RESIDUE_MAPPING_TO_CANONICAL: Dict[str, str]
 with open(op.join(DATA_DIR, "residue_mapping_to_canonical.json"), "rt") as fin:
     RESIDUE_MAPPING_TO_CANONICAL = json.load(fin)
-    RESIDUE_MAPPING_TO_CANONICAL.update(
-        {k: k for (k, v) in AAA_DICT.items() if v not in ["X", "*"]}
-    )
+    RESIDUE_MAPPING_TO_CANONICAL.update({v: v for v in RESIDUE_MAPPING_TO_CANONICAL.values()})
+
+#
+RNA_MAPPING_TO_CANONICAL: Dict[str, str]
+with open(op.join(DATA_DIR, "rna_mapping_to_canonical.json"), "rt") as fin:
+    RNA_MAPPING_TO_CANONICAL = json.load(fin)
+    RNA_MAPPING_TO_CANONICAL.update({v: v for v in RNA_MAPPING_TO_CANONICAL.values()})
+
+DNA_MAPPING_TO_CANONICAL: Dict[str, str]
+with open(op.join(DATA_DIR, "dna_mapping_to_canonical.json"), "rt") as fin:
+    DNA_MAPPING_TO_CANONICAL = json.load(fin)
+    DNA_MAPPING_TO_CANONICAL.update({v: v for v in DNA_MAPPING_TO_CANONICAL.values()})

@@ -77,4 +77,5 @@ public/
 *.c
 
 # Custom
-scripts/components.cif
+scripts/components.cif.gz
+scripts/components.pickle
