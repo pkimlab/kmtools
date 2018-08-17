@@ -8,7 +8,6 @@ import json
 import pickle
 import shlex
 
-
 RNA = ["A", "T", "C", "G", "U"]
 DNA = ["DA", "DT", "DC", "DG", "DU", "DI"]
 AAA = [
