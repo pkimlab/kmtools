@@ -6,9 +6,11 @@ from kmbio.PDB import Chain, Model, NeighborSearch, Residue, Structure
 from kmtools.structure_tools import (
     AAA_DICT,
     CHAIN_IDS,
+    DNA_MAPPING_TO_CANONICAL,
     LYSINE_ATOMS,
     METHYLATED_LYSINES,
     RESIDUE_MAPPING_TO_CANONICAL,
+    RNA_MAPPING_TO_CANONICAL,
 )
 
 logger = logging.getLogger(__name__)
@@ -197,6 +199,8 @@ def copy_hetatm_chain(
 ) -> Chain:
     """Return `new_hetatm_chain` which contains only those residues from `hetatm_chain`
     which are less than `r_cutoff` away from some residue in `structure`.
+
+    TODO: Should probably do something smarter about DNA and RNA.
     """
     # Refernce structure
     structure_atoms = list(structure.atoms)
@@ -206,13 +210,24 @@ def copy_hetatm_chain(
     for residue in hetatm_chain.residues:
         if residue.resname in RESIDUE_MAPPING_TO_CANONICAL and residue.id[0] == " ":
             pass
+        elif residue.resname in RNA_MAPPING_TO_CANONICAL and residue.id[0] == " ":
+            # Skipping DNA
+            pass
+        elif residue.resname in DNA_MAPPING_TO_CANONICAL and residue.id[0] == " ":
+            # Skipping RNA
+            pass
         else:
-            hetatm_residues.append(residue)
-            if residue.resname in RESIDUE_MAPPING_TO_CANONICAL or residue.id[0] == " ":
+            polymer_units = (
+                set(RESIDUE_MAPPING_TO_CANONICAL)
+                | set(RNA_MAPPING_TO_CANONICAL)
+                | set(DNA_MAPPING_TO_CANONICAL)
+            )
+            if residue.resname in polymer_units or residue.id[0] == " ":
                 logger.warning(
                     f"Encountered a strange residue with resname '{residue.resname}' and "
                     f"id '{residue.id}'. Treating as HETATM."
                 )
+            hetatm_residues.append(residue)
     # New HETATM chain (keeping only proximal HETATMs)
     new_hetatm_chain = Chain(hetatm_chain.id)
     new_hetatm_residues = [
