@@ -3,6 +3,8 @@ import os.path as op
 import string
 from typing import Dict, List
 
+import pandas as pd
+
 DATA_DIR = op.join(op.dirname(op.abspath(__file__)), "data")
 
 #: Mapping from 1-letter amino acid codes to 3-letter amino acid codes
@@ -71,3 +73,13 @@ DNA_MAPPING_TO_CANONICAL: Dict[str, str]
 with open(op.join(DATA_DIR, "dna_mapping_to_canonical.json"), "rt") as fin:
     DNA_MAPPING_TO_CANONICAL = json.load(fin)
     DNA_MAPPING_TO_CANONICAL.update({v: v for v in DNA_MAPPING_TO_CANONICAL.values()})
+
+RESIDUE_ATOM_NAMES: Dict[str, str] = {}
+for key, group in pd.read_csv(
+    op.join(DATA_DIR, "atom_nom.tbl"),
+    sep="\t",
+    comment="#",
+    names=["AA", "BMRB", "SC", "PDB", "UCSF", "MSI", "XPLOR", "SYBYL", "MIDAS", "DIANA"],
+).groupby(level=0):
+    aaa = A_DICT[key]
+    RESIDUE_ATOM_NAMES[aaa] = set(group["PDB"].values.tolist())
