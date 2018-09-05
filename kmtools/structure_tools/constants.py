@@ -39,7 +39,10 @@ A_DICT: Dict[str, str] = {
 }
 
 #: Mapping from 3-letter amino acid codes to 1-letter amino acid codes
-AAA_DICT: Dict[str, str] = {**{value: key for key, value in A_DICT.items()}, "UNK": "X"}
+AAA_DICT: Dict[str, str] = {
+    **{value: key for key, value in A_DICT.items()},
+    # "UNK": "X",
+}
 
 METHYLATED_LYSINES = ["MLZ", "MLY", "M3L"]
 LYSINE_ATOMS = ["N", "CA", "CB", "CG", "CD", "CE", "NZ", "C", "O"]
