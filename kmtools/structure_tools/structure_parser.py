@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 import numpy as np
 from kmbio.PDB import Chain, Model, NeighborSearch, Residue, Structure
@@ -238,14 +239,18 @@ def copy_hetatm_chain(
     return new_hetatm_chain
 
 
-def get_chain_sequence(chain: Chain) -> str:
-    return "".join(
-        [
-            AAA_DICT[RESIDUE_MAPPING_TO_CANONICAL[residue.resname]]
-            for residue in chain
-            if residue.resname in RESIDUE_MAPPING_TO_CANONICAL
-        ]
-    )
+def get_chain_sequence(chain: Chain, unknown_residue_marker: Optional[str]=None) -> str:
+    chain_aa_list = []
+    for residue in chain.residues:
+        aaa = RESIDUE_MAPPING_TO_CANONICAL.get(residue.resname)
+        if aaa is not None:
+            aa = AAA_DICT[aaa]
+        elif unknown_residue_marker is not None:
+            aa = unknown_residue_marker
+        else:
+            continue
+        chain_aa_list.append(aa)
+    return "".join(chain_aa_list)
 
 
 def chain_is_hetatm(chain: Chain) -> bool:
