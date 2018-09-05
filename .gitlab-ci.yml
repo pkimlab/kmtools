@@ -259,6 +259,11 @@ deploy-py36:
   dependencies:
     - build-py36
 
+deploy-py37:
+  <<: *deploy
+  dependencies:
+    - build-py36
+
 # === Pages ===
 
 pages:
