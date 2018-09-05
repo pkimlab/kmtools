@@ -16,11 +16,7 @@ import kmtools.df_tools
 
 logger = logging.getLogger()
 
-_how = (
-    [sep + compression
-     for sep in ('.csv', '.tsv')
-     for compression in ('', '.gz', '.bz2', '.xz')]
-)
+_how = [sep + compression for sep in (".csv", ".tsv") for compression in ("", ".gz", ".bz2", ".xz")]
 
 
 @pytest.fixture(scope="module", params=_how)
@@ -57,9 +53,13 @@ def test_multiple(how):
 def _assert_allclose_object(df1, df2):
     logger.debug("_assert_allclose_object(%s, %s)", df1.head(), df2.head())
     assert (
-        df1.select_dtypes(include=[object]).fillna(0).values ==
-        df2.select_dtypes(include=[object]).fillna(0).values
-    ).all().all()
+        (
+            df1.select_dtypes(include=[object]).fillna(0).values
+            == df2.select_dtypes(include=[object]).fillna(0).values
+        )
+        .all()
+        .all()
+    )
 
 
 def _assert_allclose_numeric(df1, df2):
@@ -80,20 +80,27 @@ def _gen_df(n_rows=1000):
 
     _get_finite_value = functools.partial(_get_numeric_value, filt=np.isfinite)
     data = {
-        'integer': np.repeat(_get_finite_value(
-            st.integers(
-                min_value=np.iinfo(np.int64).min * 0.99,
-                max_value=np.iinfo(np.int64).max * 0.99)),
-            n_rows),
-        'float': np.repeat(_get_finite_value(
-            st.floats(
-                min_value=np.finfo(np.float64).min * 0.99,
-                max_value=np.finfo(np.float64).max * 0.99)),
-            n_rows),
-        'bool': np.repeat(_get_finite_value(st.booleans()), n_rows),
-        'text': np.repeat(
-            st.text(alphabet=string.ascii_letters, min_size=0, max_size=100).example(),
-            n_rows),
+        "integer": np.repeat(
+            _get_finite_value(
+                st.integers(
+                    min_value=np.iinfo(np.int64).min * 0.99, max_value=np.iinfo(np.int64).max * 0.99
+                )
+            ),
+            n_rows,
+        ),
+        "float": np.repeat(
+            _get_finite_value(
+                st.floats(
+                    min_value=np.finfo(np.float64).min * 0.99,
+                    max_value=np.finfo(np.float64).max * 0.99,
+                )
+            ),
+            n_rows,
+        ),
+        "bool": np.repeat(_get_finite_value(st.booleans()), n_rows),
+        "text": np.repeat(
+            st.text(alphabet=string.ascii_letters, min_size=0, max_size=100).example(), n_rows
+        ),
     }
     df = pd.DataFrame(data)
     # print(df.head())
@@ -115,4 +122,4 @@ def _get_numeric_value(hst, filt):
 def _gen_filename(n_char=64):
     """Generate a random filename."""
     logger.debug("_gen_filename(%s)", n_char)
-    return ''.join([random.choice(string.ascii_letters) for _ in range(n_char)])
+    return "".join([random.choice(string.ascii_letters) for _ in range(n_char)])

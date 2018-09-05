@@ -19,8 +19,8 @@ from kmtools import sequence_tools, structure_tools
 logger = logging.getLogger(__name__)
 
 CACHE_DIR = None
-RE_TAG = re.compile('({.+})?(.+)')
-MUTATION_SPLIT_RE = re.compile(' +')
+RE_TAG = re.compile("({.+})?(.+)")
+MUTATION_SPLIT_RE = re.compile(" +")
 
 
 class SIFTSError(Exception):
@@ -30,7 +30,7 @@ class SIFTSError(Exception):
 def get_cache_dir():
     global CACHE_DIR
     if CACHE_DIR is None:
-        CACHE_DIR = op.join(tempfile.gettempdir(), 'sifts_cache')
+        CACHE_DIR = op.join(tempfile.gettempdir(), "sifts_cache")
     return CACHE_DIR
 
 
@@ -52,16 +52,16 @@ def _iter_residues_xml(xml_data):
     """
     for entity in ET.fromstring(xml_data):
         # Entries
-        if entity.tag.split('}')[-1] == 'entity':
+        if entity.tag.split("}")[-1] == "entity":
             # Chain segments
             for segment in entity:
-                if segment.tag.split('}')[-1] == 'segment':
+                if segment.tag.split("}")[-1] == "segment":
                     # Lists of residues
                     for listResidue in segment:
-                        if listResidue.tag.split('}')[-1] == 'listResidue':
+                        if listResidue.tag.split("}")[-1] == "listResidue":
                             # Residues
                             for residue in listResidue:
-                                if residue.tag.split('}')[-1] == 'residue':
+                                if residue.tag.split("}")[-1] == "residue":
                                     yield residue
 
 
@@ -76,7 +76,7 @@ def _get_residue_info_xml(residue):
     -------
     residue_data : dict
     """
-    residue_data = OrderedDict([('is_observed', True), ('comments', [])])
+    residue_data = OrderedDict([("is_observed", True), ("comments", [])])
 
     # Go over all database crossreferences keeping only those
     # that come from uniprot and match the given uniprot_id.
@@ -85,31 +85,32 @@ def _get_residue_info_xml(residue):
         assert len(residue_child_tag) == 1 and len(residue_child_tag[0]) == 2
         residue_child_tag = residue_child_tag[0][1]
         # Some more details about the residue
-        if residue_child_tag == 'residueDetail':
-            residue_data['comments'].append(residue_child.text)
-            if residue_child.text == 'Not_Observed':
-                residue_data['is_observed'] = False
+        if residue_child_tag == "residueDetail":
+            residue_data["comments"].append(residue_child.text)
+            if residue_child.text == "Not_Observed":
+                residue_data["is_observed"] = False
         # Mappings to other databases
-        if residue_child_tag == 'crossRefDb':
-            if residue_child.attrib.get('dbSource') == 'PDB':
-                residue_data['pdb_id'] = residue_child.attrib.get('dbAccessionId')
-                residue_data['pdb_chain'] = residue_child.attrib.get('dbChainId')
-                residue_data['resnum'] = residue_child.attrib.get('dbResNum')
-                resname = residue_child.attrib.get('dbResName')
+        if residue_child_tag == "crossRefDb":
+            if residue_child.attrib.get("dbSource") == "PDB":
+                residue_data["pdb_id"] = residue_child.attrib.get("dbAccessionId")
+                residue_data["pdb_chain"] = residue_child.attrib.get("dbChainId")
+                residue_data["resnum"] = residue_child.attrib.get("dbResNum")
+                resname = residue_child.attrib.get("dbResName")
                 if resname in structure_tools.AAA_DICT:
-                    residue_data['pdb_aa'] = structure_tools.AAA_DICT[resname]
+                    residue_data["pdb_aa"] = structure_tools.AAA_DICT[resname]
                 else:
                     logger.warning(
-                        'Could not convert amino acid {} to a one letter code!'.format(resname))
-                    residue_data['pdb_aa'] = resname
-            elif residue_child.attrib.get('dbSource') == 'UniProt':
-                residue_data['uniprot_id'] = residue_child.attrib.get('dbAccessionId')
-                residue_data['uniprot_position'] = residue_child.attrib.get('dbResNum')
-                residue_data['uniprot_aa'] = residue_child.attrib.get('dbResName')
-            elif residue_child.attrib.get('dbSource') == 'Pfam':
-                residue_data['pfam_id'] = residue_child.attrib.get('dbAccessionId')
+                        "Could not convert amino acid {} to a one letter code!".format(resname)
+                    )
+                    residue_data["pdb_aa"] = resname
+            elif residue_child.attrib.get("dbSource") == "UniProt":
+                residue_data["uniprot_id"] = residue_child.attrib.get("dbAccessionId")
+                residue_data["uniprot_position"] = residue_child.attrib.get("dbResNum")
+                residue_data["uniprot_aa"] = residue_child.attrib.get("dbResName")
+            elif residue_child.attrib.get("dbSource") == "Pfam":
+                residue_data["pfam_id"] = residue_child.attrib.get("dbAccessionId")
 
-    residue_data['comments'] = ','.join(residue_data['comments'])
+    residue_data["comments"] = ",".join(residue_data["comments"])
 
     return residue_data
 
@@ -146,8 +147,8 @@ def get_sifts_data(pdb_id, cache_dir=None):
         cache_dir = tempfile.gettempdir()
 
     # Download the sifts file if it is not in cache
-    sifts_filename = pdb_id.lower() + '.xml.gz'
-    url = 'ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/xml/{}'.format(sifts_filename)
+    sifts_filename = pdb_id.lower() + ".xml.gz"
+    url = "ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/xml/{}".format(sifts_filename)
     filename = op.join(cache_dir, sifts_filename)
     if not op.isfile(op.join(cache_dir, sifts_filename)):
         os.makedirs(cache_dir, exist_ok=True)
@@ -169,10 +170,10 @@ def get_sifts_data(pdb_id, cache_dir=None):
 
     # Convert data to a DataFrame and make sure we have no duplicates
     sifts_df = pd.DataFrame(pdb_sifts_data)
-    sifts_df = sifts_df[sifts_df['is_observed']]
-    assert not sifts_df.duplicated(
-        subset=['pdb_chain', 'resnum'], keep=False).any(), (sifts_df[sifts_df.duplicated(
-            subset=['pdb_chain', 'resnum'], keep=False)].to_csv())
+    sifts_df = sifts_df[sifts_df["is_observed"]]
+    assert not sifts_df.duplicated(subset=["pdb_chain", "resnum"], keep=False).any(), sifts_df[
+        sifts_df.duplicated(subset=["pdb_chain", "resnum"], keep=False)
+    ].to_csv()
 
     # residx counts the index of the residue in the pdb, starting from 1
     counts = {}
@@ -186,13 +187,13 @@ def get_sifts_data(pdb_id, cache_dir=None):
             counts[pdb_chain] = 2
         return residx
 
-    sifts_df['residx'] = sifts_df['pdb_chain'].apply(get_residx)
+    sifts_df["residx"] = sifts_df["pdb_chain"].apply(get_residx)
 
     # TODO: should optimise the code above instead of simply removing duplicates
     # sifts_df = sifts_df.drop_duplicates()
 
-    assert sifts_df['resnum'].dtype.char == 'O'
-    assert sifts_df['residx'].dtype.char in ['l', 'd']
+    assert sifts_df["resnum"].dtype.char == "O"
+    assert sifts_df["residx"].dtype.char in ["l", "d"]
 
     return sifts_df
 
@@ -215,7 +216,7 @@ def split_mutation(mutation):
     """
     if pd.isnull(mutation):
         return None, None, None
-    if ' ' in mutation:
+    if " " in mutation:
         mutation_split = MUTATION_SPLIT_RE.split(mutation)
     else:
         mutation_split = (mutation[0], mutation[1:-1], mutation[-1])
@@ -223,9 +224,9 @@ def split_mutation(mutation):
         wt, pos, mut = mutation_split
     elif len(mutation_split) == 2:
         if any(c.isdigit() for c in mutation_split[0]):
-            wt, pos, mut = '', *mutation_split  # type: ignore
+            wt, pos, mut = "", *mutation_split  # type: ignore
         elif any(c.isdigit() for c in mutation_split[1]):
-            wt, pos, mut = *mutation_split, ''  # type: ignore
+            wt, pos, mut = *mutation_split, ""  # type: ignore
         else:
             raise Exception(mutation)
     else:
@@ -242,9 +243,9 @@ def validate_mutations(mutations, seqrecord):
         Comma-separated list of mutations where each unmatched mutation has been replaced by a '?'.
     """
     validated_mutations = []
-    for mutation in mutations.split(','):
+    for mutation in mutations.split(","):
         wt, pos, mut = split_mutation(mutation)
-        wt_valid = ''
+        wt_valid = ""
         for i, aa in enumerate(wt):
             try:
                 mutations_match = str(seqrecord)[int(pos) - 1 + i] == aa
@@ -253,18 +254,14 @@ def validate_mutations(mutations, seqrecord):
             if mutations_match:
                 wt_valid += aa
             else:
-                wt_valid += '?'
+                wt_valid += "?"
         validated_mutations.append(wt_valid)
-    return ','.join(validated_mutations)
+    return ",".join(validated_mutations)
 
 
-def convert_amino_acid(pdb_id,
-                       pdb_chain,
-                       pdb_aa,
-                       pdb_resnum,
-                       sifts_df,
-                       uniprot_id=None,
-                       pdb_resnum_offset=0):
+def convert_amino_acid(
+    pdb_id, pdb_chain, pdb_aa, pdb_resnum, sifts_df, uniprot_id=None, pdb_resnum_offset=0
+):
     """Convert a single amino acid from PDB to UniProt coordinates.
 
     Parameters
@@ -289,39 +286,49 @@ def convert_amino_acid(pdb_id,
     dict
     """
     if pdb_resnum_offset:
-        pdb_resnum_idx = sifts_df[sifts_df['resnum'] == pdb_resnum].index[0]
-        pdb_resnum = sifts_df.loc[pdb_resnum_idx + pdb_resnum_offset, 'resnum']
+        pdb_resnum_idx = sifts_df[sifts_df["resnum"] == pdb_resnum].index[0]
+        pdb_resnum = sifts_df.loc[pdb_resnum_idx + pdb_resnum_offset, "resnum"]
 
-    pdb_residx = int(''.join(c for c in pdb_resnum if c.isdigit()))
+    pdb_residx = int("".join(c for c in pdb_resnum if c.isdigit()))
 
     if pdb_aa:
-        if uniprot_id is not None and 'uniprot_aa' in sifts_df:
-            sifts_df_pdb_aa_match = (sifts_df['uniprot_aa'] == pdb_aa)
+        if uniprot_id is not None and "uniprot_aa" in sifts_df:
+            sifts_df_pdb_aa_match = sifts_df["uniprot_aa"] == pdb_aa
         else:
-            sifts_df_pdb_aa_match = (sifts_df['pdb_aa'] == pdb_aa)
+            sifts_df_pdb_aa_match = sifts_df["pdb_aa"] == pdb_aa
     else:
         sifts_df_pdb_aa_match = True
 
     if pd.isnull(pdb_chain):
         sifts_df_pdb_chain_match = True
     else:
-        sifts_df_pdb_chain_match = (sifts_df['pdb_chain'] == pdb_chain)
+        sifts_df_pdb_chain_match = sifts_df["pdb_chain"] == pdb_chain
 
-    if uniprot_id is not None and 'uniprot_id' in sifts_df:
+    if uniprot_id is not None and "uniprot_id" in sifts_df:
         # Get the subset of rows that we are interested in
-        sifts_df_subset_0 = sifts_df[(sifts_df['pdb_id'] == pdb_id) & (sifts_df_pdb_chain_match) &
-                                     (sifts_df['resnum'] == pdb_resnum) & (sifts_df_pdb_aa_match) &
-                                     (sifts_df['uniprot_id'] == uniprot_id)]
+        sifts_df_subset_0 = sifts_df[
+            (sifts_df["pdb_id"] == pdb_id)
+            & (sifts_df_pdb_chain_match)
+            & (sifts_df["resnum"] == pdb_resnum)
+            & (sifts_df_pdb_aa_match)
+            & (sifts_df["uniprot_id"] == uniprot_id)
+        ]
         # Try using residx instead of resnum
-        sifts_df_subset_2 = sifts_df[(sifts_df['pdb_id'] == pdb_id) & (sifts_df_pdb_chain_match) &
-                                     (sifts_df['residx'] == pdb_residx) & (sifts_df_pdb_aa_match) &
-                                     (sifts_df['uniprot_id'] == uniprot_id)]
-        if 'uniprot_position' in sifts_df.columns:
-            sifts_df_subset_4 = sifts_df[(sifts_df['pdb_id'] == pdb_id) &
-                                         (sifts_df_pdb_chain_match) &
-                                         (sifts_df['uniprot_position'] == pdb_residx) &
-                                         (sifts_df_pdb_aa_match) &
-                                         (sifts_df['uniprot_id'] == uniprot_id)]
+        sifts_df_subset_2 = sifts_df[
+            (sifts_df["pdb_id"] == pdb_id)
+            & (sifts_df_pdb_chain_match)
+            & (sifts_df["residx"] == pdb_residx)
+            & (sifts_df_pdb_aa_match)
+            & (sifts_df["uniprot_id"] == uniprot_id)
+        ]
+        if "uniprot_position" in sifts_df.columns:
+            sifts_df_subset_4 = sifts_df[
+                (sifts_df["pdb_id"] == pdb_id)
+                & (sifts_df_pdb_chain_match)
+                & (sifts_df["uniprot_position"] == pdb_residx)
+                & (sifts_df_pdb_aa_match)
+                & (sifts_df["uniprot_id"] == uniprot_id)
+            ]
         else:
             sifts_df_subset_4 = []
     else:
@@ -330,15 +337,26 @@ def convert_amino_acid(pdb_id,
         sifts_df_subset_4 = []
 
     # Try mapping to a wildcard uniprot
-    sifts_df_subset_1 = sifts_df[(sifts_df['pdb_id'] == pdb_id) & (sifts_df_pdb_chain_match) &
-                                 (sifts_df['resnum'] == pdb_resnum) & (sifts_df_pdb_aa_match)]
+    sifts_df_subset_1 = sifts_df[
+        (sifts_df["pdb_id"] == pdb_id)
+        & (sifts_df_pdb_chain_match)
+        & (sifts_df["resnum"] == pdb_resnum)
+        & (sifts_df_pdb_aa_match)
+    ]
     # Or residx and wildcard uniprot
-    sifts_df_subset_3 = sifts_df[(sifts_df['pdb_id'] == pdb_id) & (sifts_df_pdb_chain_match) &
-                                 (sifts_df['residx'] == pdb_residx) & (sifts_df_pdb_aa_match)]
-    if 'uniprot_position' in sifts_df.columns:
-        sifts_df_subset_5 = sifts_df[(sifts_df['pdb_id'] == pdb_id) & (sifts_df_pdb_chain_match) &
-                                     (sifts_df['uniprot_position'] == pdb_residx) &
-                                     (sifts_df_pdb_aa_match)]
+    sifts_df_subset_3 = sifts_df[
+        (sifts_df["pdb_id"] == pdb_id)
+        & (sifts_df_pdb_chain_match)
+        & (sifts_df["residx"] == pdb_residx)
+        & (sifts_df_pdb_aa_match)
+    ]
+    if "uniprot_position" in sifts_df.columns:
+        sifts_df_subset_5 = sifts_df[
+            (sifts_df["pdb_id"] == pdb_id)
+            & (sifts_df_pdb_chain_match)
+            & (sifts_df["uniprot_position"] == pdb_residx)
+            & (sifts_df_pdb_aa_match)
+        ]
     else:
         sifts_df_subset_5 = []
 
@@ -357,37 +375,49 @@ def convert_amino_acid(pdb_id,
         sifts_df_subset = sifts_df_subset_5
     else:
         error_message = ("SIFTS failed to match residue ({}, {}, {}, {}, {}, {})").format(
-            pdb_id, pdb_chain, pdb_aa, pdb_resnum, uniprot_id, pdb_resnum_offset)
+            pdb_id, pdb_chain, pdb_aa, pdb_resnum, uniprot_id, pdb_resnum_offset
+        )
         raise SIFTSError(error_message)
 
     # Result
     sifts_row = sifts_df_subset.iloc[0]
-    uniprot_id_sifts = sifts_row.get('uniprot_id', uniprot_id)
-    uniprot_aa = sifts_row.get('uniprot_aa')
-    uniprot_pos = sifts_row.get('uniprot_position')
+    uniprot_id_sifts = sifts_row.get("uniprot_id", uniprot_id)
+    uniprot_aa = sifts_row.get("uniprot_aa")
+    uniprot_pos = sifts_row.get("uniprot_position")
     uniprot_pos = int(uniprot_pos) if pd.notnull(uniprot_pos) else uniprot_pos
-    pdb_chain = sifts_row['pdb_chain']
-    pfam_id = sifts_row.get('pfam_id', np.nan)
+    pdb_chain = sifts_row["pdb_chain"]
+    pfam_id = sifts_row.get("pfam_id", np.nan)
 
     if pd.notnull(uniprot_aa) and (pdb_aa != uniprot_aa):
         error_message = (
             "PDB AA and UniProt AA are not the same! ({}, {}, {}, {}, {}, {}) ({} != {} ({}))"
-        ).format(pdb_id, pdb_chain, pdb_aa, pdb_resnum, uniprot_id, pdb_resnum_offset, pdb_aa,
-                 uniprot_aa, uniprot_id_sifts)
+        ).format(
+            pdb_id,
+            pdb_chain,
+            pdb_aa,
+            pdb_resnum,
+            uniprot_id,
+            pdb_resnum_offset,
+            pdb_aa,
+            uniprot_aa,
+            uniprot_id_sifts,
+        )
         raise SIFTSError(error_message)
 
-    uniprot_seqrecord = (sequence_tools.fetch_sequence(uniprot_id_sifts)
-                         if pd.notnull(uniprot_id_sifts) else '')
+    uniprot_seqrecord = (
+        sequence_tools.fetch_sequence(uniprot_id_sifts) if pd.notnull(uniprot_id_sifts) else ""
+    )
 
     if pd.notnull(uniprot_aa) and pd.notnull(uniprot_pos):
         if not uniprot_seqrecord:
             error_message = (
-                "Could not fetch uniprot sequence to make sure that AA '{}{}' is correct!").format(
-                    uniprot_aa, uniprot_pos)
+                "Could not fetch uniprot sequence to make sure that AA '{}{}' is correct!"
+            ).format(uniprot_aa, uniprot_pos)
             raise SIFTSError(error_message)
         elif uniprot_seqrecord and (str(uniprot_seqrecord.seq)[uniprot_pos - 1] != uniprot_aa):
-            error_message = ("Sequence mismatch: {}{} in {}!").format(uniprot_aa, uniprot_pos,
-                                                                      uniprot_seqrecord.seq)
+            error_message = ("Sequence mismatch: {}{} in {}!").format(
+                uniprot_aa, uniprot_pos, uniprot_seqrecord.seq
+            )
             raise SIFTSError(error_message)
 
     return dict(
@@ -395,11 +425,13 @@ def convert_amino_acid(pdb_id,
         uniprot_aa=uniprot_aa,
         uniprot_pos=uniprot_pos,
         pdb_chain=pdb_chain,
-        pfam_id=pfam_id)
+        pfam_id=pfam_id,
+    )
 
 
 PDB_MUTATION_RE = re.compile(
-    '^([a-zA-Z0-9]{0,1})_?([GVALICMFWPDESTYQNKRH]{1}[1-9][0-9]*[GVALICMFWPDESTYQNKRH]*)$')
+    "^([a-zA-Z0-9]{0,1})_?([GVALICMFWPDESTYQNKRH]{1}[1-9][0-9]*[GVALICMFWPDESTYQNKRH]*)$"
+)
 
 
 def format_pdb_mutation(pdb_mutation):
@@ -440,7 +472,7 @@ def _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
     """
     # sep
     sep = None
-    for s in [',', '.']:
+    for s in [",", "."]:
         if s in pdb_mutations:
             sep = s
             break
@@ -462,17 +494,17 @@ def _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
             yield pdb_chain, m
         else:
             if pdb_chain is not None and pdb_chain != c:
-                raise SIFTSError("pdb_chain ('{}') and c ('{}') do not match!\n({}, {})".format(
-                    pdb_chain, c, pdb_chains, pdb_mutations))
+                raise SIFTSError(
+                    "pdb_chain ('{}') and c ('{}') do not match!\n({}, {})".format(
+                        pdb_chain, c, pdb_chains, pdb_mutations
+                    )
+                )
             yield c, m
 
 
-def convert_pdb_mutations_to_uniprot(pdb_id,
-                                     pdb_chains=None,
-                                     pdb_mutations=None,
-                                     *,
-                                     uniprot_id=None,
-                                     sifts_df=None):
+def convert_pdb_mutations_to_uniprot(
+    pdb_id, pdb_chains=None, pdb_mutations=None, *, uniprot_id=None, sifts_df=None
+):
     """Convert a PDB mutations to UniProt.
 
     Works for a list of mutations joined with ',' but only one row at a time.
@@ -510,12 +542,13 @@ def convert_pdb_mutations_to_uniprot(pdb_id,
     for pdb_chain, pdb_mutation in _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
         if pd.isnull(pdb_mutation):
             error_message = ("Failed to get pdb_mutation ({}) for input: ({}, {}, {}, {})").format(
-                pdb_chain, pdb_mutation, pdb_id, pdb_chains, pdb_mutations, uniprot_id)
+                pdb_chain, pdb_mutation, pdb_id, pdb_chains, pdb_mutations, uniprot_id
+            )
             raise SIFTSError(error_message)
         pdb_wt, pdb_resnum, pdb_mut = split_mutation(pdb_mutation)
         # Convert each of the mutant residues
         uniprot_aa_data = []
-        for i, pdb_wt_aa in enumerate(pdb_wt if pdb_wt else ['']):
+        for i, pdb_wt_aa in enumerate(pdb_wt if pdb_wt else [""]):
             sifts_aa_data = convert_amino_acid(
                 pdb_id,
                 pdb_chain,
@@ -523,31 +556,36 @@ def convert_pdb_mutations_to_uniprot(pdb_id,
                 pdb_resnum,
                 sifts_df,
                 uniprot_id=uniprot_id,
-                pdb_resnum_offset=i)
+                pdb_resnum_offset=i,
+            )
             uniprot_aa_data.append(sifts_aa_data)
         #
-        if any(pd.isnull(x['uniprot_aa']) for x in uniprot_aa_data) or \
-                any(pd.isnull(x['uniprot_pos']) for x in uniprot_aa_data):
+        if any(pd.isnull(x["uniprot_aa"]) for x in uniprot_aa_data) or any(
+            pd.isnull(x["uniprot_pos"]) for x in uniprot_aa_data
+        ):
             error_message = ("No mutation mapping available! ({}, {}, {}, {}):\n    {}").format(
-                pdb_id, pdb_mutations, pdb_chain, pdb_mutation, uniprot_aa_data)
+                pdb_id, pdb_mutations, pdb_chain, pdb_mutation, uniprot_aa_data
+            )
             raise SIFTSError(error_message)
-        uniprot_id_sifts = uniprot_aa_data[0]['uniprot_id']
-        pfam_id_sifts = uniprot_aa_data[0]['pfam_id']
-        uniprot_wt = ''.join(x['uniprot_aa'] for x in uniprot_aa_data)
-        uniprot_pos = uniprot_aa_data[0]['uniprot_pos']
-        pdb_chain = uniprot_aa_data[0]['pdb_chain']
-        uniprot_mutation = '{}{}{}'.format(uniprot_wt, uniprot_pos, pdb_mut)
+        uniprot_id_sifts = uniprot_aa_data[0]["uniprot_id"]
+        pfam_id_sifts = uniprot_aa_data[0]["pfam_id"]
+        uniprot_wt = "".join(x["uniprot_aa"] for x in uniprot_aa_data)
+        uniprot_pos = uniprot_aa_data[0]["uniprot_pos"]
+        pdb_chain = uniprot_aa_data[0]["pdb_chain"]
+        uniprot_mutation = "{}{}{}".format(uniprot_wt, uniprot_pos, pdb_mut)
 
-        pdb_mutations_sifts.append('{}_{}{}{}'.format(pdb_chain, pdb_wt, pdb_resnum, pdb_mut))
+        pdb_mutations_sifts.append("{}_{}{}{}".format(pdb_chain, pdb_wt, pdb_resnum, pdb_mut))
         uniprot_mutations_sifts.append(uniprot_mutation)
         # pdb_chains_sifts = ','.join(x['pdb_chain'] for x in uniprot_aa_data)
 
     return dict(
         uniprot_id_sifts=uniprot_id_sifts,
         pfam_id_sifts=pfam_id_sifts,
-        pdb_mutations_sifts=('.'.join(pdb_mutations_sifts) if pdb_mutations_sifts else np.nan),
-        uniprot_mutations_sifts=('.'.join(uniprot_mutations_sifts)
-                                 if uniprot_mutations_sifts else np.nan))
+        pdb_mutations_sifts=(".".join(pdb_mutations_sifts) if pdb_mutations_sifts else np.nan),
+        uniprot_mutations_sifts=(
+            ".".join(uniprot_mutations_sifts) if uniprot_mutations_sifts else np.nan
+        ),
+    )
 
 
 def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
@@ -574,7 +612,7 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
     --------
     >>>
     """
-    if pd.isnull(pdb_mutations) or pdb_mutations == '-' or pdb_mutations.startswith('WILD'):
+    if pd.isnull(pdb_mutations) or pdb_mutations == "-" or pdb_mutations.startswith("WILD"):
         return {}
 
     def _uniprot_fallback(uniprot_id, pdb_mutations):
@@ -587,7 +625,7 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
                 print(uniprot_id)
                 logger.error(uniprot_id)
             validated_mutations = validate_mutations(pdb_mutations, uniprot_seqrecord)
-            return {'uniprot_id_sifts': uniprot_id, 'uniprot_mutations_sifts': validated_mutations}
+            return {"uniprot_id_sifts": uniprot_id, "uniprot_mutations_sifts": validated_mutations}
 
     # If pdb_id is null, make sure pdb_mutations matches UniProt
     if pd.isnull(pdb_id):
@@ -600,4 +638,5 @@ def get_uniprot_id_mutation(pdb_id, pdb_chains, pdb_mutations, uniprot_id):
         return _uniprot_fallback(uniprot_id, pdb_mutations)
 
     return convert_pdb_mutations_to_uniprot(
-        pdb_id, pdb_chains, pdb_mutations, uniprot_id=uniprot_id, sifts_df=sifts_df)
+        pdb_id, pdb_chains, pdb_mutations, uniprot_id=uniprot_id, sifts_df=sifts_df
+    )

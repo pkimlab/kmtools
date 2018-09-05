@@ -239,7 +239,7 @@ def copy_hetatm_chain(
     return new_hetatm_chain
 
 
-def get_chain_sequence(chain: Chain, unknown_residue_marker: Optional[str]=None) -> str:
+def get_chain_sequence(chain: Chain, unknown_residue_marker: Optional[str] = None) -> str:
     chain_aa_list = []
     for residue in chain.residues:
         aaa = RESIDUE_MAPPING_TO_CANONICAL.get(residue.resname)
