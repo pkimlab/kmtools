@@ -15,6 +15,9 @@ variables:
 .py36: &py36
   PYTHON_VERSION: "3.6"
 
+.py37: &py37
+  PYTHON_VERSION: "3.7"
+
 .db_tools: &db_tools
   SUBPKG_NAME: db_tools
 
@@ -76,7 +79,7 @@ lint:
   stage: lint
   <<: [*configure]
   variables:
-    <<: [*py36]
+    <<: [*py37]
   script:
     - cd $(dirname ${CI_CONFIG_PATH})
     - conda install -yq "python=${PYTHON_VERSION}" isort flake8 mypy
@@ -106,6 +109,11 @@ build-py36:
   variables:
     <<: [*py36]
 
+build-py37:
+  <<: [*configure, *build]
+  variables:
+    <<: [*py37]
+
 # === Test ===
 
 .test: &test
@@ -127,6 +135,8 @@ build-py36:
     paths:
       - environment-py${PYTHON_VERSION/./}.yml
       - "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
+
+# Python 3.6
 
 db_tools-py36:
   <<: [*configure, *test]
