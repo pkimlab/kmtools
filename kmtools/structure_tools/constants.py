@@ -1,7 +1,7 @@
 import json
 import os.path as op
 import string
-from typing import Dict, List
+from typing import Dict, List, Set
 
 import pandas as pd
 
@@ -77,7 +77,7 @@ with open(op.join(DATA_DIR, "dna_mapping_to_canonical.json"), "rt") as fin:
     DNA_MAPPING_TO_CANONICAL = json.load(fin)
     DNA_MAPPING_TO_CANONICAL.update({v: v for v in DNA_MAPPING_TO_CANONICAL.values()})
 
-RESIDUE_ATOM_NAMES: Dict[str, str] = {}
+RESIDUE_ATOM_NAMES: Dict[str, Set[str]] = {}
 for key, group in pd.read_csv(
     op.join(DATA_DIR, "atom_nom.tbl"),
     sep="\t",
