@@ -52,6 +52,8 @@ def prepare_for_modeling(
     hetatm_chain_final = Chain(CHAIN_IDS[CHAIN_IDS.index(chain_id) + 1])
     residue_idx = 0
     for chain in structure.chains:
+        if not structure_tools.chain_is_hetatm(chain):
+            continue
         hetatm_chain = structure_tools.copy_hetatm_chain(template_structure, chain, r_cutoff=5)
         for residue in hetatm_chain.residues:
             new_residue = Residue(
