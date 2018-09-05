@@ -41,7 +41,7 @@ def prepare_for_modeling(
         if target.template_start is not None and target.template_end is not None:
             residues = residues[target.template_start - 1 : target.template_end]
         chain = Chain(chain_id, residues)
-        chain_sequence = structure_tools.get_chain_sequence(chain, unknown_residue_marker=".")
+        chain_sequence = structure_tools.get_chain_sequence(chain)
         chain_sequence_expected = target.template_sequence.replace("-", "")
         assert chain_sequence == chain_sequence_expected, (chain_sequence, chain_sequence_expected)
         template_structure[0].add(chain)
@@ -52,8 +52,8 @@ def prepare_for_modeling(
     hetatm_chain_final = Chain(CHAIN_IDS[CHAIN_IDS.index(chain_id) + 1])
     residue_idx = 0
     for chain in structure.chains:
-        if not structure_tools.chain_is_hetatm(chain):
-            continue
+        # if not structure_tools.chain_is_hetatm(chain):
+        #     continue
         hetatm_chain = structure_tools.copy_hetatm_chain(template_structure, chain, r_cutoff=5)
         for residue in hetatm_chain.residues:
             new_residue = Residue(
