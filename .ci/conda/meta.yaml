@@ -35,7 +35,6 @@ requirements:
     - psutil
     - pygments
     - pytest
-    - dataclasses  # [py36]
     # Scientific python
     - numpy
     - scipy
