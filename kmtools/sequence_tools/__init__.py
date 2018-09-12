@@ -34,6 +34,8 @@ HH-Suite
     hhmake
     hhsearch
     hhmakemodel
+
+    parse_hhr_data
 """
 try:
     from .hashes_fast import crc64
