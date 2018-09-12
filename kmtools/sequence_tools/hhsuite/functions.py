@@ -59,39 +59,6 @@ def hhblits(input: HHInput, database: Path, extra_args: str = "") -> HHBlits:
     return data
 
 
-def hhsearch(input: HHMake, database: Path, extra_args: str = "") -> HHSearch:
-    """Run ``hhsearch`` to "search a database of HMMs with a query alignment or query HMM".
-
-    Args:
-        input: :any:`HHMake` object containing required input data.
-        database: Database used for constructing the ``hhblits`` alignment.
-        extra_args: Extra parameters to pass down to the executable.
-
-            - For homology modelling, use: ``-mact 0.05 -e 0.1 -glob``.
-
-    Returns:
-        :any:`HHSearch` object containing results.
-    """
-    data = HHSearch(
-        hhsearch_hhr_file=input.hhm_file.with_suffix(".hhsearch.hhr"),
-        hhsearch_tab_file=input.hhm_file.with_suffix(".hhsearch.tab"),
-        hhsearch_database=database,
-        hhsearch_extra_args=extra_args,
-        **vars(input),
-    )
-    cmd = (
-        f"hhsearch"
-        f" -i '{data.hhm_file}'"
-        f" -o '{data.hhsearch_hhr_file}'"
-        f" -d '{data.hhsearch_database}/{data.hhsearch_database.name}'"
-        f" -atab '{data.hhsearch_tab_file}'"
-        f" -M first"
-        f" {data.hhsearch_extra_args}"
-    )
-    run(cmd, data.temp_dir)
-    return data
-
-
 def hhfilter(input: HHBlits, extra_args: str = "") -> HHFilter:
     """Filter an alignment using ``hhfilter``.
 
@@ -151,16 +118,46 @@ def hhmake(input: HHBlits, extra_args: str = "") -> HHMake:
     Returns:
         :any:`HHMake` object containing results.
     """
-    data = HHMake(
-        hhm_file=input.a3m_file.with_suffix(".hhm"),
-        hhmake_extra_args=extra_args,
-        **vars(input),
-    )
+    data = HHMake(hhmake_extra_args=extra_args, **vars(input))
+    data.hhm_file = input.a3m_file.with_suffix(".hhm")
     cmd = (
+        #
         f"hhmake"
         f" -i '{data.a3m_file}'"
         f" -o '{data.hhm_file}'"
         f" {data.hhmake_extra_args}"
+    )
+    run(cmd, data.temp_dir)
+    return data
+
+
+def hhsearch(input: HHMake, database: Path, extra_args: str = "") -> HHSearch:
+    """Run ``hhsearch`` to "search a database of HMMs with a query alignment or query HMM".
+
+    Args:
+        input: :any:`HHMake` object containing required input data.
+        database: Database used for constructing the ``hhblits`` alignment.
+        extra_args: Extra parameters to pass down to the executable.
+
+            - For homology modelling, use: ``-mact 0.05 -e 0.1 -glob``.
+
+    Returns:
+        :any:`HHSearch` object containing results.
+    """
+    data = HHSearch(
+        hhsearch_hhr_file=input.hhm_file.with_suffix(".hhsearch.hhr"),
+        hhsearch_tab_file=input.hhm_file.with_suffix(".hhsearch.tab"),
+        hhsearch_database=database,
+        hhsearch_extra_args=extra_args,
+        **vars(input),
+    )
+    cmd = (
+        f"hhsearch"
+        f" -i '{data.hhm_file}'"
+        f" -o '{data.hhsearch_hhr_file}'"
+        f" -d '{data.hhsearch_database}/{data.hhsearch_database.name}'"
+        f" -atab '{data.hhsearch_tab_file}'"
+        f" {data.hhsearch_extra_args}"
     )
     run(cmd, data.temp_dir)
     return data
