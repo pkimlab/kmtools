@@ -23,9 +23,9 @@ def crc64(s):
     Copied from BioPython.
 
     Examples:
-        From UniParc:
         >>> crc64('MSGGKYVDSE')
         '368583B2DB533878'
+
         Note that the case is important:
         >>> crc64("ACGTACGTACGT")
         'C4FBB762C4A87EBD'
