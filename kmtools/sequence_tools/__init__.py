@@ -1,29 +1,57 @@
-"""Sequence tools
+"""
+
+Sequences
+---------
 
 .. autosummary::
     :toctree: _modules
 
-    codons_info
-    dna_util
-    elms
-    run_psipred
-    read_psipred
+    fetch_sequence
+    mutation_matches_sequence
+    mutation_in_domain
+    format_hgvs_mutation
+
+Alignments
+----------
+
+.. autosummary::
+    :toctree: _modules
+
+    align_pairwise
+    get_crossmapping
+    find_in_set
+    align_sw
+
+HH-Suite
+--------
+
+.. autosummary::
+    :toctree: _modules
+
+    hhblits
+    hhfilter
+    addss
+    hhmake
+    hhsearch
+    hhmakemodel
+
+    parse_hhr_data
 """
 try:
-    from ._hashes import crc64
+    from .hashes_fast import crc64
 except ImportError:
     import warnings
 
     warnings.warn("Could not import Cythonized functions!")
-    from .hashes import crc64_slow as crc64
+    from .hashes_slow import crc64
 
-    del warnings
-
-from .hashes import crc64_slow
 from .alignment_tools import *
 from .blast import *
 from .sequence_tools import *
 from .codons_info import *
 from .dna_util import *
 from .slims import *
-from .psipred import run_psipred, read_psipred
+from .fasta_tools import *
+from .fastq_tools import *
+from .hhsuite import *
+from . import *

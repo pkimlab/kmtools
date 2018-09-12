@@ -10,7 +10,7 @@ stages:
 # === Variables ===
 
 variables:
-  PACKAGE_VERSION: 0.0.32
+  PACKAGE_VERSION: 0.0.34
 
 .py36: &py36
   PYTHON_VERSION: "3.6"
@@ -262,7 +262,7 @@ deploy-py36:
 deploy-py37:
   <<: *deploy
   dependencies:
-    - build-py36
+    - build-py37
 
 # === Pages ===
 

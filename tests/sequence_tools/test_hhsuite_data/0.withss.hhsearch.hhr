@@ -1,0 +1,159 @@
+Query         0
+Match_columns 77
+No_of_seqs    101 out of 383
+Neff          6.2
+Searched_HMMs 9357
+Date          Wed Sep 12 10:47:11 2018
+Command       hhsearch -i /tmp/strokach/tmpnklcrzk8/0.withss.hhm -o /tmp/strokach/tmpnklcrzk8/0.withss.hhsearch.hhr -d /home/kimlab1/database_data/datapkg_input_dir/hh-database/scop95/scop95 -atab /tmp/strokach/tmpnklcrzk8/0.withss.hhsearch.tab -mact 0.05 -e 0.1 -glob 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 d3brgc2 b.1.18.0 (C:360-474) a  92.3 0.00067 7.2E-08   42.2   0.0   63    1-77     22-93  (115)
+  2 d4jcma3 b.1.18.0 (A:487-568) a  12.2     5.3 0.00057   20.8   0.0   63    1-77      4-67  (82)
+  3 d1cyga1 b.1.18.2 (A:492-574) C  10.5     6.8 0.00073   20.2   0.0   61    1-77      4-65  (83)
+  4 d2nn6h3 d.51.1.1 (H:168-293) R   0.7 3.6E+02   0.039   10.7   0.0   19   59-77      1-19  (126)
+  5 d1l2wi_ d.198.1.1 (I:) YopE ch   0.7 3.7E+02   0.039   10.6   0.0   20    1-20     37-57  (57)
+  6 d1pxwb_ d.79.3.1 (B:) Ribosoma   0.6 4.1E+02   0.043   10.4   0.0   12   66-77      1-12  (120)
+  7 d4oxxa_ c.23.5.0 (A:) automate   0.6 4.5E+02   0.048   10.2   0.0   63    4-77      1-68  (153)
+  8 d4a8ta1 c.78.1.0 (A:1-148) aut   0.5 5.3E+02   0.057    9.8   0.0   29    1-29    120-148 (148)
+  9 d4iv5d1 c.78.1.0 (D:4-157) aut   0.5 5.4E+02   0.057    9.7   0.0   27    1-27    127-154 (154)
+ 10 d4iv5f1 c.78.1.0 (F:5-157) aut   0.5 5.4E+02   0.058    9.7   0.0   27    1-27    126-153 (153)
+
+No 1
+>d3brgc2 b.1.18.0 (C:360-474) automated matches {Mouse (Mus musculus) [TaxId: 10090]}
+Probab=92.33  E-value=0.00067  Score=42.17  Aligned_cols=63  Identities=25%  Similarity=0.367  Sum_probs=46.9  Template_Neff=7.200
+
+Q ss_pred             CeEEEecCCccccCCCcEEEEEehhcCCcceEEEEEecCCCceEEEEEEEeccccccceEEEEECCCCCC---------C
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRN---------K   71 (77)
+Q Consensus         1 p~I~r~s~~s~~v~GG~ei~ll~~k~~~di~V~F~e~~~~g~~~We~~~~~~~dv~~q~aiv~~tPpY~~---------~   71 (77)
+                      |.|.+++...+  .||.+|.|.|+||..+.+|.|=+..        +.    ..+.....|.|++|+...         .
+T Consensus        22 P~I~~i~p~~g--~gg~~v~I~G~nF~~~~~V~fG~~~--------~~----~~~~s~~~i~c~~P~~~~~~~~~~~~~~   87 (115)
+T d3brgc2          22 PVVESLQLNGG--GDVAMLELTGQNFTPNLRVWFGDVE--------AE----TMYRCGESMLCVVPDISAFREGWRWVRQ   87 (115)
+Confidence            99999999988  9999999999999999999884322        11    233456678999999842         3
+
+
+Q ss_pred             CcCCCC
+Q 0                72 HIRTPV   77 (77)
+Q Consensus        72 ~i~~pV   77 (77)
+                      ...-||
+T Consensus        88 ~~~v~v   93 (115)
+T d3brgc2          88 PVQVPV   93 (115)
+Confidence            333444
+
+
+No 2
+>d4jcma3 b.1.18.0 (A:487-568) automated matches {Bacillus clarkii [TaxId: 79879]}
+Probab=12.20  E-value=5.3  Score=20.78  Aligned_cols=63  Identities=19%  Similarity=0.324  Sum_probs=23.9  Template_Neff=10.100
+
+Q ss_pred             CeEEEecCCccccCCCcEEEEEehhcCCc-ceEEEEEecCCCceEEEEEEEeccccccceEEEEECCCCCCCCcCCCC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSE-SKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         1 p~I~r~s~~s~~v~GG~ei~ll~~k~~~d-i~V~F~e~~~~g~~~We~~~~~~~dv~~q~aiv~~tPpY~~~~i~~pV   77 (77)
+                      |.|..++..++.  +|..|.+-|.+|..+ ..|.|-...      +    ..  ....-..|.|.+|+.....+.--+
+T Consensus         4 p~i~~~~P~~~~--~g~~v~i~G~~f~~~~~~v~~~~~~------~----~~--~~~~~~~i~~~vP~~~~g~~~v~~   67 (82)
+T d4jcma3           4 PVIGQVGPPMGK--PGDAVKISGSGFGSEPGTVYFRDTK------I----DV--LTWDDETIVITLPETLGGKAQISV   67 (82)
+Confidence            555555555544  455556666665533 334332111      1    00  011112345555543221110000
+
+
+No 3
+>d1cyga1 b.1.18.2 (A:492-574) Cyclomaltodextrin glycanotransferase, domain D {Bacillus stearothermophilus [TaxId: 1422]}
+Probab=10.51  E-value=6.8  Score=20.19  Aligned_cols=61  Identities=16%  Similarity=0.265  Sum_probs=24.6  Template_Neff=10.100
+
+Q ss_pred             CeEEEecCCccccCCCcEEEEEehhcCCc-ceEEEEEecCCCceEEEEEEEeccccccceEEEEECCCCCCCCcCCCC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSE-SKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         1 p~I~r~s~~s~~v~GG~ei~ll~~k~~~d-i~V~F~e~~~~g~~~We~~~~~~~dv~~q~aiv~~tPpY~~~~i~~pV   77 (77)
+                      |.|..++...++  +|..+.|-|.+|... ..|.|-..      .+.      ........|.|++|+=...  ...|
+T Consensus         4 p~i~~i~p~~~~--~g~~v~i~G~~f~~~~~~v~~~~~------~~~------~~~~~~~~i~~~~p~~~~g--~~~v   65 (83)
+T d1cyga1           4 PIIGHVGPMMGQ--VGHQVTIDGEGFGTNTGTVKFGTT------AAN------VVSWSNNQIVVAVPNVSPG--KYNI   65 (83)
+Confidence            666666655544  555666666666533 33333111      010      0011223455555541110  0011
+
+
+No 4
+>d2nn6h3 d.51.1.1 (H:168-293) Ribosomal RNA-processing protein 4, RRP4 {Human (Homo sapiens) [TaxId: 9606]}
+Probab=0.70  E-value=3.6e+02  Score=10.69  Aligned_cols=19  Identities=16%  Similarity=0.158  Sum_probs=12.7  Template_Neff=6.400
+
+Q ss_pred             eEEEEECCCCCCCCcCCCC
+Q 0                59 NMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus        59 ~aiv~~tPpY~~~~i~~pV   77 (77)
+                      +.+.+++||+.=+...+.-
+T Consensus         1 nGilV~V~p~LIkR~K~Hf   19 (126)
+T d2nn6h3           1 QGVLVQVSPSLVKRQKTHF   19 (126)
+Confidence            8889999997644444332
+
+
+No 5
+>d1l2wi_ d.198.1.1 (I:) YopE chaperone SycE {Yersinia pestis [TaxId: 632]}
+Probab=0.69  E-value=3.7e+02  Score=10.65  Aligned_cols=20  Identities=30%  Similarity=0.308  Sum_probs=4.9  Template_Neff=1.000
+
+Q ss_pred             CeEEEecCCccccCCCcE-EE
+Q 0                 1 PMVERQDTDSCLVYGGQQ-MI   20 (77)
+Q Consensus         1 p~I~r~s~~s~~v~GG~e-i~   20 (77)
+                      --|+|+|...-++-|=.+ ||
+T Consensus        37 riierlssvahsvigfiqrmf   57 (57)
+T d1l2wi_          37 RIIERLSSVAHSVIGFIQRMF   57 (57)
+Confidence            222333332222222111 11
+
+
+No 6
+>d1pxwb_ d.79.3.1 (B:) Ribosomal protein L7ae {Pyrococcus abyssi [TaxId: 29292]}
+Probab=0.65  E-value=4.1e+02  Score=10.42  Aligned_cols=12  Identities=17%  Similarity=0.420  Sum_probs=10.9  Template_Neff=8.300
+
+Q ss_pred             CCCCCCCcCCCC
+Q 0                66 PEYRNKHIRTPV   77 (77)
+Q Consensus        66 PpY~~~~i~~pV   77 (77)
+                      |.|-.+.+++..
+T Consensus         1 ~~~~~~~~~~~~   12 (120)
+T d1pxwb_           1 PSYVKFEVPKEL   12 (120)
+Confidence            999999998888
+
+
+No 7
+>d4oxxa_ c.23.5.0 (A:) automated matches {Citrobacter braakii [TaxId: 57706]}
+Probab=0.60  E-value=4.5e+02  Score=10.18  Aligned_cols=63  Identities=6%  Similarity=0.009  Sum_probs=26.5  Template_Neff=10.500
+
+Q ss_pred             EEecCCccccCCCcEEEE--EehhcCCcceEEEEEecCCCceEEEEEEEec-ccc--ccceEEEEECCCCCCCCcCCCC
+Q 0                 4 ERQDTDSCLVYGGQQMIL--TGQNFTSESKVVFTEKTTDGQQIWEMEATVD-KDK--SQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         4 ~r~s~~s~~v~GG~ei~l--l~~k~~~di~V~F~e~~~~g~~~We~~~~~~-~dv--~~q~aiv~~tPpY~~~~i~~pV   77 (77)
+                      .++-.-.+|..|-.+.+.  +.+.+..+..|...+..+           .+ .++  ..--+|+|-+|-|....+..++
+T Consensus         1 ~~i~viy~S~~g~t~~~a~~~~~~l~~~~~~~~~~~~~-----------~~~~~~~~~~~d~li~~~p~~~~~~~~~~~   68 (153)
+T d4oxxa_           1 MNALILYGTETGNAEACATTISQVLADTVDTKVHDLAD-----------MTPRAMLDSGADLIVFATATYGEGEFAGGG   68 (153)
+Confidence            333344444433332211  111122222233322211           11 122  3445779999999655555555
+
+
+No 8
+>d4a8ta1 c.78.1.0 (A:1-148) automated matches {Enterococcus faecalis [TaxId: 1351]}
+Probab=0.53  E-value=5.3e+02  Score=9.75  Aligned_cols=29  Identities=3%  Similarity=0.004  Sum_probs=6.0  Template_Neff=8.000
+
+Q ss_pred             CeEEEecCCccccCCCcEEEEEehhcCCc
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSE   29 (77)
+Q Consensus         1 p~I~r~s~~s~~v~GG~ei~ll~~k~~~d   29 (77)
+                      |.|.-++...-+...--.++-+.+.+.++
+T Consensus       120 pVina~~~~~HPtQaLaD~~Ti~e~~g~~  148 (148)
+T d4a8ta1         120 PVINGMSDYNHPTQELGDLCTMVEHLPEG  148 (148)
+Confidence            22222221122222222222222221111
+
+
+No 9
+>d4iv5d1 c.78.1.0 (D:4-157) automated matches {Trypanosoma cruzi [TaxId: 353153]}
+Probab=0.52  E-value=5.4e+02  Score=9.74  Aligned_cols=27  Identities=4%  Similarity=0.068  Sum_probs=3.5  Template_Neff=7.800
+
+Q ss_pred             CeEEEec-CCccccCCCcEEEEEehhcC
+Q 0                 1 PMVERQD-TDSCLVYGGQQMILTGQNFT   27 (77)
+Q Consensus         1 p~I~r~s-~~s~~v~GG~ei~ll~~k~~   27 (77)
+                      |.|.-.| ...-+...--.++-+.+.+.
+T Consensus       127 pvINag~g~~~HPtQaL~Dl~Ti~e~~g  154 (154)
+T d4iv5d1         127 PILNAGNGAGEHPTQALLDTLTIHSELG  154 (154)
+Confidence            1111111 01111111111111111111
+
+
+No 10
+>d4iv5f1 c.78.1.0 (F:5-157) automated matches {Trypanosoma cruzi [TaxId: 353153]}
+Probab=0.52  E-value=5.4e+02  Score=9.70  Aligned_cols=27  Identities=4%  Similarity=0.068  Sum_probs=3.3  Template_Neff=7.900
+
+Q ss_pred             CeEEEec-CCccccCCCcEEEEEehhcC
+Q 0                 1 PMVERQD-TDSCLVYGGQQMILTGQNFT   27 (77)
+Q Consensus         1 p~I~r~s-~~s~~v~GG~ei~ll~~k~~   27 (77)
+                      |.|.-+| ...-+...--.++-+.+.+.
+T Consensus       126 PvINa~~g~~~HPtQaL~Dl~Ti~e~~~  153 (153)
+T d4iv5f1         126 PILNAGNGAGEHPTQALLDTLTIHSELG  153 (153)
+Confidence            1111111 01111111111111111111
+
+

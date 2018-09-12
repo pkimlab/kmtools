@@ -1,7 +1,8 @@
 from hypothesis import given
 from hypothesis.strategies import text
 
-from kmtools.sequence_tools import crc64, crc64_slow
+from kmtools.sequence_tools.hashes_fast import crc64
+from kmtools.sequence_tools.hashes_slow import crc64 as crc64_slow
 
 
 @given(text())

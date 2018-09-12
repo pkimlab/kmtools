@@ -1,0 +1,151 @@
+test_parse_hhr_data:
+  -
+    - |
+      Query         0
+      Match_columns 77
+      No_of_seqs    106 out of 266
+      Neff          6.2
+      Searched_HMMs 58951
+      Date          Tue Sep 11 17:36:29 2018
+      Command       hhsearch -i 0.hhmake.hhm -o 0.hhsearch.hhr -d /pdb70/pdb70 -atab 0.hhsearch.tab -mact 0.05 -e 0.1 -glob
+
+      No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+        1 1P7H_M NUCLEAR FACTOR OF ACTIV  99.9 9.3E-27 1.6E-31  171.9   9.5   77    1-77    186-262 (286)
+        2 1IMH_D TonEBP/DNA Complex; BET  99.9 5.9E-26   1E-30  167.5   9.0   76    1-77    182-257 (281)
+
+      No 1
+      >1P7H_M NUCLEAR FACTOR OF ACTIVATED T-CELLS; DNA Binding protein, Transcription regulation; 2.6A {Homo sapiens} SCOP: b.1.18.1, b.2.5.3
+      Probab=99.91  E-value=9.3e-27  Score=171.86  Aligned_cols=77  Identities=100%  Similarity=1.445  Sum_probs=75.6  Template_Neff=6.100
+
+      Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+      Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+      Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~~~i~~pV   77 (77)
+                            |.|+|+|+++|++.||+||+|||+||.+|++|+|+|.+++++..||++|+|+.|+|+|+||+|+||||++++|++||
+      T Consensus       186 ~~I~r~s~~sgs~~GG~ev~ll~~kv~~di~V~F~e~~~~~~~~Wea~a~f~~dvh~q~aIvf~tPpY~~~~i~~pV  262 (286)
+      T 1P7H_M          186 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV  262 (286)
+      T ss_dssp             CEEEEESCSCCBTTCCCEEEEEEESCCTTCEEEEEEECTTSCEEEEEEEEECTTTCCSSEEEEECCCCSCTTCSSCE
+      T ss_pred             CeeeeccCCceeccCCeEEEEEEecCcCCcEEEEEEECCCCCEEEEEEEEeCccccCCceEEeeCCCccCCCCCCCe
+      Confidence            89999999999999999999999999999999999999888999999999999999999999999999999999999
+
+      No 2
+      >1IMH_D TonEBP/DNA Complex; BETA BARREL, PROTEIN-DNA COMPLEX, DOUBLE; 2.86A {Homo sapiens} SCOP: b.1.18.1, b.2.5.3
+      Probab=99.90  E-value=5.9e-26  Score=167.47  Aligned_cols=76  Identities=36%  Similarity=0.705  Sum_probs=74.0  Template_Neff=6.100
+
+      Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+      Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+      Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~~~i~~pV   77 (77)
+                            |.|+|+|+++|++.||+||+|||+||.+|++|+|+|.++++ ..||++|+|+.|+|+|+||+|+||||++++|++||
+      T Consensus       182 l~I~r~s~~sgs~~GG~ev~Ll~~kv~kdi~V~F~e~~~~~-~~We~~~~f~~d~~~q~aivf~tP~Y~~~~I~~pv  257 (281)
+      T 1IMH_D          182 PEILKKSLHSCSVKGEEEVFLIGKNFLKGTKVIFQENVSDE-NSWKSEAEIDMELFHQNHLIVKVPPYHDQHITLPV  257 (281)
+      T ss_dssp             CEEEEESCCEEETTCCCEEEEEEECCCTTCEEEEESSSCSS-CSCEEEECBCGGGCCSSEEEEECCCCSCTTCSSCE
+      T ss_pred             CeEeeecCCceecCCCeEEEEEEEcccCCcEEEEEeeCCCC-ceEEEEEEeChhhcccceEEEeCCCCCCCCCCCCe
+      Confidence            99999999999999999999999999999999999998765 79999999999999999999999999999999999
+
+      No 20
+      >3ORJ_A sugar-binding protein; STRUCTURAL GENOMICS, JOINT CENTER FOR; HET: EDO; 2.16A {Bacteroides ovatus}
+      Probab=80.65  E-value=0.82  Score=29.62  Aligned_cols=67  Identities=12%  Similarity=0.144  Sum_probs=42.6  Template_Neff=7.500
+
+      Q ss_pred             CcceecCCCeE----------ECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCC
+      Q 0                 1 PMVERQDTDSC----------LVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRN   70 (77)
+      Q Consensus         1 P~I~r~s~~s~----------~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~   70 (77)
+                            |.|.+++....          ++.||..|.|.|+||....+|.|-...-          .+.........|+|.+|+-..
+      T Consensus        13 P~It~V~p~~~~~~~~d~~~t~~~~G~~ItI~G~nf~~~~~V~~n~~~~----------~~~~~~~t~~~I~~~VP~~~p   82 (439)
+      T 3ORJ_A           13 MNITGIYLEDAKSNVPDRLVDFARLGQLIRIEGEGFNGLKKVYINGYNC----------YFNPVFVSNKSFLVSVNSKVP   82 (439)
+      T ss_dssp             CEEEEEEEECTTSSSSEEEESEEETTCEEEEEEECCTTCCEEEETTEEC----------CBCGGGCCSSEEEEECCTTCC
+      T ss_pred             CEEEEEECCccccCCcccccceecCCCEEEEEeeCCCCCCEEEECCEEC----------ccCcEEEcCCEEEEEeCCCCC
+      Confidence            88998888776          4899999999999999777777654321          111112234578888886432
+
+      Q ss_pred             C-----CccCCC
+      Q 0                71 K-----HIRTPV   77 (77)
+      Q Consensus        71 ~-----~i~~pV   77 (77)
+                            .     ..+..|
+      T Consensus        83 ~~~~d~~~~~~I   94 (439)
+      T 3ORJ_A           83 TTEADENVRNTI   94 (439)
+      T ss_dssp             STTSCTTTTTEE
+      T ss_pred             CCCCCCCcceEE
+      Confidence            2     112222
+    -
+      - !HHRAlignment # Identifiers
+        query_id: "0"
+        query_length: 77
+        query_neff: 6.2
+        template_id: 1P7H_M
+        template_length: 77
+        template_info: ">1P7H_M NUCLEAR FACTOR OF ACTIVATED T-CELLS; DNA Binding protein, Transcription regulation; 2.6A {Homo sapiens} SCOP: b.1.18.1, b.2.5.3"
+        template_neff: 6.1
+        # Sequence
+        query_ali: PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV
+        query_ss_pred: CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+        template_ali: PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV
+        template_ss_pred: CeeeeccCCceeccCCeEEEEEEecCcCCcEEEEEEECCCCCEEEEEEEEeCccccCCceEEeeCCCccCCCCCCCe
+        template_ss_dssp: CEEEEESCSCCBTTCCCEEEEEEESCCTTCEEEEEEECTTSCEEEEEEEEECTTTCCSSEEEEECCCCSCTTCSSCE
+        ali_confidence: "89999999999999999999999999999999999999888999999999999999999999999999999999999"
+        # Alignment definition
+        query_start: 1
+        query_end: 77
+        template_start: 186
+        template_end: 262
+        # Match metrics
+        probability: 99.91
+        evalue: 9.3e-27
+        score: 171.86
+        aligned_cols: 77
+        identity: 1.0
+        similarity: 1.445
+        sum_probs: 75.6
+      - !HHRAlignment # Identifiers
+        query_id: "0"
+        query_length: 77
+        query_neff: 6.2
+        template_id: 1IMH_D
+        template_length: 76
+        template_info: ">1IMH_D TonEBP/DNA Complex; BETA BARREL, PROTEIN-DNA COMPLEX, DOUBLE; 2.86A {Homo sapiens} SCOP: b.1.18.1, b.2.5.3"
+        template_neff: 6.100
+        # Sequence
+        query_ali: PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV
+        query_ss_pred: CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+        template_ali: PEILKKSLHSCSVKGEEEVFLIGKNFLKGTKVIFQENVSDE-NSWKSEAEIDMELFHQNHLIVKVPPYHDQHITLPV
+        template_ss_pred: CeEeeecCCceecCCCeEEEEEEEcccCCcEEEEEeeCCCC-ceEEEEEEeChhhcccceEEEeCCCCCCCCCCCCe
+        template_ss_dssp: CEEEEESCCEEETTCCCEEEEEEECCCTTCEEEEESSSCSS-CSCEEEECBCGGGCCSSEEEEECCCCSCTTCSSCE
+        ali_confidence: "99999999999999999999999999999999999998765 79999999999999999999999999999999999"
+        # Alignment definition
+        query_start: 1
+        query_end: 77
+        template_start: 182
+        template_end: 257
+        # Match metrics
+        probability: 99.90
+        evalue: 5.9e-26
+        score: 167.47
+        aligned_cols: 76
+        identity: 0.36
+        similarity: 0.705
+        sum_probs: 74.0
+      - !HHRAlignment # Identifiers
+        query_id: "0"
+        query_length: 77
+        query_neff: 6.2
+        template_id: 3ORJ_A
+        template_length: 82
+        template_info: ">3ORJ_A sugar-binding protein; STRUCTURAL GENOMICS, JOINT CENTER FOR; HET: EDO; 2.16A {Bacteroides ovatus}"
+        template_neff: 7.500
+        # Sequence
+        query_ali: PMVERQDTDSC----------LVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNK-----HIRTPV
+        query_ss_pred: CcceecCCCeE----------ECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCC-----CccCCC
+        template_ali: MNITGIYLEDAKSNVPDRLVDFARLGQLIRIEGEGFNGLKKVYINGYNC----------YFNPVFVSNKSFLVSVNSKVPTTEADENVRNTI
+        template_ss_pred: CEEEEEECCccccCCcccccceecCCCEEEEEeeCCCCCCEEEECCEEC----------ccCcEEEcCCEEEEEeCCCCCCCCCCCCcceEE
+        template_ss_dssp: CEEEEEEEECTTSSSSEEEESEEETTCEEEEEEECCTTCCEEEETTEEC----------CBCGGGCCSSEEEEECCTTCCSTTSCTTTTTEE
+        ali_confidence: "88998888776          4899999999999999777777654321          1111122345788888864322     112222"
+        # Alignment definition
+        query_start: 1
+        query_end: 77
+        template_start: 13
+        template_end: 94
+        # Match metrics
+        probability: 80.65
+        evalue: 0.82
+        score: 29.62
+        aligned_cols: 67
+        identity: 0.12
+        similarity: 0.144
+        sum_probs: 42.6

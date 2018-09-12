@@ -18,22 +18,20 @@ def _init_table_h():
 _TABLE_H = _init_table_h()
 
 
-def crc64_slow(s):
+def crc64(s):
     """Returns the crc64 checksum for a sequence (string or Seq object).
 
     Copied from BioPython.
 
-    Examples
-    --------
-    From UniParc:
-    >>> crc64_slow('MSGGKYVDSE')
-    '368583B2DB533878'
+    Examples:
+        >>> crc64('MSGGKYVDSE')
+        '368583B2DB533878'
 
-    Note that the case is important:
-    >>> crc64_slow("ACGTACGTACGT")
-    'C4FBB762C4A87EBD'
-    >>> crc64_slow("acgtACGTacgt")
-    'DA4509DC64A87EBD'
+        Note that the case is important:
+        >>> crc64("ACGTACGTACGT")
+        'C4FBB762C4A87EBD'
+        >>> crc64("acgtACGTacgt")
+        'DA4509DC64A87EBD'
     """
     if not s:
         return None

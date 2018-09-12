@@ -9,7 +9,7 @@ import os.path
 logger = logging.getLogger(__name__)
 
 
-def add_seq2fa(sequence_data, file_output, write_mode='a'):
+def add_seq2fa(sequence_data, file_output, write_mode="a"):
     """Add sequences to a file, in Fasta Format.
 
 
@@ -54,13 +54,11 @@ def add_seq2fa(sequence_data, file_output, write_mode='a'):
     # Check the input sequence
     if isinstance(sequence_data, str):
         # create a  Header using 100 first sequence caracters.
-        header = sequence_data.strip('\n').strip()[:100]
-        sequence_data = [header,
-                         sequence_data.strip('\n').strip()]
+        header = sequence_data.strip("\n").strip()[:100]
+        sequence_data = [header, sequence_data.strip("\n").strip()]
 
     if not len(sequence_data) >= 2:
-        raise ValueError(
-            "Sequence data must contain at least header and sequence")
+        raise ValueError("Sequence data must contain at least header and sequence")
 
     # check if a file handelr has been provided
     if isinstance(file_output, str):
@@ -96,7 +94,7 @@ def write(grp_seq, output, overwrite=False):
             pass
 
     for sequence in grp_seq:
-        output = add_seq2fa(sequence, output, write_mode='a')
+        output = add_seq2fa(sequence, output, write_mode="a")
 
     output.close()
 

@@ -35,9 +35,9 @@ def translate2aa(nseq, start=1):
 
 
     """
-    bases = ['T', 'C', 'A', 'G']
+    bases = ["T", "C", "A", "G"]
     codons = [a + b + c for a in bases for b in bases for c in bases]
-    amino_acids = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
+    amino_acids = "FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG"
     codon_table = dict(zip(codons, amino_acids))
     pseq = ""
 
@@ -47,7 +47,7 @@ def translate2aa(nseq, start=1):
     i = start - 1
 
     while True:
-        codon = nseq[i:i + 3]
+        codon = nseq[i : i + 3]
         i += 3
 
         if len(codon) != 3:
@@ -62,7 +62,7 @@ def translate2aa(nseq, start=1):
     return pseq
 
 
-def translate2na(seq, specie='human'):
+def translate2na(seq, specie="human"):
     """Return a Nucleotide seq for a aminoacid sequences. the codon will be chosed
         according the codon frequency of each specie, by default human
 
@@ -83,7 +83,7 @@ def translate2na(seq, specie='human'):
         seq_na.append(codon_weighted_random_choice(codons, specie))
 
     # print(random.choice(foo))
-    return ''.join(seq_na)
+    return "".join(seq_na)
 
 
 def codon_weighted_random_choice(codons, specie):
@@ -116,7 +116,7 @@ def codon_weighted_random_choice(codons, specie):
         weight_dictionary = USAGE_FREQ.get(specie)
     except ValueError:
         # may be this could be a warning, and call human codon usage
-        raise ValueError('{} is not a valid specie'.format(specie))
+        raise ValueError("{} is not a valid specie".format(specie))
 
     weights = 0
     elems = []
@@ -125,27 +125,24 @@ def codon_weighted_random_choice(codons, specie):
         try:
             is_neg = w < 0
         except TypeError:
-            raise ValueError("Weight of element '%s' is not a number (%s)" %
-                             (elem, w))
+            raise ValueError("Weight of element '%s' is not a number (%s)" % (elem, w))
         if is_neg:
-            raise ValueError("Weight of element '%s' is negative (%s)" %
-                             (elem, w))
+            raise ValueError("Weight of element '%s' is negative (%s)" % (elem, w))
         if w != 0:
             try:
                 weights += w
             except TypeError:
-                raise ValueError("Weight of element '%s' is not a number "
-                                 "(%s)" % (elem, w))
+                raise ValueError("Weight of element '%s' is not a number " "(%s)" % (elem, w))
             elems.append((weights, elem))
     if not elems:
         raise ValueError("Empty sequence")
-        print('{} {}'.format(codons, weight_dictionary))
+        print("{} {}".format(codons, weight_dictionary))
     ix = bisect.bisect(elems, (random.uniform(0, weights), None))
     # print ix
     return elems[ix][1]
 
 
-def clean_restriction_sites(naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC']):
+def clean_restriction_sites(naseq, dict_restriction=["GAATTC", "CCCGGG", "GTCGAC"]):
     """.
 
     Check if there is a restriction site for any of the enzymes in
@@ -186,8 +183,12 @@ def clean_restriction_sites(naseq, dict_restriction=['GAATTC', 'CCCGGG', 'GTCGAC
             naseq = reshufle_seq(naseq, matches)
 
         if ilimit == 1000000:
-            print('WARNING the cycles limit has been pass and the seq stil\
-                    contain a restriction site  {}'.format(naseq))
+            print(
+                "WARNING the cycles limit has been pass and the seq stil\
+                    contain a restriction site  {}".format(
+                    naseq
+                )
+            )
             return naseq
 
     return naseq
@@ -211,10 +212,10 @@ def reshufle_seq(seq, position_pairs):
                 # This should return 0,1, or 2
                 codon_coordinates = i % 3
                 # Use the module to find the codon in this postion
-                codon = seq[i - codon_coordinates:i + 3 - codon_coordinates]
+                codon = seq[i - codon_coordinates : i + 3 - codon_coordinates]
                 aminoacid = translate2aa(codon)
                 # amino  acids with only one codon.
-                if aminoacid in ['M', 'W']:
+                if aminoacid in ["M", "W"]:
                     i += 1
                     continue
                 else:
@@ -222,8 +223,9 @@ def reshufle_seq(seq, position_pairs):
                     alternatives = list(A2C_DICT.get(aminoacid))
                     alternatives.remove(codon)
                     new_codon = random.choice(alternatives)
-                    seq = seq[:i - codon_coordinates] + \
-                        new_codon + seq[i + 3 - codon_coordinates:]
+                    seq = (
+                        seq[: i - codon_coordinates] + new_codon + seq[i + 3 - codon_coordinates :]
+                    )
                     # Go to the next codon
                     i += i + 3 - codon_coordinates
             else:
@@ -284,7 +286,7 @@ def code_4_any(seq, filter_codons=STOP_CODONS):
     jdx = 0
 
     for idx in range(int(reading_frame)):
-        if seq[jdx:jdx + 3] in filter_codons:
+        if seq[jdx : jdx + 3] in filter_codons:
             return True
         else:
             pass
@@ -314,7 +316,7 @@ def is_bias_on(seq, filter_by=A2C_NNS_DICT):
     jdx = 0
 
     for idx in range(int(reading_frame)):
-        if seq[jdx:jdx + 3] in filter_codons:
+        if seq[jdx : jdx + 3] in filter_codons:
             pass
         else:
             return False

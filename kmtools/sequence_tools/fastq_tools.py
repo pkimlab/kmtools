@@ -9,7 +9,7 @@ import os.path
 logger = logging.getLogger(__name__)
 
 
-def add_seq2fq(sequence_info, file_output, write_mode='a'):
+def add_seq2fq(sequence_info, file_output, write_mode="a"):
     """Add sequences to a file, in Fastq Format.
 
     Parameters
@@ -45,19 +45,17 @@ def add_seq2fq(sequence_info, file_output, write_mode='a'):
     """
     # check input lenght
     if not len(sequence_info) >= 2:
-        raise ValueError(
-            "Sequence data must contain at least header, sequence and Quality")
+        raise ValueError("Sequence data must contain at least header, sequence and Quality")
 
-    if '@' in sequence_info[0]:
-        sequence_info[0] = sequence_info[0].replace('@', '')
+    if "@" in sequence_info[0]:
+        sequence_info[0] = sequence_info[0].replace("@", "")
 
     if isinstance(file_output, str):
         file_handle = open(file_output, write_mode)
     else:
         file_handle = file_output
 
-    file_handle.write(
-        "@{0}\n{1}\n+\n{2}\n".format(*sequence_info))
+    file_handle.write("@{0}\n{1}\n+\n{2}\n".format(*sequence_info))
 
     return file_handle
 
@@ -79,7 +77,7 @@ def write(grp_seq, output, overwrite=False):
             pass
 
     for sequence in grp_seq:
-        output = add_seq2fq(sequence, output, write_mode='a')
+        output = add_seq2fq(sequence, output, write_mode="a")
 
     output.close()
 

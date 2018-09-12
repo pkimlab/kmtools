@@ -11,3 +11,4 @@ from .logging import *
 from .serialization import *
 from .itertools import *
 from .deprecation import *
+from .data_science import *

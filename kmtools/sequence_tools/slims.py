@@ -62,10 +62,10 @@ def search_motif(seq, ELMdefinitions=ELM):
     elmhits = list()
     for _, elm in ELMdefinitions.iterrows():
         # regex = Def[i][1]
-        m = re.search(elm['Regex'], seq)
+        m = re.search(elm["Regex"], seq)
         if str(m) != "None":
-            elm['start'] = m.start()
-            elm['end'] = m.end()
+            elm["start"] = m.start()
+            elm["end"] = m.end()
             elmhits.append(elm)
 
     return pd.DataFrame(elmhits)
@@ -83,7 +83,7 @@ def _convert_list(slim_list):
     """
     # [r'P.L',r'P.L.Y',r'L...P.L']
     paried_list = [[i, x] for i, x in enumerate(slim_list)]
-    return pd.DataFrame(paried_list, columns=['Identifier', 'Regex'])
+    return pd.DataFrame(paried_list, columns=["Identifier", "Regex"])
 
 
 def _convert_dict(slim_dict):
@@ -97,10 +97,11 @@ def _convert_dict(slim_dict):
 
     """
     # {'PxL SHORT':r'P.L','Experimental PxLxY':r'P.L.Y'}
-    return pd.DataFrame.from_dict(slim_dict,
-                                  orient='index'
-                                  ).reset_index().rename(columns={0: 'Regex',
-                                                                  'index': 'Identifier'})
+    return (
+        pd.DataFrame.from_dict(slim_dict, orient="index")
+        .reset_index()
+        .rename(columns={0: "Regex", "index": "Identifier"})
+    )
 
 
 def _check_elm_dataframe(df):
@@ -114,7 +115,7 @@ def _check_elm_dataframe(df):
 
     """
 
-    if 'Regex' in df.columns and df.shape[0] > 0:
+    if "Regex" in df.columns and df.shape[0] > 0:
         return True
     else:
         return False
@@ -123,14 +124,14 @@ def _check_elm_dataframe(df):
 # Test
 # motif('A1L3X0', 'MNSVGEACTDMKREYDQCFNRWFAEKFLKGDSSGDPCTDLFKRYQQCVQKAIKEKEIPIEGLEFMGHGKEKPENSS')
 # a = motifsearch('MNSVGEACTDMKREYDQCFNRWFAEKFLKGDSSGDPCTDLFKRYQQCVQKAIKEKEIPIEGLEFMGHGKEKPENSS\
-    # PPPPPPPP')
+# PPPPPPPP')
 # print a
 # print a.shape
 
 # A N A L Y S I S
 
 
-def generate_logo(sequences, seq_len=80, filename='designs'):
+def generate_logo(sequences, seq_len=80, filename="designs"):
     """quick logo generation.
 
     Parameters
@@ -148,17 +149,20 @@ def generate_logo(sequences, seq_len=80, filename='designs'):
     """
     # if pass , Folder name
 
-    ohandler = open(filename + '.fasta', 'w')
+    ohandler = open(filename + ".fasta", "w")
     for seq in sequences:
         print(">{}".format(seq), file=ohandler)
         print("{}".format(seq), file=ohandler)
 
     ohandler.close()
     # quick and dirty logo generartion
-    command = subprocess.Popen('weblogo -f {} -c chemistry -o {} -F pdf -n {}'
-                               '-U bits --composition equiprobable '.format(filename + '.fasta',
-                                                                            filename + '.pdf',
-                                                                            seq_len), shell=True)
+    command = subprocess.Popen(
+        "weblogo -f {} -c chemistry -o {} -F pdf -n {}"
+        "-U bits --composition equiprobable ".format(
+            filename + ".fasta", filename + ".pdf", seq_len
+        ),
+        shell=True,
+    )
     command.wait()
 
     return
@@ -167,6 +171,7 @@ def generate_logo(sequences, seq_len=80, filename='designs'):
 #
 # - PSSM
 #
+
 
 def get_pfm(sequences):
     """Read list of sequence  and return frequency position Matrix.
@@ -210,8 +215,28 @@ def get_ppm(sequences):
          Position Probability Matrix , index is aminoacid, each column is the position
     """
 
-    amino = ["R", "H", "K", "D", "E", "S", "T", "N", "Q", "C",
-             "G", "P", "A", "V", "I", "L", "M", "F", "Y", "W"]
+    amino = [
+        "R",
+        "H",
+        "K",
+        "D",
+        "E",
+        "S",
+        "T",
+        "N",
+        "Q",
+        "C",
+        "G",
+        "P",
+        "A",
+        "V",
+        "I",
+        "L",
+        "M",
+        "F",
+        "Y",
+        "W",
+    ]
 
     frequencies = get_pfm(sequences)
     logger.debug(frequencies)
@@ -247,8 +272,28 @@ def get_pwm(sequences):
          Position Probability Matrix , index is aminoacid, each column is the position
     """
 
-    amino = ["R", "H", "K", "D", "E", "S", "T", "N", "Q", "C",
-             "G", "P", "A", "V", "I", "L", "M", "F", "Y", "W"]
+    amino = [
+        "R",
+        "H",
+        "K",
+        "D",
+        "E",
+        "S",
+        "T",
+        "N",
+        "Q",
+        "C",
+        "G",
+        "P",
+        "A",
+        "V",
+        "I",
+        "L",
+        "M",
+        "F",
+        "Y",
+        "W",
+    ]
 
     frequencies = get_pfm(sequences)
     logger.debug(frequencies)
@@ -312,7 +357,7 @@ def dist_PWM(pwm1, pwm2):
     for c in pwm1.columns:
         rows = list()
         for r in pwm1.index:
-            rows.append((pwm1.at[r, c] - pwm2.at[r, c])**2)
+            rows.append((pwm1.at[r, c] - pwm2.at[r, c]) ** 2)
         colum.append(sum(rows) * .5)
 
     return sum(colum) / float(w)
