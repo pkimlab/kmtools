@@ -25,15 +25,14 @@ def crc64(s):
 
     Examples
     --------
-    From UniParc:
-    >>> crc64_slow('MSGGKYVDSE')
-    '368583B2DB533878'
-
-    Note that the case is important:
-    >>> crc64_slow("ACGTACGTACGT")
-    'C4FBB762C4A87EBD'
-    >>> crc64_slow("acgtACGTacgt")
-    'DA4509DC64A87EBD'
+        From UniParc:
+        >>> crc64('MSGGKYVDSE')
+        '368583B2DB533878'
+        Note that the case is important:
+        >>> crc64("ACGTACGTACGT")
+        'C4FBB762C4A87EBD'
+        >>> crc64("acgtACGTacgt")
+        'DA4509DC64A87EBD'
     """
     if not s:
         return None

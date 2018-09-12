@@ -22,17 +22,15 @@ def crc64(s):
 
     Copied from BioPython.
 
-    Examples
-    --------
-    From UniParc:
-    >>> crc64('MSGGKYVDSE')
-    '368583B2DB533878'
-
-    Note that the case is important:
-    >>> crc64("ACGTACGTACGT")
-    'C4FBB762C4A87EBD'
-    >>> crc64("acgtACGTacgt")
-    'DA4509DC64A87EBD'
+    Examples:
+        From UniParc:
+        >>> crc64('MSGGKYVDSE')
+        '368583B2DB533878'
+        Note that the case is important:
+        >>> crc64("ACGTACGTACGT")
+        'C4FBB762C4A87EBD'
+        >>> crc64("acgtACGTacgt")
+        'DA4509DC64A87EBD'
     """
     if not s:
         return None
