@@ -189,7 +189,7 @@ def parse_hhr_data(lines: Iterable[str]) -> List[HHRAlignment]:
             alignment.template_length += token_4 - token_2 + 1
 
         elif line.startswith("Confidence"):
-            alignment.ali_confidence += line.split("Confidence            ")[-1].strip()
+            alignment.ali_confidence += line.split("Confidence            ")[-1].strip("\n")
 
     if alignment.template_id is not None and alignment.query_start is not None:
         results.append(alignment)
