@@ -1,0 +1,168 @@
+Query         0
+Match_columns 77
+No_of_seqs    106 out of 266
+Neff          6.2
+Searched_HMMs 9357
+Date          Tue Sep 11 15:56:36 2018
+Command       hhsearch -i /tmp/strokach/tmp91sdp6yg/0.hhmake.hhm -o /tmp/strokach/tmp91sdp6yg/0.hhsearch.hhr -d /home/kimlab1/database_data/datapkg_input_dir/hh-database/scop95/scop95 -atab /tmp/strokach/tmp91sdp6yg/0.hhsearch.tab -mact 0.05 -e 0.1 -glob 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 d3brgc2 b.1.18.0 (C:360-474) a  95.2 7.2E-05 7.7E-09   47.5   0.0   63    1-77     22-93  (115)
+  2 d4jcma3 b.1.18.0 (A:487-568) a  27.7     1.1 0.00012   24.5   0.0   63    1-77      4-67  (82)
+  3 d1cyga1 b.1.18.2 (A:492-574) C  21.0       2 0.00021   23.1   0.0   61    1-77      4-65  (83)
+  4 d2nn6h3 d.51.1.1 (H:168-293) R   1.6 1.2E+02   0.013   13.4   0.0   19   59-77      1-19  (126)
+  5 d4dvrg_ d.172.1.1 (G:) automat   0.8 2.9E+02   0.031   11.2   0.0   57    1-77     91-152 (306)
+  6 d1k3rb2 c.116.1.2 (B:1-92,B:16   0.8 3.1E+02   0.033   11.1   0.0   50    1-77     29-78  (194)
+  7 d1l2wi_ d.198.1.1 (I:) YopE ch   0.7 3.4E+02   0.036   10.9   0.0   20    1-20     37-57  (57)
+  8 d1k3ra2 c.116.1.2 (A:1-92,A:16   0.6 4.2E+02   0.045   10.3   0.0   50    1-77     29-78  (192)
+  9 d3qvca_ b.50.1.0 (A:) automate   0.6 4.3E+02   0.046   10.3   0.0   47    1-51    329-375 (375)
+ 10 d1wp1b_ f.5.1.1 (B:) Outer mem   0.5 5.1E+02   0.055    9.9   0.0   14   62-77      1-14  (457)
+
+No 1
+>d3brgc2 b.1.18.0 (C:360-474) automated matches {Mouse (Mus musculus) [TaxId: 10090]}
+Probab=95.17  E-value=7.2e-05  Score=47.48  Aligned_cols=63  Identities=24%  Similarity=0.370  Sum_probs=48.1  Template_Neff=7.200
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCC---------C
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRN---------K   71 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~---------~   71 (77)
+                      |.|.+++...+  .||.+|.|.|+||..+.+|.|-....            .........|.|++||...         .
+T Consensus        22 P~I~~i~p~~g--~gg~~v~I~G~nF~~~~~V~fG~~~~------------~~~~~s~~~i~c~~P~~~~~~~~~~~~~~   87 (115)
+T d3brgc2          22 PVVESLQLNGG--GDVAMLELTGQNFTPNLRVWFGDVEA------------ETMYRCGESMLCVVPDISAFREGWRWVRQ   87 (115)
+Confidence            99999999888  99999999999999999998865331            1334557789999999842         2
+
+
+Q ss_pred             CccCCC
+Q 0                72 HIRTPV   77 (77)
+Q Consensus        72 ~i~~pV   77 (77)
+                      ...-||
+T Consensus        88 ~~~v~v   93 (115)
+T d3brgc2          88 PVQVPV   93 (115)
+Confidence            233333
+
+
+No 2
+>d4jcma3 b.1.18.0 (A:487-568) automated matches {Bacillus clarkii [TaxId: 79879]}
+Probab=27.75  E-value=1.1  Score=24.48  Aligned_cols=63  Identities=17%  Similarity=0.297  Sum_probs=24.9  Template_Neff=10.100
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCC-CeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSE-SKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d-~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~~~i~~pV   77 (77)
+                      |.|..++..++.  +|..+.|.|.+|... ..|.|-...      +    .  ........|.|.+|+.....+.--+
+T Consensus         4 p~i~~~~P~~~~--~g~~v~i~G~~f~~~~~~v~~~~~~------~----~--~~~~~~~~i~~~vP~~~~g~~~v~~   67 (82)
+T d4jcma3           4 PVIGQVGPPMGK--PGDAVKISGSGFGSEPGTVYFRDTK------I----D--VLTWDDETIVITLPETLGGKAQISV   67 (82)
+Confidence            555555554443  455566666665544 333332111      0    0  0112223455555553321111000
+
+
+No 3
+>d1cyga1 b.1.18.2 (A:492-574) Cyclomaltodextrin glycanotransferase, domain D {Bacillus stearothermophilus [TaxId: 1422]}
+Probab=21.01  E-value=2  Score=23.12  Aligned_cols=61  Identities=16%  Similarity=0.263  Sum_probs=25.5  Template_Neff=10.100
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCC-CeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSE-SKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d-~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~~~i~~pV   77 (77)
+                      |.|..++...+.  +|.++.|.|.+|... ..|.|-..      .+    .  ........|.|.+|+=...  ...|
+T Consensus         4 p~i~~i~p~~~~--~g~~v~i~G~~f~~~~~~v~~~~~------~~----~--~~~~~~~~i~~~~p~~~~g--~~~v   65 (83)
+T d1cyga1           4 PIIGHVGPMMGQ--VGHQVTIDGEGFGTNTGTVKFGTT------AA----N--VVSWSNNQIVVAVPNVSPG--KYNI   65 (83)
+Confidence            666666555544  555666666666644 33322211      01    0  0111233455666552110  1111
+
+
+No 4
+>d2nn6h3 d.51.1.1 (H:168-293) Ribosomal RNA-processing protein 4, RRP4 {Human (Homo sapiens) [TaxId: 9606]}
+Probab=1.58  E-value=1.2e+02  Score=13.41  Aligned_cols=19  Identities=16%  Similarity=0.158  Sum_probs=13.6  Template_Neff=6.400
+
+Q ss_pred             eEEEEEeCCCCCCCccCCC
+Q 0                59 NMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus        59 ~~iv~~~PpY~~~~i~~pV   77 (77)
+                      +.+.+++||+.=....+..
+T Consensus         1 nGilV~V~p~LIkR~K~Hf   19 (126)
+T d2nn6h3           1 QGVLVQVSPSLVKRQKTHF   19 (126)
+Confidence            8889999998755544433
+
+
+No 5
+>d4dvrg_ d.172.1.1 (G:) automated matches {Human immunodeficiency virus type 1 (isolate yu2) [TaxId: 362651]}
+Probab=0.82  E-value=2.9e+02  Score=11.20  Aligned_cols=57  Identities=16%  Similarity=0.227  Sum_probs=30.4  Template_Neff=5.500
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCC-----CCccC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRN-----KHIRT   75 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~-----~~i~~   75 (77)
+                      |.+.-+-.-.+|..-+ ++++..+|+.+..+.+.+.....                  .-|.|.= |..+     .+|..
+T Consensus        91 pvVSTqLlLNGSlae~-~iiIrs~nitnNaktIIVqLn~s------------------V~I~CtR-P~Nnt~~~iGdIRq  150 (306)
+T d4dvrg_          91 PVVSTQLLLNGSLAEE-EIVIRSENFTNNAKTIIVQLNES------------------VVINCTR-PNNGGSGSGGDIRQ  150 (306)
+Confidence            8887777777777755 78888888887777666654321                  0111111 1111     11222
+
+
+Q ss_pred             CC
+Q 0                76 PV   77 (77)
+Q Consensus        76 pV   77 (77)
+                      .-
+T Consensus       151 A~  152 (306)
+T d4dvrg_         151 AH  152 (306)
+Confidence            21
+
+
+No 6
+>d1k3rb2 c.116.1.2 (B:1-92,B:164-264) Hypothetical protein MTH1 (MT0001), dimerisation domain {Methanobacterium thermoautotrophicum [TaxId: 145262]}
+Probab=0.79  E-value=3.1e+02  Score=11.09  Aligned_cols=50  Identities=10%  Similarity=0.353  Sum_probs=21.5  Template_Neff=6.100
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~~~i~~pV   77 (77)
+                      -+|.|    +++.-+=+||+++.+...++                       .+.....-=.+.+|||....+-.+-
+T Consensus        29 ~qIAR----aaaif~V~eIiiy~d~~~~~-----------------------~~~l~~iL~Y~~TPpYLRK~lfp~~   78 (194)
+T d1k3rb2          29 VLIAR----AASIFGVKRIVIYHDDADGE-----------------------ARFIRDILTYMDTPQYLRRKVFPIM   78 (194)
+Confidence            22222    34444455555554432211                       1222222226778888766433222
+
+
+No 7
+>d1l2wi_ d.198.1.1 (I:) YopE chaperone SycE {Yersinia pestis [TaxId: 632]}
+Probab=0.74  E-value=3.4e+02  Score=10.88  Aligned_cols=20  Identities=30%  Similarity=0.365  Sum_probs=5.9  Template_Neff=1.000
+
+Q ss_pred             CcceecCCCeEECCCC-cEEE
+Q 0                 1 PMVERQDTDSCLVYGG-QQMI   20 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG-~e~~   20 (77)
+                      -.|+|+|...-++-|= ..||
+T Consensus        37 riierlssvahsvigfiqrmf   57 (57)
+T d1l2wi_          37 RIIERLSSVAHSVIGFIQRMF   57 (57)
+Confidence            2233333333333332 1111
+
+
+No 8
+>d1k3ra2 c.116.1.2 (A:1-92,A:164-262) Hypothetical protein MTH1 (MT0001), dimerisation domain {Methanobacterium thermoautotrophicum [TaxId: 145262]}
+Probab=0.62  E-value=4.2e+02  Score=10.31  Aligned_cols=50  Identities=10%  Similarity=0.353  Sum_probs=20.1  Template_Neff=6.200
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEeeccccccceEEEEEeCCCCCCCccCCC
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATVDKDKSQPNMLFVEIPEYRNKHIRTPV   77 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~~~d~~~q~~iv~~~PpY~~~~i~~pV   77 (77)
+                      -+|.|    +++.-+=+||+++...-.++                       .......-=.+.+|||....+-..-
+T Consensus        29 gqIAR----aaaif~V~EIviy~d~~~~~-----------------------~~~l~~iL~Y~~TPpYLRK~lfp~~   78 (192)
+T d1k3ra2          29 VLIAR----AASIFGVKRIVIYHDDADGE-----------------------ARFIRDILTYMDTPQYLRRKVFPIM   78 (192)
+Confidence            22222    33444445555443332211                       1112222226778888765332222
+
+
+No 9
+>d3qvca_ b.50.1.0 (A:) automated matches {Malaria parasite (Plasmodium falciparum) [TaxId: 5833]}
+Probab=0.62  E-value=4.3e+02  Score=10.26  Aligned_cols=47  Identities=6%  Similarity=0.066  Sum_probs=14.2  Template_Neff=10.000
+
+Q ss_pred             CcceecCCCeEECCCCcEEEEEEeccCCCCeEEEEEEcCCCceEEEEEEee
+Q 0                 1 PMVERQDTDSCLVYGGQQMILTGQNFTSESKVVFTEKTTDGQQIWEMEATV   51 (77)
+Q Consensus         1 P~I~r~s~~s~~v~GG~e~~llg~nf~~d~~V~F~e~~~~g~~~We~~a~~   51 (77)
+                      +..|.....+  ..++...++||..|....-++|--..  .+..+.....+
+T Consensus       329 ~~~C~~~~~~--~~~~~~~~ilG~~fl~~~y~vfD~~~--~~ig~a~~~~~  375 (375)
+T d3qvca_         329 SALCMLNIVP--IDLEKNTFVLGDPFMRKYFTVYDYDN--HTVGFALAKNL  375 (375)
+Confidence            1111110000  01123445555555555444444322  11111111111
+
+
+No 10
+>d1wp1b_ f.5.1.1 (B:) Outer membrane protein OprM {Pseudomonas aeruginosa [TaxId: 287]}
+Probab=0.54  E-value=5.1e+02  Score=9.85  Aligned_cols=14  Identities=36%  Similarity=0.731  Sum_probs=9.5  Template_Neff=10.800
+
+Q ss_pred             EEEeCCCCCCCccCCC
+Q 0                62 FVEIPEYRNKHIRTPV   77 (77)
+Q Consensus        62 v~~~PpY~~~~i~~pV   77 (77)
+                      +--+|-|..+.  .||
+T Consensus         1 ~~~~~~~~~~~--~~~   14 (457)
+T d1wp1b_           1 CSLIPDYQRPE--APV   14 (457)
+Confidence            44578887764  667
+
+

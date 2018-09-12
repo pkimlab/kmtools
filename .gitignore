@@ -59,6 +59,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 docs/_modules/
+docs/api/generated/
 
 # PyBuilder
 target/
@@ -75,6 +76,7 @@ public/
 .ipynb_checkpoints
 *-bak.py
 *.c
+.nfs*
 
 # Custom
 scripts/components.cif.gz

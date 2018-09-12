@@ -18,7 +18,7 @@ def _init_table_h():
 _TABLE_H = _init_table_h()
 
 
-def crc64_slow(s):
+def crc64(s):
     """Returns the crc64 checksum for a sequence (string or Seq object).
 
     Copied from BioPython.

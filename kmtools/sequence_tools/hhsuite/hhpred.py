@@ -6,8 +6,8 @@ from contextlib import closing
 from pathlib import Path
 
 import attr
-
 from elapsam.extern import SequenceTool, ToolCache
+
 from kmtools import py_tools
 
 logger = logging.getLogger(__name__)
