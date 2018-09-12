@@ -19,12 +19,12 @@ def run(cmd: str, cwd: Path) -> None:
         )
 
 
-def hhblits(input: HHInput, database: Path, extra_args: str = "") -> HHBlits:
+def hhblits(input: HHInput, database_dir: Path, extra_args: str = "") -> HHBlits:
     """Run ``hhblits``, HMM-HMM-based lightning-fast iterative sequence search.
 
     Args:
         input: :any:`HHInput` object containing required input data.
-        database: Database used for constructing the ``hhblits`` alignment.
+        database_dir: Database used for constructing the ``hhblits`` alignment.
         extra_args: Extra parameters to pass down to the executable.
 
             - For homology modeling (hhpred), use:
@@ -40,7 +40,7 @@ def hhblits(input: HHInput, database: Path, extra_args: str = "") -> HHBlits:
         a3m_file=output_file_base.with_suffix(".a3m"),
         hhm_file=output_file_base.with_suffix(".hhm"),
         hhblits_hhr_file=output_file_base.with_suffix(".hhr"),
-        hhblits_database=database,
+        hhblits_database_dir=database_dir,
         hhblits_extra_args=extra_args,
         **vars(input),
     )
@@ -51,7 +51,7 @@ def hhblits(input: HHInput, database: Path, extra_args: str = "") -> HHBlits:
         f" -oa3m '{data.a3m_file}'"
         f" -ohhm '{data.hhm_file}'"
         f" -oalis '{data.temp_dir.joinpath('hhblits_alis.a3m')}'"
-        f" -d '{data.hhblits_database}/{data.hhblits_database.name}'"
+        f" -d '{data.hhblits_database_dir}/{data.hhblits_database_dir.name}'"
         f" -M first"
         f" {data.hhblits_extra_args}"
     )
@@ -131,12 +131,12 @@ def hhmake(input: HHBlits, extra_args: str = "") -> HHMake:
     return data
 
 
-def hhsearch(input: HHMake, database: Path, extra_args: str = "") -> HHSearch:
-    """Run ``hhsearch`` to "search a database of HMMs with a query alignment or query HMM".
+def hhsearch(input: HHMake, database_dir: Path, extra_args: str = "") -> HHSearch:
+    """Run ``hhsearch`` to "search a database_dir of HMMs with a query alignment or query HMM".
 
     Args:
         input: :any:`HHMake` object containing required input data.
-        database: Database used for constructing the ``hhblits`` alignment.
+        database_dir: Database used for constructing the ``hhblits`` alignment.
         extra_args: Extra parameters to pass down to the executable.
 
             - For homology modelling, use: ``-mact 0.05 -e 0.1 -glob``.
@@ -147,7 +147,7 @@ def hhsearch(input: HHMake, database: Path, extra_args: str = "") -> HHSearch:
     data = HHSearch(
         hhsearch_hhr_file=input.hhm_file.with_suffix(".hhsearch.hhr"),
         hhsearch_tab_file=input.hhm_file.with_suffix(".hhsearch.tab"),
-        hhsearch_database=database,
+        hhsearch_database_dir=database_dir,
         hhsearch_extra_args=extra_args,
         **vars(input),
     )
@@ -155,7 +155,7 @@ def hhsearch(input: HHMake, database: Path, extra_args: str = "") -> HHSearch:
         f"hhsearch"
         f" -i '{data.hhm_file}'"
         f" -o '{data.hhsearch_hhr_file}'"
-        f" -d '{data.hhsearch_database}/{data.hhsearch_database.name}'"
+        f" -d '{data.hhsearch_database_dir}/{data.hhsearch_database_dir.name}'"
         f" -atab '{data.hhsearch_tab_file}'"
         f" {data.hhsearch_extra_args}"
     )
@@ -182,7 +182,7 @@ def hhmakemodel(input: HHSearch, extra_args: str = "-v 1 -m 1") -> HHMakeModel:
         f"hhmakemodel.pl"
         f" '{data.hhsearch_hhr_file}'"
         f" -q '{data.a3m_file}'"
-        f" -d '{data.hhsearch_database}/{data.hhsearch_database.name}'"
+        f" -d '{data.hhsearch_database_dir}/{data.hhsearch_database_dir.name}'"
         f" -pir '{data.hhmakemodel_pir_file}'"
         f" {data.hhmakemodel_extra_args}"
     )

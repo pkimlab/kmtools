@@ -16,7 +16,7 @@ class HHBlits(HHInput):
     a3m_file: Path = attr.ib()
     hhm_file: Path = attr.ib()
     hhblits_hhr_file: Path = attr.ib()
-    hhblits_database: Path = attr.ib()
+    hhblits_database_dir: Path = attr.ib()
     hhblits_extra_args: str = attr.ib(default="")
 
 
@@ -39,7 +39,7 @@ class HHMake(AddSS):
 class HHSearch(HHMake):
     hhsearch_hhr_file: Path = attr.ib()
     hhsearch_tab_file: Path = attr.ib()
-    hhsearch_database: Path = attr.ib()
+    hhsearch_database_dir: Path = attr.ib()
     hhsearch_extra_args: str = attr.ib(default="")
 
 

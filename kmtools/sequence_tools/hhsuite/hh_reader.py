@@ -51,14 +51,14 @@ class HHRAlignment:
         assert self.query_length > 0
         assert self.template_id is not None
         assert self.template_length > 0
-        assert (
-            len(self.query_ali)
-            == len(self.query_ss_pred)
-            == len(self.template_ali)
-            == len(self.template_ss_pred)
-            == len(self.template_ss_dssp)
-            == len(self.ali_confidence)
-        )
+        assert len(self.query_ali) == len(self.template_ali) == len(self.ali_confidence)
+        if self.template_ss_pred:
+            assert (
+                len(self.query_ali)
+                == len(self.query_ss_pred)
+                == len(self.template_ss_pred)
+                == len(self.template_ss_dssp)
+            )
 
 
 class HHRFormatError(Exception):
