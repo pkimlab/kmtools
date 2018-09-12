@@ -13,38 +13,37 @@ class HHInput:
 
 @attr.s(kw_only=True)
 class HHBlits(HHInput):
-    hhblits_a3m_file: Path = attr.ib()
-    hhblits_hhm_file: Path = attr.ib()
+    a3m_file: Path = attr.ib()
+    hhm_file: Path = attr.ib()
     hhblits_hhr_file: Path = attr.ib()
     hhblits_database: Path = attr.ib()
-    hhblits_extra_args: str = attr.ib()
+    hhblits_extra_args: str = attr.ib(default="")
 
 
 @attr.s(kw_only=True)
 class HHFilter(HHBlits):
-    hhfilter_extra_args: str = attr.ib()
+    hhfilter_extra_args: str = attr.ib(default="")
 
 
 @attr.s(kw_only=True)
 class AddSS(HHFilter):
-    addss_extra_args: str = attr.ib()
+    addss_extra_args: str = attr.ib(default="")
 
 
 @attr.s(kw_only=True)
 class HHMake(AddSS):
-    hhmake_hhm_file: Path = attr.ib()
-    hhmake_extra_args: str = attr.ib()
+    hhmake_extra_args: str = attr.ib(default="")
 
 
 @attr.s(kw_only=True)
 class HHSearch(HHMake):
-    hhsearch_tab_file: Path = attr.ib()
     hhsearch_hhr_file: Path = attr.ib()
+    hhsearch_tab_file: Path = attr.ib()
     hhsearch_database: Path = attr.ib()
-    hhsearch_extra_args: str = attr.ib()
+    hhsearch_extra_args: str = attr.ib(default="")
 
 
 @attr.s(kw_only=True)
 class HHMakeModel(HHSearch):
     hhmakemodel_pir_file: Path = attr.ib()
-    hhmakemodel_extra_args: str = attr.ib()
+    hhmakemodel_extra_args: str = attr.ib(default="")
