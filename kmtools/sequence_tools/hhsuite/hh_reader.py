@@ -10,6 +10,7 @@ __authors__ = (
 __version__ = "2.0"
 __license__ = "GPL-3"
 
+import warnings
 from typing import Iterable, List, Optional
 
 import attr
@@ -53,12 +54,15 @@ class HHRAlignment:
         assert self.template_length > 0
         assert len(self.query_ali) == len(self.template_ali) == len(self.ali_confidence)
         if self.template_ss_pred:
-            assert (
-                len(self.query_ali)
-                == len(self.query_ss_pred)
-                == len(self.template_ss_pred)
-                == len(self.template_ss_dssp)
-            )
+            if not self.query_ss_pred:
+                warnings.warn("'query_ss_pred' is empty even though 'template_ss_pred' is not!")
+            else:
+                assert (
+                    len(self.query_ali)
+                    == len(self.query_ss_pred)
+                    == len(self.template_ss_pred)
+                    == len(self.template_ss_dssp)
+                )
 
 
 class HHRFormatError(Exception):
