@@ -43,12 +43,6 @@ def prepare_for_modeling(
     # Add amino acid chains
     for i, (chain_id, target) in enumerate(zip(CHAIN_IDS, targets)):
         residues = list(structure[target.model_id][target.chain_id].residues)
-        if target.template_start < 1:
-            offset = -target.template_start + 1
-            target = target._replace(
-                template_sequence="-" * offset + target.template_sequence[offset:], template_start=1
-            )
-            targets[i] = target
         if target.template_start is not None and target.template_end is not None:
             # start = False
             # residues_subset = []
@@ -59,8 +53,15 @@ def prepare_for_modeling(
             #         residues_subset.append(r)
             #     if r.id[1] == target.template_end:
             #         break
-            residues_subset = residues[target.template_start - 1 : target.template_end]
-        chain = Chain(chain_id, residues_subset)
+            if target.template_start < 1:
+                offset = -target.template_start + 1
+                target = target._replace(
+                    template_sequence="-" * offset + target.template_sequence[offset:],
+                    template_start=1,
+                )
+                targets[i] = target
+            residues = residues[target.template_start - 1 : target.template_end]
+        chain = Chain(chain_id, residues)
         template_structure[0].add(chain)
         chain_sequence = structure_tools.get_chain_sequence(chain)
         chain_sequence_expected = target.template_sequence.replace("-", "")
