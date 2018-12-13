@@ -45,7 +45,7 @@ requirements:
     - pyarrow
     - numba
     - biopython
-    - kmbio >=2.0.7
+    - kmbio >=2.0.12
 
 test:
   source_files:
