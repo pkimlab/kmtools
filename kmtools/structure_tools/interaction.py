@@ -35,7 +35,7 @@ class Interaction(NamedTuple):
 
 
 def get_interactions(
-    structure: Structure, r_cutoff: float, interchain: bool = True
+    structure: Structure, r_cutoff: float, interchain: bool = True, add_reverse=True
 ) -> pd.DataFrame:
     """Return residue-residue interactions within and between chains in `structure`.
 
@@ -56,7 +56,8 @@ def get_interactions(
     interactions = _get_interactions(structure, r_cutoff, interchain)
     # Specify `columns` in case the DataFrame is empty
     interaction_df = pd.DataFrame(interactions, columns=Interaction._fields)
-    interaction_df = _add_reverse_interactions(interaction_df)
+    if add_reverse:
+        interaction_df = _add_reverse_interactions(interaction_df)
     return interaction_df
 
 
