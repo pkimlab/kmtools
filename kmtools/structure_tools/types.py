@@ -31,6 +31,14 @@ class DomainMutation(NamedTuple):
         return cls(0, chain_id, residue_wt, residue_id, residue_mut)
 
 
+class DomainDef(NamedTuple):
+    model_id: int
+    chain_id: str
+    #: 1-based
+    domain_start: int
+    domain_end: int
+
+
 class DomainTarget(NamedTuple):
     #: ID of the template model
     model_id: int

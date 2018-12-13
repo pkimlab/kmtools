@@ -13,6 +13,7 @@
 __all__ = [
     'sifts',
 ]
+from .adjacency import *
 from .constants import *
 from .types import *
 from .elaspic_legacy import *
