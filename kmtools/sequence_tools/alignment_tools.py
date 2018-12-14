@@ -131,6 +131,7 @@ def convert_residue_index_a2b(idx, a2b):
         >>> convert_residue_index_a2b(5, [1, 2, 3, 6])
         3
     """
+    a2b = np.array(a2b)
     a, = np.where(a2b == (idx + 1))
     if a.size > 0:
         return a.item()
