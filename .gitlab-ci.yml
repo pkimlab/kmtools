@@ -42,36 +42,9 @@ variables:
 # === Configurations ===
 
 .configure: &configure
-  cache:
-    key: ${CI_JOB_NAME}
-    paths:
-      - .ci/conda_packages/*.tar.bz2
-      - .ci/conda_packages/urls.txt
   before_script:
-    # Conda environment variables
-    - export CONDA_PKGS_DIRS="$CI_PROJECT_DIR/.ci/conda_packages"
-    # Make conda cache and bld folders
-    - mkdir -p "$CI_PROJECT_DIR/conda-bld" "${CONDA_PKGS_DIRS}"
-    # Conda configure
-    - conda config --set channel_priority true
-    - conda config --append pkgs_dirs "${CONDA_PKGS_DIRS}"
-    - conda config --add channels bioconda
-    - conda config --add channels kimlab
-    - conda config --add channels conda-forge
-    - conda config --add channels defaults
-    # - case "${PACKAGE_VERSION}" in
-    #   *dev*)
-    #     conda config --append channels kimlab/label/dev;
-    #     conda config --append channels kimlab;
-    #   ;;
-    #   *)
-    #     conda config --append channels kimlab;
-    #   ;;
-    #   esac
-    # Clear cache
-    - rm -rf /opt/conda/pkgs/*
-    # Update conda
-    - conda update -n root -yq conda conda-build --no-channel-priority
+    - conda config --append channels kimlab
+    - conda update -n root -y -q conda conda-build --no-channel-priority
 
 # === Lint ===
 
