@@ -52,7 +52,7 @@ def test_map_distances(
     # Map interactions to target sequence
     for i in [1, 2]:
         distances[f"residue_idx_{i}_corrected"] = distances[f"residue_idx_{i}"].apply(
-            lambda idx: sequence_tools.find_in_array(idx, b2a)
+            lambda idx: sequence_tools.convert_residue_index_a2b(idx, b2a)
         )
     interactions_1 = set(
         distances[[f"residue_idx_1_corrected", f"residue_idx_2_corrected"]]
