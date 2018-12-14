@@ -2,7 +2,7 @@ import re
 from typing import NamedTuple, Optional
 
 MUTATION_REGEX = re.compile(
-    "([^-_\.]*[-_]{1})?([GVALICMFWPDESTYQNKRH])([0-9]+)([GVALICMFWPDESTYQNKRH]?)"
+    r"([^-_\.]*[-_]{1})?([GVALICMFWPDESTYQNKRH])([0-9]+)([GVALICMFWPDESTYQNKRH]?)"
 )
 
 

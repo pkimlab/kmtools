@@ -7,9 +7,6 @@
     dna_util
     elms
 """
-
-from __future__ import print_function
-
 import os
 import random
 import subprocess

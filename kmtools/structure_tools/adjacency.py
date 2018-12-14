@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List
 
 import pandas as pd
 from kmbio.PDB import Chain, Model, Structure

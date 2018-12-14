@@ -41,7 +41,7 @@ def fetch_sequence(sequence_id: str):
 
     seq = Bio.SeqIO.read(io.StringIO(r.text), "fasta")
     if database == "uniprot":
-        seq.annotations["db"], seq.id, seq.name = re.split("[\| ]", seq.id)
+        seq.annotations["db"], seq.id, seq.name = re.split(r"[\| ]", seq.id)
     return seq
 
 

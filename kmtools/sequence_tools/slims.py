@@ -337,7 +337,7 @@ def binding_score(seq, pwm):
 
 
 def dist_PWM(pwm1, pwm2):
-    """Euclidian distance between two PWM.
+    r"""Euclidian distance between two PWM.
 
     $ D_{(a,b)} = \frac{1}{W} \sum_{i=1}^{w} \frac{1}{2} \sum (a_{i,L} - b_{i,L})^2 $
 

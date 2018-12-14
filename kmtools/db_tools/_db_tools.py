@@ -16,6 +16,7 @@ class ConOpts(NamedTuple):
     .. deprecated::
         Use `urllib.parse.ParseResult` instead.
     """
+
     name: str
     username: str
     password: Optional[str]
@@ -42,34 +43,42 @@ def parse_connection_string(connection_string):
         A tuple of connection parameters.
     """
     db_params = {}
-    (db_params['name'], db_params['username'], db_params['password'], db_params['url'],
-     db_params['port'], db_params['schema'], db_params['socket']) = (
-         re.match(
-             '^(\w*)'  # name
-             '://'
-             '(|\w*)'  # username
-             '(|:\w*)'  # password
-             '(|@localhost|@[a-zA-Z0-9\.-]*|@[0-9\.]*)'  # url
-             '(|:[0-9]*)'  # port
-             '(|\/[^?]*)'  # schema
-             '(|\?unix_socket=.*)$',  # socket
-             connection_string).groups())
-    if db_params['password'].startswith(':'):
-        if db_params['password'] == ':':
-            db_params['password'] = ''
+    (
+        db_params["name"],
+        db_params["username"],
+        db_params["password"],
+        db_params["url"],
+        db_params["port"],
+        db_params["schema"],
+        db_params["socket"],
+    ) = re.match(
+        r"^(\w*)"  # name
+        r"://"
+        r"(|\w*)"  # username
+        r"(|:\w*)"  # password
+        r"(|@localhost|@[a-zA-Z0-9\.-]*|@[0-9\.]*)"  # url
+        r"(|:[0-9]*)"  # port
+        r"(|\/[^?]*)"  # schema
+        r"(|\?unix_socket=.*)$",  # socket
+        connection_string,
+    ).groups()
+    if db_params["password"].startswith(":"):
+        if db_params["password"] == ":":
+            db_params["password"] = ""
         else:
-            db_params['password'] = db_params['password'][1:]
+            db_params["password"] = db_params["password"][1:]
     else:
-        db_params['password'] = None
-    db_params['url'] = db_params['url'].lstrip('@')
-    db_params['port'] = db_params['port'].lstrip(':')
+        db_params["password"] = None
+    db_params["url"] = db_params["url"].lstrip("@")
+    db_params["port"] = db_params["port"].lstrip(":")
     try:
-        db_params['port'] = int(db_params['port'])
+        db_params["port"] = int(db_params["port"])
     except ValueError:
-        db_params['port'] = None
-    db_params['schema'] = (db_params['schema'][1:]
-                           if db_params['schema'].startswith('/') else db_params['schema'])
-    db_params['socket'] = db_params['socket'].partition('?unix_socket=')[-1]
+        db_params["port"] = None
+    db_params["schema"] = (
+        db_params["schema"][1:] if db_params["schema"].startswith("/") else db_params["schema"]
+    )
+    db_params["socket"] = db_params["socket"].partition("?unix_socket=")[-1]
     return ConOpts._make((db_params[key] for key in ConOpts._fields))
 
 
@@ -81,13 +90,16 @@ def make_connection_string(vargs: Union[dict, ConOpts]):
     """
     if isinstance(vargs, ConOpts):
         vargs = vargs._asdict()
-    vargs['password'] = (':{}'.format(vargs['password']) if vargs.get('password') is not None
-                         and not vargs.get('schema', '').startswith('/') else '')
-    vargs['url'] = ('@{}'.format(vargs['url']) if vargs.get('url') else '')
-    vargs['port'] = (':{}'.format(vargs['port']) if vargs.get('port') else '')
-    vargs['schema'] = ('/{}'.format(vargs['schema']) if vargs.get('schema') else '/')
-    vargs['socket'] = ('?unix_socket={}'.format(vargs['socket']) if vargs.get('socket') else '')
-    connection_string = ('{name}://{username}{password}{url}{port}{schema}{socket}'.format(**vargs))
+    vargs["password"] = (
+        ":{}".format(vargs["password"])
+        if vargs.get("password") is not None and not vargs.get("schema", "").startswith("/")
+        else ""
+    )
+    vargs["url"] = "@{}".format(vargs["url"]) if vargs.get("url") else ""
+    vargs["port"] = ":{}".format(vargs["port"]) if vargs.get("port") else ""
+    vargs["schema"] = "/{}".format(vargs["schema"]) if vargs.get("schema") else "/"
+    vargs["socket"] = "?unix_socket={}".format(vargs["socket"]) if vargs.get("socket") else ""
+    connection_string = "{name}://{username}{password}{url}{port}{schema}{socket}".format(**vargs)
     return connection_string
 
 
@@ -97,27 +109,29 @@ def lock_tables(tablenames, engine):
     if type(tablenames) not in {list, tuple}:
         tablenames = [tablenames]
     try:
-        engine.execute('set innodb_lock_wait_timeout=14400')
-        engine.execute('lock tables ' + ' '.join([t + ' write' for t in tablenames]))
+        engine.execute("set innodb_lock_wait_timeout=14400")
+        engine.execute("lock tables " + " ".join([t + " write" for t in tablenames]))
         yield
     except Exception:
         raise
     finally:
-        engine.execute('unlock tables')
+        engine.execute("unlock tables")
 
 
 def _validate_db_cache_filename(db_cache_filename):
     if db_cache_filename is None:
         db_cache_filename = DB_CACHE_FILENAME
     if db_cache_filename is None:
-        error_message = dedent("""\
+        error_message = dedent(
+            """\
             You must provide `db_cache_filename` or set `DB_CACHE_FILENAME`.
-            """).strip()
+            """
+        ).strip()
         raise Exception(error_message)
 
 
 @contextmanager
-def open_hdf5_exclusively(filename, mode='a', db_cache_filename=None):
+def open_hdf5_exclusively(filename, mode="a", db_cache_filename=None):
     _validate_db_cache_filename(db_cache_filename)
     try:
         fd = os.open(filename, os.O_CREAT | os.O_RDWR)
@@ -136,13 +150,13 @@ class QueryNotInCache(Exception):
 
 def _set_db_cache(table_name, table_data, db_cache_filename=None):
     _validate_db_cache_filename(db_cache_filename)
-    with open_hdf5_exclusively(DB_CACHE_FILENAME, 'r+') as hdf:
+    with open_hdf5_exclusively(DB_CACHE_FILENAME, "r+") as hdf:
         hdf[table_name] = table_data
 
 
 def _get_db_cache(table_name, db_cache_filename=None):
     _validate_db_cache_filename(db_cache_filename)
-    with open_hdf5_exclusively(DB_CACHE_FILENAME, 'r') as hdf:
+    with open_hdf5_exclusively(DB_CACHE_FILENAME, "r") as hdf:
         if table_name not in hdf:
             table_data = None
         else:
@@ -153,7 +167,7 @@ def _get_db_cache(table_name, db_cache_filename=None):
 def read_sql_cached(sql_query, engine=None, db_cache_filename=None):
     _validate_db_cache_filename(db_cache_filename)
     hashed_sql_query = hashlib.sha224(sql_query).hexdigest()
-    with open_hdf5_exclusively(DB_CACHE_FILENAME, 'r+') as hdf:
+    with open_hdf5_exclusively(DB_CACHE_FILENAME, "r+") as hdf:
         if hashed_sql_query in hdf:
             result_df = hdf[hashed_sql_query]
         elif engine is not None:
