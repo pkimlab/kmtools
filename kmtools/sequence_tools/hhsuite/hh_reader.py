@@ -52,7 +52,9 @@ class HHRAlignment:
         assert self.query_length > 0
         assert self.template_id is not None
         assert self.template_length > 0
-        assert len(self.query_ali) == len(self.template_ali) == len(self.ali_confidence)
+        assert len(self.query_ali) == len(self.template_ali)
+        if self.ali_confidence:
+            assert len(self.query_ali) == len(self.ali_confidence)
         if self.template_ss_pred:
             if not self.query_ss_pred:
                 warnings.warn("'query_ss_pred' is empty even though 'template_ss_pred' is not!")

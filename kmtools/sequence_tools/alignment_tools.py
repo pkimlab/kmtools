@@ -11,6 +11,8 @@ import os
 import random
 import subprocess
 
+import numpy as np
+
 
 def align_pairwise(sequence_ref: str, sequence_alt: str, **arguments):
     """Align two sequences using `MUSCLE <http://www.drive5.com/muscle/>`_.
@@ -117,6 +119,23 @@ def find_in_set(query, string_list):
         return string_list.split(",").index(str(query)) + 1
     except ValueError:
         return 0
+
+
+def convert_residue_index_a2b(idx, a2b):
+    """Use `a2b` array to convert residue index in sequence "a" to residue index in sequence "b".
+
+    Warning:
+        For legacy reasons, `a2b` is 1-based, while while the input and output indices are 0-based.
+
+    Examples:
+        >>> convert_residue_index_a2b(5, [1, 2, 3, 6])
+        3
+    """
+    a, = np.where(a2b == (idx + 1))
+    if a.size > 0:
+        return a.item()
+    else:
+        return np.nan
 
 
 def align_sw(seqa, seqb, **kargs):
