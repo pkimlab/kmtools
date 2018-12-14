@@ -68,6 +68,7 @@ lint:
 .build: &build
   stage: build
   script:
+    - conda config --add channels defaults
     - cd "${CI_PROJECT_DIR}/.ci/conda"
     - conda build .
       --no-test
