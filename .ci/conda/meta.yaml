@@ -25,7 +25,7 @@ requirements:
   run:
     # Basic python
     - python
-    - pyyaml
+    - ruamel.yaml
     - requests
     - pycurl
     - retrying

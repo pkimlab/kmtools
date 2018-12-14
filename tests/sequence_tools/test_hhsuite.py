@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import List
 
 import pytest
-import yaml
+from ruamel import yaml
 
 from kmtools import sequence_tools
 

@@ -8,7 +8,7 @@ import kmbio.PDB
 import numpy as np
 import pandas as pd
 import pytest
-import yaml
+from ruamel import yaml
 
 from kmtools import structure_tools
 from kmtools.py_tools import parametrize

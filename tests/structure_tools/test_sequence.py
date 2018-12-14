@@ -2,7 +2,7 @@ import os.path as op
 
 import kmbio.PDB
 import pytest
-import yaml
+from ruamel import yaml
 
 from kmtools import structure_tools
 
