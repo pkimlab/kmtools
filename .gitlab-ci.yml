@@ -55,13 +55,11 @@ lint:
     <<: [*py37]
   script:
     - cd $(dirname ${CI_CONFIG_PATH})
-    - conda install -yq "python=${PYTHON_VERSION}" isort flake8 mypy
+    - conda install -yq "python=${PYTHON_VERSION}" isort flake8 black mypy
     - python -m isort -p ${CI_PROJECT_NAME} -c
     - python -m flake8
-    # - black --config pyproject.toml --check .
-    # MyPy does not support namespace packages until this issue gets resolved:
-    # https://github.com/python/mypy/issues/1645
-    # - python -m mypy -p ${CI_PROJECT_NAME}
+    - python -m black --config pyproject.toml --check . || true
+    - python -m mypy -p ${CI_PROJECT_NAME} || true
 
 # === Build ===
 
