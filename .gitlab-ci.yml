@@ -10,7 +10,7 @@ stages:
 # === Variables ===
 
 variables:
-  PACKAGE_VERSION: 0.0.35
+  PACKAGE_VERSION: 0.0.36
 
 .py36: &py36
   PYTHON_VERSION: "3.6"
