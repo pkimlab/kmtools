@@ -20,7 +20,7 @@ def make_kwargs_constructor(obj):
 yaml.add_constructor("!HHRAlignment", make_kwargs_constructor(sequence_tools.HHRAlignment))
 
 with Path(__file__).with_suffix(".yaml").open("rt") as fin:
-    TEST_DATA = yaml.load(fin)
+    TEST_DATA = yaml.load(fin, Loader=yaml.Loader)
 
 
 # --- Tests ---

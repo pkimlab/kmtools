@@ -9,7 +9,7 @@ from kmtools import structure_tools
 TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])
 
 with open(op.join(TEST_FILES_DIR, 'test_data.yml'), 'r') as fin:
-    TEST_DATA = yaml.load(fin)
+    TEST_DATA = yaml.load(fin, Loader=yaml.Loader)
 
 
 @pytest.mark.parametrize("structure_file, model_id, chain_id, aa_sequence_", [

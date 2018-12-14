@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 TEST_FILES_DIR = op.abspath(op.splitext(__file__)[0])
 
 with open(op.join(TEST_FILES_DIR, "test_data.yml"), "r") as fin:
-    TEST_DATA = yaml.load(fin)
+    TEST_DATA = yaml.load(fin, Loader=yaml.Loader)
 
 # #############################################################################
 # Test the entire pipeline using toy structures that we generate programatically
