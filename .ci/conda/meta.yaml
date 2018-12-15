@@ -45,6 +45,8 @@ requirements:
     - pyarrow
     - numba
     - biopython
+    - mdanalysis >=0.19.2
+    # Kimlab
     - kmbio >=2.0.12
 
 test:
