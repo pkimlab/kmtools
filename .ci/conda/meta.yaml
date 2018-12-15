@@ -47,7 +47,7 @@ requirements:
     - biopython
     - mdanalysis >=0.19.2
     # Kimlab
-    - kmbio >=2.0.12
+    - kmbio >=2.0.13
 
 test:
   source_files:
