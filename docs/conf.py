@@ -11,7 +11,6 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
-
 import os
 import sphinx_rtd_theme
 from recommonmark.parser import CommonMarkParser
@@ -31,7 +30,7 @@ project_root = os.path.dirname(cwd)
 # version is used.
 # sys.path.insert(0, project_root)
 
-import kmtools
+import kmtools  # noqa
 
 # -- General configuration ---------------------------------------------
 
@@ -59,9 +58,7 @@ templates_path = ["_templates"]
 # The suffix of source filenames.
 source_suffix = [".rst", ".md"]
 
-source_parsers = {
-    ".md": CommonMarkParser,
-}
+source_parsers = {".md": CommonMarkParser}
 
 # The encoding of source files.
 # source_encoding = "utf-8-sig"
@@ -131,10 +128,7 @@ html_theme = "sphinx_rtd_theme"
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = {
-    "collapse_navigation": False,
-    "display_version": True,
-}
+html_theme_options = {"collapse_navigation": False, "display_version": True}
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
@@ -214,10 +208,8 @@ htmlhelp_basename = "kmtoolsdoc"
 latex_elements = {
     # The paper size ("letterpaper" or "a4paper").
     # "papersize": "letterpaper",
-
     # The font size ("10pt", "11pt" or "12pt").
     # "pointsize": "10pt",
-
     # Additional stuff for the LaTeX preamble.
     # "preamble": "",
 }
@@ -225,11 +217,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass
 # [howto/manual]).
-latex_documents = [
-    ("index", "kmtools.tex",
-     "kmtools Documentation",
-     "KimLab", "manual"),
-]
+latex_documents = [("index", "kmtools.tex", "kmtools Documentation", "KimLab", "manual")]
 
 # The name of an image file (relative to this directory) to place at
 # the top of the title page.
@@ -256,11 +244,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ("index", "kmtools",
-     "kmtools Documentation",
-     ["KimLab"], 1)
-]
+man_pages = [("index", "kmtools", "kmtools Documentation", ["KimLab"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -272,12 +256,15 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ("index", "kmtools",
-     "kmtools Documentation",
-     "KimLab",
-     "kmtools",
-     "One line description of project.",
-     "Miscellaneous"),
+    (
+        "index",
+        "kmtools",
+        "kmtools Documentation",
+        "KimLab",
+        "kmtools",
+        "One line description of project.",
+        "Miscellaneous",
+    )
 ]
 
 # Documents to append as an appendix to all manuals.
@@ -308,5 +295,5 @@ napoleon_use_ivar = True
 napoleon_use_param = True
 napoleon_use_rtype = True
 
-autodoc_member_order = 'bysource'
+autodoc_member_order = "bysource"
 default_role = "py:class:"
