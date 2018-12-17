@@ -1,4 +1,3 @@
-
 def _init_table_h():
     _table_h = []
     for i in range(256):
@@ -7,10 +6,10 @@ def _init_table_h():
             rflag = i & 1
             i >>= 1
             if part_h & 1:
-                i |= (1 << 31)
+                i |= 1 << 31
             part_h >>= 1
             if rflag:
-                part_h ^= 0xd8000000
+                part_h ^= 0xD8000000
         _table_h.append(part_h)
     return _table_h
 

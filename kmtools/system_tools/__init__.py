@@ -1,7 +1,5 @@
 # flake8: noqa
-__all__ = [
-    'exc',
-]
+__all__ = ["exc"]
 from . import *
 from ._compression import *
 from ._locking import *

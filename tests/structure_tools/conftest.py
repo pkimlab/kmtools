@@ -5,9 +5,14 @@ random.seed(42)
 
 PDB_IDS = [
     # Crash with errors
-    '3lki',
+    "3lki",
     # Older ones
-    '4dkl', '1arr', '1dvf', '3mbp', '4p6f', '1dcg',
+    "4dkl",
+    "1arr",
+    "1dvf",
+    "3mbp",
+    "4p6f",
+    "1dcg",
 ]
 
 
@@ -15,33 +20,24 @@ PDB_IDS = [
 #: Conversely, PDBs which make up a large biounit often only have mmCIF structure.
 MISSING = [
     # (pdb_id, pdb_type, biounit)
-    ('1arr', 'pdb', 1),
-    ('1arr', 'cif', 1),
-    ('4p6f', 'pdb', 0),
-    ('4p6f', 'pdb', 1),
+    ("1arr", "pdb", 1),
+    ("1arr", "cif", 1),
+    ("4p6f", "pdb", 0),
+    ("4p6f", "pdb", 1),
 ]
 
 
-DIFFICULT = [
-    '4p6f',
-]
+DIFFICULT = ["4p6f"]
 
 
-LOCAL_REMOTE_MISMATCH = [
-    ('4dkl', 'pdb', False),
-    ('4dkl', 'pdb', True),
-]
+LOCAL_REMOTE_MISMATCH = [("4dkl", "pdb", False), ("4dkl", "pdb", True)]
 
 
 # PDBs that cause errors
-ATOM_DEFINED_TWICE_PDBS = [
-    '2q3u', '2kax', '1wcn', '1wco', '2dii', '2eya',
-]
+ATOM_DEFINED_TWICE_PDBS = ["2q3u", "2kax", "1wcn", "1wco", "2dii", "2eya"]
 
 
-NO_RESNAME_ATTRIBUTE_PDBS = [
-    '1q3l', '4d1e', '1cty', '4pru', '1ctz', '2h9p',
-]
+NO_RESNAME_ATTRIBUTE_PDBS = ["1q3l", "4d1e", "1cty", "4pru", "1ctz", "2h9p"]
 
 
 NUM_TESTS_MAX = 4

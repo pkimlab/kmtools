@@ -27,10 +27,10 @@ def get_chain_sequence_and_numbering(chain, domain_def_tuple=None, include_hetat
         if inside_domain and (include_hetatms or res.resname in AAA_DICT):
             chain_numbering.append(res.id[1])
             chain_numbering_extended.append(resid)
-            chain_sequence.append(AAA_DICT.get(res.resname, '.'))
+            chain_sequence.append(AAA_DICT.get(res.resname, "."))
 
         if domain_def_tuple is not None and resid == end_resid:
             inside_domain = False
 
-    chain_sequence = ''.join(chain_sequence)
+    chain_sequence = "".join(chain_sequence)
     return chain_sequence, chain_numbering_extended

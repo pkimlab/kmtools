@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 @contextmanager
-def open_exclusively(filename, mode='a'):
+def open_exclusively(filename, mode="a"):
     fd = os.open(filename, os.O_CREAT | os.O_RDWR)
     fcntl.lockf(fd, fcntl.LOCK_EX)
     try:
@@ -31,7 +31,7 @@ def get_lock(name):
 
     while True:
         try:
-            lock = open(name + '.lock', 'x')
+            lock = open(name + ".lock", "x")
             yield lock
             close_lock(lock)
             break

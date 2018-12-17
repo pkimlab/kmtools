@@ -30,7 +30,7 @@ def iter_submodules(package):
     yield package.__name__, package
     for loader, name, ispkg in pkgutil.walk_packages(package.__path__):
         try:
-            module = importlib.import_module(package.__name__ + '.' + name)
+            module = importlib.import_module(package.__name__ + "." + name)
         except ModuleNotFoundError as e:
             logger.error("Could not import module '%s' (%s)", module, e)
             continue

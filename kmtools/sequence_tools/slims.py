@@ -307,7 +307,7 @@ def get_pwm(sequences):
         row = list()
         for p in range(seq_len):
             prob = frequencies[p].get(a, 0.0) / N
-            row.append(np.log2(prob / .05))
+            row.append(np.log2(prob / 0.05))
         matrix.append(row)
 
     # convert to pandas.Dataframe
@@ -358,6 +358,6 @@ def dist_PWM(pwm1, pwm2):
         rows = list()
         for r in pwm1.index:
             rows.append((pwm1.at[r, c] - pwm2.at[r, c]) ** 2)
-        colum.append(sum(rows) * .5)
+        colum.append(sum(rows) * 0.5)
 
     return sum(colum) / float(w)

@@ -48,7 +48,7 @@ def run(system_command, cwd=None, **vargs):
         stderr=subprocess.PIPE,
         universal_newlines=True,
         preexec_fn=lambda: _set_process_group(os.getpgrp()),
-        **vargs
+        **vargs,
     )
     process.stdout = process.stdout.strip()
     process.stderr = process.stderr.strip()

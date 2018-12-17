@@ -6,7 +6,6 @@ from kmtools import py_tools
 
 
 def test_iter_forever_1():
-
     def my_generator():
         yield from range(3)
 
@@ -16,21 +15,19 @@ def test_iter_forever_1():
 
 
 def test_iter_forever_2():
-
     def my_generator():
         yield from range(3)
 
     g = py_tools.iter_forever(my_generator)
 
     outputs = []
-    for i in range(1_000):
+    for i in range(1000):
         outputs.append(next(g))
 
-    assert outputs == list(itertools.islice(itertools.cycle(my_generator()), 1_000))
+    assert outputs == list(itertools.islice(itertools.cycle(my_generator()), 1000))
 
 
 def test_iter_forever_3():
-
     def my_generator():
         i = 0
         for j in range(3):
@@ -39,6 +36,6 @@ def test_iter_forever_3():
     g = py_tools.iter_forever(my_generator)
     g.send(None)
 
-    for i in itertools.islice(itertools.cycle(range(3)), 1, 1_000):
+    for i in itertools.islice(itertools.cycle(range(3)), 1, 1000):
         value = g.send(i)
         assert value == f"{i} {i}"

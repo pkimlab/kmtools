@@ -11,17 +11,22 @@ import pyarrow.parquet as pq
 logger = logging.getLogger(__name__)
 
 
-def csv_to_parquet(csv_file: str,
-                   parquet_file: str,
-                   csv_kwargs: Dict[str, Any] = None,
-                   parquet_kwargs: Dict[str, Any] = None):
+def csv_to_parquet(
+    csv_file: str,
+    parquet_file: str,
+    csv_kwargs: Dict[str, Any] = None,
+    parquet_kwargs: Dict[str, Any] = None,
+):
     """Convert a CSV file to an Apache Parquet file."""
     dfs = pd.read_csv(csv_file, **(csv_kwargs or {}))
     write_parquet_file(dfs, parquet_file, **(parquet_kwargs or {}))
 
 
-def write_parquet_file(dfs: Union[pd.DataFrame, Generator[pd.DataFrame, None, None]],
-                       parquet_file: Union[str, Path], **kwargs) -> None:
+def write_parquet_file(
+    dfs: Union[pd.DataFrame, Generator[pd.DataFrame, None, None]],
+    parquet_file: Union[str, Path],
+    **kwargs,
+) -> None:
     """Write a DataFrame, or an iterator over DataFrames, to a Parquet file.
 
     Args:
@@ -37,22 +42,24 @@ def write_parquet_file(dfs: Union[pd.DataFrame, Generator[pd.DataFrame, None, No
     if isinstance(parquet_file, Path):
         parquet_file = parquet_file.absolute().as_posix()
 
-    kwargs.setdefault('flavor', 'spark')
-    kwargs.setdefault('compression', 'snappy')
+    kwargs.setdefault("flavor", "spark")
+    kwargs.setdefault("compression", "snappy")
 
-    pa_kwargs = {k: kwargs.pop(k) for k in list(kwargs) if k in ['preserve_index']}
+    pa_kwargs = {k: kwargs.pop(k) for k in list(kwargs) if k in ["preserve_index"]}
     # This should work in the future versions of PyArrow:
     # pw_kwargs = extract_kwargs(pq.ParquetWriter, kwargs)
     pw_kwargs = {
         k: kwargs.pop(k)
         for k in list(kwargs)
-        if k in
-        ['flavor', 'version', 'use_dictionary', 'compression', 'use_deprecated_int96_timestamps']
+        if k
+        in ["flavor", "version", "use_dictionary", "compression", "use_deprecated_int96_timestamps"]
     }
     pq_kwargs = extract_kwargs(pq.ParquetWriter.write_table, kwargs)
     if kwargs:
-        raise Exception("Not all arguments where used during the call to _get_parser! "
-                        f"Remaining kwargs: {kwargs}")
+        raise Exception(
+            "Not all arguments where used during the call to _get_parser! "
+            f"Remaining kwargs: {kwargs}"
+        )
 
     if isinstance(dfs, pd.DataFrame):
         table = pa.Table.from_pandas(dfs, **pa_kwargs)

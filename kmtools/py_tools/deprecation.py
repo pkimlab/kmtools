@@ -58,17 +58,13 @@ def _deprecate(fn: Callable, reason: Optional[str] = None):
         message = f"Call to deprecated function {fn.__name__}."
 
     if reason is not None:
-        message += f' ({reason}).'
+        message += f" ({reason})."
 
     @functools.wraps(fn)
     def new_fn(*args, **kwargs):
-        warnings.simplefilter('always', DeprecationWarning)
-        warnings.warn(
-            message,
-            category=DeprecationWarning,
-            stacklevel=2
-        )
-        warnings.simplefilter('default', DeprecationWarning)
+        warnings.simplefilter("always", DeprecationWarning)
+        warnings.warn(message, category=DeprecationWarning, stacklevel=2)
+        warnings.simplefilter("default", DeprecationWarning)
         return fn(*args, **kwargs)
 
     return new_fn

@@ -13,13 +13,25 @@ BLAST_OUTFMT6 = """\
 '6 qacc sacc pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq'\
 """
 BLAST_OUTFMT6_COLUMN_NAMES = [
-    'query_id', 'subject_id', 'pc_identity', 'alignment_length', 'mismatches', 'gap_opens',
-    'q_start', 'q_end', 's_start', 's_end', 'evalue', 'bitscore', 'qseq', 'sseq',
+    "query_id",
+    "subject_id",
+    "pc_identity",
+    "alignment_length",
+    "mismatches",
+    "gap_opens",
+    "q_start",
+    "q_end",
+    "s_start",
+    "s_end",
+    "evalue",
+    "bitscore",
+    "qseq",
+    "sseq",
 ]
 
 
 # @lru_cache(maxsize=1024, typed=False)
-def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
+def blastp(sequence, db, evalue=0.001, max_target_seqs=100_000):
     """Run `blastp`.
 
     .. note::
@@ -35,29 +47,40 @@ def blastp(sequence, db, evalue=0.001, max_target_seqs=100000):
         Full path to the blast database.
     """
     system_command = (
-        'blastp -db {db} -outfmt {outfmt} -evalue {evalue} -max_target_seqs {max_target_seqs}'
-        .format(db=db, outfmt=BLAST_OUTFMT6, evalue=evalue, max_target_seqs=max_target_seqs)
+        f"blastp "
+        f"-db {db} "
+        f"-outfmt {BLAST_OUTFMT6} "
+        f"-evalue {evalue} "
+        f"-max_target_seqs {max_target_seqs}"
     )
     logger.debug(system_command)
     cp = subprocess.Popen(
         shlex.split(system_command),
-        stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        universal_newlines=True)
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+    )
     result, error_message = cp.communicate(sequence)
     if error_message.strip():
         logger.error(error_message.strip())
-    result_df = pd.read_csv(io.StringIO(result), sep='\t', names=BLAST_OUTFMT6_COLUMN_NAMES)
-    assert (result_df['qseq'].str.len() == result_df['sseq'].str.len()).all()
+    result_df = pd.read_csv(io.StringIO(result), sep="\t", names=BLAST_OUTFMT6_COLUMN_NAMES)
+    assert (result_df["qseq"].str.len() == result_df["sseq"].str.len()).all()
     return result_df
 
 
 def extend_blast_results(result_df: pd.DataFrame) -> pd.DataFrame:
     result_df = result_df.copy()
-    a2b, b2a = list(zip(*(
-        kmtools.sequence_tools.get_crossmapping(*x, skip_mismatch=False)
-        for x in result_df[['qseq', 'sseq']].values)))
-    a2b = [[(int(i) if i else None) for i in s.split(',')] for s in a2b]
-    b2a = [[(int(i) if i else None) for i in s.split(',')] for s in b2a]
-    result_df.loc[:, 'a2b'] = pd.Series(a2b)
-    result_df.loc[:, 'b2a'] = pd.Series(b2a)
+    a2b, b2a = list(
+        zip(
+            *(
+                kmtools.sequence_tools.get_crossmapping(*x, skip_mismatch=False)
+                for x in result_df[["qseq", "sseq"]].values
+            )
+        )
+    )
+    a2b = [[(int(i) if i else None) for i in s.split(",")] for s in a2b]
+    b2a = [[(int(i) if i else None) for i in s.split(",")] for s in b2a]
+    result_df.loc[:, "a2b"] = pd.Series(a2b)
+    result_df.loc[:, "b2a"] = pd.Series(b2a)
     return result_df

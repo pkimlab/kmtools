@@ -39,7 +39,7 @@ def test_get_interaction_cutoffs():
             for atom in residue:
                 atom.coord = np.array([coord, coord, coord])
             r_cutoff = i + 1
-            coord += (r_cutoff ** 2 / 3) ** .5 + 0.005
+            coord += (r_cutoff ** 2 / 3) ** 0.5 + 0.005
     # Assert that there are no core interactions past this cutoff
     interaction_df = structure_tools.get_interactions(structure, 1.0, interchain=False)
     assert interaction_df.empty

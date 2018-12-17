@@ -15,6 +15,7 @@ class irange:
         >>> -10.0 in irange(-20, -10.0)
         False
     """
+
     start: float
     stop: float
 

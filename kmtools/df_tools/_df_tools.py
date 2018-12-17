@@ -19,7 +19,7 @@ TEXT = MEDIUMTEXT()
 BOOLEAN = BOOLEAN()
 
 #: Extensions that get stripped when creating a database table from a text file
-REMOVED_EXTENSIONS = ['.gz', '.tsv', '.csv', '.txt', '.vcf']
+REMOVED_EXTENSIONS = [".gz", ".tsv", ".csv", ".txt", ".vcf"]
 
 
 def get_tablename(file):
@@ -68,33 +68,31 @@ def format_columns(columns):
 
 
 def format_column(name):
-    name = name.replace(' ', '_')
-    name = name.replace('(', '_').replace(')', '')
-    name = name.replace('%', 'pc')
-    keywords = [
-        'uniprot', 'grch', 'refseq',
-    ]
+    name = name.replace(" ", "_")
+    name = name.replace("(", "_").replace(")", "")
+    name = name.replace("%", "pc")
+    keywords = ["uniprot", "grch", "refseq"]
     for keyword in keywords:
         while keyword in name.lower() and keyword not in name:
             start = name.lower().index(keyword)
             end = start + len(keyword)
             name = name[:start] + keyword + name[end:]
-    if name.lower() in ['uniprot_id', 'grch']:
+    if name.lower() in ["uniprot_id", "grch"]:
         return name.lower()
     # CamelCase to pothole_case
     # if '_' not in name:
     # Don't split words if the name already uses underscores
     # e.g. UniProt_sequence, FoldX_value
-    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
+    name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+    name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", name)
     name = name.lower()
     # Remove strange characters
-    permitted = set(string.ascii_lowercase + string.digits + '_')
-    name = ''.join(c for c in name if c in permitted)
+    permitted = set(string.ascii_lowercase + string.digits + "_")
+    name = "".join(c for c in name if c in permitted)
     while name[0].isdigit():
         name = name[1:]
-    while '__' in name:
-        name = name.replace('__', '_')
+    while "__" in name:
+        name = name.replace("__", "_")
     return name
 
 
@@ -108,13 +106,13 @@ def get_df_dtypes(df):
 
 
 def _get_column_dtype(column, char, df):
-    if char == 'l':
+    if char == "l":
         return INTEGER
-    elif char == 'd':
+    elif char == "d":
         return DOUBLE
-    elif char == '?':
+    elif char == "?":
         return BOOLEAN
-    elif char == 'O':
+    elif char == "O":
         max_len = df[column].str.len().max()
         if max_len <= 32:
             return VARCHAR_SHORT
@@ -143,19 +141,19 @@ def get_file_dtypes(file, nrows=int(1e5), nchunks=100, stg_host=None, **vargs):
     dtypes : dict
         A dictionary of dtypes for each column
     """
-    logger.debug('get_file_dtypes({}, {}, {}, {})'.format(file, nrows, nchunks, vargs))
+    logger.debug("get_file_dtypes({}, {}, {}, {})".format(file, nrows, nchunks, vargs))
 
     # Parse params
-    if 'error_bad_lines' not in vargs:
-        vargs['error_bad_lines'] = False
-    if 'low_memory' not in vargs:
-        vargs['low_memory'] = False  # helps with mixed dtypes?
-    if op.splitext(file)[-1] in ['.gz', '.bz2', '.xz']:
+    if "error_bad_lines" not in vargs:
+        vargs["error_bad_lines"] = False
+    if "low_memory" not in vargs:
+        vargs["low_memory"] = False  # helps with mixed dtypes?
+    if op.splitext(file)[-1] in [".gz", ".bz2", ".xz"]:
         raise Exception("Compressed files are not supported!")
     # Get number of lines in file
     system_command = "wc -l '{}'".format(file)
     stdout, stderr, returncode = system_tools.run_command(system_command, host=stg_host)
-    num_lines = int(stdout.strip().split(' ')[0])
+    num_lines = int(stdout.strip().split(" ")[0])
     logger.debug("nrows: {}".format(nrows))
     logger.debug("num_lines: {}".format(num_lines))
     # Parse file
@@ -180,7 +178,7 @@ def get_file_dtypes(file, nrows=int(1e5), nchunks=100, stg_host=None, **vargs):
             nchunks = nchunks_max
         #
         dtypes_list = []
-        vargs['chunksize'] = nrows
+        vargs["chunksize"] = nrows
         for i, df in enumerate(pd.read_csv(file, **vargs)):
             dtypes = get_df_dtypes(df)
             dtypes_list.append(dtypes)
@@ -199,16 +197,16 @@ def _combine_dtypes(dtypes_list):
         return dtypes_list[1]
     else:
         columns = {
-            key for keys in [
-                dtypes_list[i].keys() for i in range(len(dtypes_list))]
-            for key in keys
+            key for keys in [dtypes_list[i].keys() for i in range(len(dtypes_list))] for key in keys
         }
         return {
-            column: _get_overall_dtypes([
-                dtypes_list[i][column]
-                for i in range(len(dtypes_list))
-                if column in dtypes_list[i]
-            ])
+            column: _get_overall_dtypes(
+                [
+                    dtypes_list[i][column]
+                    for i in range(len(dtypes_list))
+                    if column in dtypes_list[i]
+                ]
+            )
             for column in columns
         }
 

@@ -132,7 +132,7 @@ class WritableObject:
     def write(self, string):
         string = string.strip()
         if string:
-            self.logger.debug(string.replace('\n', ' '))
+            self.logger.debug(string.replace("\n", " "))
 
 
 @functools.wraps(logging.getLogger)

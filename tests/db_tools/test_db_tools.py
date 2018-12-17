@@ -4,13 +4,19 @@ from kmtools.db_tools import ConOpts, make_connection_string, parse_connection_s
 
 TEST_DATA = [
     # (connection_string, ConOpts)
-    ('sqlite:////absolute/path/to/foo.db', ConOpts('sqlite', '', None, '', None,
-                                                   '/absolute/path/to/foo.db', '')),
-    ('mysql://user:@localhost/', ConOpts('mysql', 'user', '', 'localhost', None, '', '')),
-    ('mysql://user:pass@192.168.0.1:3306/test', ConOpts('mysql', 'user', 'pass', '192.168.0.1',
-                                                        3306, 'test', '')),
-    ('mysql://user@192.168.0.1:3306/test?unix_socket=/tmp/mysql.sock', ConOpts(
-        'mysql', 'user', None, '192.168.0.1', 3306, 'test', '/tmp/mysql.sock')),
+    (
+        "sqlite:////absolute/path/to/foo.db",
+        ConOpts("sqlite", "", None, "", None, "/absolute/path/to/foo.db", ""),
+    ),
+    ("mysql://user:@localhost/", ConOpts("mysql", "user", "", "localhost", None, "", "")),
+    (
+        "mysql://user:pass@192.168.0.1:3306/test",
+        ConOpts("mysql", "user", "pass", "192.168.0.1", 3306, "test", ""),
+    ),
+    (
+        "mysql://user@192.168.0.1:3306/test?unix_socket=/tmp/mysql.sock",
+        ConOpts("mysql", "user", None, "192.168.0.1", 3306, "test", "/tmp/mysql.sock"),
+    ),
 ]
 
 

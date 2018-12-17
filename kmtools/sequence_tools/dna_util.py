@@ -182,7 +182,7 @@ def clean_restriction_sites(naseq, dict_restriction=["GAATTC", "CCCGGG", "GTCGAC
         else:
             naseq = reshufle_seq(naseq, matches)
 
-        if ilimit == 1000000:
+        if ilimit == 1_000_000:
             print(
                 "WARNING the cycles limit has been pass and the seq stil\
                     contain a restriction site  {}".format(
