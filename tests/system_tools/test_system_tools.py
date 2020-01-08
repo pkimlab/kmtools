@@ -20,7 +20,7 @@ def test_run_command(host):
     stdout, stderr, returncode = system_tools.run_command("ls -A1 ~")
     assert stderr == ""
     assert returncode == 0
-    root_files = sorted(stdout.split())
+    root_files = sorted(stdout.split("\n"))
     assert root_files == root_files_
 
 
