@@ -48,6 +48,8 @@ requirements:
     - mdanalysis >=0.19.2
     # Kimlab
     - kmbio >=2.0.13
+    # Extra binaries
+    - muscle
 
 test:
   source_files:
@@ -58,8 +60,6 @@ test:
     - pytest-cov
     - pytest-benchmark
     - hypothesis
-    # Extra binaries
-    - muscle
   imports:
     - kmtools
     - kmtools.db_tools

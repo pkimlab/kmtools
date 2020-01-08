@@ -3,7 +3,6 @@ repos:
     rev: master
     hooks:
     - id: flake8
-    - id: check-yaml
   - repo: https://github.com/ambv/black
     rev: stable
     hooks:
