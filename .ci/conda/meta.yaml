@@ -46,6 +46,8 @@ requirements:
     - numba
     - biopython
     - mdanalysis >=0.19.2
+    - weblogo
+    - pdf2svg
     # Kimlab
     - kmbio >=2.0.13
     # Extra binaries
