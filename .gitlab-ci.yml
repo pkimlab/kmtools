@@ -181,10 +181,10 @@ docs:
     - sphinx-build docs public
     # Coverage
     - PROJECT_INSTALL_DIR=$(python -c "import kmtools; print(kmtools.__path__[0])") ;
-      for i in coverage/* ; do
-        echo "${i}" ;
-        sed -i "s|/${CI_PROJECT_NAME}/|${PROJECT_INSTALL_DIR}/|g" "${i}" ;
-      done
+      # for i in coverage/* ; do
+      #   echo "${i}" ;
+      #   sed -i "s|/${CI_PROJECT_NAME}/|${PROJECT_INSTALL_DIR}/|g" "${i}" ;
+      # done
     - coverage combine coverage/
     - coverage report
     - coverage html -i
