@@ -5,7 +5,16 @@ from pathlib import Path
 from typing import IO, Union
 
 
-def protonate(input_file: Union[str, Path, IO], output_file: Union[str, Path, IO], method="openmm"):
+def protonate(
+    input_file: Union[str, Path, IO], output_file: Union[str, Path, IO], method: str = "openmm"
+) -> None:
+    """Add hydrogen atoms to PDB structure.
+
+    Args:
+        input_file: Input PDB file or IO object.
+        output_file: Output PDB file or IO object.
+        method: Method to use for adding hydrogens. Supported methods are "openmm" and "reduce".
+    """
     supported_methods = ["openmm", "reduce", "reduce-FLIP", "reduce-NOFLIP", "reduce-BUILD"]
     if method not in supported_methods:
         raise ValueError(f"The only supported methods are '{supported_methods}'.")
