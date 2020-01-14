@@ -2,7 +2,7 @@
 
 [![anaconda](https://img.shields.io/conda/dn/kimlab/kmtools.svg)](https://anaconda.org/kimlab/kmtools/)
 [![docs](https://img.shields.io/badge/docs-v0.0.36-blue.svg?version=latest)](https://kimlab.gitlab.io/kmtools/v0.0.36/)
-[![build status](https://gitlab.com/kimlab/kmtools/badges/v0.0.36/build.svg)](https://gitlab.com/kimlab/kmtools/commits/v0.0.36/)
+[![pipeline status](https://gitlab.com/kimlab/kmtools/badges/v0.0.36/pipeline.svg)](https://gitlab.com/kimlab/kmtools/commits/v0.0.36/)
 [![coverage report](https://gitlab.com/kimlab/kmtools/badges/v0.0.36/coverage.svg)](https://kimlab.gitlab.io/kmtools/v0.0.36/htmlcov/)
 
 Bits of reusable code to make our lives easier.
@@ -12,11 +12,11 @@ Follows the *Whole Sort of General Mish Mash* design principle.
 ## Contents
 
 - [kmtools](#kmtools)
-    - [Contents](#contents)
-    - [Tools](#tools)
-        - [Structure tools](#structure-tools)
-            - [To do](#to-do)
-    - [Contributing](#contributing)
+  - [Contents](#contents)
+  - [Tools](#tools)
+    - [Structure tools](#structure-tools)
+      - [To do](#to-do)
+  - [Contributing](#contributing)
 
 ## Tools
 
