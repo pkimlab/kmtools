@@ -530,9 +530,11 @@ class StructureParser:
             chain_id = self.chain_ids[chain_idx]
             chain = model[chain_id]
 
-            chain_numbering, domain_start_idxs, domain_end_idxs = self._get_domain_def_idxs_for_chain(
-                chain, chain_idx
-            )
+            (
+                chain_numbering,
+                domain_start_idxs,
+                domain_end_idxs,
+            ) = self._get_domain_def_idxs_for_chain(chain, chain_idx)
             logger.debug(
                 "domain_def: %s, domain_start_idxs: %s, domain_end_idxs: %s",
                 self.domain_boundaries,

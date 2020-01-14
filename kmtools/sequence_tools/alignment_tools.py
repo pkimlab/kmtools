@@ -132,7 +132,7 @@ def convert_residue_index_a2b(idx, a2b):
         3
     """
     a2b = np.array(a2b)
-    a, = np.where(a2b == (idx + 1))
+    (a,) = np.where(a2b == (idx + 1))
     if a.size > 0:
         return a.item()
     else:

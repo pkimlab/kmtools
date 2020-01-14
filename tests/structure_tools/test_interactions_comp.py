@@ -40,7 +40,10 @@ def test_get_interactions_pdb(pdb_id, pdb_type, bioassembly_id, interchain):
     interactions_core, interactions_core_aggbychain = structure_tools.drop_duplicates_core(
         interactions_core, interactions_core_aggbychain
     )
-    interactions_interface, interactions_interface_aggbychain = structure_tools.drop_duplicates_interface(
+    (
+        interactions_interface,
+        interactions_interface_aggbychain,
+    ) = structure_tools.drop_duplicates_interface(
         interactions_interface, interactions_interface_aggbychain
     )
 
