@@ -12,11 +12,11 @@ stages:
 variables:
   PACKAGE_VERSION: 0.0.36
 
-.py36: &py36
-  PYTHON_VERSION: "3.6"
-
 .py37: &py37
   PYTHON_VERSION: "3.7"
+
+.py38: &py38
+  PYTHON_VERSION: "3.8"
 
 .db_tools: &db_tools
   SUBPKG_NAME: db_tools
@@ -77,15 +77,15 @@ lint:
     paths:
     - conda-bld
 
-build-py36:
-  <<: [*configure, *build]
-  variables:
-    <<: [*py36]
-
 build-py37:
   <<: [*configure, *build]
   variables:
     <<: [*py37]
+
+# build-py38:
+#   <<: [*configure, *build]
+#   variables:
+#     <<: [*py38]
 
 # === Test ===
 
@@ -109,63 +109,63 @@ build-py37:
       - environment-py${PYTHON_VERSION/./}.yml
       - "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
 
-# Python 3.6
+# Python 3.7
 
-db_tools-py36:
+db_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*db_tools, *py36]
+    <<: [*db_tools, *py37]
 
-df_tools-py36:
+df_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*df_tools, *py36]
+    <<: [*df_tools, *py37]
 
-ml_tools-py36:
+ml_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*ml_tools, *py36]
+    <<: [*ml_tools, *py37]
 
-py_tools-py36:
+py_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*py_tools, *py36]
+    <<: [*py_tools, *py37]
 
-sequence_tools-py36:
+sequence_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*sequence_tools, *py36]
+    <<: [*sequence_tools, *py37]
 
-structure_tools-py36:
+structure_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*structure_tools, *py36]
+    <<: [*structure_tools, *py37]
 
-system_tools-py36:
+system_tools-py37:
   <<: [*configure, *test]
   dependencies:
-    - build-py36
+    - build-py37
   variables:
-    <<: [*system_tools, *py36]
+    <<: [*system_tools, *py37]
 
 # === Docs ===
 
 docs:
   stage: post-test
   variables:
-    <<: [*py36]
+    <<: [*py37]
   <<: [*configure]
   script:
     # Restore built packages
@@ -190,14 +190,14 @@ docs:
     - mv htmlcov public/
   coverage: /^TOTAL.* (\d+\%)/
   dependencies:
-    - build-py36
-    - db_tools-py36
-    - df_tools-py36
-    - ml_tools-py36
-    - py_tools-py36
-    - sequence_tools-py36
-    - structure_tools-py36
-    - system_tools-py36
+    - build-py37
+    - db_tools-py37
+    - df_tools-py37
+    - ml_tools-py37
+    - py_tools-py37
+    - sequence_tools-py37
+    - structure_tools-py37
+    - system_tools-py37
   artifacts:
     paths:
       - public
@@ -227,15 +227,15 @@ docs:
         twine upload $CI_PROJECT_DIR/conda-bld/linux-64/*.whl || true ;
       fi
 
-deploy-py36:
-  <<: *deploy
-  dependencies:
-    - build-py36
-
 deploy-py37:
   <<: *deploy
   dependencies:
     - build-py37
+
+# deploy-py38:
+#   <<: *deploy
+#   dependencies:
+#     - build-py38
 
 # === Pages ===
 
