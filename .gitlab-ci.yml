@@ -107,8 +107,7 @@ build-py37:
   coverage: /^TOTAL.* (\d+\%)/
   artifacts:
     paths:
-      - environment-py${PYTHON_VERSION/./}.yml
-      - "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
+      - "${CI_PROJECT_DIR}/coverage/.coverage.${SUBPKG_NAME}"
 
 # Python 3.7
 
