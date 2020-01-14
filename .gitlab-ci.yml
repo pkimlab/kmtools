@@ -103,7 +103,7 @@ build-py37:
       --python $PYTHON_VERSION
     # Code coverage
     - mkdir "${CI_PROJECT_DIR}/coverage"
-    - mv "${CI_PROJECT_DIR}/.coverage" "${CI_PROJECT_DIR}/coverage/${SUBPKG_NAME}"
+    - mv "${CI_PROJECT_DIR}/.coverage" "${CI_PROJECT_DIR}/coverage/.coverage.${SUBPKG_NAME}"
   coverage: /^TOTAL.* (\d+\%)/
   artifacts:
     paths:
@@ -185,7 +185,7 @@ docs:
         echo "${i}" ;
         sed -i "s|/${CI_PROJECT_NAME}/|${PROJECT_INSTALL_DIR}/|g" "${i}" ;
       done
-    - coverage combine coverage/*
+    - coverage combine coverage/
     - coverage report
     - coverage html -i
     - mv htmlcov public/
