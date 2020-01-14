@@ -1,62 +1,10 @@
-from typing import List
+from typing import List, Optional
 
 import pandas as pd
 from kmbio.PDB import Chain, Model, Structure
 from MDAnalysis.lib.distances import self_capped_distance
 
 from .types import DomainDef
-
-
-def get_distances(structure: Structure, max_cutoff: int, min_cutoff=None, groupby="atom"):
-    assert groupby in ["chain", "residue", "atom"]
-    df = structure.to_dataframe()
-    atom_to_residue_map = {
-        row.atom_idx: (row.model_idx, row.chain_idx, row.residue_idx) for row in df.itertuples()
-    }
-    pairs_df = get_atom_distances(
-        df[["atom_x", "atom_y", "atom_z"]].values, max_cutoff=max_cutoff, min_cutoff=min_cutoff
-    )
-    for suffix in ["_1", "_2"]:
-        (
-            pairs_df[f"model_idx{suffix}"],
-            pairs_df[f"chain_idx{suffix}"],
-            pairs_df[f"residue_idx{suffix}"],
-        ) = list(zip(*pairs_df[f"atom_idx{suffix}"].map(atom_to_residue_map)))
-    if groupby == "residue":
-        pairs_df = _groupby_residue(pairs_df)
-    elif groupby == "chain":
-        pairs_df = _groupby_chain(pairs_df)
-    return pairs_df
-
-
-def _groupby_residue(pairs_df):
-    residue_pairs_df = (
-        pairs_df.groupby(["residue_idx_1", "residue_idx_2"]).agg({"distance": min}).reset_index()
-    )
-    residue_pairs_df = residue_pairs_df[
-        (residue_pairs_df["residue_idx_1"] != residue_pairs_df["residue_idx_2"])
-    ]
-    return residue_pairs_df
-
-
-def _groupby_chain(pairs_df):
-    chain_pairs_df = (
-        pairs_df.groupby(["chain_idx_1", "chain_idx_2"]).agg({"distance": min}).reset_index()
-    )
-    chain_pairs_df = chain_pairs_df[
-        (chain_pairs_df["chain_idx_1"] != chain_pairs_df["chain_idx_2"])
-    ]
-    return chain_pairs_df
-
-
-def get_atom_distances(xyz, max_cutoff, min_cutoff=None):
-    pairs, distances = self_capped_distance(xyz, max_cutoff=max_cutoff, min_cutoff=min_cutoff)
-    pairs.sort(axis=1)
-    assert pairs.max() < xyz.shape[0]
-    pairs_df = pd.DataFrame(
-        {"atom_idx_1": pairs[:, 0], "atom_idx_2": pairs[:, 1], "distance": distances}
-    )
-    return pairs_df
 
 
 def extract_domain(
@@ -77,3 +25,87 @@ def extract_domain(
         domain_residues = residues[dd.domain_start - 1 : dd.domain_end]
         new_chain.add(domain_residues)
     return new_structure
+
+
+def get_distances(
+    structure: Structure, max_cutoff: int, min_cutoff: Optional[float] = None, groupby: str = "atom"
+) -> pd.DataFrame:
+    assert groupby in [
+        "chain",
+        "chain-backbone",
+        "chain-ca",
+        "residue",
+        "residue-backbone",
+        "residue-ca",
+        "atom",
+    ]
+
+    structure_df = structure.to_dataframe()
+    if groupby.endswith("-backbone"):
+        structure_df = structure_df[
+            (structure_df["atom_name"] == "N")
+            | (structure_df["atom_name"] == "CA")
+            | (structure_df["atom_name"] == "C")
+        ]
+    elif groupby.endswith("-ca"):
+        structure_df = structure_df[(structure_df["atom_name"] == "CA")]
+
+    pairs_df = get_atom_distances(structure_df, max_cutoff=max_cutoff, min_cutoff=min_cutoff)
+    annotate_atom_distances(pairs_df, structure_df)
+
+    if groupby.startswith("residue"):
+        pairs_df = _groupby_residue(pairs_df)
+    elif groupby.startswith("chain"):
+        pairs_df = _groupby_chain(pairs_df)
+    return pairs_df
+
+
+def get_atom_distances(
+    structure_df: pd.DataFrame, max_cutoff: float, min_cutoff: Optional[float] = None
+) -> pd.DataFrame:
+    xyz = structure_df[["atom_x", "atom_y", "atom_z"]].values
+    pairs, distances = self_capped_distance(xyz, max_cutoff=max_cutoff, min_cutoff=min_cutoff)
+    pairs.sort(axis=1)
+    assert pairs.max() < xyz.shape[0]
+    atom_idx = structure_df["atom_idx"].values
+    pairs_df = pd.DataFrame(
+        {
+            "atom_idx_1": atom_idx[pairs[:, 0]],
+            "atom_idx_2": atom_idx[pairs[:, 1]],
+            "distance": distances,
+        }
+    )
+    return pairs_df
+
+
+def annotate_atom_distances(pairs_df: pd.DataFrame, structure_df: pd.DataFrame) -> None:
+    atom_to_residue_map = {
+        row.atom_idx: (row.model_idx, row.chain_idx, row.residue_idx)
+        for row in structure_df.itertuples()
+    }
+    for suffix in ["_1", "_2"]:
+        (
+            pairs_df[f"model_idx{suffix}"],
+            pairs_df[f"chain_idx{suffix}"],
+            pairs_df[f"residue_idx{suffix}"],
+        ) = list(zip(*pairs_df[f"atom_idx{suffix}"].map(atom_to_residue_map)))
+
+
+def _groupby_residue(pairs_df: pd.DataFrame) -> pd.DataFrame:
+    residue_pairs_df = (
+        pairs_df.groupby(["residue_idx_1", "residue_idx_2"]).agg({"distance": min}).reset_index()
+    )
+    residue_pairs_df = residue_pairs_df[
+        (residue_pairs_df["residue_idx_1"] != residue_pairs_df["residue_idx_2"])
+    ]
+    return residue_pairs_df
+
+
+def _groupby_chain(pairs_df: pd.DataFrame) -> pd.DataFrame:
+    chain_pairs_df = (
+        pairs_df.groupby(["chain_idx_1", "chain_idx_2"]).agg({"distance": min}).reset_index()
+    )
+    chain_pairs_df = chain_pairs_df[
+        (chain_pairs_df["chain_idx_1"] != chain_pairs_df["chain_idx_2"])
+    ]
+    return chain_pairs_df
