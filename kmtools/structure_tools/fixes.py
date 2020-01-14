@@ -22,16 +22,16 @@ def protonate(input_file: Union[str, Path, IO], output_file: Union[str, Path, IO
 
 def _protonate_with_reduce(input_file: IO, output_file: IO, method: str = "") -> None:
     assert method in ["", "FLIP", "NOFLIP", "BUILD"]
-    system_command = "reduce {} -".format("-" + method if method else "")
+    system_command = "reduce {} -".format("-" + method.upper() if method else "")
     proc = subprocess.run(
         shlex.split(system_command),
-        input=input_file,
-        stdout=output_file,
+        input=input_file.read(),
+        stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True,
+        check=True,
     )
-    if proc.returncode not in [0, 1]:
-        raise subprocess.CalledProcessError(proc)
+    output_file.write(proc.stdout)
 
 
 def _protonate_with_openmm(input_file: IO, output_file: IO) -> None:
