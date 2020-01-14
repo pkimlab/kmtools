@@ -49,6 +49,7 @@ requirements:
     - openmm
     - weblogo
     - pdf2svg
+    - reduce
     # Kimlab
     - kmbio >=2.0.13
     # Extra binaries

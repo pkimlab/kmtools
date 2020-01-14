@@ -44,6 +44,7 @@ variables:
 .configure: &configure
   before_script:
     - conda config --append channels kimlab
+    - conda config --append channels ostrokach-forge
     - conda config --append channels omnia
     - conda update -n root -y -q conda conda-build --no-channel-priority
 
