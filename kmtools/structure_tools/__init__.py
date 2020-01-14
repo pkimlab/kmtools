@@ -9,8 +9,8 @@
    sifts
    structure_parser
 """
-# flake8: noqa
-__all__ = ["sifts"]
+__all__ = ["protein_structure_analysis", "sifts"]
+
 from .adjacency import *
 from .constants import *
 from .types import *
