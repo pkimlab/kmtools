@@ -320,7 +320,7 @@ def test_calculate_hydrogen_bonds_0():
     input_file = TEST_DATA_PATH.joinpath("3fndA02.pdb")
     traj = mdtraj.load(input_file.as_posix())
     hbonds = calculate_hydrogen_bonds(traj)
-    assert hbonds.columns.values.tolist() == ["residue_index_1", "residue_index_2"]
+    assert hbonds.columns.values.tolist() == ["residue_idx_1", "residue_idx_2"]
     # TODO: Need some consistency with dtypes of empty arrays?
     # assert hbonds.dtypes.values.tolist() == [np.int, np.int]
     assert hbonds.empty
@@ -360,6 +360,6 @@ def test_calculate_hydrogen_bonds_1():
         (32, 43),
         (36, 43),
     ]
-    assert hbonds.columns.values.tolist() == ["residue_index_1", "residue_index_2"]
+    assert hbonds.columns.values.tolist() == ["residue_idx_1", "residue_idx_2"]
     assert hbonds.dtypes.values.tolist() == [np.int, np.int]
     assert np.allclose(hbonds.values, hbonds_expected)

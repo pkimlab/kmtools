@@ -134,12 +134,11 @@ def calculate_backbone_dihedrals(traj: mdtraj.Trajectory):
 
 
 def get_internal_coords(df: pd.DataFrame) -> np.ndarray:
-    """
+    """Return cartesian coordinates corresponding to the orientation of each residue.
 
     Args:
         df: Pandas dataframe with columns:
             ["residue_idx", "atom_name", "atom_x", "atom_y", "atom_z"].
-        normed: If `True`, return an orthonormal basis (each 3D vector has an l2 norm of 1).
 
     Returns:
         Numpy array with three vectors describing the orientation of each residue.
@@ -231,16 +230,17 @@ def calculate_hydrogen_bonds(traj: mdtraj.Trajectory) -> pd.DataFrame:
 
     Args:
         traj: Trajectory for the protein of interest.
+            Note that the trajectory should include hydrogen atoms!
 
     Returns:
-        Pandas dataframe with columns: [residue_index_1, residue_index_2].
+        Pandas dataframe with columns: [residue_idx_1", "residue_idx_2].
     """
     d_h_a = mdtraj.wernet_nilsson(traj)[0]
     if not d_h_a.size:
-        return pd.DataFrame([], columns=["residue_index_1", "residue_index_2"])
+        return pd.DataFrame([], columns=["residue_idx_1", "residue_idx_2"])
     residue_pairs = [
         (traj.topology.atom(d_i).residue.index, traj.topology.atom(a_i).residue.index)
         for d_i, _, a_i in d_h_a
     ]
     residue_pairs = sorted({(r_1, r_2) if r_1 <= r_2 else (r_2, r_1) for r_1, r_2 in residue_pairs})
-    return pd.DataFrame(residue_pairs, columns=["residue_index_1", "residue_index_2"])
+    return pd.DataFrame(residue_pairs, columns=["residue_idx_1", "residue_idx_2"])
