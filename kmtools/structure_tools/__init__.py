@@ -17,6 +17,7 @@ from .types import *
 from .elaspic_legacy import *
 from .exceptions import *
 from .sequence import *
+from .mdtraj_helpers import *
 from .interaction import *
 from .structure_parser import *
 from .fixes import *
