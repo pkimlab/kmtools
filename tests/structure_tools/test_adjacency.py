@@ -61,7 +61,7 @@ def test_get_distances_residue(groupby_method, distances_expected):
     structure_file = TEST_DATA_DIR.joinpath("AE-AE.pdb")
     structure = PDB.load(structure_file)
     max_cutoff = np.max(distances_expected) + 0.1
-    distances_df = get_distances(structure, max_cutoff, groupby=groupby_method)
+    distances_df = get_distances(structure.to_dataframe(), max_cutoff, groupby=groupby_method)
     distances_df = pd.concat(
         [
             distances_df,
@@ -90,7 +90,9 @@ def test_map_distances(
     b2a = np.array(b2a)
     structure = PDB.load(Path(__file__).with_suffix("").joinpath(structure_file))
     # Calculate interactions
-    distances = structure_tools.get_distances(structure, max_cutoff, min_cutoff, groupby="residue")
+    distances = structure_tools.get_distances(
+        structure.to_dataframe(), max_cutoff, min_cutoff, groupby="residue"
+    )
     # Map interactions to target sequence
     for i in [1, 2]:
         distances[f"residue_idx_{i}_corrected"] = distances[f"residue_idx_{i}"].apply(

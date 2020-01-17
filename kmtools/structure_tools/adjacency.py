@@ -28,7 +28,10 @@ def extract_domain(
 
 
 def get_distances(
-    structure: Structure, max_cutoff: int, min_cutoff: Optional[float] = None, groupby: str = "atom"
+    structure_df: pd.DataFrame,
+    max_cutoff: int,
+    min_cutoff: Optional[float] = None,
+    groupby: str = "atom",
 ) -> pd.DataFrame:
     assert groupby in [
         "chain",
@@ -40,7 +43,6 @@ def get_distances(
         "atom",
     ]
 
-    structure_df = structure.to_dataframe()
     if groupby.endswith("-backbone"):
         structure_df = structure_df[
             (structure_df["atom_name"] == "N")
