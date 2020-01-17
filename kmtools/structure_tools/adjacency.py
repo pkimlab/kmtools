@@ -62,6 +62,33 @@ def get_distances(
     return pairs_df
 
 
+def complete_distances(distance_df: pd.DataFrame) -> pd.DataFrame:
+    """Complete `distances_df` so that it corresponds to a symetric dataframe with a zero diagonal.
+
+    Args:
+        distance_df: A dataframe produced by `get_distances`, where
+            'residue_idx_1' > 'residue_idx_2'.
+
+    Returns:
+        A dataframe which corresponds to a dense, symmetric adjacency matrix.
+    """
+    residues = sorted(
+        {r for r in distance_df["residue_idx_1"]} | {r for r in distance_df["residue_idx_2"]}
+    )
+    complete_distance_df = pd.concat(
+        [
+            distance_df,
+            distance_df.rename(
+                columns={"residue_idx_1": "residue_idx_2", "residue_idx_2": "residue_idx_1"}
+            ),
+            pd.DataFrame({"residue_idx_1": residues, "residue_idx_2": residues, "distance": 0}),
+        ],
+        sort=False,
+    ).sort_values(["residue_idx_1", "residue_idx_2"])
+    assert len(complete_distance_df) == len(distance_df) * 2 + len(residues)
+    return complete_distance_df
+
+
 def get_atom_distances(
     structure_df: pd.DataFrame, max_cutoff: float, min_cutoff: Optional[float] = None
 ) -> pd.DataFrame:
