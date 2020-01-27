@@ -1,8 +1,11 @@
 import contextlib
+import logging
 import shlex
 import subprocess
 from pathlib import Path
 from typing import IO, Union
+
+logger = logging.getLogger(__name__)
 
 
 def protonate(
@@ -38,8 +41,11 @@ def _protonate_with_reduce(input_file: IO, output_file: IO, method: str = "") ->
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True,
-        check=True,
     )
+    if proc.returncode != 1:
+        logger.warning(
+            f"Command '{system_command}' returned non-zero exit status {proc.returncode}."
+        )
     output_file.write(proc.stdout)
 
 
