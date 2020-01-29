@@ -42,7 +42,7 @@ def _protonate_with_reduce(input_file: IO, output_file: IO, method: str = "") ->
         stderr=subprocess.PIPE,
         universal_newlines=True,
     )
-    if proc.returncode != 1:
+    if proc.returncode != 0:
         logger.warning(
             f"Command '{system_command}' returned non-zero exit status {proc.returncode}."
         )
