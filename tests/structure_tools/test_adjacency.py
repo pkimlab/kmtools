@@ -34,6 +34,7 @@ def _load_edgecase_structure():
     model_new = PDB.Model(0)
     structure_new.add(model_new)
     model_new.add(list(structure.chains)[0])
+    # NB: The faulty residue appears to be Proline at position 73.
     return structure_new
 
 
