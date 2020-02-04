@@ -8,7 +8,7 @@ from kmbio import PDB
 from ruamel import yaml
 
 from kmtools import sequence_tools, structure_tools
-from kmtools.structure_tools.adjacency import get_distances
+from kmtools.structure_tools.adjacency import get_atom_distances, get_distances
 
 TEST_DATA_DIR = Path(__file__).parent.joinpath("structures").resolve(strict=True)
 
@@ -23,6 +23,25 @@ def load_test_cases_from_file(fn):
     values = [tuple(d[a] for a in args) for d in data.values()]
     parametrize = pytest.mark.parametrize(", ".join(args), values, ids=ids)
     return parametrize(fn)
+
+
+def _load_edgecase_structure():
+    # Check for segfaults with "interesting" pdb files
+    structure_file = Path(__file__).with_suffix("").joinpath("5nleAD.pdb").resolve(strict=True)
+    structure = PDB.load(structure_file)
+    # Extract chain A
+    structure_new = PDB.Structure(structure.id)
+    model_new = PDB.Model(0)
+    structure_new.add(model_new)
+    model_new.add(list(structure.chains)[0])
+    return structure_new
+
+
+def test_get_atom_distances():
+    structure = _load_edgecase_structure()
+    structure_df = structure.to_dataframe()
+    pairs_df = get_atom_distances(structure_df, max_cutoff=12, method="pkdtree")
+    assert not pairs_df.empty
 
 
 @pytest.mark.parametrize(
