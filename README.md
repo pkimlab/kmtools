@@ -37,7 +37,7 @@ Follows the _Whole Sort of General Mish Mash_ design principle.
 
 ### Structure tools
 
-Using [kmbio](https://github.com/kimlaborg/kmbio) instead of [biopython](https://github.com/biopython/biopython) leads to substantially better performance (> 2x with lots of room for improvement).
+- Using [kmbio](https://github.com/kimlaborg/kmbio) instead of [biopython](https://github.com/biopython/biopython) leads to substantially better performance (> 2x with lots of room for improvement).
 
 ### System tools
 
