@@ -104,14 +104,14 @@ def test_get_distances_residue(groupby_method, distances_expected):
 
 @load_test_cases_from_file
 def test_map_distances(
-    structure_file, max_cutoff, min_cutoff, b2a, residue_idx_1_corrected, residue_idx_2_corrected
+    structure_file, max_cutoff, b2a, residue_idx_1_corrected, residue_idx_2_corrected
 ):
     # Convert lists to arrays
     b2a = np.array(b2a)
     structure = PDB.load(Path(__file__).with_suffix("").joinpath(structure_file))
     # Calculate interactions
     distances = structure_tools.get_distances(
-        structure.to_dataframe(), max_cutoff, min_cutoff, groupby="residue"
+        structure.to_dataframe(), max_cutoff, groupby="residue"
     )
     # Map interactions to target sequence
     for i in [1, 2]:
