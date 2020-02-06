@@ -45,7 +45,6 @@ requirements:
     - pyarrow
     - numba
     - biopython
-    - mdanalysis >=0.19.2
     - mdtraj
     - openmm
     - weblogo

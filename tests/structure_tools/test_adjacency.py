@@ -3,6 +3,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pyarrow.parquet as pq
 import pytest
 from kmbio import PDB
 from ruamel import yaml
@@ -25,24 +26,23 @@ def load_test_cases_from_file(fn):
     return parametrize(fn)
 
 
-def _load_edgecase_structure():
-    # Check for segfaults with "interesting" pdb files
-    structure_file = Path(__file__).with_suffix("").joinpath("5nleAD.pdb").resolve(strict=True)
-    structure = PDB.load(structure_file)
-    # Extract chain A
-    structure_new = PDB.Structure(structure.id)
-    model_new = PDB.Model(0)
-    structure_new.add(model_new)
-    model_new.add(list(structure.chains)[0])
-    # NB: The faulty residue appears to be Proline at position 73.
-    return structure_new
-
-
 def test_get_atom_distances():
-    structure = _load_edgecase_structure()
-    structure_df = structure.to_dataframe()
-    pairs_df = get_atom_distances(structure_df, max_cutoff=12, method="pkdtree")
-    assert not pairs_df.empty
+    # For some reason, this structure produces a segfault using MDAnalysis's `self_capped_distance`
+    # with `method="nsgrid"`.
+    structure_file = Path(__file__).with_suffix("").joinpath("5nleA.pdb").resolve(strict=True)
+    atom_pairs_file = (
+        Path(__file__).with_suffix("").joinpath("5nleA-atom-pairs.parquet").resolve(strict=True)
+    )
+    structure_df = PDB.load(structure_file).to_dataframe()
+    pairs_df = (
+        pq.read_table(atom_pairs_file)
+        .to_pandas(integer_object_nulls=True)
+        .sort_values(["atom_idx_1", "atom_idx_2", "distance"], ascending=True)
+    )
+    pairs_df_ = get_atom_distances(structure_df, max_cutoff=12).sort_values(
+        ["atom_idx_1", "atom_idx_2", "distance"], ascending=True
+    )
+    assert np.allclose(pairs_df.values, pairs_df_.values, atol=1e-05, rtol=1e-05)
 
 
 @pytest.mark.parametrize(

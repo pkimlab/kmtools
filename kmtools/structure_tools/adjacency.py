@@ -1,8 +1,8 @@
-from typing import List, Optional
+from typing import List
 
 import pandas as pd
 from kmbio.PDB import Chain, Model, Structure
-from MDAnalysis.lib.distances import self_capped_distance
+from scipy.spatial import cKDTree
 
 from .types import DomainDef
 
@@ -28,21 +28,15 @@ def extract_domain(
 
 
 def get_distances(
-    structure_df: pd.DataFrame,
-    max_cutoff: int,
-    min_cutoff: Optional[float] = None,
-    groupby: str = "atom",
-    method: Optional[float] = None,
+    structure_df: pd.DataFrame, max_cutoff: int, groupby: str = "atom"
 ) -> pd.DataFrame:
     """Process structure dataframe to extract interacting chains, residues, or atoms.
 
     Args:
         structure_df: Structure dataframe, as returned by `kmbio.PDB.Structure.to_dataframe`.
         max_cutoff: Maximum distance for inclusion in results (Angstroms).
-        min_cutoff: Minimum distance for inclusion in results (Angstroms).
         groupby: Which pairs of objects to return?
             (Possible options are: `chain{,-backbone,-ca}`, `residue{,-backbone,-ca}`, `atom`).
-        method: Method used by MDAnalysis to calculate atom-atom distances.
     """
     assert groupby in [
         "chain",
@@ -63,9 +57,7 @@ def get_distances(
     elif groupby.endswith("-ca"):
         structure_df = structure_df[(structure_df["atom_name"] == "CA")]
 
-    pairs_df = get_atom_distances(
-        structure_df, max_cutoff=max_cutoff, min_cutoff=min_cutoff, method=method
-    )
+    pairs_df = get_atom_distances(structure_df, max_cutoff=max_cutoff)
     annotate_atom_distances(pairs_df, structure_df)
 
     if groupby.startswith("residue"):
@@ -102,26 +94,20 @@ def complete_distances(distance_df: pd.DataFrame) -> pd.DataFrame:
     return complete_distance_df
 
 
-def get_atom_distances(
-    structure_df: pd.DataFrame,
-    max_cutoff: float,
-    min_cutoff: Optional[float] = None,
-    method: Optional[float] = None,
-) -> pd.DataFrame:
+def get_atom_distances(structure_df: pd.DataFrame, max_cutoff: float) -> pd.DataFrame:
     xyz = structure_df[["atom_x", "atom_y", "atom_z"]].values
-    pairs, distances = self_capped_distance(
-        xyz, max_cutoff=max_cutoff, min_cutoff=min_cutoff, method=method
-    )
-    pairs.sort(axis=1)
-    assert pairs.max() < xyz.shape[0]
+    tree = cKDTree(xyz)
+    coo_mat = tree.sparse_distance_matrix(tree, max_distance=max_cutoff, output_type="coo_matrix")
+    assert coo_mat.row.max() < xyz.shape[0] and coo_mat.col.max() < xyz.shape[0]
     atom_idx = structure_df["atom_idx"].values
     pairs_df = pd.DataFrame(
         {
-            "atom_idx_1": atom_idx[pairs[:, 0]],
-            "atom_idx_2": atom_idx[pairs[:, 1]],
-            "distance": distances,
+            "atom_idx_1": atom_idx[coo_mat.row],
+            "atom_idx_2": atom_idx[coo_mat.col],
+            "distance": coo_mat.data,
         }
     )
+    pairs_df = pairs_df[pairs_df["atom_idx_1"] < pairs_df["atom_idx_2"]]
     return pairs_df
 
 
