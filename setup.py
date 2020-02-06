@@ -15,7 +15,7 @@ EXTENSIONS = [Extension("*", ["kmtools/sequence_tools/*.pyx"])]
 
 setup(
     name="kmtools",
-    version="0.2.0",
+    version="0.2.1",
     author="kimlab.org",
     author_email="alex.strokach@utoronto.ca",
     url="https://gitlab.com/kimlab/kmtools",
