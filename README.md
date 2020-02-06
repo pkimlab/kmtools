@@ -7,27 +7,39 @@
 
 Bits of reusable code to make our lives easier.
 
-Follows the *Whole Sort of General Mish Mash* design principle.
-
-## Contents
+Follows the _Whole Sort of General Mish Mash_ design principle.
 
 - [kmtools](#kmtools)
   - [Contents](#contents)
-  - [Tools](#tools)
+    - [Database tools](#database-tools)
+    - [DataFrame tools](#dataframe-tools)
+    - [Machine learning tools](#machine-learning-tools)
+    - [Python tools](#python-tools)
+    - [Science tools](#science-tools)
+    - [Sequence tools](#sequence-tools)
     - [Structure tools](#structure-tools)
-      - [To do](#to-do)
+    - [System tools](#system-tools)
   - [Contributing](#contributing)
 
-## Tools
+## Contents
+
+### Database tools
+
+### DataFrame tools
+
+### Machine learning tools
+
+### Python tools
+
+### Science tools
+
+### Sequence tools
 
 ### Structure tools
 
 Using [kmbio](https://github.com/kimlaborg/kmbio) instead of [biopython](https://github.com/biopython/biopython) leads to substantially better performance (> 2x with lots of room for improvement).
 
-#### To do
-
-- [ ] Cythonize more bottlenecks to improve performance.
-- [ ] Add Python / Cython code for generating biological assemblies.
+### System tools
 
 ## Contributing
 
