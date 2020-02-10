@@ -91,7 +91,7 @@ def _get_interactions(structure: Structure, r_cutoff: float, interchain: bool) -
                 r
                 for a in residue_2
                 for r in chain_1_ns.search(a.coord, r_cutoff, "R")
-                if r.id not in seen or seen.add(r.id)
+                if r.id not in seen and not seen.add(r.id)  # can't use 'or' because short-circuit
             ]
             for residue_1 in chain_1_interacting_residues:
                 if residue_1.resname in COMMON_HETATMS:
