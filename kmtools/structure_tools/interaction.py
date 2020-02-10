@@ -2,7 +2,7 @@ import logging
 from typing import Iterable, List, NamedTuple, Tuple
 
 import pandas as pd
-from kmbio.PDB import NeighborSearch, Structure
+from kmbio.PDB import Structure
 
 from kmtools import df_tools, sequence_tools, structure_tools
 from kmtools.structure_tools import AAA_DICT, COMMON_HETATMS
@@ -42,6 +42,9 @@ def get_interactions(
     Note:
         For each chain, ``residue.id[1]`` is unique.
 
+    Warning:
+        This function is deprecated. Use `adjacency.get_distances` instead.
+
     Todo:
         This could probably be sped up by using the
         :py:meth:`kmbio.PDB.NeighborSearch.search_all` method.
@@ -63,6 +66,9 @@ def get_interactions(
 
 def _get_interactions(structure: Structure, r_cutoff: float, interchain: bool) -> List[Interaction]:
     """Compile a list of all interactions present in `structure`."""
+    # TODO: Both this function and `_iter_interchain_ns` should be replaced with the get_distances
+    # method (if maintaining a backwards-compatible API is important; otherwise they should be
+    # simply removed).
     results = []
     for (
         model_1_idx,
@@ -142,6 +148,8 @@ def _add_reverse_interactions(interaction_df: pd.DataFrame) -> pd.DataFrame:
 
 def _iter_interchain_ns(structure: Structure, interchain: bool = True) -> Iterable:
     """Iterate over interactions present in the `structure`."""
+    from bio.PDB import NeighborSearch
+
     for model_1_idx, model_1 in enumerate(structure):
         for chain_1_idx, chain_1 in enumerate(model_1):
             atom_list = list(chain_1.atoms)
