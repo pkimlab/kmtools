@@ -133,8 +133,8 @@ def get_sifts_data(pdb_id, cache_dir=None):
 
     Examples
     --------
-    >>> sifts_df = get_sifts_data('1jrh')  # doctest: +SKIP
-    >>> sifts_df.head(2)  # doctest: +SKIP
+    >>> sifts_df = get_sifts_data('1jrh') # doctest: +SKIP
+    >>> sifts_df.head(2) # doctest: +SKIP
        is_observed comments pdb_id pdb_chain resnum pdb_aa uniprot_id  \\
     0         True   T,loop   1jrh         L      1      S        NaN
     1         True   T,loop   1jrh         L      2      V        NaN
