@@ -1,9 +1,9 @@
 import logging
-from typing import Iterable, List, NamedTuple, Tuple
+from typing import Any, Iterable, List, NamedTuple, Optional, Set, Tuple
 
 import pandas as pd
 from Bio.PDB import NeighborSearch
-from kmbio.PDB import Structure
+from kmbio.PDB import Atom, Residue, Structure
 
 from kmtools import df_tools, sequence_tools, structure_tools
 from kmtools.structure_tools import AAA_DICT, COMMON_HETATMS
@@ -20,14 +20,14 @@ class Interaction(NamedTuple):
     model_id_2: str
     chain_id_1: str
     chain_id_2: str
-    residue_idx_1: str
-    residue_idx_2: str
+    residue_idx_1: int
+    residue_idx_2: int
     residue_id_1: str
     residue_id_2: str
     residue_name_1: str
     residue_name_2: str
-    residue_aa_1: str
-    residue_aa_2: str
+    residue_aa_1: Optional[str]
+    residue_aa_2: Optional[str]
 
 
 # #############################################################################
@@ -86,12 +86,12 @@ def _get_interactions(structure: Structure, r_cutoff: float, interchain: bool) -
         for residue_2_idx, residue_2 in enumerate(chain_2):
             if residue_2.resname in COMMON_HETATMS:
                 continue
-            seen = set()
+            seen: Set[Any] = set()
             chain_1_interacting_residues = [
                 r
                 for a in residue_2
                 for r in chain_1_ns.search(a.coord, r_cutoff, "R")
-                if r.id not in seen and not seen.add(r.id)
+                if r.id not in seen or seen.add(r.id)
             ]
             for residue_1 in chain_1_interacting_residues:
                 if residue_1.resname in COMMON_HETATMS:
@@ -149,6 +149,12 @@ def _add_reverse_interactions(interaction_df: pd.DataFrame) -> pd.DataFrame:
 
 def _iter_interchain_ns(structure: Structure, interchain: bool = True) -> Iterable:
     """Iterate over interactions present in the `structure`."""
+    # TODO: Get rid of this nastly monkey-patching.
+    Atom.get_coord = lambda self: self.coord
+    Atom.get_level = lambda self: self.level
+    Atom.get_parent = lambda self: self.parent
+    Residue.__hash__ = lambda self: hash(self.id)
+
     for model_1_idx, model_1 in enumerate(structure):
         for chain_1_idx, chain_1 in enumerate(model_1):
             atom_list = list(chain_1.atoms)
