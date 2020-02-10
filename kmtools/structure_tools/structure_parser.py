@@ -2,7 +2,8 @@ import logging
 from typing import Optional
 
 import numpy as np
-from kmbio.PDB import Chain, Model, NeighborSearch, Residue, Structure
+from Bio.PDB import NeighborSearch
+from kmbio.PDB import Chain, Model, Residue, Structure
 
 from kmtools.structure_tools import (
     AAA_DICT,

@@ -2,6 +2,7 @@ import logging
 from typing import Iterable, List, NamedTuple, Tuple
 
 import pandas as pd
+from Bio.PDB import NeighborSearch
 from kmbio.PDB import Structure
 
 from kmtools import df_tools, sequence_tools, structure_tools
@@ -148,8 +149,6 @@ def _add_reverse_interactions(interaction_df: pd.DataFrame) -> pd.DataFrame:
 
 def _iter_interchain_ns(structure: Structure, interchain: bool = True) -> Iterable:
     """Iterate over interactions present in the `structure`."""
-    from bio.PDB import NeighborSearch
-
     for model_1_idx, model_1 in enumerate(structure):
         for chain_1_idx, chain_1 in enumerate(model_1):
             atom_list = list(chain_1.atoms)

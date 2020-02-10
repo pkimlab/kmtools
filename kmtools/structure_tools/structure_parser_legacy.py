@@ -191,13 +191,6 @@ def get_interactions_between_chains(model, chain_id_1, chain_id_2, r_cutoff=6):
         Values are lists of (residue_number, residue_amino_acid) tuples.
         (e.g. [('0', 'M'), ('1', 'Q'), ...]).
     """
-    try:
-        from Bio.PDB import NeighborSearch
-    except ImportError as e:
-        logger.warning("Importing Biopython NeighborSearch returned an error: {}".format(e))
-        logger.warning("Using the the slow version of the neighbour-finding algorithm...")
-        return get_interactions_between_chains_slow(model, chain_id_1, chain_id_2, r_cutoff)
-
     # Extract the chains of interest from the model
     chain_1 = None
     chain_2 = None
@@ -340,8 +333,6 @@ def get_interacting_residues(model, r_cutoff=5, skip_hetatm_chains=True):
          for value in values}
 
     """
-    from Bio.PDB import NeighborSearch
-
     interactions_between_chains = dict()
 
     # Chain 1
