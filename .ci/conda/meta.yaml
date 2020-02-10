@@ -51,7 +51,7 @@ requirements:
     - pdf2svg
     - reduce
     # Kimlab
-    - kmbio >=2.0.13
+    - kmbio >=2.0.16
     # Extra binaries
     - muscle
 
