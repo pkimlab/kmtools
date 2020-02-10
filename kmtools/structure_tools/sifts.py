@@ -541,9 +541,9 @@ def convert_pdb_mutations_to_uniprot(
     uniprot_mutations_sifts = []
     for pdb_chain, pdb_mutation in _get_pdb_chain_mutation(pdb_chains, pdb_mutations):
         if pd.isnull(pdb_mutation):
-            error_message = ("Failed to get pdb_mutation ({}) for input: ({}, {}, {}, {})").format(
-                pdb_chain, pdb_mutation, pdb_id, pdb_chains, pdb_mutations, uniprot_id
-            )
+            error_message = (
+                "Failed to get pdb_mutation ({}) for input: ({}, {}, {}, {}, {})"
+            ).format(pdb_chain, pdb_mutation, pdb_id, pdb_chains, pdb_mutations, uniprot_id)
             raise SIFTSError(error_message)
         pdb_wt, pdb_resnum, pdb_mut = split_mutation(pdb_mutation)
         # Convert each of the mutant residues

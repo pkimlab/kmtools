@@ -97,11 +97,13 @@ class TestAbscent:
     def teardown_class(cls):
         cls.temp_dir.cleanup()
 
+    # @pytest.mark.xfail(raises=..., strict=False)  # inplement when test flakiness returns
     def test_1(self):
         sifts_data = structure_tools.sifts.get_sifts_data("1arr", self.temp_dir.name)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
+    # @pytest.mark.xfail(raises=..., strict=False)  # inplement when test flakiness returns
     def test_2(self):
         sifts_data = structure_tools.sifts.get_sifts_data("3mbp", self.temp_dir.name)
         assert isinstance(sifts_data, pd.DataFrame)
