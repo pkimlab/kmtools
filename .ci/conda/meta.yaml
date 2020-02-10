@@ -27,7 +27,6 @@ requirements:
     - python
     - ruamel.yaml
     - requests
-    - pycurl
     - retrying
     - paramiko
     - dill
@@ -40,8 +39,6 @@ requirements:
     - scipy
     - pandas
     - sqlalchemy
-    - scikit-learn
-    - pytables
     - pyarrow
     - biopython
     - mdtraj
