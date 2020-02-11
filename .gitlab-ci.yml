@@ -162,61 +162,61 @@ system_tools-py37:
 
 # Python 3.8
 
-db_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*db_tools, *py38]
+# db_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*db_tools, *py38]
 
-df_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*df_tools, *py38]
+# df_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*df_tools, *py38]
 
-ml_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*ml_tools, *py38]
+# ml_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*ml_tools, *py38]
 
-py_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*py_tools, *py38]
+# py_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*py_tools, *py38]
 
-sequence_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*sequence_tools, *py38]
+# sequence_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*sequence_tools, *py38]
 
-structure_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*structure_tools, *py38]
+# structure_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*structure_tools, *py38]
 
-system_tools-py38:
-  <<: [*configure, *test]
-  dependencies:
-    - build-py38
-  variables:
-    <<: [*system_tools, *py38]
+# system_tools-py38:
+#   <<: [*configure, *test]
+#   dependencies:
+#     - build-py38
+#   variables:
+#     <<: [*system_tools, *py38]
 
 # === Docs ===
 
 docs:
   stage: post-test
   variables:
-    <<: [*py38]
+    <<: [*py37]
   <<: [*configure]
   script:
     # Restore built packages
@@ -236,14 +236,14 @@ docs:
     - mv htmlcov public/
   coverage: /^TOTAL.* (\d+\%)/
   dependencies:
-    - build-py38
-    - db_tools-py38
-    - df_tools-py38
-    - ml_tools-py38
-    - py_tools-py38
-    - sequence_tools-py38
-    - structure_tools-py38
-    - system_tools-py38
+    - build-py37
+    - db_tools-py37
+    - df_tools-py37
+    - ml_tools-py37
+    - py_tools-py37
+    - sequence_tools-py37
+    - structure_tools-py37
+    - system_tools-py37
   artifacts:
     paths:
       - public
@@ -278,10 +278,10 @@ deploy-py37:
   dependencies:
     - build-py37
 
-deploy-py38:
-  <<: *deploy
-  dependencies:
-    - build-py38
+# deploy-py38:
+#   <<: *deploy
+#   dependencies:
+#     - build-py38
 
 # === Pages ===
 
