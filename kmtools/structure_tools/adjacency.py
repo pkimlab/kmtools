@@ -8,7 +8,7 @@ from .types import DomainDef
 
 
 def extract_domain(
-    structure: Structure, dds: List[DomainDef], hetatm_residue_cutoff=None
+    structure: Structure, dds: List[DomainDef], remove_hetatms=False, hetatm_residue_cutoff=None
 ) -> Structure:
     if hetatm_residue_cutoff is not None:
         # Keep residues from HETATM chain that are within `hetatm_residue_cutoff`
@@ -23,6 +23,8 @@ def extract_domain(
         new_model.add(new_chain)
         residues = list(structure[dd.model_id][dd.chain_id].residues)
         domain_residues = residues[dd.domain_start - 1 : dd.domain_end]
+        if remove_hetatms:
+            domain_residues = [r for r in domain_residues if not r.id[0].strip()]
         new_chain.add(domain_residues)
     return new_structure
 
