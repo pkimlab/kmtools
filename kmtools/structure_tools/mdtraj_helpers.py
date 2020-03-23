@@ -43,8 +43,9 @@ def mdtraj_to_dataframe(traj: mdtraj.Trajectory) -> pd.DataFrame:
     structure_df["residue_id_1"] = structure_df["resSeq"]
     structure_df["residue_resname"] = structure_df["resName"]
     structure_df["atom_idx"] = np.arange(len(structure_df))
+    # Convert nm back to Angstrom
     structure_df["atom_x"], structure_df["atom_y"], structure_df["atom_z"] = (
-        traj.xyz[0].astype(np.double).T
+        traj.xyz[0].astype(np.double).T * 10
     )
     return structure_df
 

@@ -3,6 +3,7 @@ from pathlib import Path
 
 import mdtraj
 import numpy as np
+from kmbio import PDB
 
 from kmtools.structure_tools.mdtraj_helpers import mdtraj_to_dataframe, mdtraj_to_pdb
 
@@ -34,6 +35,29 @@ def test_mdtraj_to_dataframe():
     columns = set(structure_df.columns)
     assert all(c in columns for c, _ in columns_dtypes_expected)
     assert all(structure_df[c].dtype == dtype for c, dtype in columns_dtypes_expected)
+
+
+def test_mdtraj_to_dataframe_atoms():
+    shared_obj_columns = [
+        "model_idx",
+        "chain_idx",
+        "residue_idx",
+        "atom_idx",
+        "residue_resname",
+        "atom_name",
+    ]
+    shared_float_columns = ["atom_x", "atom_y", "atom_z"]
+    structure_file = Path(__file__).parent.joinpath("structures", "1yf4b.pdb").resolve(strict=True)
+    structure = PDB.load(structure_file)
+    traj = mdtraj.load(structure_file.as_posix())
+    structure_df = mdtraj_to_dataframe(traj)
+    structure_df_ = structure.to_dataframe()
+    assert (
+        structure_df[shared_obj_columns].values == structure_df_[shared_obj_columns].values
+    ).all()
+    assert np.allclose(
+        structure_df[shared_float_columns].values, structure_df_[shared_float_columns].values
+    )
 
 
 def test_mdtraj_to_pdb():
