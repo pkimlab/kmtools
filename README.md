@@ -1,9 +1,9 @@
 # kmtools
 
 [![anaconda](https://img.shields.io/conda/dn/kimlab/kmtools.svg)](https://anaconda.org/kimlab/kmtools/)
-[![docs](https://img.shields.io/badge/docs-v0.2.4-blue.svg?version=latest)](https://kimlab.gitlab.io/kmtools/v0.2.4/)
-[![pipeline status](https://gitlab.com/kimlab/kmtools/badges/v0.2.4/pipeline.svg)](https://gitlab.com/kimlab/kmtools/commits/v0.2.4/)
-[![coverage report](https://gitlab.com/kimlab/kmtools/badges/v0.2.4/coverage.svg)](https://kimlab.gitlab.io/kmtools/v0.2.4/htmlcov/)
+[![docs](https://img.shields.io/badge/docs-v0.2.5-blue.svg?version=latest)](https://kimlab.gitlab.io/kmtools/v0.2.5/)
+[![pipeline status](https://gitlab.com/kimlab/kmtools/badges/v0.2.5/pipeline.svg)](https://gitlab.com/kimlab/kmtools/commits/v0.2.5/)
+[![coverage report](https://gitlab.com/kimlab/kmtools/badges/v0.2.5/coverage.svg)](https://kimlab.gitlab.io/kmtools/v0.2.5/htmlcov/)
 
 Bits of reusable code to make our lives easier.
 
