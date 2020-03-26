@@ -29,6 +29,11 @@ A_DICT: Dict[str, str] = {
     "W": "TRP",
     "Y": "TYR",
     "V": "VAL",
+}
+assert len(A_DICT) == 20
+
+A_DICT_EXTENDED: Dict[str, str] = {
+    **A_DICT,
     "U": "SEC",
     "O": "PYL",
     "B": "ASX",
@@ -39,10 +44,11 @@ A_DICT: Dict[str, str] = {
 }
 
 #: Mapping from 3-letter amino acid codes to 1-letter amino acid codes
-AAA_DICT: Dict[str, str] = {
-    **{value: key for key, value in A_DICT.items()},
-    # "UNK": "X",
-}
+AAA_DICT: Dict[str, str] = {v: k for k, v in A_DICT.items()}
+assert len(AAA_DICT) == 20
+
+AAA_DICT_EXTENDED: Dict[str, str] = {v: k for k, v in A_DICT_EXTENDED.items()}
+
 
 METHYLATED_LYSINES = ["MLZ", "MLY", "M3L"]
 LYSINE_ATOMS = ["N", "CA", "CB", "CG", "CD", "CE", "NZ", "C", "O"]
@@ -84,5 +90,5 @@ for key, group in pd.read_csv(
     comment="#",
     names=["AA", "BMRB", "SC", "PDB", "UCSF", "MSI", "XPLOR", "SYBYL", "MIDAS", "DIANA"],
 ).groupby(level=0):
-    aaa = A_DICT[key]
+    aaa = A_DICT_EXTENDED[key]
     RESIDUE_ATOM_NAMES[aaa] = set(group["PDB"].values.tolist())
