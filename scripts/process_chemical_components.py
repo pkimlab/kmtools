@@ -37,6 +37,7 @@ AAA = [
     "DSN",  #
     "DTH",  #
     "PYL",  #
+    "SIA",  #
 ]
 
 
@@ -96,23 +97,23 @@ if __name__ == "__main__":
 
     modified_to_canonical = gen_modified_to_canonical_mapping(chemical_components)
 
-    with open("../kmtools/structure_tools/data/rna_mapping_to_canonical.json", "wt") as fout:
+    with open("./kmtools/structure_tools/data/rna_mapping_to_canonical.json", "wt") as fout:
         rna_mapping_to_canonical = {k: v for k, v in modified_to_canonical.items() if len(v) == 1}
         assert {v for v in rna_mapping_to_canonical.values()} == set(RNA), {
             v for v in rna_mapping_to_canonical.values()
         }
         json.dump(rna_mapping_to_canonical, fout, indent=4, sort_keys=True)
 
-    with open("../kmtools/structure_tools/data/dna_mapping_to_canonical.json", "wt") as fout:
+    with open("./kmtools/structure_tools/data/dna_mapping_to_canonical.json", "wt") as fout:
         dna_mapping_to_canonical = {k: v for k, v in modified_to_canonical.items() if len(v) == 2}
         assert {v for v in dna_mapping_to_canonical.values()} == set(DNA), {
             v for v in dna_mapping_to_canonical.values()
         }
         json.dump(dna_mapping_to_canonical, fout, indent=4, sort_keys=True)
 
-    with open("../kmtools/structure_tools/data/aaa_mapping_to_canonical.json", "wt") as fout:
+    with open("./kmtools/structure_tools/data/aaa_mapping_to_canonical.json", "wt") as fout:
         aaa_mapping_to_canonical = {k: v for k, v in modified_to_canonical.items() if len(v) == 3}
         assert {v for v in aaa_mapping_to_canonical.values()} == set(AAA), {
             v for v in aaa_mapping_to_canonical.values()
-        }
+        } - set(AAA)
         json.dump(aaa_mapping_to_canonical, fout, indent=4, sort_keys=True)
