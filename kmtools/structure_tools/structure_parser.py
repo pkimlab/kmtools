@@ -1,7 +1,5 @@
 import logging
-from typing import Optional
 
-import numpy as np
 from Bio.PDB import NeighborSearch
 from kmbio.PDB import Chain, Model, Residue, Structure
 
@@ -19,33 +17,6 @@ logger = logging.getLogger(__name__)
 
 # Source: http://www.wwpdb.org/documentation/procedure#toc_4
 R_CUTOFF = 5
-
-
-def euclidean_distance(a, b):
-    """Calculate the Euclidean distance between two lists or tuples of arbitrary length."""
-    return np.sqrt(sum((a - b) ** 2 for a, b in zip(a, b)))
-
-
-def calculate_distance(atom_1, atom_2, cutoff=None):
-    """Calculate the distance between two points in 3D space.
-
-    Parameters
-    ----------
-    cutoff : float, optional
-        The maximum distance allowable between two points.
-    """
-    if (type(atom_1) == type(atom_2) == list) or (type(atom_1) == type(atom_2) == tuple):
-        a = atom_1
-        b = atom_2
-    elif hasattr(atom_1, "coord") and hasattr(atom_2, "coord"):
-        a = atom_1.coord
-        b = atom_2.coord
-    else:
-        raise Exception("Unsupported format {} {}".format(type(atom_1), type(atom_2)))
-
-    assert len(a) == 3 and len(b) == 3
-    if cutoff is None or all(abs(p - q) <= cutoff for p, q in zip(a, b)):
-        return euclidean_distance(a, b)
 
 
 def process_structure(structure: Structure) -> Structure:
@@ -240,17 +211,24 @@ def copy_hetatm_chain(
     return new_hetatm_chain
 
 
-def get_chain_sequence(chain: Chain, unknown_residue_marker: Optional[str] = None) -> str:
+def get_chain_sequence(
+    chain: Chain, if_unknown: str = "error", unknown_residue_marker: str = "X"
+) -> str:
+    # UNKNOWN_MODE = Literal["error", "replace"]
     chain_aa_list = []
     for residue in chain.residues:
         aaa = RESIDUE_MAPPING_TO_CANONICAL.get(residue.resname)
-        if aaa is not None:
+        if aaa is not None and aaa in AAA_DICT:
             aa = AAA_DICT[aaa]
-        elif unknown_residue_marker is not None:
+        elif if_unknown == "replace":
             aa = unknown_residue_marker
         else:
-            continue
+            raise ValueError(
+                f"Cound not convert residue '{residue.resname}' to a single amino acid code. "
+                f"The canonical resname of the residue is '{aaa}'."
+            )
         chain_aa_list.append(aa)
+    assert len(chain_aa_list) == len(list(chain.residues))
     return "".join(chain_aa_list)
 
 
