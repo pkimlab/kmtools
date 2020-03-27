@@ -43,7 +43,12 @@ def test_prepare_for_modeling(structure_file, targets, num_hetatms):
     assert len(list(structure_fm[0].chains)) == num_chains
     for chain, target in zip(structure_fm.chains, targets):
         seq = target.template_sequence.replace("-", "")
-        assert structure_tools.get_chain_sequence(chain) == seq
+        assert (
+            structure_tools.get_chain_sequence(
+                chain, if_unknown="replace", unknown_residue_marker=""
+            )
+            == seq
+        )
     assert len(list(list(structure_fm[0].chains)[-1].residues)) == num_hetatms
     # Validate alignment
     num_seqs = len(targets) + (1 if num_hetatms > 0 else 0)

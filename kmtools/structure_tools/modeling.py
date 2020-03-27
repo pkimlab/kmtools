@@ -63,7 +63,9 @@ def prepare_for_modeling(
             residues = residues[target.template_start - 1 : target.template_end]
         chain = Chain(chain_id, residues)
         template_structure[0].add(chain)
-        chain_sequence = structure_tools.get_chain_sequence(chain)
+        chain_sequence = structure_tools.get_chain_sequence(
+            chain, if_unknown="replace", unknown_residue_marker=""
+        )
         chain_sequence_expected = target.template_sequence.replace("-", "")
         if chain_sequence != chain_sequence_expected:
             if strict or chain_sequence >= chain_sequence_expected:
