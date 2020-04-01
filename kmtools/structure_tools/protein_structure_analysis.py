@@ -1,10 +1,13 @@
-import itertools
+import logging
+from typing import List
 
 import mdtraj
 import numpy as np
 import pandas as pd
 
 from kmtools import structure_tools
+
+logger = logging.getLogger(__name__)
 
 # === Features describing individual residues ===
 
@@ -133,6 +136,36 @@ def calculate_backbone_dihedrals(traj: mdtraj.Trajectory):
 # === Features describing interactions between residues ===
 
 
+def get_residue_atom_coords(structure_df: pd.DataFrame, atoms_of_interest: List[str]) -> np.ndarray:
+    def unfold_residue_df(residue_df, atoms_of_interest):
+        row = {}
+        for atom_name in atoms_of_interest:
+            try:
+                atom_row = residue_df[residue_df["atom_name"] == atom_name].iloc[0]
+            except IndexError:
+                logger.warning(f"Atom '{atom_name}' not present in residue {residue_idx}.")
+                raise
+            row.update(
+                {
+                    f"{atom_name}_{column}": atom_row[column]
+                    for column in ["atom_x", "atom_y", "atom_z", "atom_idx"]
+                }
+            )
+        return row
+
+    results = []
+    for residue_idx, residue_df in structure_df.groupby("residue_idx"):
+        try:
+            row = {"residue_idx": residue_idx, **unfold_residue_df(residue_df, atoms_of_interest)}
+        except IndexError:
+            continue
+        else:
+            results.append(row)
+
+    results_df = pd.DataFrame(results)
+    return results_df
+
+
 def get_internal_coords(df: pd.DataFrame) -> np.ndarray:
     """Return cartesian coordinates corresponding to the orientation of each residue.
 
@@ -144,10 +177,8 @@ def get_internal_coords(df: pd.DataFrame) -> np.ndarray:
         Numpy array with three vectors describing the orientation of each residue.
     """
     df_sele = df[df["atom_name"].isin({"N", "CA", "C"})]
-    assert (
-        df_sele["atom_name"]
-        == np.array(list(itertools.islice(itertools.cycle(["N", "CA", "C"]), df_sele.shape[0])))
-    ).all()
+    assert len(df_sele) % 3 == 0
+    assert (df_sele["atom_name"] == np.tile(np.array(["N", "CA", "C"]), len(df_sele) // 3)).all()
     ar = df_sele[["atom_x", "atom_y", "atom_z"]].values
     ar_diff = ar[1:, :] - ar[:-1, :]
     n_ca = ar_diff[0::3]

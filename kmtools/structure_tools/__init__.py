@@ -11,6 +11,7 @@
 """
 __all__ = ["protein_structure_analysis", "sifts"]
 
+from .geometry import compute_angles, compute_dihedrals
 from .adjacency import *
 from .constants import *
 from .types import *
