@@ -1,5 +1,6 @@
-from typing import List
+from typing import List, Optional
 
+import numpy as np
 import pandas as pd
 from kmbio.PDB import Chain, Model, Structure
 from scipy.spatial import cKDTree
@@ -30,7 +31,7 @@ def extract_domain(
 
 
 def get_distances(
-    structure_df: pd.DataFrame, max_cutoff: int, groupby: str = "atom"
+    structure_df: pd.DataFrame, max_cutoff: Optional[float], groupby: str = "atom"
 ) -> pd.DataFrame:
     """Process structure dataframe to extract interacting chains, residues, or atoms.
 
@@ -44,12 +45,15 @@ def get_distances(
         "chain",
         "chain-backbone",
         "chain-ca",
+        "chain-cb",
         "residue",
         "residue-backbone",
         "residue-ca",
+        "residue-cb",
         "atom",
     ]
 
+    residue_idxs = set(structure_df["residue_idx"])
     if groupby.endswith("-backbone"):
         structure_df = structure_df[
             (structure_df["atom_name"] == "N")
@@ -58,6 +62,9 @@ def get_distances(
         ]
     elif groupby.endswith("-ca"):
         structure_df = structure_df[(structure_df["atom_name"] == "CA")]
+    elif groupby.endswith("-cb"):
+        structure_df = structure_df[(structure_df["atom_name"] == "CB")]
+    assert not residue_idxs - set(structure_df["residue_idx"])
 
     pairs_df = get_atom_distances(structure_df, max_cutoff=max_cutoff)
     annotate_atom_distances(pairs_df, structure_df)
@@ -69,34 +76,34 @@ def get_distances(
     return pairs_df
 
 
-def complete_distances(distance_df: pd.DataFrame) -> pd.DataFrame:
-    """Complete `distances_df` so that it corresponds to a symetric dataframe with a zero diagonal.
+def get_atom_distances(structure_df: pd.DataFrame, max_cutoff: Optional[float]) -> pd.DataFrame:
+    if max_cutoff is None:
+        return get_atom_distances_dense(structure_df)
+    else:
+        return get_atom_distances_sparse(structure_df, max_cutoff)
 
-    Args:
-        distance_df: A dataframe produced by `get_distances`, where
-            'residue_idx_1' > 'residue_idx_2'.
 
-    Returns:
-        A dataframe which corresponds to a dense, symmetric adjacency matrix.
-    """
-    residues = sorted(
-        {r for r in distance_df["residue_idx_1"]} | {r for r in distance_df["residue_idx_2"]}
+def get_atom_distances_dense(structure_df: pd.DataFrame) -> pd.DataFrame:
+    num_atoms = len(structure_df)
+    xyz = structure_df[["atom_x", "atom_y", "atom_z"]].values
+    xyz_by_xyz = xyz[:, None, :] - xyz[None, :, :]
+    xyz_by_xzy_dist = np.sqrt((xyz_by_xyz ** 2).sum(axis=2))
+    assert xyz_by_xzy_dist.ndim == 2
+    row = np.repeat(np.arange(num_atoms), num_atoms)
+    col = np.tile(np.arange(num_atoms), num_atoms)
+    atom_idx = structure_df["atom_idx"].values
+    pairs_df = pd.DataFrame(
+        {
+            "atom_idx_1": atom_idx[row],
+            "atom_idx_2": atom_idx[col],
+            "distance": xyz_by_xzy_dist.reshape(-1),
+        }
     )
-    complete_distance_df = pd.concat(
-        [
-            distance_df,
-            distance_df.rename(
-                columns={"residue_idx_1": "residue_idx_2", "residue_idx_2": "residue_idx_1"}
-            ),
-            pd.DataFrame({"residue_idx_1": residues, "residue_idx_2": residues, "distance": 0}),
-        ],
-        sort=False,
-    ).sort_values(["residue_idx_1", "residue_idx_2"])
-    assert len(complete_distance_df) == len(distance_df) * 2 + len(residues)
-    return complete_distance_df
+    pairs_df = pairs_df[pairs_df["atom_idx_1"] < pairs_df["atom_idx_2"]]
+    return pairs_df
 
 
-def get_atom_distances(structure_df: pd.DataFrame, max_cutoff: float) -> pd.DataFrame:
+def get_atom_distances_sparse(structure_df: pd.DataFrame, max_cutoff: float) -> pd.DataFrame:
     xyz = structure_df[["atom_x", "atom_y", "atom_z"]].values
     tree = cKDTree(xyz)
     coo_mat = tree.sparse_distance_matrix(tree, max_distance=max_cutoff, output_type="coo_matrix")
@@ -144,3 +151,30 @@ def _groupby_chain(pairs_df: pd.DataFrame) -> pd.DataFrame:
         (chain_pairs_df["chain_idx_1"] != chain_pairs_df["chain_idx_2"])
     ]
     return chain_pairs_df
+
+
+def complete_distances(distance_df: pd.DataFrame) -> pd.DataFrame:
+    """Complete `distances_df` so that it corresponds to a symetric dataframe with a zero diagonal.
+
+    Args:
+        distance_df: A dataframe produced by `get_distances`, where
+            'residue_idx_1' > 'residue_idx_2'.
+
+    Returns:
+        A dataframe which corresponds to a dense, symmetric adjacency matrix.
+    """
+    residues = sorted(
+        {r for r in distance_df["residue_idx_1"]} | {r for r in distance_df["residue_idx_2"]}
+    )
+    complete_distance_df = pd.concat(
+        [
+            distance_df,
+            distance_df.rename(
+                columns={"residue_idx_1": "residue_idx_2", "residue_idx_2": "residue_idx_1"}
+            ),
+            pd.DataFrame({"residue_idx_1": residues, "residue_idx_2": residues, "distance": 0}),
+        ],
+        sort=False,
+    ).sort_values(["residue_idx_1", "residue_idx_2"])
+    assert len(complete_distance_df) == len(distance_df) * 2 + len(residues)
+    return complete_distance_df

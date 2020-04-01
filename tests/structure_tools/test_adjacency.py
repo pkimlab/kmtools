@@ -39,9 +39,19 @@ def test_get_atom_distances():
         .to_pandas(integer_object_nulls=True)
         .sort_values(["atom_idx_1", "atom_idx_2", "distance"], ascending=True)
     )
+
+    # Test with max_cutoff
     pairs_df_ = get_atom_distances(structure_df, max_cutoff=12).sort_values(
         ["atom_idx_1", "atom_idx_2", "distance"], ascending=True
     )
+    assert np.allclose(pairs_df.values, pairs_df_.values, atol=1e-05, rtol=1e-05)
+
+    # Test without max_cutoff
+    pairs_df_ = get_atom_distances(structure_df, max_cutoff=None).sort_values(
+        ["atom_idx_1", "atom_idx_2", "distance"], ascending=True
+    )
+    len(pairs_df) != len(pairs_df_)
+    pairs_df_ = pairs_df_[pairs_df_["distance"] <= 12]
     assert np.allclose(pairs_df.values, pairs_df_.values, atol=1e-05, rtol=1e-05)
 
 
@@ -75,31 +85,55 @@ def test_get_atom_distances():
                 [5.2289, 2.75414, 2.37052, 0.0],
             ],
         ),
+        (
+            "residue-cb",
+            [
+                [0.0, 2.41468, 6.63044, 2.10146],
+                [2.37067, 0.0, 6.7916, 1.98067],
+                [6.59832, 6.06523, 0.0, 2.41384],
+                [5.2289, 2.75414, 2.37052, 0.0],
+            ],
+        ),
     ],
 )
 def test_get_distances_residue(groupby_method, distances_expected):
     structure_file = TEST_DATA_DIR.joinpath("AE-AE.pdb")
     structure = PDB.load(structure_file)
+    structure.to_dataframe().to_csv("/home/kimlab1/strokach/tmp/deleteme.csv", index=False)
     max_cutoff = np.max(distances_expected) + 0.1
+
+    def distance_df_to_matrix(distances_df):
+        distances_df = pd.concat(
+            [
+                distances_df,
+                distances_df.rename(
+                    columns={"residue_idx_1": "residue_idx_2", "residue_idx_2": "residue_idx_1"}
+                ),
+                pd.DataFrame(
+                    {
+                        "residue_idx_1": np.arange(len(distances_expected)),
+                        "residue_idx_2": np.arange(len(distances_expected)),
+                        "distance": 0.0,
+                    }
+                ),
+            ],
+            sort=False,
+        ).sort_values(["residue_idx_1", "residue_idx_2"])
+        distances = distances_df.pivot_table("distance", "residue_idx_1", "residue_idx_2").values
+        return distances
+
+    # Test with max_cutoff
     distances_df = get_distances(structure.to_dataframe(), max_cutoff, groupby=groupby_method)
-    distances_df = pd.concat(
-        [
-            distances_df,
-            distances_df.rename(
-                columns={"residue_idx_1": "residue_idx_2", "residue_idx_2": "residue_idx_1"}
-            ),
-            pd.DataFrame(
-                {
-                    "residue_idx_1": np.arange(len(distances_expected)),
-                    "residue_idx_2": np.arange(len(distances_expected)),
-                    "distance": 0.0,
-                }
-            ),
-        ],
-        sort=False,
-    ).sort_values(["residue_idx_1", "residue_idx_2"])
-    distances = distances_df.pivot_table("distance", "residue_idx_1", "residue_idx_2").values
-    np.allclose(distances, distances_expected)
+    distances = distance_df_to_matrix(distances_df)
+    if not np.allclose(distances, distances_expected, atol=0.01):
+        breakpoint()
+    assert np.allclose(distances, distances_expected, atol=0.01)
+
+    # # Test without max_cutoff
+    # distances_df = get_distances(structure.to_dataframe(), None, groupby=groupby_method)
+    # distances_df = distances_df[distances_df["distance"] <= max_cutoff]
+    # distances = distance_df_to_matrix(distances_df)
+    # assert np.allclose(distances, distances_expected, rtol=0.01)
 
 
 @load_test_cases_from_file
