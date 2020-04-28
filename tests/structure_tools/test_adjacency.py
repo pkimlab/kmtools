@@ -56,9 +56,10 @@ def test_get_atom_distances():
 
 
 @pytest.mark.parametrize(
-    "groupby_method, distances_expected",
+    "structure_name, groupby_method, distances_expected",
     [
         (
+            "AE-AE.pdb",
             "residue",
             [
                 [0.0, 1.28918, 6.08953, 1.44832],
@@ -68,38 +69,40 @@ def test_get_atom_distances():
             ],
         ),
         (
+            "AE-AE.pdb",
             "residue-backbone",
             [
-                [0.0, 1.28918, 6.08953, 1.44832],
-                [1.28918, 0.0, 6.4603, 0.82686],
-                [6.08953, 4.88483, 0.0, 1.28922],
-                [5.2289, 1.3557, 1.28922, 0.0],
+                [0.0, 1.289_177_26, 6.089_528_55, 5.228_904_76],
+                [1.289_177_26, 0.0, 6.460_297_98, 4.815_413_9],
+                [6.089_528_55, 6.460_297_98, 0.0, 1.289_219_14],
+                [5.228_904_76, 4.815_413_9, 1.289_219_14, 0.0],
             ],
         ),
         (
+            "AE-AE.pdb",
             "residue-ca",
             [
-                [0.0, 2.41468, 6.63044, 2.10146],
-                [2.37067, 0.0, 6.7916, 1.98067],
-                [6.59832, 6.06523, 0.0, 2.41384],
-                [5.2289, 2.75414, 2.37052, 0.0],
+                [0.0, 3.767_924_76, 7.404_036_53, 5.807_287_92],
+                [3.767_924_76, 0.0, 7.944_485_51, 4.834_033_1],
+                [7.404_036_53, 7.944_485_51, 0.0, 3.766_986_33],
+                [5.807_287_92, 4.834_033_1, 3.766_986_33, 0.0],
             ],
         ),
         (
+            "AE-AE.pdb",
             "residue-cb",
             [
-                [0.0, 2.41468, 6.63044, 2.10146],
-                [2.37067, 0.0, 6.7916, 1.98067],
-                [6.59832, 6.06523, 0.0, 2.41384],
-                [5.2289, 2.75414, 2.37052, 0.0],
+                [0.0, 5.752_266_51, 10.374_238_86, 5.811_886_53],
+                [5.752_266_51, 0.0, 7.993_182_72, 2.612_132_27],
+                [10.374_238_86, 7.993_182_72, 0.0, 5.752_067_54],
+                [5.811_886_53, 2.612_132_27, 5.752_067_54, 0.0],
             ],
         ),
     ],
 )
-def test_get_distances_residue(groupby_method, distances_expected):
-    structure_file = TEST_DATA_DIR.joinpath("AE-AE.pdb")
+def test_get_distances_residue(structure_name, groupby_method, distances_expected):
+    structure_file = TEST_DATA_DIR.joinpath(structure_name)
     structure = PDB.load(structure_file)
-    structure.to_dataframe().to_csv("/home/kimlab1/strokach/tmp/deleteme.csv", index=False)
     max_cutoff = np.max(distances_expected) + 0.1
 
     def distance_df_to_matrix(distances_df):
@@ -125,15 +128,13 @@ def test_get_distances_residue(groupby_method, distances_expected):
     # Test with max_cutoff
     distances_df = get_distances(structure.to_dataframe(), max_cutoff, groupby=groupby_method)
     distances = distance_df_to_matrix(distances_df)
-    if not np.allclose(distances, distances_expected, atol=0.01):
-        breakpoint()
     assert np.allclose(distances, distances_expected, atol=0.01)
 
-    # # Test without max_cutoff
-    # distances_df = get_distances(structure.to_dataframe(), None, groupby=groupby_method)
-    # distances_df = distances_df[distances_df["distance"] <= max_cutoff]
-    # distances = distance_df_to_matrix(distances_df)
-    # assert np.allclose(distances, distances_expected, rtol=0.01)
+    # Test without max_cutoff
+    distances_df = get_distances(structure.to_dataframe(), None, groupby=groupby_method)
+    distances_df = distances_df[distances_df["distance"] <= max_cutoff]
+    distances = distance_df_to_matrix(distances_df)
+    assert np.allclose(distances, distances_expected, rtol=0.01)
 
 
 @load_test_cases_from_file
