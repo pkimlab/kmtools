@@ -116,32 +116,32 @@ def _get_residue_info_xml(residue):
 
 
 @functools.lru_cache(maxsize=512)
-def get_sifts_data(pdb_id, cache_dir=None):
+def get_sifts_data(pdb_id: str, cache_dir=None) -> pd.DataFrame:
     """Return SIFTS data for a particular PDB.
-
-    Parameters
-    ----------
-    pdb_id : str
-
-    cache_dict : dict
-        Defaults to memoisation cache.
 
     Download the xml file for the pdb file with the pdb id pdb_id, parse that
     xml file, and return a dictionry which maps pdb resnumbing to uniprot
     numbering for the chain specified by pdb_chain and uniprot specified by
     uniprot_id.
 
-    Examples
-    --------
-    >>> sifts_df = get_sifts_data('1jrh') # doctest: +SKIP
-    >>> sifts_df.head(2) # doctest: +SKIP
-       is_observed comments pdb_id pdb_chain resnum pdb_aa uniprot_id  \\
-    0         True   T,loop   1jrh         L      1      S        NaN
-    1         True   T,loop   1jrh         L      2      V        NaN
-    <BLANKLINE>
-      uniprot_position uniprot_aa pfam_id  residx
-    0              NaN        NaN     NaN       1
-    1              NaN        NaN     NaN       2
+    Args:
+        pdb_id:
+        cache_dictl: Defaults to memoisation cache.
+
+    Notes:
+        This function should be refactored to use the PDBe REST API:
+        https://www.ebi.ac.uk/pdbe/api/doc/sifts.html
+
+    Examples:
+        >>> sifts_df = get_sifts_data('1jrh')  # doctest: +SKIP
+        >>> sifts_df.head(2)  # doctest: +SKIP
+        is_observed comments pdb_id pdb_chain resnum pdb_aa uniprot_id  \\
+        0         True   T,loop   1jrh         L      1      S        NaN
+        1         True   T,loop   1jrh         L      2      V        NaN
+        <BLANKLINE>
+        uniprot_position uniprot_aa pfam_id  residx
+        0              NaN        NaN     NaN       1
+        1              NaN        NaN     NaN       2
     """
     if cache_dir is None:
         cache_dir = tempfile.gettempdir()

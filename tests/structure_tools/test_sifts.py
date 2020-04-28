@@ -3,6 +3,7 @@ import json
 import os.path as op
 import xml.etree.ElementTree as ET
 from tempfile import TemporaryDirectory
+from urllib.error import URLError
 
 import numpy as np
 import pandas as pd
@@ -18,12 +19,14 @@ def hash_df(df):
     return hs
 
 
+@pytest.mark.xfail(raises=URLError, reason="The SIFTS FTP server is flaky.", strict=False)
 @pytest.mark.parametrize("pdb_id, df_shape", [("1jrh", (442, 11))])
 def test_get_sifts_data(pdb_id, df_shape):
     sifts_df = structure_tools.sifts.get_sifts_data(pdb_id)
     assert sifts_df.shape == df_shape
 
 
+@pytest.mark.xfail(raises=URLError, reason="The SIFTS FTP server is flaky.", strict=False)
 @pytest.mark.parametrize(
     "pdb_id, pdb_chains, pdb_mutations, results",
     [
@@ -97,13 +100,13 @@ class TestAbscent:
     def teardown_class(cls):
         cls.temp_dir.cleanup()
 
-    # @pytest.mark.xfail(raises=..., strict=False)  # inplement when test flakiness returns
+    @pytest.mark.xfail(raises=URLError, reason="The SIFTS FTP server is flaky.", strict=False)
     def test_1(self):
         sifts_data = structure_tools.sifts.get_sifts_data("1arr", self.temp_dir.name)
         assert isinstance(sifts_data, pd.DataFrame)
         assert not sifts_data.empty
 
-    # @pytest.mark.xfail(raises=..., strict=False)  # inplement when test flakiness returns
+    @pytest.mark.xfail(raises=URLError, reason="The SIFTS FTP server is flaky.", strict=False)
     def test_2(self):
         sifts_data = structure_tools.sifts.get_sifts_data("3mbp", self.temp_dir.name)
         assert isinstance(sifts_data, pd.DataFrame)
@@ -111,6 +114,7 @@ class TestAbscent:
         del sifts_data
 
 
+@pytest.mark.xfail(raises=URLError, reason="The SIFTS FTP server is flaky.", strict=False)
 @pytest.mark.parametrize("pdb_id,pdb_chains,pdb_mutations", [("2qja", "C", "T74A,L78M,G79K,L80Y")])
 def test_sifts_exception(pdb_id, pdb_chains, pdb_mutations):
     """Test the case where PDB AA and UniProt AA are different."""
