@@ -81,10 +81,12 @@ def add_cbetas(
     ).all()
     assert structure_df["residue_idx"].unique().shape[0] == internal_coords.shape[0]
 
+    # The following notebook shows how these values were calculated:
+    # https://gitlab.com/datapkg/pdb-analysis/-/blob/457cc6423396dca97b67e73c147ad01a85f55f3e/notebooks/01_pdb_cbeta_stats.validation.ipynb
     cb_vector_stats = [
-        (0.917_886_557_702_201_5, 0.038_527_049_007_855_82),
-        (-1.212_703_163_460_762, 0.029_876_758_154_174_805),
-        (-0.028_442_792_464_114_74, 0.023_039_163_265_260_055),
+        (0.9357068986630099, 0.027465371535687625),
+        (-1.1999374252852002, 0.020877555051197268),
+        (-0.0300870890760455, 0.0117160484381385),
     ]
     cb_vector_rvs = [stats.laplace(*stat) for stat in cb_vector_stats]
 
