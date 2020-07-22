@@ -5,6 +5,7 @@ import mdtraj
 import numpy as np
 import pandas as pd
 import pytest
+from scipy.spatial.transform import Rotation as R
 
 from kmtools import structure_tools
 from kmtools.structure_tools.protein_structure_analysis import (
@@ -314,6 +315,57 @@ def test_get_rotations_1():
     test_array_out = rotations[1][0] @ test_array
     test_array_out_expected = np.array([-5.0, 1.0, 3.0]).reshape(-1, 1)
     assert np.allclose(test_array_out, test_array_out_expected)
+
+
+def get_rotations_ref(internal_coords):
+    rotations = np.empty((internal_coords.shape[0], internal_coords.shape[0], 3, 3))
+    for i in range(internal_coords.shape[0]):
+        for j in range(internal_coords.shape[0]):
+            rot, msa = R.align_vectors(internal_coords[i], internal_coords[j])
+            assert np.allclose(msa, 0)
+            rotations[i, j, :, :] = rot.as_matrix()
+    return rotations
+
+
+def test_get_rotations_2():
+    # Test that `get_rotations` produces the same result as `R.align_vectors`.
+    input_data = [
+        #
+        (0, "N", 0.0, 0.0, 0.0),
+        (0, "CA", 1.0, 2.0, 3.0),
+        (0, "C", 6.0, 5.0, 4.0),
+        (1, "N", 7.0, 8.0, 10.0),
+        (1, "CA", 14.0, 14.0, 20.0),
+        (1, "C", 21.0, 21.0, 21.0),
+    ]
+    input_df = pd.DataFrame(
+        input_data, columns=["residue_idx", "atom_name", "atom_x", "atom_y", "atom_z"]
+    )
+    internal_coords = get_internal_coords(input_df)
+
+    rotations_ref = get_rotations_ref(internal_coords)
+    rotations = get_rotations(internal_coords)
+    assert np.allclose(rotations, rotations_ref)
+
+
+def test_get_rotations_3():
+    # Test that we can produce quaternions close to -1 in a contrived exampe
+    internal_coords = np.stack(
+        [
+            #
+            np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]),
+            np.array(
+                [
+                    [1.0000000e00, 0.0000000e00, 0.0000000e00],
+                    [0.0000000e00, -1.0000000e00, 1.2246468e-16],
+                    [0.0000000e00, -1.2246468e-16, -1.0000000e00],
+                ]
+            ),
+        ]
+    )
+    rotations = get_rotations(internal_coords)
+    rotation_0_1 = R.from_matrix(rotations[0, 1])
+    assert np.allclose(rotation_0_1.as_quat(), np.array([1, 0, 0, 0]))
 
 
 def test_calculate_hydrogen_bonds_0():

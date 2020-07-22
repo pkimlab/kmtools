@@ -1,8 +1,9 @@
 import json
 import logging
+import pickle
 import zlib
 
-import dill
+import cloudpickle
 import numpy as np
 
 logger = logging.getLogger(__name__)
@@ -38,7 +39,7 @@ def serialize_object_to_string(obj: object) -> str:
     Returns:
         String representation of the object.
     """
-    return zlib.compress(dill.dumps(obj), level=9).hex()
+    return zlib.compress(cloudpickle.dumps(obj), level=9).hex()
 
 
 def deserialize_object_from_string(data_hex_string: str) -> object:
@@ -50,4 +51,4 @@ def deserialize_object_from_string(data_hex_string: str) -> object:
     Returns:
         The object that was encoded inside the string argument.
     """
-    return dill.loads(zlib.decompress(bytes.fromhex(data_hex_string)))
+    return pickle.loads(zlib.decompress(bytes.fromhex(data_hex_string)))

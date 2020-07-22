@@ -154,7 +154,7 @@ def test_map_distances(
             lambda idx: sequence_tools.convert_residue_index_a2b(idx, b2a)
         )
     interactions_1 = set(
-        distances[[f"residue_idx_1_corrected", f"residue_idx_2_corrected"]]
+        distances[["residue_idx_1_corrected", "residue_idx_2_corrected"]]
         .dropna()
         .astype(int)
         .apply(tuple, axis=1)

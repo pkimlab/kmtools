@@ -2,10 +2,17 @@ import tempfile
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from kmtools.sci_tools.weblogo import make_weblogo
 
+try:
+    import weblogo
+except ImportError:
+    weblogo = None
 
+
+@pytest.mark.skipif(weblogo is None, reason="weblogo is not available")
 def test_make_weblogo():
     n_seqs = 121
     seq_length = 18

@@ -56,9 +56,9 @@ def mdtraj_to_pdb(traj: mdtraj.Trajectory, output_file: Union[str, Path]) -> Non
         with open(tmp_file.name, "rt") as fin:
             # For some reason, having 'MODEL' lines confuse reduce.
             lines = [
-                l
-                for l in fin.read().split("\n")
-                if not l.startswith("MODEL") and not l.startswith("ENDMDL")
+                r
+                for r in fin.read().split("\n")
+                if not r.startswith("MODEL") and not r.startswith("ENDMDL")
             ]
     with open(output_file, "wt") as fout:
         fout.write("\n".join(lines))

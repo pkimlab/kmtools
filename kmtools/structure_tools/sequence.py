@@ -12,20 +12,34 @@ from kmtools.structure_tools import AAA_DICT, RESIDUE_MAPPING_TO_CANONICAL
 logger = logging.getLogger(__name__)
 
 
-def extract_aa_sequence(structure: Structure, model_id: int, chain_id: str) -> Optional[str]:
+def extract_aa_sequence(
+    structure: Structure,
+    model_id: int,
+    chain_id: str,
+    if_unknown: str = "error",
+    unknown_residue_marker: str = "X",
+) -> Optional[str]:
     """Return amino acid sequence of all residues in chain.
 
     Residues which cannot be assigned a single-character amino acid code represented as 'X'.
+
+    See also:
+        get_chain_sequence.
 
     Args:
         structure: Structure from which to extract the chain sequence.
         model_id: ID of the model which contains the chain of interest.
         chain_id: ID of the chain of interest.
+        if_unknown: What to do if one of the residues cannot be converted to a canonical amino acid.
+            Possibe options are:
+                - "error" — Raise an exception.
+                - "replace" — Replace unknown residue with the value set
+                    by ``unknown_residue_marker``.
+        unknown_residue_marker: Character used to represent unknown residues
+            if ``if_unknown="replace"``.
 
     Returns:
-        String of amino acids corresponding to the chain sequence.
-        The length of the returned string must equal to the number of residues in the chain.
-        Residues which cannot be mapped to a single-character amino acid are represented as 'X'.
+        String of amino acids corresponding to the amino acids in the chain.
     """
     aa_list = []
     for residue in structure[model_id][chain_id]:
@@ -33,11 +47,13 @@ def extract_aa_sequence(structure: Structure, model_id: int, chain_id: str) -> O
             residue_aa = AAA_DICT[residue.resname]
         elif residue.resname in RESIDUE_MAPPING_TO_CANONICAL:
             residue_aa = AAA_DICT[RESIDUE_MAPPING_TO_CANONICAL[residue.resname]]
+        elif if_unknown == "replace":
+            residue_aa = unknown_residue_marker
         else:
-            logger.debug(
-                "Cannot map residue %s to a single-character amino acid string.", residue.resname
+            raise ValueError(
+                f"Cound not convert residue '{residue.resname}' to a single amino acid code. "
+                f"The canonical resname of the residue is '{residue_aa}'."
             )
-            residue_aa = "X"
         aa_list.append(residue_aa)
     aa_string = "".join(aa_list)
     assert len(aa_string) == len(list(structure[model_id][chain_id].residues))

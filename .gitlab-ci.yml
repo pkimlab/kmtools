@@ -1,4 +1,5 @@
-image: registry.gitlab.com/ostrokach-docker/conda:latest
+default:
+  image: condaforge/linux-anvil-cos7-x86_64:latest
 
 stages:
   - lint
@@ -43,10 +44,18 @@ variables:
 
 .configure: &configure
   before_script:
-    - conda config --append channels kimlab
-    - conda config --append channels ostrokach-forge
-    - conda config --append channels omnia
-    - conda update -n root -y -q conda conda-build --no-channel-priority
+    - |
+      cat <<EOF > ~/.condarc
+      channel_priority: strict
+      channels:
+        - conda-forge
+        - bioconda
+        - omnia
+        - kimlab
+        - ostrokach-forge
+        - defaults
+      EOF
+    - source /opt/conda/etc/profile.d/conda.sh
 
 # === Lint ===
 
@@ -58,7 +67,7 @@ lint:
   script:
     - cd $(dirname ${CI_CONFIG_PATH})
     - conda install -yq "python=${PYTHON_VERSION}" isort flake8 black mypy
-    - python -m isort -p ${CI_PROJECT_NAME} -c
+    - python -m isort ${CI_PROJECT_NAME} --check --diff
     - python -m flake8
     - python -m black --config pyproject.toml --check .
     - python -m mypy -p ${CI_PROJECT_NAME} || true
@@ -68,12 +77,12 @@ lint:
 .build: &build
   stage: build
   script:
-    - conda config --add channels defaults
-    - cd "${CI_PROJECT_DIR}/.ci/conda"
-    - conda build .
+    - conda install -y -q conda-forge-pinning
+    - conda build .ci/conda
       --no-test
       --python $PYTHON_VERSION
       --output-folder "$CI_PROJECT_DIR/conda-bld"
+      --variant-config-files /opt/conda/conda_build_config.yaml
   artifacts:
     paths:
     - conda-bld
@@ -90,71 +99,92 @@ build-py38:
 
 # === Test ===
 
-.test: &test
+.test:
   stage: test
+  extends:
+    - .configure
   script:
-    # Restore built packages
-    - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
-    - conda index /opt/conda/conda-bld/
+    # Create conda environment for testing
+    - conda create -n test -y -q -c "file://${CI_PROJECT_DIR}/conda-bld"
+      "python=${PYTHON_VERSION}" ${CI_PROJECT_NAME} weblogo pillow muscle
+      pytest pytest-cov hypothesis
+    - conda activate test
+    - if [ ${PYTHON_VERSION} = 3.7 ] ; then
+      conda install -n test -q
+      openmm ;
+      fi
     # Run tests
-    - cd ${CI_PROJECT_DIR}/.ci/conda
-    - conda build .
-      --test
-      --python $PYTHON_VERSION
-    # Code coverage
-    - mkdir "${CI_PROJECT_DIR}/coverage"
-    - mv "${CI_PROJECT_DIR}/.coverage" "${CI_PROJECT_DIR}/coverage/.coverage.${SUBPKG_NAME}"
-  coverage: /^TOTAL.* (\d+\%)/
+    - PKG_INSTALL_DIR=$(python -c "import kmtools.${SUBPKG_NAME}; print(kmtools.${SUBPKG_NAME}.__path__[0])")
+    # TODO(ostrokach): Fix this with pytest --import-order
+    - rm -rf kmtools
+    - python -m pytest
+      -c setup.cfg
+      --cov="${PKG_INSTALL_DIR}"
+      --cov-config=setup.cfg
+      --color=yes
+      "tests/${SUBPKG_NAME}/"
+    # Coverage
+    - mkdir coverage
+    - mv .coverage coverage/.coverage.${SUBPKG_NAME}
+  dependencies:
+    - build
   artifacts:
     paths:
-      - "${CI_PROJECT_DIR}/coverage/.coverage.${SUBPKG_NAME}"
+      - coverage/.coverage.${SUBPKG_NAME}
 
 # Python 3.7
 
 db_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
     <<: [*db_tools, *py37]
 
 df_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
     <<: [*df_tools, *py37]
 
 ml_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
     <<: [*ml_tools, *py37]
 
 py_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
     <<: [*py_tools, *py37]
 
 sequence_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
     <<: [*sequence_tools, *py37]
 
 structure_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
     <<: [*structure_tools, *py37]
 
 system_tools-py37:
-  <<: [*configure, *test]
+  extends:
+    - .test
   dependencies:
     - build-py37
   variables:
@@ -162,88 +192,93 @@ system_tools-py37:
 
 # Python 3.8
 
-# db_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*db_tools, *py38]
+db_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*db_tools, *py38]
 
-# df_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*df_tools, *py38]
+df_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*df_tools, *py38]
 
-# ml_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*ml_tools, *py38]
+ml_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*ml_tools, *py38]
 
-# py_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*py_tools, *py38]
+py_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*py_tools, *py38]
 
-# sequence_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*sequence_tools, *py38]
+sequence_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*sequence_tools, *py38]
 
-# structure_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*structure_tools, *py38]
+structure_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*structure_tools, *py38]
 
-# system_tools-py38:
-#   <<: [*configure, *test]
-#   dependencies:
-#     - build-py38
-#   variables:
-#     <<: [*system_tools, *py38]
+system_tools-py38:
+  extends:
+    - .test
+  dependencies:
+    - build-py38
+  variables:
+    <<: [*system_tools, *py38]
 
 # === Docs ===
 
 docs:
   stage: post-test
   variables:
-    <<: [*py37]
+    <<: [*py38]
   <<: [*configure]
   script:
-    # Restore built packages
-    - cp -r $CI_PROJECT_DIR/conda-bld/* /opt/conda/conda-bld/
-    - conda index /opt/conda/conda-bld/
-    # Install required packages
-    - conda install -yq --use-local "python=$PYTHON_VERSION" $CI_PROJECT_NAME
-    - conda install -yq nbconvert ipython ipykernel pandoc
+    # Create conda environment for testing
+    - conda create -n test -y -q -c "file://${CI_PROJECT_DIR}/conda-bld"
+      "python=${PYTHON_VERSION}" "${CI_PROJECT_NAME}" nbconvert ipython ipykernel pandoc
+    - conda activate test
     - pip install -q sphinx sphinx_rtd_theme recommonmark nbsphinx coverage
     # Build docs
     - (cd docs && sphinx-apidoc ../$CI_PROJECT_NAME -o api/generated -TeMP)
     - sphinx-build docs public
     # Coverage
     - coverage combine coverage/
-    - coverage report
-    - coverage html
-    - mv htmlcov public/
+    - coverage report || true
+    - coverage html || true
+    - mv htmlcov public/ || true
   coverage: /^TOTAL.* (\d+\%)/
   dependencies:
-    - build-py37
-    - db_tools-py37
-    - df_tools-py37
-    - ml_tools-py37
-    - py_tools-py37
-    - sequence_tools-py37
-    - structure_tools-py37
-    - system_tools-py37
+    - build-py38
+    - db_tools-py38
+    - df_tools-py38
+    - ml_tools-py38
+    - py_tools-py38
+    - sequence_tools-py38
+    - structure_tools-py38
+    - system_tools-py38
   artifacts:
     paths:
       - public
@@ -278,10 +313,10 @@ deploy-py37:
   dependencies:
     - build-py37
 
-# deploy-py38:
-#   <<: *deploy
-#   dependencies:
-#     - build-py38
+deploy-py38:
+  <<: *deploy
+  dependencies:
+    - build-py38
 
 # === Pages ===
 

@@ -257,7 +257,7 @@ def process_interactions_core(
     )
 
     interactions_core_aggbychain["protein_sequence"] = [
-        structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        structure_tools.extract_aa_sequence(structure, model_id, chain_id, if_unknown="replace")
         for model_id, chain_id in interactions_core_aggbychain[["model_id", "chain_id"]].values
     ]
 
@@ -305,7 +305,9 @@ def process_interactions_interface(
 
     def _extract_sequence(structure, model_id, chain_id):
         """Extract AA sequence if possible but fall back to residue sequence."""
-        aa_sequence = structure_tools.extract_aa_sequence(structure, model_id, chain_id)
+        aa_sequence = structure_tools.extract_aa_sequence(
+            structure, model_id, chain_id, if_unknown="replace"
+        )
         if aa_sequence and aa_sequence.count("X") < (len(aa_sequence) // 3):
             return aa_sequence
         else:

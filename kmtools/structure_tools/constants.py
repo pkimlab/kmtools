@@ -63,7 +63,7 @@ CHAIN_IDS += [(a + b) for a in CHAIN_IDS for b in CHAIN_IDS if a != b]
 # Standard accessibilities for a ALA-X-ALA tripeptide (obtained from NACCESS)
 with open(op.join(DATA_DIR, "standard_sasa.txt"), "rt") as fin:
     _standard_sasa = fin.read().strip()
-STANDARD_SASA_ALL = [[l.strip() for l in line.split()] for line in _standard_sasa.split("\n")[1:]]
+STANDARD_SASA_ALL = [[r.strip() for r in line.split()] for line in _standard_sasa.split("\n")[1:]]
 STANDARD_SASA = {x[3]: float(x[4]) for x in STANDARD_SASA_ALL}
 
 #: Map modified residue ids to canonical residue ids

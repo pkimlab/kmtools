@@ -31,7 +31,7 @@ class irange:
         return True
 
 
-def uniquify(l):
+def uniquify(lst):
     """Return a list of unique elements of `l`, preserving order.
 
     Examples:
@@ -39,7 +39,7 @@ def uniquify(l):
         [1, 2, 3]
     """
     seen = set()
-    for x in l:
+    for x in lst:
         if x not in seen:
             seen.add(x)
             yield x

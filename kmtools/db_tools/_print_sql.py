@@ -12,7 +12,7 @@ def print_sql(sql_string, lexer="sql", style="default"):
     This function is not tested because we don't want to
     bring in IPython as a dependency.
     """
-    from IPython.display import display, HTML
+    from IPython.display import HTML, display
 
     lexer = get_lexer_by_name(lexer)
     formatter = HtmlFormatter(style=get_style_by_name(style), noclasses=True)

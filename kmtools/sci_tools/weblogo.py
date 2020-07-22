@@ -4,9 +4,6 @@ from pathlib import Path
 from typing import Any, List, Mapping
 from unittest.mock import patch
 
-import weblogo._cli
-from PIL import Image
-
 logger = logging.getLogger(__name__)
 
 
@@ -27,6 +24,9 @@ def make_weblogo(seqs: List[str], **kwargs: Mapping[str, Any]):
         format:
         output_file:
     """
+    import weblogo._cli
+    from PIL import Image
+
     default_kwargs: Mapping[str, Any] = {
         "units": "bits",
         "sequence_type": "protein",

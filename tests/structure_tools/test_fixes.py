@@ -15,6 +15,11 @@ from kmtools.structure_tools.fixes import (
 )
 from kmtools.structure_tools.protein_structure_analysis import get_internal_coords
 
+try:
+    from simtk import openmm
+except ImportError:
+    openmm = None
+
 
 @patch("kmtools.structure_tools.fixes._protonate_with_reduce")
 @patch("kmtools.structure_tools.fixes._protonate_with_openmm")
@@ -42,6 +47,7 @@ def test_protonate(_mock_protonate_with_openmm, _mock_protonate_with_reduce):
             assert mock_object.call_args[0][1] == fout
 
 
+@pytest.mark.skipif(openmm is None, reason="openmm is not installed")
 def test__protonate_with_openmm():
     # Test that adding hydrogens adds lines to the PDB file
     # (not a perfect test, but ¯\_(ツ)_/¯)
