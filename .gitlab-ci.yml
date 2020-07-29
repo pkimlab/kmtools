@@ -83,13 +83,14 @@ test:
           - "3.8"
         SUBPKG_NAME:
           - db_tools
-          - df_tools
-          - ml_tools
-          - py_tools
-          - sequence_tools
-          - structure_tools
-          - system_tools
+          # - df_tools
+          # - ml_tools
+          # - py_tools
+          # - sequence_tools
+          # - structure_tools
+          # - system_tools
   script:
+    - find ${CI_PROJECT_DIR}/conda-bld
     # Create conda environment for testing
     - conda create -n test -y -q -c "file://${CI_PROJECT_DIR}/conda-bld"
       "python=${PYTHON_VERSION}" ${CI_PROJECT_NAME} weblogo pillow muscle
