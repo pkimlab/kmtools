@@ -58,7 +58,7 @@ build:
           - "3.7"
           - "3.8"
         DUMMY_VAR:
-          - true
+          - "is_set"
   script:
     - conda install -y -q conda-forge-pinning
     - conda build .ci/conda
