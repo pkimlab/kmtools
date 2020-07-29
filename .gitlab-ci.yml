@@ -118,6 +118,8 @@ test:
   artifacts:
     paths:
       - coverage/.coverage.${SUBPKG_NAME}
+      - conda-bld
+    when: always
 
 # === Docs ===
 
