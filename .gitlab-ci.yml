@@ -57,6 +57,8 @@ build:
       - PYTHON_VERSION:
           - "3.7"
           - "3.8"
+        DUMMY_VAR:
+          - true
   script:
     - conda install -y -q conda-forge-pinning
     - conda build .ci/conda
@@ -81,7 +83,7 @@ test:
           - "3.8"
         SUBPKG_NAME:
           - db_tools
-          - df_tools,
+          - df_tools
           - ml_tools
           - py_tools
           - sequence_tools
